@@ -1,0 +1,71 @@
+.goallist{
+    background-color: #e6eef5;
+    padding: 2rem 0;
+}
+.goallist-title {
+    justify-content: space-evenly;
+    position: relative;
+    display: flex;
+}
+.goallist > p {
+    position: absolute;
+    left: 16px;
+    margin: 4px;
+    color: gray;
+}
+.goallist > div{
+    max-height: 100vh;
+    overflow-y: scroll;
+    text-align: center;
+    margin: auto;
+}
+.goallist > div::-webkit-scrollbar-thumb {
+    border: unset;
+    background: lightgray;
+    border-radius: 25px;
+
+}
+.goallist >div::-webkit-scrollbar {
+    border: unset;
+    background: transparent;
+    max-height: 85%;
+}
+.goallist-item {
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+    border-radius: 25px;
+    font-size: large;
+    animation: 2s popIn forwards;
+}
+.goallist-item > button{
+    margin: 16px 0;
+    border: 1px lightgray solid;
+    border-radius: 25px;
+    padding: 4px 8px;
+    font-size: large;
+    cursor: pointer;
+}
+.goallist-item > p{
+     max-width: 50vw;
+     min-width: 50vw;
+ }
+.goallist-item > input {
+    margin: auto 0;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.tinted{
+    background-color: #00000033;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
