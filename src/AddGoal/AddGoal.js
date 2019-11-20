@@ -8,16 +8,19 @@ class AddGoal extends React.Component {
         super(props);
         this.state = {
             value: '',
-            types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly', '5-Year'],
+            types: this.props.types,
             selectedType: 'Daily',
             currentGoal: {
                 type: 'Daily',
+                checkedAmt: 0,
+                id: cuid(),
                 goals: [],
                 date: new Date().toISOString()
             }
-        }
+        };
         this.handleInput = this.handleInput.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     changeDate(type) {
@@ -38,27 +41,43 @@ class AddGoal extends React.Component {
                 tempDate.setMonth(tempDate.getMonth() + 12);
                 break;
             case '5-Year':
-                tempDate.setMonth(tempDate.getMonth() + 5*12);
+                tempDate.setMonth(tempDate.getMonth() + 5 * 12);
                 break;
             default:
                 break;
         }
-        this.setState({currentType: type, currentGoal: {date: tempDate.toISOString(), type: type, goals: this.state.currentGoal.goals}})
+        this.setState({
+            currentType: type,
+            currentGoal: {date: tempDate.toISOString(), type: type, goals: this.state.currentGoal.goals}
+        })
     }
-    handleInput(e){
+
+    handleInput(e) {
         this.setState({value: e.target.value})
     }
+
     handleAdd(e) {
         let {goals, type, date} = this.state.currentGoal;
         let Goals = goals;
         Goals.push({goal: this.state.value, id: cuid(), checked: false});
-        this.setState({value: '', currentGoal: {goals: Goals, type: type, date: date}})
-        console.log(this.state)
+        this.setState({value: '', currentGoal: {goals: Goals, type: type, date: date}});
     }
-    handleSubmit(e){
+
+    handleSubmit(e) {
         e.preventDefault();
+        this.props.addGoal(this.state.currentGoal);
+        this.setState({
+            currentGoal: {
+                type: 'Daily',
+                id: cuid(),
+                goals: [],
+                checkedAmt: 0,
+                date: new Date().toISOString()
+            }
+        });
         //this.setState({value: '', goals: [...this.state.goals, {goal: this.state.value, checked: false, id: cuid()} ]});
     }
+
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
@@ -66,11 +85,20 @@ class AddGoal extends React.Component {
                 <ul>
                     {this.state.types.map((type, i) => <li key={i} onClick={() => this.changeDate(type)}>{type}</li>)}
                 </ul>
-                <input value={this.state.value} onChange={this.handleInput}/>
-                <button onClick={this.handleAdd}>+</button>
-                <GoalList showCompleted={false} date={this.state.currentGoal.date} type={this.state.currentGoal.type} goals={this.state.currentGoal.goals}/>
+                <input value={this.state.value} onChange={this.handleInput} onKeyPress={e => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.handleAdd(e);
+                    }
+                }}/>
+                <button type="button" onClick={this.handleAdd}>+</button>
+                <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false} date={this.state.currentGoal.date} type={this.state.currentGoal.type}
+                         showChecked={false} handleChecked={this.props.handleChecked} deleteGoal={this.props.deleteGoal} goals={this.state.currentGoal.goals}/>
                 <div>
-                    <button>+</button></div>
+                    <button type='submit' onClick={this.handleSubmit} onKeyPress={e => {
+                        if (e.key === 'Enter') e.preventDefault();
+                    }}>+</button>
+                </div>
             </form>
         )
     }

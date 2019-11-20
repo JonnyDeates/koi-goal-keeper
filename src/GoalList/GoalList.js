@@ -9,15 +9,20 @@ class GoalList extends React.Component {
         type: this.props.type,
         date: this.props.date,
         goals: this.props.goals,
+        goalId: this.props.goalId,
         showCompleted: this.props.showCompleted,
+        isEditable: this.props.isEditable,
+        showChecked: this.props.showChecked,
+        deleteGoal: this.props.deleteGoal,
+        past: this.props.past,
         checkedAmt: 0
     };
 
     constructor(props) {
         super(props);
-        this.handleChecked = this.handleChecked.bind(this);
         this.handleGoal = this.handleGoal.bind(this);
-        this.deleteGoal = this.deleteGoal.bind(this);
+        this.handleEditGoal = this.handleEditGoal.bind(this);
+
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -32,44 +37,40 @@ class GoalList extends React.Component {
         }
     }
 
-    handleChecked(ID) {
-        let {goal, checked, id} = this.state.goals.find(g => g.id === ID);
-        let index = this.state.goals.findIndex((g) => g.id === id);
-        let newGoals = this.state.goals.filter(g => g.id !== id);
-        newGoals.splice(index, 0, {goal: goal, checked: !checked, id: id});
-        if (checked) {
-            this.setState({goals: newGoals, checkedAmt: this.state.checkedAmt - 1})
-        } else {
-            this.setState({goals: newGoals, checkedAmt: this.state.checkedAmt + 1})
-        }
-    }
+
 
     handleGoal(e) {
         this.setState({value: e.target.value})
     }
-
-    deleteGoal(ID) {
-        let {checked, id} = this.state.goals.find(g => g.id === ID);
-        if (checked) {
-            this.setState({goals: this.state.goals.filter(g => g.id !== id), checkedAmt: this.state.checkedAmt - 1})
-        } else {
-            this.setState({goals: this.state.goals.filter(g => g.id !== id), checkedAmt: this.state.checkedAmt})
-        }
+    handleEditGoal(e, ID) {
+        let goalIndex = this.state.goals.findIndex(g => g.id === ID);
+        let newGoal = this.state.goals.find(g => g.id === ID);
+        newGoal.goal = e.target.value;
+        let Goals = this.state.goals;
+        Goals.splice(goalIndex, 1, newGoal);
+        this.setState({goals: Goals})
     }
+
 
     render() {
         return (
             <div className="goallist">
+
                 {(this.state.showCompleted) ? <p>Completed: {this.state.checkedAmt}</p> : ''}
                 <div className="goallist-title">
                     <span>{this.state.type}</span>
-                    <span>{this.state.date}</span>
+                    <span>Complete By {new Date(this.state.date).toLocaleDateString()}</span>
                 </div>
                 <div>
-                    {(this.state.goals) ? this.state.goals.map((goal, i) => <GoalItem key={i} goal={goal.goal} checked={goal.checked}
-                                                                 handleChecked={this.handleChecked} id={goal.id}
+                    {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.goal} checked={goal.checked}
+                                                                 handleChecked={this.props.handleChecked} id={goal.id}
                                                                  bgColor={(i % 2) ? 'tinted' : ''}
-                                                                 deleteGoal={this.deleteGoal}/>) : ''}
+                                                                 isEditable={this.state.isEditable}
+                                                                 handleEditGoal={this.handleEditGoal}
+                                                                 deleteGoal={this.state.deleteGoal}
+                                                                 showChecked={this.state.showChecked}
+                                                                 past={this.state.past}
+                    />)}
                 </div>
             </div>
         );
