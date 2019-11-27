@@ -12,8 +12,6 @@ class AddGoal extends React.Component {
             selectedType: 'Daily',
             currentGoal: {
                 type: 'Daily',
-                checkedAmt: 0,
-                id: cuid(),
                 goals: [],
                 date: new Date().toISOString()
             }
@@ -47,7 +45,7 @@ class AddGoal extends React.Component {
                 break;
         }
         this.setState({
-            currentType: type,
+            selectedType: type,
             currentGoal: {date: tempDate.toISOString(), type: type, goals: this.state.currentGoal.goals}
         })
     }
@@ -62,29 +60,27 @@ class AddGoal extends React.Component {
         Goals.push({goal: this.state.value, id: cuid(), checked: false});
         this.setState({value: '', currentGoal: {goals: Goals, type: type, date: date}});
     }
-
     handleSubmit(e) {
         e.preventDefault();
         this.props.addGoal(this.state.currentGoal);
         this.setState({
             currentGoal: {
                 type: 'Daily',
-                id: cuid(),
                 goals: [],
-                checkedAmt: 0,
                 date: new Date().toISOString()
             }
         });
-        //this.setState({value: '', goals: [...this.state.goals, {goal: this.state.value, checked: false, id: cuid()} ]});
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <p>{this.state.currentType}</p>
+                <div className='dropdown-types'>
+                <p>{this.state.selectedType}</p>
                 <ul>
                     {this.state.types.map((type, i) => <li key={i} onClick={() => this.changeDate(type)}>{type}</li>)}
                 </ul>
+                </div>
                 <input value={this.state.value} onChange={this.handleInput} onKeyPress={e => {
                     if (e.key === 'Enter') {
                         e.preventDefault();

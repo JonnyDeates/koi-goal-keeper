@@ -1,10 +1,12 @@
 .nav {
-    justify-content: flex-end;
+    justify-content: space-evenly;
     display: flex;
     position: fixed;
-    width: 98vw;
+    width: 100vw;
     padding: 0;
     z-index: 3;
+    bottom: 0;
+    background-color: #abceea;
 }
 .nav > a {
     font-size: x-large;
@@ -14,12 +16,8 @@
     text-decoration: none;
     cursor: pointer;
     background-color: #ffffffaa;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
 }
 .active {
     background-color: #ffffffff !important;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
     box-shadow: 3px 4px 5px 2px rgba(255, 255, 255, 0.1), 1px 2px 2px 1px rgba(200, 200, 200, 0.3);
 }

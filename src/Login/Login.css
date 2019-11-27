@@ -1,0 +1,27 @@
+.LoginForm {
+    top: 25vh;
+    display: block;
+    position: relative;
+}
+.username, .password, .full_name, .nickname{
+    padding: 16px;
+    font-size: larger;
+}
+.username > label, .password > label, .full_name > label, .nickname > label{
+    margin-right: 16px
+}
+.username > input, .password > input, .full_name > input, .nickname > input {
+    font-size: larger;
+}
+.Button {
+    padding: 16px;
+    margin: 0 16px;
+    cursor: pointer;
+    background-color: #ffffffaa;
+    border-radius: 25px;
+    border: 0;
+}
+.Button:hover {
+    background-color: #ffffffff !important;
+    box-shadow: 3px 4px 5px 2px rgba(255, 255, 255, 0.1), 1px 2px 2px 1px rgba(200, 200, 200, 0.3);
+}

@@ -15,7 +15,7 @@ class GoalList extends React.Component {
         showChecked: this.props.showChecked,
         deleteGoal: this.props.deleteGoal,
         past: this.props.past,
-        checkedAmt: 0
+        checkedAmt: this.props.checkedAmt
     };
 
     constructor(props) {
@@ -34,6 +34,9 @@ class GoalList extends React.Component {
         }
         if(prevProps.goals !== this.props.goals) {
             this.setState({goals: this.props.goals})
+        }
+        if(prevProps.checkedAmt !== this.props.checkedAmt) {
+            this.setState({checkedAmt: this.props.checkedAmt})
         }
     }
 

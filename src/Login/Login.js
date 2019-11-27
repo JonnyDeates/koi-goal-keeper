@@ -1,22 +1,70 @@
 import React from 'react';
-
+import AuthApiService from "../services/auth-api-service";
+import TokenService from "../services/token-service";
+import {Button, Input} from "../Utils/Utils";
+import './Login.css';
 class Login extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            login: '',
-            password: ''
-        }
-    }
-    handleEmail(e){this.setState({login: e.target.value})}
-    handlePassword(e){this.setState({password: e.target.value})}
-    render(){
+    state = { error: null };
+
+    handleSubmitJwtAuth = ev => {
+        ev.preventDefault();
+        this.setState({ error: null });
+        const { username, password } = ev.target;
+
+        AuthApiService.postLogin({
+            username: username.value,
+            password: password.value,
+        })
+            .then(res => {
+                username.value = '';
+                password.value = '';
+                TokenService.saveAuthToken(res.authToken);
+                window.location.reload();
+            })
+            .catch(res => {
+                this.setState({ error: res.error })
+            })
+    };
+
+    render() {
+        const { error } = this.state;
         return (
-            <div>
-                <h1>Login</h1>
-                <label>Email: <input type="text" value={this.state.login} onChange={this.handleEmail}/></label>
-                <label>Password: <input type="password" value={this.state.password} onChange={this.handlePassword}/></label>
-            </div>
+            <form
+                className='LoginForm'
+                onSubmit={this.handleSubmitJwtAuth}
+            >
+                <h1>The Koi Goal Keeper</h1>
+                <div role='alert'>
+                    {error && <p className='red'>{error}</p>}
+                </div>
+                <div className='username'>
+                    <label htmlFor='LoginForm__username'>
+                        Username
+                    </label>
+                    <Input
+                        required
+                        name='username'
+                        id='LoginForm__username'>
+                    </Input>
+                </div>
+                <div className='password'>
+                    <label htmlFor='LoginForm__password'>
+                        Password
+                    </label>
+                    <Input
+                        required
+                        name='password'
+                        type='password'
+                        id='LoginForm__password'>
+                    </Input>
+                </div>
+                <Button type='button' onClick={()=>window.location.replace('/register')}>
+                    Register
+                </Button>
+                <Button type='submit'>
+                    Login
+                </Button>
+            </form>
         )
     }
 }

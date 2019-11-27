@@ -1,41 +1,96 @@
 import React from 'react';
+import AuthApiService from "../services/auth-api-service";
+import {Button, Input, Required} from "../Utils/Utils";
 
 class Register extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            login: '',
-            password: '',
-            checkPassword: ''
-        }
-    }
+    state = { error: null };
 
-    handleEmail(e) {
-        this.setState({login: e.target.value})
-    }
+    handleSubmit = ev => {
+        ev.preventDefault();
+        const {email, nickname, username, password} = ev.target;
 
-    handlePassword(e) {
-        this.setState({password: e.target.value})
-    }
-
-    handleCheckPassword(e) {
-        this.setState({password: e.target.value})
-    }
-
-    handleSubmit(){
-        //Handle API STUFF
+        this.setState({error: null});
+        AuthApiService.postUser({
+            username: username.value,
+            password: password.value,
+            email: email.value,
+            nickname: nickname.value,
+        })
+            .then(user => {
+                email.value = '';
+                nickname.value = '';
+                username.value = '';
+                password.value = '';
+                window.location.replace('/login');
+            })
+            .catch(res => {
+                this.setState({error: res.error})
+            })
     }
 
     render() {
+        const {error} = this.state
         return (
             <div>
-                <h1>Login</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <label>Email: <input type="text" value={this.state.login} onChange={this.handleEmail}/></label>
-                    <label>Password: <input type="password" value={this.state.password} onChange={this.handlePassword}/></label>
-                    <label>Re-Enter Password: <input type="password" value={this.state.checkPassword}
-                                                     onChange={this.handleCheckPassword}/></label>
-                    <button type="submit">Submit</button>
+                <h1>Register</h1>
+
+                <form
+                    className='RegistrationForm'
+                    onSubmit={this.handleSubmit}
+                >
+                    <div role='alert'>
+                        {error && <p className='red'>{error}</p>}
+                    </div>
+                    <div className='full_name'>
+                        <label htmlFor='RegistrationForm__email'>
+                            Email <Required/>
+                        </label>
+                        <Input
+                            name='email'
+                            type='text'
+                            required
+                            id='RegistrationForm__email'>
+                        </Input>
+                    </div>
+                    <div className='username'>
+                        <label htmlFor='RegistrationForm__username'>
+                            User name <Required/>
+                        </label>
+                        <Input
+                            name='username'
+                            type='text'
+                            required
+                            id='RegistrationForm__username'>
+                        </Input>
+                    </div>
+                    <div className='password'>
+                        <label htmlFor='RegistrationForm__password'>
+                            Password <Required/>
+                        </label>
+                        <Input
+                            name='password'
+                            type='password'
+                            required
+                            id='RegistrationForm__password'>
+                        </Input>
+                    </div>
+                    <div className='nickname'>
+                        <label htmlFor='RegistrationForm__nickname'>
+                            Nickname
+                        </label>
+                        <Input
+                            name='nickname'
+                            type='text'
+                            required
+                            id='RegistrationForm__nickname'>
+                        </Input>
+                    </div>
+                    <Button type='button' onClick={()=>window.location.replace('/login')}>
+                        Back
+                    </Button>
+                    <Button type='submit'>
+                        Submit
+                    </Button>
                 </form>
             </div>
         )
