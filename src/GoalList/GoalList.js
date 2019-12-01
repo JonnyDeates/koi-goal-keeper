@@ -15,7 +15,7 @@ class GoalList extends React.Component {
         showChecked: this.props.showChecked,
         deleteGoal: this.props.deleteGoal,
         past: this.props.past,
-        checkedAmt: this.props.checkedAmt
+        checkedamt: this.props.checkedamt
     };
 
     constructor(props) {
@@ -35,13 +35,10 @@ class GoalList extends React.Component {
         if(prevProps.goals !== this.props.goals) {
             this.setState({goals: this.props.goals})
         }
-        if(prevProps.checkedAmt !== this.props.checkedAmt) {
-            this.setState({checkedAmt: this.props.checkedAmt})
+        if(prevProps.checkedamt !== this.props.checkedamt) {
+            this.setState({checkedamt: this.props.checkedamt})
         }
     }
-
-
-
     handleGoal(e) {
         this.setState({value: e.target.value})
     }
@@ -59,7 +56,7 @@ class GoalList extends React.Component {
         return (
             <div className="goallist">
 
-                {(this.state.showCompleted) ? <p>Completed: {this.state.checkedAmt}</p> : ''}
+                {(this.state.showCompleted) ? <p>Completed: {this.state.checkedamt}</p> : ''}
                 <div className="goallist-title">
                     <span>{this.state.type}</span>
                     <span>Complete By {new Date(this.state.date).toLocaleDateString()}</span>

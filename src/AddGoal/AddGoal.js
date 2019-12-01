@@ -60,6 +60,7 @@ class AddGoal extends React.Component {
         Goals.push({goal: this.state.value, id: cuid(), checked: false});
         this.setState({value: '', currentGoal: {goals: Goals, type: type, date: date}});
     }
+
     handleSubmit(e) {
         e.preventDefault();
         this.props.addGoal(this.state.currentGoal);
@@ -75,25 +76,35 @@ class AddGoal extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <div className='dropdown-types'>
-                <p>{this.state.selectedType}</p>
-                <ul>
-                    {this.state.types.map((type, i) => <li key={i} onClick={() => this.changeDate(type)}>{type}</li>)}
-                </ul>
+                <h1> Create Goal </h1>
+                <div className="addition-wrapper">
+                    <div className='dropdown-types'>
+                        <p>{this.state.selectedType}</p>
+                        <ul>
+                            {this.state.types.map((type, i) => <li key={i}
+                                                                   className={(this.state.selectedType === type) ? 'tinted' : ''}
+                                                                   onClick={() => this.changeDate(type)}>{type}</li>)}
+                        </ul>
+                    </div>
+                    <div className='add-input'>
+                        <input value={this.state.value} onChange={this.handleInput} onKeyPress={e => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                this.handleAdd(e);
+                            }
+                        }}/>
+                        <button type="button" onClick={this.handleAdd}>+</button>
+                    </div>
                 </div>
-                <input value={this.state.value} onChange={this.handleInput} onKeyPress={e => {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        this.handleAdd(e);
-                    }
-                }}/>
-                <button type="button" onClick={this.handleAdd}>+</button>
-                <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false} date={this.state.currentGoal.date} type={this.state.currentGoal.type}
-                         showChecked={false} handleChecked={this.props.handleChecked} deleteGoal={this.props.deleteGoal} goals={this.state.currentGoal.goals}/>
+                <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false}
+                          date={this.state.currentGoal.date} type={this.state.currentGoal.type}
+                          showChecked={false} handleChecked={this.props.handleChecked}
+                          deleteGoal={this.props.deleteGoal} goals={this.state.currentGoal.goals}/>
                 <div>
-                    <button type='submit' onClick={this.handleSubmit} onKeyPress={e => {
+                    <button className='submit-goals' type='submit' onClick={this.handleSubmit} onKeyPress={e => {
                         if (e.key === 'Enter') e.preventDefault();
-                    }}>+</button>
+                    }}>+
+                    </button>
                 </div>
             </form>
         )

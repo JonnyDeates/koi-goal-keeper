@@ -1,0 +1,12 @@
+.pastgoal-links {
+
+}
+.pastgoal-links > a {
+    display: inline-block;
+    width: 49vw;
+    height: 28vh;
+    font-size: xx-large;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}

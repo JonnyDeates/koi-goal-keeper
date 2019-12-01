@@ -1,0 +1,56 @@
+form {
+    margin-bottom: 4rem;
+}
+.addition-wrapper {
+    justify-content: space-evenly;
+    display: flex;
+}
+.add-input {
+    font-size: large;
+    margin-top: 16px;
+}
+.dropdown-types:hover > ul {
+    display: inline-block
+}
+.dropdown-types > p {
+    width: fit-content;
+    margin: 0 auto;
+    padding: 16px;
+    background-color: white;
+    border: 1px lightgray solid;
+}
+.dropdown-types > ul {
+    display: none;
+    position: absolute;
+    margin-left: -50px;
+    margin-top: -0.5em;
+    list-style: none;
+    padding: 0;
+
+    z-index: 1;
+    width: fit-content;
+}
+.dropdown-types > ul > li {
+    padding: 16px;
+    background-color: white;
+    border: 1px dashed lightgray;
+    cursor: pointer;
+}
+.dropdown-types > ul > li:hover {
+    background-color: lightgray;
+}
+.dropdown-types > ul > li:first-child {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+.dropdown-types > ul > li:last-child {
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+.dropdown-types > ul > .tinted {
+    background-color: lightgray;
+}
+.submit-goals {
+    padding: 8px 16px;
+    font-size: x-large;
+}

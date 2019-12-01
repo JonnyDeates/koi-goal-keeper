@@ -6,8 +6,9 @@ class Home extends React.Component {
         return (
             <div className="home">
                 <h1>Current Goals</h1>
+                {this.props.allGoals.length === 0 ? <h2>No Current Goals</h2> : ''}
                 {this.props.allGoals.map((Goal, i) => <GoalList key={i} showChecked={true} deleteGoal={this.props.deleteGoal} goalId={Goal.id} handleChecked={this.props.handleChecked}
-                                                                isEditable={false} showCompleted={true} goals={Goal.goals} type={Goal.type} date={Goal.date} checkedAmt={Goal.checkedAmt}/>)}
+                                                                isEditable={false} showCompleted={true} goals={Goal.goals} type={Goal.type} date={Goal.date} checkedamt={Goal.checkedamt}/>)}
             </div>
         )
     }
