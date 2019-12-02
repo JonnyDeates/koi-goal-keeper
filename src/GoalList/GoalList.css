@@ -38,23 +38,29 @@
     font-size: large;
     animation: 2s popIn forwards;
 }
-.goallist-item > button{
-    margin: 16px 0;
-    border: 1px lightgray solid;
-    border-radius: 25px;
-    padding: 4px 8px;
-    font-size: large;
-    cursor: pointer;
-}
+/*.goallist-item > button{*/
+    /*margin: 16px 0;*/
+    /*border: 1px lightgray solid;*/
+    /*border-radius: 25px;*/
+    /*padding: 4px 8px;*/
+    /*font-size: large;*/
+    /*cursor: pointer;*/
+/*}*/
 .goallist-item > p{
      max-width: 50vw;
      min-width: 50vw;
  }
-.goallist-item > input {
+.goallist-item > .checkboxinput {
     margin: auto 0;
     width: 20px;
     height: 20px;
     cursor: pointer;
+}
+.goallist-item > .textinput {
+    font-size: large;
+    width: 50vw;
+    height: fit-content;
+    margin: 16px 0;
 }
 .tinted{
     background-color: #00000033;

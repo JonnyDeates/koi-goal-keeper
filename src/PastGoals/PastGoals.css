@@ -3,10 +3,14 @@
 }
 .pastgoal-links > a {
     display: inline-block;
-    width: 49vw;
-    height: 28vh;
+    width: 46vw;
+    height: 26vh;
     font-size: xx-large;
     text-decoration: none;
     color: black;
     cursor: pointer;
+}
+.pastgoal-links > a:hover {
+background-color: #ffffff55;
+    border-radius: 25px;
 }

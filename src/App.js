@@ -11,7 +11,8 @@ import Register from "./Register/Register";
 import GoalApiService from "./services/goals-api-service";
 import TokenService from "./services/token-service";
 import PastGoalService from "./services/pastgoals-api-service";
-
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 class App extends React.Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class App extends React.Component {
             GoalApiService.getAllGoals()
                 .then((res) => this.setState({allGoals: this.breakApartAllGoalData(res)}))
                 .then(() => this.state.allGoals.forEach(Goal => this.checkCurrentGoals(Goal.type, Goal.id, Goal.date)))
-                .then(() => this.state.allGoals.sort((A, B)=> new Date(A.date) - new Date(B.date)));
+                .then(() => this.state.allGoals.sort((A, B) => new Date(A.date) - new Date(B.date)));
             PastGoalService.getAllPastGoals()
                 .then((res) => this.setState({pastGoals: this.breakApartAllGoalData(res)}));
 
@@ -89,13 +90,16 @@ class App extends React.Component {
         let Goal = this.state.allGoals.find(g => g.id === goalID);
         let {checked} = Goal.goals.find(g => g.id === ID);
         Goal.goals = Goal.goals.filter(g => g.id !== ID);
+
         if (checked) {
             Goal.checkedamt = Goal.checkedamt - 1;
         }
         if (Goal.goals.length <= 0) {
+            toast.warn(`${Goal.type} Goal Deleted`);
             GoalApiService.deleteGoal(Goal.id)
                 .then(() => this.setState({allGoals: this.state.allGoals.filter((G) => Goal.id !== G.id)}))
         } else {
+            toast.warn('Objective Deleted', {autoClose: 2000});
             GoalApiService.patchGoal(Goal, goalID);
             this.setState({allGoals: this.state.allGoals});
         }
@@ -103,7 +107,6 @@ class App extends React.Component {
 
     deletePastGoal(goalID, ID) {
         let Goal = this.state.pastGoals.find(g => g.id === goalID);
-        console.log(Goal)
         let {checked} = Goal.goals.find(g => g.id === ID);
         Goal.goals = Goal.goals.filter(g => g.id !== ID);
         if (checked) {
@@ -143,6 +146,8 @@ class App extends React.Component {
         return (
             <Router>
                 <div className="App">
+                    <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} autoClose={5000} hideProgressBar={false}
+                                    pauseOnHover={true} draggablePercent={60}/>
                     <Route render={(routeProps) => !(TokenService.hasAuthToken()) ? '' :
                         <TopNav currentActive={routeProps.location}
                                 links={this.state.links}/>}/>

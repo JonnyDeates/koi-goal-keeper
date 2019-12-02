@@ -38,6 +38,9 @@ class GoalList extends React.Component {
         if(prevProps.checkedamt !== this.props.checkedamt) {
             this.setState({checkedamt: this.props.checkedamt})
         }
+        if(prevProps.goalId !== this.props.goalId) {
+            this.setState({goalId: this.props.goalId})
+        }
     }
     handleGoal(e) {
         this.setState({value: e.target.value})

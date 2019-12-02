@@ -20,3 +20,15 @@
 .App-link {
   color: #09d3ac;
 }
+.close-button {
+  border: 0;
+  background-color: #ffffff55;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.close-button:hover {
+  background-color: #ffffffaa;
+}
+.green-tint {
+  background-color: #75e88b;
+}

@@ -1,0 +1,14 @@
+.jonnys-toastsystem {
+    position: fixed;
+    right: 0;
+    bottom: 10vh;
+    max-width: 150px;
+    min-width: 150px;
+}
+.jonnys-toastsystem > p{
+    background-color: #ffa500aa;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    padding: 8px 0;
+    cursor: pointer;
+}
