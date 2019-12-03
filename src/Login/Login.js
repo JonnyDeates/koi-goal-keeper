@@ -2,7 +2,9 @@ import React from 'react';
 import AuthApiService from "../services/auth-api-service";
 import TokenService from "../services/token-service";
 import {Button, Input} from "../Utils/Utils";
+import {toast} from "react-toastify"
 import './Login.css';
+import UserService from "../services/user-api-service";
 class Login extends React.Component {
     state = { error: null };
 
@@ -19,7 +21,9 @@ class Login extends React.Component {
                 username.value = '';
                 password.value = '';
                 TokenService.saveAuthToken(res.authToken);
+                UserService.saveUser(JSON.stringify({username: res.username, nickname: res.nickname || null}));
                 window.location.reload();
+                toast.success(`Welcome Back ${(res.nickname) ? res.nickname : res.username}!`);
             })
             .catch(res => {
                 this.setState({ error: res.error })

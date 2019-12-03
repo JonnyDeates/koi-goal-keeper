@@ -34,7 +34,7 @@ class App extends React.Component {
         if (TokenService.getAuthToken()) {
             GoalApiService.getAllGoals()
                 .then((res) => this.setState({allGoals: this.breakApartAllGoalData(res)}))
-                .then(() => this.state.allGoals.forEach(Goal => this.checkCurrentGoals(Goal.type, Goal.id, Goal.date)))
+                .then(() => this.state.allGoals.forEach(Goal => this.checkCurrentGoals(Goal)))
                 .then(() => this.state.allGoals.sort((A, B) => new Date(A.date) - new Date(B.date)));
             PastGoalService.getAllPastGoals()
                 .then((res) => this.setState({pastGoals: this.breakApartAllGoalData(res)}));
@@ -69,11 +69,11 @@ class App extends React.Component {
         return newData;
     }
 
-    checkCurrentGoals(type, id, date) {
+    checkCurrentGoals(Goal) {
         let currentDate = new Date().getTime();
-        if (new Date(date).getTime() < currentDate) {
-            PastGoalService.postPastGoal(this.state.allGoals.find(g => g.id = id));
-            GoalApiService.deleteGoal(id);
+        if (new Date(Goal.date).getTime() < currentDate) {
+            PastGoalService.postPastGoal(this.state.allGoals.find(g => g.id = Goal.id));
+            GoalApiService.deleteGoal(Goal.id);
         }
         this.setState({
             allGoals: this.state.allGoals.filter((Goal) => (new Date(Goal.date).getTime()) >= currentDate)
@@ -113,9 +113,11 @@ class App extends React.Component {
             Goal.checkedamt = Goal.checkedamt - 1;
         }
         if (Goal.goals.length <= 0) {
+            toast.warn(`Past ${Goal.type} Goal Deleted`, {autoClose: 2000});
             PastGoalService.deletePastGoal(Goal.id)
                 .then(() => this.setState({pastGoals: this.state.pastGoals.filter((G) => Goal.id !== G.id)}))
         } else {
+            toast.warn('Past Objective Deleted', {autoClose: 2000});
             PastGoalService.patchPastGoal(Goal, goalID);
             this.setState({pastGoals: this.state.pastGoals});
         }
@@ -138,7 +140,7 @@ class App extends React.Component {
         let newGoalListIndex = this.state.allGoals.findIndex(G => G.id === goalId);
         let newGoalList = this.state.allGoals.filter((G) => G.id !== goalId);
 
-        console.log(newGoalList.splice(newGoalListIndex, 0, currentGoalList), currentGoalList);
+        newGoalList.splice(newGoalListIndex, 0, currentGoalList);
         this.setState({allGoals: newGoalList})
     }
 
@@ -182,7 +184,6 @@ class App extends React.Component {
                         <Route path={'/register'}> {(TokenService.hasAuthToken()) ? <Redirect to={'/'}/> :
                             <Register/>}</Route>
                     </Switch>
-
                     {/*<Route exact path="/settings"><Settings/></Route>*/}
                 </div>
             </Router>

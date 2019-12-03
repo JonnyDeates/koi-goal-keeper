@@ -9,7 +9,6 @@ class PastGoals extends React.Component {
         }
     }
     render(){
-
         return (<div>
             <h1>{this.state.type}</h1>
             {(this.props.pastGoals.length === 0) ? <h2>No {this.state.type} Goals</h2> : ''}

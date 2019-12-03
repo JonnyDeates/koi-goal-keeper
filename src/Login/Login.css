@@ -18,7 +18,7 @@
     margin: 0 16px;
     cursor: pointer;
     background-color: #ffffffaa;
-    border-radius: 25px;
+    border-radius: 10px;
     border: 0;
 }
 .Button:hover {

@@ -10,7 +10,7 @@
 .goallist > p {
     position: absolute;
     left: 16px;
-    margin: 4px;
+    margin: -22px 0px 0px 0px;
     color: gray;
 }
 .goallist > div{

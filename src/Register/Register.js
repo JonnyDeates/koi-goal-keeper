@@ -7,32 +7,37 @@ class Register extends React.Component {
 
     handleSubmit = ev => {
         ev.preventDefault();
-        const {email, nickname, username, password} = ev.target;
+        const {email, nickname, username, password, confirmPassword} = ev.target;
 
         this.setState({error: null});
-        AuthApiService.postUser({
-            username: username.value,
-            password: password.value,
-            email: email.value,
-            nickname: nickname.value,
-        })
-            .then(user => {
-                email.value = '';
-                nickname.value = '';
-                username.value = '';
-                password.value = '';
-                window.location.replace('/login');
+        if(password.value === confirmPassword.value) {
+            AuthApiService.postUser({
+                username: username.value,
+                password: password.value,
+                email: email.value,
+                nickname: nickname.value,
             })
-            .catch(res => {
-                this.setState({error: res.error})
-            })
+                .then(user => {
+                    email.value = '';
+                    nickname.value = '';
+                    username.value = '';
+                    password.value = '';
+                    window.location.replace('/login');
+                })
+                .catch(res => {
+                    this.setState({error: res.error})
+                })
+        } else {
+            this.setState({error: 'Passwords dont Match'});
+        }
     }
 
     render() {
         const {error} = this.state
         return (
             <div>
-                <h1>Register</h1>
+                <h1>The Koi Goal Keeper</h1>
+                <h3>Register</h3>
 
                 <form
                     className='RegistrationForm'
@@ -72,6 +77,17 @@ class Register extends React.Component {
                             type='password'
                             required
                             id='RegistrationForm__password'>
+                        </Input>
+                    </div>
+                    <div className='password'>
+                        <label htmlFor='RegistrationForm__confirmPassword'>
+                            Confirm Password <Required/>
+                        </label>
+                        <Input
+                            name='confirmPassword'
+                            type='password'
+                            required
+                            id='RegistrationForm__confirmPassword'>
                         </Input>
                     </div>
                     <div className='nickname'>

@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import './TopNav.css';
 import TokenService from "../services/token-service";
+import UserService from "../services/user-api-service";
 class TopNav extends React.Component{
 
     render() {
@@ -12,6 +13,7 @@ class TopNav extends React.Component{
                                                                   ? 'active' : ''}>{link.name}</Link>)}
                 <button onClick={() => {
                     TokenService.clearAuthToken();
+                    UserService.clearUser();
                     window.location.reload();
                 }}>Log Out
                 </button>
