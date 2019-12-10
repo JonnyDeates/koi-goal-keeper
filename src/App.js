@@ -13,20 +13,36 @@ import TokenService from "./services/token-service";
 import PastGoalService from "./services/pastgoals-api-service";
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Settings from "./Settings/Settings";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
+        let iconFolder = './assets/icons/';
         this.state = {
             allGoals: [],
             pastGoals: [],
-            links: [{to: '/', name: 'Home'}, {to: '/add', name: 'Add'}, {to: '/past-goals', name: 'Past Goals'}],
+            selectedType: 'Daily',
+            currentGoal: {
+                type: 'Daily',
+                goals: [],
+                date: new Date().toISOString()
+            },
+            links: [{to: '/', name: 'Home', src: require(`${iconFolder}home.ico`)}, {
+                to: '/add', name: 'Add', src: require(`${iconFolder}document.ico`)
+            }, {to: '/past-goals', name: 'Past Goals', src: require(`${iconFolder}archive.ico`)}, {
+                to: '/settings',
+                name: 'Settings',
+                src: require(`${iconFolder}user.ico`)
+            }],
             types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly', '5-Year']
         };
         this.addGoal = this.addGoal.bind(this);
         this.deleteGoal = this.deleteGoal.bind(this);
+        this.deleteGoalAdd = this.deleteGoalAdd.bind(this);
         this.deletePastGoal = this.deletePastGoal.bind(this);
         this.handleChecked = this.handleChecked.bind(this);
+        this.handleSubmitAdd = this.handleSubmitAdd.bind(this);
 
     }
 
@@ -34,8 +50,10 @@ class App extends React.Component {
         if (TokenService.getAuthToken()) {
             GoalApiService.getAllGoals()
                 .then((res) => this.setState({allGoals: this.breakApartAllGoalData(res)}))
-                .then(() => this.state.allGoals.forEach(Goal => this.checkCurrentGoals(Goal)))
-                .then(() => this.state.allGoals.sort((A, B) => new Date(A.date) - new Date(B.date)));
+                .then(() => {
+                    this.state.allGoals.forEach(Goal => this.checkCurrentGoals(Goal));
+                    this.state.allGoals.sort((A, B) => new Date(A.date) - new Date(B.date));
+                });
             PastGoalService.getAllPastGoals()
                 .then((res) => this.setState({pastGoals: this.breakApartAllGoalData(res)}));
 
@@ -104,6 +122,16 @@ class App extends React.Component {
             this.setState({allGoals: this.state.allGoals});
         }
     }
+    deleteGoalAdd(neat, ID) {
+        let newGoals = this.state.currentGoal.goals.filter(g => g.id !== ID);
+        toast.warn('Objective Deleted', {autoClose: 2000})
+        this.setState({
+            currentGoal: {
+                type: this.state.currentGoal.type, date: this.state.currentGoal.date,
+                goals: newGoals
+            }
+        })
+    }
 
     deletePastGoal(goalID, ID) {
         let Goal = this.state.pastGoals.find(g => g.id === goalID);
@@ -143,7 +171,22 @@ class App extends React.Component {
         newGoalList.splice(newGoalListIndex, 0, currentGoalList);
         this.setState({allGoals: newGoalList})
     }
-
+    handleSubmitAdd(e) {
+        e.preventDefault();
+        if (this.state.currentGoal.goals.length > 0) {
+            this.addGoal(this.state.currentGoal);
+            toast.success(`${this.state.currentGoal.type} Goal Added!`);
+            this.setState({
+                currentGoal: {
+                    type: 'Daily',
+                    goals: [],
+                    date: new Date().toISOString()
+                }
+            });
+        } else {
+            toast.error(`The ${this.state.currentGoal.type} Goal is Missing Objectives.`)
+        }
+    }
     render() {
         return (
             <Router>
@@ -163,8 +206,12 @@ class App extends React.Component {
                         <Route exact path={'/add'}>
                             {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> :
                                 <AddGoal types={this.state.types}
+                                         selectedType={this.state.selectedType}
+                                         currentGoal={this.state.currentGoal}
                                          addGoal={this.addGoal}
                                          deleteGoal={this.deleteGoal}
+                                         handleSubmit={this.handleSubmitAdd}
+                                         deleteGoalAdd={this.deleteGoalAdd}
                                          handleChecked={this.handleChecked}/>}
                         </Route>
 
@@ -178,7 +225,12 @@ class App extends React.Component {
                                        type={routeProps.location.pathname.substring(12)}
                                        deleteGoal={this.deletePastGoal}
                                        handleChecked={this.handleChecked}
+
                                        pastGoals={this.state.pastGoals.filter((pg) => pg.type === routeProps.location.pathname.substring(12))}/>}/>
+                        <Route
+                            exact path={'/settings'}>
+                            {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <Settings/>}
+                        </Route>
                         <Route path={'/login'}> {(TokenService.hasAuthToken()) ? <Redirect to={'/'}/> :
                             <Login/>}</Route>
                         <Route path={'/register'}> {(TokenService.hasAuthToken()) ? <Redirect to={'/'}/> :

@@ -11,7 +11,7 @@ class GoalItem extends React.Component {
         this.toggleEdit = this.toggleEdit.bind(this);
     }
 
-    toggleEdit(){
+    toggleEdit() {
         this.setState({isEditing: !this.state.isEditing})
     }
 
@@ -19,19 +19,24 @@ class GoalItem extends React.Component {
         return (
             <div className={'goallist-item ' + this.props.bgColor}>
                 {(this.props.past) ? (this.props.checked) ? <h6>Completed</h6> : <h6>Unchecked</h6> : ''}
-                {(this.props.showChecked) ? <input className="checkboxinput" type='checkbox' onChange={() => this.props.handleChecked(this.props.goalId, this.props.id)}
-                       checked={this.props.checked}/> : '' }
-                {(this.state.isEditing && this.state.isEditable) ? <input type="text" className="textinput" onChange={(e) => this.props.handleEditGoal(e, this.props.id)}
-                                                 value={this.props.goal}
-                                                 onKeyPress={e => {
-                                                     if (e.key === 'Enter') {
-                                                         e.preventDefault();
-                                                         this.toggleEdit();
-                                                     }
-                                                 }}
+                {(this.props.showChecked) ? <input className="checkboxinput" type='checkbox'
+                                                   onChange={() => this.props.handleChecked(this.props.goalId, this.props.id)}
+                                                   checked={this.props.checked}/> : ''}
+                {(this.state.isEditing && this.state.isEditable) ? <input type="text" className="textinput"
+                                                                          onChange={(e) => this.props.handleEditGoal(e, this.props.id)}
+                                                                          value={this.props.goal}
+                                                                          onKeyPress={e => {
+                                                                              if (e.key === 'Enter') {
+                                                                                  e.preventDefault();
+                                                                                  this.toggleEdit();
+                                                                              }
+                                                                          }}
                 /> : <p onDoubleClick={this.toggleEdit}>{this.props.goal}</p>}
-                {(this.state.isEditable) ? <button type="button" onClick={this.toggleEdit}>{(this.state.isEditing) ? 'Done' : 'Edit'}</button> : ''}
-                <button type="button" className="close-button" onClick={() => this.state.deleteGoal(this.props.goalId, this.props.id)}>X</button>
+                {(this.state.isEditable) ? <img onClick={this.toggleEdit} alt={'edit'}
+                                                  src={(this.state.isEditing) ? require('../../assets/icons/plus.ico') : require('../../assets/icons/pencil.ico')}/> : ''}
+                <button type="button" className="close-button"
+                        onClick={() => this.state.deleteGoal(this.props.goalId, this.props.id)}>X
+                </button>
             </div>
         );
     }

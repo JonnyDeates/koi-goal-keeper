@@ -64,12 +64,15 @@
 }
 .submit-goals {
     border: none;
-    border-radius: 10px;
-    margin: 16px;
-    padding: 8px 64px;
-    font-size: x-large;
+    border-radius: 15px;
+    margin: 4px;
+    position: fixed;
+    padding: 16px 20px;
+    right: 0;
+    font-size: xx-large;
     cursor: pointer;
     background: #ffffff88;
+    bottom: 14vh;
 }
 .submit-goals:hover {
     background: #ffffffdd;

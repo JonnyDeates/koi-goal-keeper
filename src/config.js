@@ -1,4 +1,4 @@
 export default {
-    API_ENDPOINT: 'https://fathomless-caverns-68014.herokuapp.com',
-    TOKEN_KEY: 'blogful-client-auth-token',
+    API_ENDPOINT: 'http://localhost:8080',//'https://fathomless-caverns-68014.herokuapp.com',
+    TOKEN_KEY: 'kingpendata',
 }

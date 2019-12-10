@@ -11,18 +11,20 @@ class AddGoal extends React.Component {
         this.state = {
             value: '',
             types: this.props.types,
-            selectedType: 'Daily',
-            currentGoal: {
-                type: 'Daily',
-                goals: [],
-                date: new Date().toISOString()
-            }
+            selectedType: this.props.selectedType,
+            currentGoal: this.props.currentGoal,
+            deleteGoal: this.props.deleteGoalAdd,
+            handleSubmit: this.props.handleSubmit
         };
         this.handleInput = this.handleInput.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
-        this.deleteGoal = this.deleteGoal.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
 
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.currentGoal !== this.props.currentGoal) {
+            this.setState({currentGoal: this.props.currentGoal})
+        }
     }
 
     changeDate(type) {
@@ -54,16 +56,6 @@ class AddGoal extends React.Component {
         })
     }
 
-    deleteGoal(neat, ID) {
-        let newGoals = this.state.currentGoal.goals.filter(g => g.id !== ID);
-        toast.warn('Objective Deleted', {autoClose: 2000})
-        this.setState({
-            currentGoal: {
-                type: this.state.currentGoal.type, date: this.state.currentGoal.date,
-                goals: newGoals
-            }
-        })
-    }
 
     handleInput(e) {
         this.setState({value: e.target.value})
@@ -82,26 +74,12 @@ class AddGoal extends React.Component {
         }
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        if (this.state.currentGoal.goals.length > 0) {
-            this.props.addGoal(this.state.currentGoal);
-            toast.success(`${this.state.currentGoal.type} Goal Added!`);
-            this.setState({
-                currentGoal: {
-                    type: 'Daily',
-                    goals: [],
-                    date: new Date().toISOString()
-                }
-            });
-        } else {
-            toast.error(`The ${this.state.currentGoal.type} Goal is Missing Objectives.`)
-        }
-    }
+
+
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.state.handleSubmit}>
                 <h1> Create Goal </h1>
                 <div className="addition-wrapper">
                     <div className='dropdown-types'>
@@ -125,7 +103,7 @@ class AddGoal extends React.Component {
                 <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false}
                           date={this.state.currentGoal.date} type={this.state.currentGoal.type}
                           showChecked={false} handleChecked={this.props.handleChecked}
-                          deleteGoal={this.deleteGoal} goals={this.state.currentGoal.goals}/>
+                          deleteGoal={this.state.deleteGoal} goals={this.state.currentGoal.goals}/>
                 <div>
                     <button className='submit-goals' type='submit' onClick={this.handleSubmit} onKeyPress={e => {
                         if (e.key === 'Enter') e.preventDefault();

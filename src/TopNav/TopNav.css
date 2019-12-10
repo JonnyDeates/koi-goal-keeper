@@ -17,6 +17,10 @@
     cursor: pointer;
     background-color: #ffffff00;
 }
+.nav > a > img{
+    cursor:pointer;
+    width: 60px;
+}
 .nav > button {
     font-size: x-large;
     padding: 8px 16px;

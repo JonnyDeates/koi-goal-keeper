@@ -50,6 +50,19 @@
      max-width: 50vw;
      min-width: 50vw;
  }
+.goallist-item > img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin: auto 0;
+    border: 0;
+    background-color: #ffffff55;
+    padding: 4px 4px;
+    border-radius: 10px;
+}
+.goallist-item > img:hover {
+    background-color: #ffffffaa;
+}
 .goallist-item > .checkboxinput {
     margin: auto 0;
     width: 20px;

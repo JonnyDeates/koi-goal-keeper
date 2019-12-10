@@ -10,14 +10,14 @@ class TopNav extends React.Component{
             <div className='nav'>
                 {this.props.links.map((link, index) => <Link key={index} to={link.to}
                                                              className={(link.to === this.props.currentActive.pathname)
-                                                                  ? 'active' : ''}>{link.name}</Link>)}
+                                                                  ? 'active' : ''}><img src={link.src} alt={link.name}/></Link>)}
                 <button onClick={() => {
                     TokenService.clearAuthToken();
                     UserService.clearUser();
                     window.location.reload();
                 }}>Log Out
                 </button>
-            </div>
+                </div>
         );
     }
 }
