@@ -21,7 +21,7 @@ class Login extends React.Component {
                 username.value = '';
                 password.value = '';
                 TokenService.saveAuthToken(res.authToken);
-                UserService.saveUser(JSON.stringify({username: res.username, nickname: res.nickname || null}));
+                UserService.saveUser(JSON.stringify({username: res.username, email: res.email, id: res.id,nickname: res.nickname || null}));
                 window.location.reload();
                 toast.success(`Welcome Back ${(res.nickname) ? res.nickname : res.username}!`);
             })

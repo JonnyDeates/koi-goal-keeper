@@ -4,6 +4,7 @@ import Home from './Home/Home.js'
 import TopNav from './TopNav/TopNav.js'
 import AddGoal from './AddGoal/AddGoal.js'
 import {Route, BrowserRouter as Router, Switch, Redirect} from "react-router-dom";
+import {SettingsContext} from "./Settings/SettingsContext"
 import PastGoals from "./PastGoals/PastGoals";
 import PastGoalsLinks from "./PastGoals/PastGoalsLinks";
 import Login from "./Login/Login";
@@ -14,6 +15,7 @@ import PastGoalService from "./services/pastgoals-api-service";
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Settings from "./Settings/Settings";
+import UserService from "./services/user-api-service";
 
 class App extends React.Component {
     constructor(props) {
@@ -28,6 +30,8 @@ class App extends React.Component {
                 goals: [],
                 date: new Date().toISOString()
             },
+            currentTheme: 'Blue / White',
+            autoArchiving: true,
             links: [{to: '/', name: 'Home', src: require(`${iconFolder}home.ico`)}, {
                 to: '/add', name: 'Add', src: require(`${iconFolder}document.ico`)
             }, {to: '/past-goals', name: 'Past Goals', src: require(`${iconFolder}archive.ico`)}, {
@@ -35,13 +39,18 @@ class App extends React.Component {
                 name: 'Settings',
                 src: require(`${iconFolder}user.ico`)
             }],
-            types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly', '5-Year']
+            types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly', '5-Year'],
+            username: '',
+            email: '',
+            nickname: '',
+            id: ''
         };
         this.addGoal = this.addGoal.bind(this);
         this.deleteGoal = this.deleteGoal.bind(this);
         this.deleteGoalAdd = this.deleteGoalAdd.bind(this);
         this.deletePastGoal = this.deletePastGoal.bind(this);
         this.handleChecked = this.handleChecked.bind(this);
+        this.handleSubmitAdd = this.handleSubmitAdd.bind(this);
         this.handleSubmitAdd = this.handleSubmitAdd.bind(this);
 
     }
@@ -58,7 +67,13 @@ class App extends React.Component {
                 .then((res) => this.setState({pastGoals: this.breakApartAllGoalData(res)}));
 
         }
-
+        if (UserService.hasUserInfo()) {
+            this.setState({username: UserService.getUser().username,
+                email: UserService.getUser().email,
+                nickname: UserService.getUser().nickname,
+                id: UserService.getUser().id
+            })
+        }
     }
 
     breakApartAllGoalData(data) {
@@ -122,6 +137,7 @@ class App extends React.Component {
             this.setState({allGoals: this.state.allGoals});
         }
     }
+
     deleteGoalAdd(neat, ID) {
         let newGoals = this.state.currentGoal.goals.filter(g => g.id !== ID);
         toast.warn('Objective Deleted', {autoClose: 2000})
@@ -171,6 +187,7 @@ class App extends React.Component {
         newGoalList.splice(newGoalListIndex, 0, currentGoalList);
         this.setState({allGoals: newGoalList})
     }
+
     handleSubmitAdd(e) {
         e.preventDefault();
         if (this.state.currentGoal.goals.length > 0) {
@@ -187,57 +204,84 @@ class App extends React.Component {
             toast.error(`The ${this.state.currentGoal.type} Goal is Missing Objectives.`)
         }
     }
+
     render() {
+        const value = {
+            themes: ['Blue / White', 'Blue / Black', 'Red / White', 'Red / Black'],
+            currentTheme: this.state.currentTheme,
+            autoArchiving: this.state.autoArchiving,
+            username: this.state.username,
+            email: this.state.email,
+            id: this.state.id,
+            nickname: this.state.nickname,
+            toggleArchiving: () => {
+                this.setState({autoArchiving: !this.state.autoArchiving})
+            },
+            setTheme: (e) => {
+                this.setState({currentTheme: e})
+            },
+            updateNickname: (e) => {
+                //UserService.saveUser(JSON.stringify({username: this.context.username, nickname: this.context.nickname, email: this.context.email, id:this.context.id}));
+                this.setState({nickname: e})
+            },
+            updateEmail: (e) => {
+                this.setState({email: e})
+            }
+        };
         return (
             <Router>
-                <div className="App">
-                    <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} autoClose={5000} hideProgressBar={false}
-                                    pauseOnHover={true} draggablePercent={60}/>
-                    <Route render={(routeProps) => !(TokenService.hasAuthToken()) ? '' :
-                        <TopNav currentActive={routeProps.location}
-                                links={this.state.links}/>}/>
-                    <Switch>
-                        <Route
-                            exact path={'/'}>
-                            {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <Home
-                                allGoals={this.state.allGoals} deleteGoal={this.deleteGoal}
-                                handleChecked={this.handleChecked}/>}
-                        </Route>
-                        <Route exact path={'/add'}>
-                            {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> :
-                                <AddGoal types={this.state.types}
-                                         selectedType={this.state.selectedType}
-                                         currentGoal={this.state.currentGoal}
-                                         addGoal={this.addGoal}
-                                         deleteGoal={this.deleteGoal}
-                                         handleSubmit={this.handleSubmitAdd}
-                                         deleteGoalAdd={this.deleteGoalAdd}
-                                         handleChecked={this.handleChecked}/>}
-                        </Route>
+                <SettingsContext.Provider value={value}>
+                    <div className="App">
+                        <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} autoClose={5000} hideProgressBar={false}
+                                        pauseOnHover={true} draggablePercent={60}/>
+                        <Route render={(routeProps) => !(TokenService.hasAuthToken()) ? '' :
+                            <TopNav currentActive={routeProps.location}
+                                    links={this.state.links}/>}/>
+                        <Switch>
+                            <Route
+                                exact path={'/'}>
+                                {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <Home
+                                    allGoals={this.state.allGoals} deleteGoal={this.deleteGoal}
+                                    handleChecked={this.handleChecked}/>}
+                            </Route>
+                            <Route exact path={'/add'}>
+                                {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> :
+                                    <AddGoal types={this.state.types}
+                                             selectedType={this.state.selectedType}
+                                             currentGoal={this.state.currentGoal}
+                                             addGoal={this.addGoal}
+                                             deleteGoal={this.deleteGoal}
+                                             handleSubmit={this.handleSubmitAdd}
+                                             deleteGoalAdd={this.deleteGoalAdd}
+                                             handleChecked={this.handleChecked}/>}
+                            </Route>
 
-                        <Route
-                            exact path={'/past-goals'}>
-                            {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <PastGoalsLinks
-                                types={this.state.types}/>}</Route>
-                        <Route path={'/past-goals/'}
-                               component={(routeProps) => !(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> :
-                                   <PastGoals
-                                       type={routeProps.location.pathname.substring(12)}
-                                       deleteGoal={this.deletePastGoal}
-                                       handleChecked={this.handleChecked}
+                            <Route
+                                exact path={'/past-goals'}>
+                                {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <PastGoalsLinks
+                                    types={this.state.types}/>}</Route>
+                            <Route path={'/past-goals/'}
+                                   component={(routeProps) => !(TokenService.hasAuthToken()) ?
+                                       <Redirect to={'/login'}/> :
+                                       <PastGoals
+                                           type={routeProps.location.pathname.substring(12)}
+                                           deleteGoal={this.deletePastGoal}
+                                           handleChecked={this.handleChecked}
 
-                                       pastGoals={this.state.pastGoals.filter((pg) => pg.type === routeProps.location.pathname.substring(12))}/>}/>
-                        <Route
-                            exact path={'/settings'}>
-                            {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <Settings/>}
-                        </Route>
-                        <Route path={'/login'}> {(TokenService.hasAuthToken()) ? <Redirect to={'/'}/> :
-                            <Login/>}</Route>
-                        <Route path={'/register'}> {(TokenService.hasAuthToken()) ? <Redirect to={'/'}/> :
-                            <Register/>}</Route>
-                    </Switch>
-                    {/*<Route exact path="/settings"><Settings/></Route>*/}
-                </div>
+                                           pastGoals={this.state.pastGoals.filter((pg) => pg.type === routeProps.location.pathname.substring(12))}/>}/>
+                            <Route
+                                exact path={'/settings'}>
+                                {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <Settings/>}
+                            </Route>
+                            <Route path={'/login'}> {(TokenService.hasAuthToken()) ? <Redirect to={'/'}/> :
+                                <Login/>}</Route>
+                            <Route path={'/register'}> {(TokenService.hasAuthToken()) ? <Redirect to={'/'}/> :
+                                <Register/>}</Route>
+                        </Switch>
+                        {/*<Route exact path="/settings"><Settings/></Route>*/}
+
+                    </div>
+                </SettingsContext.Provider>
             </Router>
         )
             ;
