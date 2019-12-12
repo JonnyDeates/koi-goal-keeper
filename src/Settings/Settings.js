@@ -16,6 +16,9 @@ class Settings extends React.Component {
             isPasswordEditable: false,
             newEmail: '',
             newEmailCheck: '',
+            oldPasswordCheck: '',
+            newPassword: '',
+            newPasswordCheck: '',
             newNickname: ''
         }
     }
@@ -25,9 +28,30 @@ class Settings extends React.Component {
             selectedNotification: e.target.value
         });
     }
-    changeEmail(e){
-        this.setState({newEmail: e.target.value})
+    changeOldPasswordCheck(e){this.setState({oldPasswordCheck: e.target.value})}
+    changePassword(e){this.setState({newPassword: e.target.value})}
+    changePasswordCheck(e){this.setState({newPasswordCheck: e.target.value})}
+    submitPassword(){
+        if(this.state.oldPasswordCheck.trim().length === 0 || this.state.newPassword.trim().length === 0 || this.state.newPasswordCheck.trim().length === 0){
+            toast.warn('Fill All Fields');
+            return null;
+        }
+        if(this.state.newPassword === this.state.newPasswordCheck) {
+            this.setState({isPasswordEditable: false});
+            AuthApiService.patchPassword({password: this.state.newPassword, oldPassword: this.state.oldPasswordCheck})
+                .then(()=> {
+                    this.setState({newPassword:'', oldPasswordCheck: '', newPasswordCheck: ''});
+                    toast.success(`Password changed`)
+                })
+                .catch(error=> {
+                    toast.error(`${error.error}`)
+                })
+
+        } else {
+            toast.error(`The Passwords aren't matching`)
+        }
     }
+    changeEmail(e){this.setState({newEmail: e.target.value})}
     changeEmailCheck(e){
         this.setState({newEmailCheck: e.target.value})
     }
@@ -117,9 +141,31 @@ class Settings extends React.Component {
                 </div>
                 <div>
                     <label>{(this.state.isPasswordEditable) ? <div>
-                            <div>Old Password<input type='text'/></div>
-                            <div>New Password<input type='text'/></div>
-                            <div>Confirm Password<input type='text'/></div>
+                            <div>Old Password<input type='password'
+                                                                      onChange={(e) => this.changeOldPasswordCheck(e)}
+                                                                      value={this.state.oldPasswordCheck}
+                                                                      onKeyPress={e => {
+                                                                          if (e.key === 'Enter') {
+                                                                              e.preventDefault();
+                                                                          }
+                                                                      }}/></div>
+                            <div>New Password<input type='password'
+                                                    onChange={(e) => this.changePassword(e)}
+                                                    value={this.state.newPassword}
+                                                    onKeyPress={e => {
+                                                        if (e.key === 'Enter') {
+                                                            e.preventDefault();
+                                                        }
+                                                    }}/></div>
+                            <div>Confirm Password<input type='password'
+                                                        onChange={(e) => this.changePasswordCheck(e)}
+                                                        value={this.state.newPasswordCheck}
+                                                        onKeyPress={e => {
+                                                            if (e.key === 'Enter') {
+                                                                e.preventDefault();
+                                                                this.submitPassword();
+                                                            }
+                                                        }}/></div>
                         </div> : <p onClick={() => this.setState({isPasswordEditable: true})}>Change Password</p>}</label>
                 </div>
                 <h1>Settings</h1>

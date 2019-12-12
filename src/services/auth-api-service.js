@@ -32,7 +32,6 @@ const AuthApiService = {
             )
     },
     patchUser(user) {
-        console.log(UserService.getUser())
         return fetch(`${config.API_ENDPOINT}/users/${UserService.getUser().id}`, {
             method: 'PATCH',
             headers: {
@@ -41,6 +40,20 @@ const AuthApiService = {
             },
             body: JSON.stringify(user),
         })
+    },
+    patchPassword(password) {
+        return fetch(`${config.API_ENDPOINT}/users/auth/${UserService.getUser().id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                'authorization': `bearer ${TokenService.getAuthToken()}`
+            },
+            body: JSON.stringify(password),
+        })  .then(res =>
+            (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
+        )
     },
     postUser(user) {
         return fetch(`${config.API_ENDPOINT}/users`, {
