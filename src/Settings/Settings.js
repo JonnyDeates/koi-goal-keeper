@@ -70,8 +70,6 @@ class Settings extends React.Component {
                 id: UserService.getUser().id
             }));
             AuthApiService.patchUser({
-                nickname: this.context.nickname,
-                username: this.context.username,
                 email: this.state.newEmail
             });
             toast.success(`Email changed to: ${this.state.newEmail}`)
@@ -92,7 +90,7 @@ class Settings extends React.Component {
                 email: this.context.email,
                 id: UserService.getUser().id
             }));
-        AuthApiService.patchUser({nickname: this.state.newNickname, username: this.context.username, email: this.context.email})
+        AuthApiService.patchUser({nickname: this.state.newNickname});
         toast.success(`Nickname changed to: ${this.state.newNickname}`)
     } else {
     toast.error(`Nickname is Empty`)
@@ -102,7 +100,7 @@ class Settings extends React.Component {
 
     render() {
         return (
-            <div className="home">
+            <div className="settings">
                 <h1>Profile</h1>
                 <div>
                     <h2>{this.context.username}</h2>
@@ -168,49 +166,51 @@ class Settings extends React.Component {
                                                         }}/></div>
                         </div> : <p onClick={() => this.setState({isPasswordEditable: true})}>Change Password</p>}</label>
                 </div>
-                <h1>Settings</h1>
-                <div className='dropdown-types'>
-                    <p>{this.context.currentTheme}</p>
-                    <ul>
-                        {this.context.themes.map((theme, i) => <li key={i}
-                                                                 className={(this.context.currentTheme === theme) ? 'tinted' : ''}
-                                                                 onClick={() => this.context.setTheme(theme)}>{theme}</li>)}
-                    </ul>
-                </div>
-                <h3>Notifications</h3>
-                <div>
-                    <div className="radio">
-                        <label>
-                            <input type="radio" value="All"
-                                   checked={this.state.selectedNotification === 'All'}
-                                   onChange={(e) => this.handleOptionChange(e)}/>
-                            All Email & Phone
-                        </label>
-                    </div>
-                    <div className="radio">
-                        <label>
-                            <input type="radio" value="Mid"
-                                   checked={this.state.selectedNotification === 'Mid'}
-                                   onChange={(e) => this.handleOptionChange(e)}/>
-                            Just Phone
-                        </label>
-                    </div>
-                    <div className="radio">
-                        <label>
-                            <input type="radio" value="None"
-                                   checked={this.state.selectedNotification === 'None'}
-                                   onChange={(e) => this.handleOptionChange(e)}/>
-                            Off
-                        </label>
-                    </div>
-                </div>
+                {/*<h1>Settings</h1>*/}
+                {/*<div className={'dropdown-wrapper'}>*/}
+                {/*<div className='dropdown-types dropdown-types-settings'>*/}
+                {/*    <p>{this.context.currentTheme}</p>*/}
+                {/*    <ul className={'dropdown-list'}>*/}
+                {/*        {this.context.themes.map((theme, i) => <li key={i}*/}
+                {/*                                                 className={(this.context.currentTheme === theme) ? 'tinted' : ''}*/}
+                {/*                                                 onClick={() => this.context.setTheme(theme)}>{theme}</li>)}*/}
+                {/*    </ul>*/}
+                {/*</div>*/}
+                {/*</div>*/}
+                {/*<h3>Notifications</h3>*/}
+                {/*<div>*/}
+                {/*    <div className="radio">*/}
+                {/*        <label>*/}
+                {/*            <input type="radio" value="All"*/}
+                {/*                   checked={this.state.selectedNotification === 'All'}*/}
+                {/*                   onChange={(e) => this.handleOptionChange(e)}/>*/}
+                {/*            All Email & Phone*/}
+                {/*        </label>*/}
+                {/*    </div>*/}
+                {/*    <div className="radio">*/}
+                {/*        <label>*/}
+                {/*            <input type="radio" value="Mid"*/}
+                {/*                   checked={this.state.selectedNotification === 'Mid'}*/}
+                {/*                   onChange={(e) => this.handleOptionChange(e)}/>*/}
+                {/*            Just Phone*/}
+                {/*        </label>*/}
+                {/*    </div>*/}
+                {/*    <div className="radio">*/}
+                {/*        <label>*/}
+                {/*            <input type="radio" value="None"*/}
+                {/*                   checked={this.state.selectedNotification === 'None'}*/}
+                {/*                   onChange={(e) => this.handleOptionChange(e)}/>*/}
+                {/*            Off*/}
+                {/*        </label>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
                 <h3>Automatic Daily Archiver</h3>
                 <div onClick={()=>this.context.toggleArchiving()}>
-                    <div className="radio2">
-                        {(this.context.autoArchiving) ? <p>Yes</p>:<p>No</p>}
+                    <div className={`auto-archiver ${!(this.context.autoArchiving) ? 'auto-archiver-red' : ''}`}>
+                        {(this.context.autoArchiving) ? 'On' :'Off'}
                     </div>
                 </div>
-                <button>Delete Account</button>
+                <button className='delete' onClick={AuthApiService.deleteUser}>Delete Account</button>
             </div>
         )
     }

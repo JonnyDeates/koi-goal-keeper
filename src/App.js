@@ -21,6 +21,8 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         let iconFolder = './assets/icons/';
+        let dailyDate = new Date();
+        dailyDate.setDate(dailyDate.getDate() + 1)
         this.state = {
             allGoals: [],
             pastGoals: [],
@@ -28,7 +30,7 @@ class App extends React.Component {
             currentGoal: {
                 type: 'Daily',
                 goals: [],
-                date: new Date().toISOString()
+                date: dailyDate.toISOString()
             },
             currentTheme: 'Blue / White',
             autoArchiving: true,
@@ -52,6 +54,9 @@ class App extends React.Component {
         this.handleChecked = this.handleChecked.bind(this);
         this.handleSubmitAdd = this.handleSubmitAdd.bind(this);
         this.handleSubmitAdd = this.handleSubmitAdd.bind(this);
+        this.pushGoal = this.pushGoal.bind(this);
+        this.changeSelectedType = this.changeSelectedType.bind(this);
+        this.handleGoalAdd = this.handleGoalAdd.bind(this);
 
     }
 
@@ -81,7 +86,7 @@ class App extends React.Component {
     }
 
     breakApartGoalData(data) {
-        let newData = {
+        return {
             type: data.type,
             checkedamt: parseInt(data.checkedamt),
             id: data.id,
@@ -99,7 +104,6 @@ class App extends React.Component {
                 }
             })
         };
-        return newData;
     }
 
     checkCurrentGoals(Goal) {
@@ -113,6 +117,16 @@ class App extends React.Component {
         });
     }
 
+    pushGoal(id){
+        let newPastGoal = this.state.allGoals.find(g => g.id === id);
+        toast.success(`Archived ${newPastGoal.type} Goal`);
+        PastGoalService.postPastGoal(newPastGoal);
+        GoalApiService.deleteGoal(id);
+        this.setState({
+            allGoals: this.state.allGoals.filter((Goal) => Goal.id !== id),
+            pastGoals: [...this.state.pastGoals, newPastGoal]
+        });
+    }
 
     addGoal(goal) {
         GoalApiService.postGoal(goal)
@@ -188,6 +202,10 @@ class App extends React.Component {
         this.setState({allGoals: newGoalList})
     }
 
+    handleGoalAdd(Goal){
+        this.setState({currentGoal: Goal});
+    }
+
     handleSubmitAdd(e) {
         e.preventDefault();
         if (this.state.currentGoal.goals.length > 0) {
@@ -195,7 +213,7 @@ class App extends React.Component {
             toast.success(`${this.state.currentGoal.type} Goal Added!`);
             this.setState({
                 currentGoal: {
-                    type: 'Daily',
+                    type: this.state.selectedType,
                     goals: [],
                     date: new Date().toISOString()
                 }
@@ -204,7 +222,9 @@ class App extends React.Component {
             toast.error(`The ${this.state.currentGoal.type} Goal is Missing Objectives.`)
         }
     }
-
+    changeSelectedType(type){
+        this.setState({selectedType: type})
+    }
     render() {
         const value = {
             themes: ['Blue / White', 'Blue / Black', 'Red / White', 'Red / Black'],
@@ -241,7 +261,7 @@ class App extends React.Component {
                             <Route
                                 exact path={'/'}>
                                 {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <Home
-                                    allGoals={this.state.allGoals} deleteGoal={this.deleteGoal}
+                                    allGoals={this.state.allGoals} deleteGoal={this.deleteGoal} pushGoal={this.pushGoal}
                                     handleChecked={this.handleChecked}/>}
                             </Route>
                             <Route exact path={'/add'}>
@@ -251,7 +271,9 @@ class App extends React.Component {
                                              currentGoal={this.state.currentGoal}
                                              addGoal={this.addGoal}
                                              deleteGoal={this.deleteGoal}
+                                             changeSelectedType={this.changeSelectedType}
                                              handleSubmit={this.handleSubmitAdd}
+                                             handleGoalAdd={this.handleGoalAdd}
                                              deleteGoalAdd={this.deleteGoalAdd}
                                              handleChecked={this.handleChecked}/>}
                             </Route>

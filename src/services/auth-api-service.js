@@ -17,19 +17,15 @@ const AuthApiService = {
                     : res.json()
             )
     },
-    DeleteUser(user) {
-        return fetch(`${config.API_ENDPOINT}/users`, {
-            method: 'Delete',
+    deleteUser() {
+        if(UserService.getUser().id)
+        return fetch(`${config.API_ENDPOINT}/users/${UserService.getUser().id}`, {
+            method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
-            },
-            body: JSON.stringify(user),
+                'authorization': `bearer ${TokenService.getAuthToken()}`
+            }
         })
-            .then(res =>
-                (!res.ok)
-                    ? res.json().then(e => Promise.reject(e))
-                    : res.json()
-            )
     },
     patchUser(user) {
         return fetch(`${config.API_ENDPOINT}/users/${UserService.getUser().id}`, {
@@ -42,7 +38,7 @@ const AuthApiService = {
         })
     },
     patchPassword(password) {
-        return fetch(`${config.API_ENDPOINT}/users/auth/${UserService.getUser().id}`, {
+        return fetch(`${config.API_ENDPOINT}/users/auth/${UserService.getUser().id}`,{
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',

@@ -10,11 +10,9 @@ class AddGoal extends React.Component {
         super(props);
         this.state = {
             value: '',
-            types: this.props.types,
-            selectedType: this.props.selectedType,
             currentGoal: this.props.currentGoal,
             deleteGoal: this.props.deleteGoalAdd,
-            handleSubmit: this.props.handleSubmit
+            handleSubmit: this.props.handleSubmit,
         };
         this.handleInput = this.handleInput.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
@@ -31,6 +29,7 @@ class AddGoal extends React.Component {
         let tempDate = new Date();
         switch (type) {
             case 'Daily':
+                tempDate.setDate(tempDate.getDate() + 1);
                 break;
             case 'Weekly':
                 tempDate.setDate(tempDate.getDate() + 7);
@@ -48,12 +47,11 @@ class AddGoal extends React.Component {
                 tempDate.setMonth(tempDate.getMonth() + 5 * 12);
                 break;
             default:
+                tempDate.setDate(tempDate.getDate() + 1);
                 break;
         }
-        this.setState({
-            selectedType: type,
-            currentGoal: {date: tempDate.toISOString(), type: type, goals: this.state.currentGoal.goals}
-        })
+        this.props.changeSelectedType(type);
+        this.props.handleGoalAdd({date: tempDate.toISOString(), type: type, goals: this.state.currentGoal.goals});
     }
 
 
@@ -83,10 +81,10 @@ class AddGoal extends React.Component {
                 <h1> Create Goal </h1>
                 <div className="addition-wrapper">
                     <div className='dropdown-types'>
-                        <p>{this.state.selectedType}</p>
-                        <ul>
-                            {this.state.types.map((type, i) => <li key={i}
-                                                                   className={(this.state.selectedType === type) ? 'tinted' : ''}
+                        <p>{this.props.selectedType}</p>
+                        <ul className='dropdown-list'>
+                            {this.props.types.map((type, i) => <li key={i}
+                                                                   className={(this.props.selectedType === type) ? 'tinted' : ''}
                                                                    onClick={() => this.changeDate(type)}>{type}</li>)}
                         </ul>
                     </div>

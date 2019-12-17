@@ -1,3 +1,33 @@
-.home {
+.dropdown-wrapper {
+    position: relative;
+    z-index: 4;
+}
+.dropdown-types-settings {
+    position: relative;
+}
+.auto-archiver {
+    background: #beffbe;
+    width: min-content;
+    margin: 16px auto 10rem auto;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+.auto-archiver-red {
 
+    background-color: #ffdcdc !important;
+}
+.delete {
+    border: none;
+    border-radius: 10px;
+    margin: 4px;
+    padding: 8px;
+    font-size: large;
+    cursor: pointer;
+    background: #ffffff88;
+    bottom: 14vh;
 }

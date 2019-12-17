@@ -10,7 +10,13 @@
     color: black;
     cursor: pointer;
 }
+
 .pastgoal-links > a:hover {
 background-color: #ffffff55;
     border-radius: 25px;
+}
+.pastgoal-links > a > span {
+    position: relative;
+    top: 40%;
+    color: #222222cc;
 }

@@ -7,7 +7,7 @@ class PastGoals extends React.Component {
             <div>
                 <h1>Past Goals</h1>
                 <div className='pastgoal-links'>
-                {this.props.types.map((type, i)=><Link key={i} to={'/past-goals/' + type}>{type}</Link>)}
+                    {this.props.types.map((type, i)=><Link key={i} to={'/past-goals/' + type}><span>{type}</span></Link>)}
                 </div>
             </div>
         )

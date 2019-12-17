@@ -1,7 +1,7 @@
 import React from 'react';
 import './GoalList.css'
 import GoalItem from "./GoalItem/GoalItem";
-
+const pushIco = require("../assets/icons/push.ico");
 
 class GoalList extends React.Component {
     state = {
@@ -63,6 +63,7 @@ class GoalList extends React.Component {
                 <div className="goallist-title">
                     <span>{this.state.type}</span>
                     <span>Complete By {new Date(this.state.date).toLocaleDateString()}</span>
+                    {(this.state.checkedamt === this.state.goals.length && !this.state.past) ? <img src={pushIco} alt="Push Goals" width='50px' height='50px' onClick={()=> this.props.pushGoal(this.state.goalId)}/> : <></>}
                 </div>
                 <div>
                     {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.goal} checked={goal.checked}
