@@ -16,6 +16,7 @@ import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Settings from "./Settings/Settings";
 import UserService from "./services/user-api-service";
+import AuthApiService from "./services/auth-api-service";
 
 class App extends React.Component {
     constructor(props) {
@@ -62,23 +63,27 @@ class App extends React.Component {
 
     componentDidMount() {
         if (TokenService.getAuthToken()) {
+            if (UserService.hasUserInfo()) {
+                this.setState({username: UserService.getUser().username,
+                    autoArchiving: UserService.getUser().autoArchiving,
+                    email: UserService.getUser().email,
+                    nickname: UserService.getUser().nickname,
+                    id: UserService.getUser().id
+                })
+            }
             GoalApiService.getAllGoals()
                 .then((res) => this.setState({allGoals: this.breakApartAllGoalData(res)}))
                 .then(() => {
-                    this.state.allGoals.forEach(Goal => this.checkCurrentGoals(Goal));
+                    if(this.state.autoArchiving) {
+                        this.state.allGoals.forEach(Goal => this.checkCurrentGoals(Goal));
+                    }
                     this.state.allGoals.sort((A, B) => new Date(A.date) - new Date(B.date));
                 });
             PastGoalService.getAllPastGoals()
                 .then((res) => this.setState({pastGoals: this.breakApartAllGoalData(res)}));
 
         }
-        if (UserService.hasUserInfo()) {
-            this.setState({username: UserService.getUser().username,
-                email: UserService.getUser().email,
-                nickname: UserService.getUser().nickname,
-                id: UserService.getUser().id
-            })
-        }
+
     }
 
     breakApartAllGoalData(data) {
@@ -123,14 +128,16 @@ class App extends React.Component {
         PastGoalService.postPastGoal(newPastGoal);
         GoalApiService.deleteGoal(id);
         this.setState({
-            allGoals: this.state.allGoals.filter((Goal) => Goal.id !== id),
+            allGoals: this.state.allGoals.filter((Goal) => Goal.id !== id)
+                .sort((A, B) => new Date(A.date) - new Date(B.date)),
             pastGoals: [...this.state.pastGoals, newPastGoal]
         });
     }
 
     addGoal(goal) {
         GoalApiService.postGoal(goal)
-            .then((res) => this.setState({allGoals: [...this.state.allGoals, this.breakApartGoalData(res)]}));
+            .then((res) => this.setState({allGoals: [...this.state.allGoals, this.breakApartGoalData(res)]
+                    .sort((A, B) => new Date(A.date) - new Date(B.date))}));
     }
 
     deleteGoal(goalID, ID) {
@@ -235,6 +242,10 @@ class App extends React.Component {
             id: this.state.id,
             nickname: this.state.nickname,
             toggleArchiving: () => {
+                let {id, username, email, notifications, nickname} = UserService.getUser();
+                UserService.saveUser(JSON.stringify({id, username,email, notifications, nickname,
+                    autoArchiving: !this.state.autoArchiving}));
+                AuthApiService.patchUser({auto_archiver: !this.state.autoArchiving});
                 this.setState({autoArchiving: !this.state.autoArchiving})
             },
             setTheme: (e) => {
