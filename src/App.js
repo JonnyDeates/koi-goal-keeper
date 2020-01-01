@@ -265,9 +265,13 @@ class App extends React.Component {
                     <div className="App">
                         <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} autoClose={5000} hideProgressBar={false}
                                         pauseOnHover={true} draggablePercent={60}/>
-                        <Route render={(routeProps) => !(TokenService.hasAuthToken()) ? '' :
-                            <TopNav currentActive={routeProps.location}
-                                    links={this.state.links}/>}/>
+                        <div className="min-Width">
+                            <Route render={(routeProps) => !(TokenService.hasAuthToken()) ? '' :
+                                <TopNav currentActive={routeProps.location}
+                                        links={this.state.links}/>}/>
+                        </div>
+                        <div className="min-Width-Two">
+
                         <Switch>
                             <Route
                                 exact path={'/'}>
@@ -311,8 +315,8 @@ class App extends React.Component {
                             <Route path={'/register'}> {(TokenService.hasAuthToken()) ? <Redirect to={'/'}/> :
                                 <Register/>}</Route>
                         </Switch>
-                        {/*<Route exact path="/settings"><Settings/></Route>*/}
-
+                        </div>
+                    <div className="min-Width"/>
                     </div>
                 </SettingsContext.Provider>
             </Router>

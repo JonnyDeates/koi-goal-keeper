@@ -1,29 +1,37 @@
 .nav {
-    justify-content: space-evenly;
-    display: flex;
-    position: fixed;
-    width: 100vw;
-    padding: 0;
+    display: inline-block;
+    margin-right: 16px;
     z-index: 3;
-    bottom:  0;
-    background-color: #84adea;
+    text-align: center;
+    position: fixed;
 }
 .nav > img{
-    margin: 8px;
+    display: block;
     cursor: pointer;
+    bottom: 0;
+    position: fixed;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 12px;
+    background-color: #84adea;
+    width: 48px;
+    height: 48px;
 }
 .nav > a {
     font-size: x-large;
-    padding: 8px 16px;
-    margin: 0 4px;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 12px;
     color: black;
     text-decoration: none;
     cursor: pointer;
-    background-color: #ffffff00;
+    display: block;
+    background-color: #84adea;
+    /*background-color: #ffffff00;*/
 }
 .nav > a > img{
     cursor:pointer;
-    width: 60px;
+    width: 48px;
 }
 .nav > button {
     font-size: x-large;
