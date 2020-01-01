@@ -10,14 +10,18 @@
     color: white;
 }
 .even-space{
+    font-size: x-large;
     position: relative;
     display: flex;
     justify-content: space-between;
-    color: purple;
+    color: white;
     cursor: pointer;
 }
+.even-space > input {
+    font-size: x-large;
+}
 .even-space > span, .even-space > p{
-    color: black
+    color: black;
 }
 .even-space > button {
     background: #00000022;

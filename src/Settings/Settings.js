@@ -211,7 +211,7 @@ class Settings extends React.Component {
                             <button type='submit'>Submit</button>
                         </div>
                     </form> : <p className='even-space'
-                             onClick={() => this.setState({isPasswordEditable: true})}>Change Password</p>}
+                                 onClick={() => this.setState({isPasswordEditable: true})}>Change Password<span>*******</span></p>}
                 </section>
                 {/*<h1>Settings</h1>*/}
                 {/*<div className={'dropdown-wrapper'}>*/}
@@ -256,7 +256,7 @@ class Settings extends React.Component {
                         Automatic Daily Archiver
                         <span>{(this.context.autoArchiving) ? 'On' : 'Off'}</span></label>
                 </section>
-                <button className='delete' onClick={AuthApiService.deleteUser}>Delete Account</button>
+                <button className='delete' onClick={AuthApiService.deleteUser}>Suspend Account</button>
             </div>
         )
     }
