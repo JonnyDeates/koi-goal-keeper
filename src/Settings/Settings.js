@@ -7,6 +7,7 @@ import UserService from "../services/user-api-service";
 
 class Settings extends React.Component {
     static contextType = SettingsContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -28,22 +29,32 @@ class Settings extends React.Component {
             selectedNotification: e.target.value
         });
     }
-    changeOldPasswordCheck(e){this.setState({oldPasswordCheck: e.target.value})}
-    changePassword(e){this.setState({newPassword: e.target.value})}
-    changePasswordCheck(e){this.setState({newPasswordCheck: e.target.value})}
-    submitPassword(){
-        if(this.state.oldPasswordCheck.trim().length === 0 || this.state.newPassword.trim().length === 0 || this.state.newPasswordCheck.trim().length === 0){
+
+    changeOldPasswordCheck(e) {
+        this.setState({oldPasswordCheck: e.target.value})
+    }
+
+    changePassword(e) {
+        this.setState({newPassword: e.target.value})
+    }
+
+    changePasswordCheck(e) {
+        this.setState({newPasswordCheck: e.target.value})
+    }
+
+    submitPassword() {
+        if (this.state.oldPasswordCheck.trim().length === 0 || this.state.newPassword.trim().length === 0 || this.state.newPasswordCheck.trim().length === 0) {
             toast.warn('Fill All Fields');
             return null;
         }
-        if(this.state.newPassword === this.state.newPasswordCheck) {
+        if (this.state.newPassword === this.state.newPasswordCheck) {
             this.setState({isPasswordEditable: false});
             AuthApiService.patchPassword({password: this.state.newPassword, oldPassword: this.state.oldPasswordCheck})
-                .then(()=> {
-                    this.setState({newPassword:'', oldPasswordCheck: '', newPasswordCheck: ''});
+                .then(() => {
+                    this.setState({newPassword: '', oldPasswordCheck: '', newPasswordCheck: ''});
                     toast.success(`Password changed`)
                 })
-                .catch(error=> {
+                .catch(error => {
                     toast.error(`${error.error}`)
                 })
 
@@ -51,18 +62,24 @@ class Settings extends React.Component {
             toast.error(`The Passwords aren't matching`)
         }
     }
-    changeEmail(e){this.setState({newEmail: e.target.value})}
-    changeEmailCheck(e){
+
+    changeEmail(e) {
+        this.setState({newEmail: e.target.value})
+    }
+
+    changeEmailCheck(e) {
         this.setState({newEmailCheck: e.target.value})
     }
-    submitEmail(){
-        if(this.state.newEmail.trim().length === 0 || this.state.newEmailCheck.trim().length === 0){
+
+    submitEmail(e) {
+        e.preventDefault();
+        if (this.state.newEmail.trim().length === 0 || this.state.newEmailCheck.trim().length === 0) {
             toast.warn('Please Enter an Email');
             return null;
         }
-        if(this.state.newEmail === this.state.newEmailCheck) {
+        if (this.state.newEmail === this.state.newEmailCheck) {
             this.context.updateEmail(this.state.newEmail);
-            this.setState({isEmailEditable: false});
+            this.setState({isEmailEditable: false, newEmail: '', newEmailCheck: ''});
             UserService.saveUser(JSON.stringify({
                 nickname: this.context.nickname,
                 username: this.context.username,
@@ -77,24 +94,27 @@ class Settings extends React.Component {
             toast.error(`The Emails aren't matching`)
         }
     }
-    changeNickname(e){
+
+    changeNickname(e) {
         this.setState({newNickname: e.target.value})
     }
-    submitNickname(){
-        if(this.state.newNickname.trim().length > 0){
-        this.context.updateNickname(this.state.newNickname);
-        this.setState({isUsernameEditable:false});
+
+    submitNickname(e) {
+        e.preventDefault();
+        if (this.state.newNickname.trim().length > 0) {
+            this.context.updateNickname(this.state.newNickname);
+            this.setState({isUsernameEditable: false});
             UserService.saveUser(JSON.stringify({
                 nickname: this.state.newNickname,
                 username: this.context.username,
                 email: this.context.email,
                 id: UserService.getUser().id
             }));
-        AuthApiService.patchUser({nickname: this.state.newNickname});
-        toast.success(`Nickname changed to: ${this.state.newNickname}`)
-    } else {
-    toast.error(`Nickname is Empty`)
-}
+            AuthApiService.patchUser({nickname: this.state.newNickname});
+            toast.success(`Nickname changed to: ${this.state.newNickname}`)
+        } else {
+            toast.error(`Nickname is Empty`)
+        }
     }
 
 
@@ -102,70 +122,97 @@ class Settings extends React.Component {
         return (
             <div className="settings">
                 <h1>Profile</h1>
-                <div>
+                <section>
                     <h2>{this.context.username}</h2>
-                    <label>Nickname: {(this.state.isUsernameEditable) ? <input type='text'
-                                                                               onChange={(e) => this.changeNickname(e)}
-                                                                               value={this.state.newNickname}
-                                                                               onKeyPress={e => {
-                                                                                   if (e.key === 'Enter') {
-                                                                                       e.preventDefault();
-                                                                                       this.submitNickname();
-                                                                                   }
-                                                                               }}/> :
-                        <span onClick={() => this.setState({isUsernameEditable: true})}>{this.context.nickname}</span>}</label>
-                </div>
-                <div>
-                    <label>{(this.state.isEmailEditable) ? <div>
-                        <div>Old Email: {this.context.email}</div>
-                        <div>New Email: <input type='text'
-                                               onChange={(e) => this.changeEmail(e)}
-                                               value={this.state.newEmail}
-                                               onKeyPress={e => {
-                                                   if (e.key === 'Enter') {
-                                                       e.preventDefault();
-                                                   }
-                                               }}/></div>
-                        <div>Confirm Email: <input type='text'
-                                                   onChange={(e) => this.changeEmailCheck(e)}
-                                                   value={this.state.newEmailCheck}
-                                                   onKeyPress={e => {
-                                                       if (e.key === 'Enter') {
-                                                           e.preventDefault();
-                                                           this.submitEmail();
-                                                       }
-                                                   }}/></div>
-                    </div> : <p onClick={() => this.setState({isEmailEditable: true})}>Change Email {this.context.email}</p>}</label>
-                </div>
-                <div>
-                    <label>{(this.state.isPasswordEditable) ? <div>
-                            <div>Old Password<input type='password'
-                                                                      onChange={(e) => this.changeOldPasswordCheck(e)}
-                                                                      value={this.state.oldPasswordCheck}
-                                                                      onKeyPress={e => {
-                                                                          if (e.key === 'Enter') {
-                                                                              e.preventDefault();
-                                                                          }
-                                                                      }}/></div>
-                            <div>New Password<input type='password'
-                                                    onChange={(e) => this.changePassword(e)}
-                                                    value={this.state.newPassword}
-                                                    onKeyPress={e => {
-                                                        if (e.key === 'Enter') {
-                                                            e.preventDefault();
-                                                        }
-                                                    }}/></div>
-                            <div>Confirm Password<input type='password'
-                                                        onChange={(e) => this.changePasswordCheck(e)}
-                                                        value={this.state.newPasswordCheck}
-                                                        onKeyPress={e => {
-                                                            if (e.key === 'Enter') {
-                                                                e.preventDefault();
-                                                                this.submitPassword();
-                                                            }
-                                                        }}/></div>
-                        </div> : <p onClick={() => this.setState({isPasswordEditable: true})}>Change Password</p>}</label>
-                </div>
+                    {(this.state.isUsernameEditable)
+                        ? <form onSubmit={(e) => this.submitNickname(e)}>
+                            <label className='even-space'>Nickname:
+                                <input type='text' onChange={(e) => this.changeNickname(e)}
+                                       value={this.state.newNickname}
+                                       onKeyPress={e => {
+                                           if (e.key === 'Enter') {
+                                               e.preventDefault();
+                                               this.submitNickname(e);
+                                           }
+                                       }}/> </label>
+                            <div className='even-space'>
+                                <button onClick={() => this.setState({isUsernameEditable: false})}
+                                        type='button'>Cancel
+                                </button>
+                                <button type='submit'>Submit</button>
+                            </div>
+                        </form>
+                        :
+                        <p className='even-space'
+                           onClick={() => this.setState({isUsernameEditable: true})}>Nickname: <span>{this.context.nickname}</span>
+                        </p>
+                    }
+
+                </section>
+                <section>
+                    <form onSubmit={(e) => this.submitEmail(e)}>{(this.state.isEmailEditable) ? <>
+                        <label className='even-space'>Old Email: <span>{this.context.email}</span></label>
+                        <label className='even-space'>New Email: <input type='text'
+                                                                        onChange={(e) => this.changeEmail(e)}
+                                                                        value={this.state.newEmail}
+                                                                        onKeyPress={e => {
+                                                                            if (e.key === 'Enter') {
+                                                                                e.preventDefault();
+                                                                            }
+                                                                        }}/></label>
+                        <label className='even-space'>Confirm Email: <input type='text'
+                                                                            onChange={(e) => this.changeEmailCheck(e)}
+                                                                            value={this.state.newEmailCheck}
+                                                                            onKeyPress={e => {
+                                                                                if (e.key === 'Enter') {
+                                                                                    e.preventDefault();
+                                                                                    this.submitEmail(e);
+                                                                                }
+                                                                            }}/></label>
+                        <div className='even-space'>
+                            <button onClick={() => this.setState({isEmailEditable: false})}>Cancel</button>
+                            <button type='submit'>Submit</button>
+                        </div>
+                    </> : <p className='even-space' onClick={() => this.setState({isEmailEditable: true})}>Change
+                        Email <span>{this.context.email}</span></p>}
+                    </form>
+                </section>
+                <section>
+                    {(this.state.isPasswordEditable) ? <form onSubmit={(e) => this.submitPassword(e)}>
+                        <label className='even-space'>Old Password<input type='password'
+                                                                         onChange={(e) => this.changeOldPasswordCheck(e)}
+                                                                         value={this.state.oldPasswordCheck}
+                                                                         onKeyPress={e => {
+                                                                             if (e.key === 'Enter') {
+                                                                                 e.preventDefault();
+                                                                             }
+                                                                         }}/></label>
+                        <label className='even-space'>New Password<input type='password'
+                                                                         onChange={(e) => this.changePassword(e)}
+                                                                         value={this.state.newPassword}
+                                                                         onKeyPress={e => {
+                                                                             if (e.key === 'Enter') {
+                                                                                 e.preventDefault();
+                                                                             }
+                                                                         }}/></label>
+                        <label className='even-space'>Confirm Password<input type='password'
+                                                                             onChange={(e) => this.changePasswordCheck(e)}
+                                                                             value={this.state.newPasswordCheck}
+                                                                             onKeyPress={e => {
+                                                                                 if (e.key === 'Enter') {
+                                                                                     e.preventDefault();
+                                                                                     this.submitPassword(e);
+                                                                                 }
+                                                                             }}/></label>
+                        <div className='even-space'>
+                            <button onClick={() => this.setState({isPasswordEditable: false})}
+                                    type='button'>Cancel
+                            </button>
+                            <button type='submit'>Submit</button>
+                        </div>
+                    </form> : <p className='even-space'
+                             onClick={() => this.setState({isPasswordEditable: true})}>Change Password</p>}
+                </section>
                 {/*<h1>Settings</h1>*/}
                 {/*<div className={'dropdown-wrapper'}>*/}
                 {/*<div className='dropdown-types dropdown-types-settings'>*/}
@@ -204,12 +251,11 @@ class Settings extends React.Component {
                 {/*        </label>*/}
                 {/*    </div>*/}
                 {/*</div>*/}
-                <h3>Automatic Daily Archiver</h3>
-                <div onClick={()=>this.context.toggleArchiving()}>
-                    <div className={`auto-archiver ${!(this.context.autoArchiving) ? 'auto-archiver-red' : ''}`}>
-                        {(this.context.autoArchiving) ? 'On' :'Off'}
-                    </div>
-                </div>
+                <section >
+                    <label className='even-space' onClick={() => this.context.toggleArchiving()}>
+                        Automatic Daily Archiver
+                        <span>{(this.context.autoArchiving) ? 'On' : 'Off'}</span></label>
+                </section>
                 <button className='delete' onClick={AuthApiService.deleteUser}>Delete Account</button>
             </div>
         )

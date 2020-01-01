@@ -5,29 +5,34 @@
 .dropdown-types-settings {
     position: relative;
 }
-.auto-archiver {
-    background: #beffbe;
-    width: min-content;
-    margin: 16px auto 10rem auto;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+/Edge */
-    user-select: none; /* Standard */
+.settings h1, .settings h2{
+    text-align: left;
+    color: white;
 }
-.auto-archiver-red {
-
-    background-color: #ffdcdc !important;
+.even-space{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    color: purple;
+    cursor: pointer;
+}
+.even-space > span, .even-space > p{
+    color: black
+}
+.even-space > button {
+    background: #00000022;
+    border: 0;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 8px 4px;
+    padding: 4px 8px;
 }
 .delete {
     border: none;
     border-radius: 10px;
-    margin: 4px;
+    margin-top: 96px;
     padding: 8px;
     font-size: large;
     cursor: pointer;
     background: #ffffff88;
-    bottom: 14vh;
 }
