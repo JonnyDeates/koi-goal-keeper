@@ -103,16 +103,17 @@ class AddGoal extends React.Component {
                         </div>
                     </section>
                 </div>
+                <div className='submit-goals' >
+                    <button type='submit' onClick={this.handleSubmit} onKeyPress={e => {
+                        if (e.key === 'Enter') e.preventDefault();
+                    }}>Add Goal
+                    </button>
+                </div>
                 <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false}
                           date={this.state.currentGoal.date} type={this.state.currentGoal.type}
                           showChecked={false} handleChecked={this.props.handleChecked}
                           deleteGoal={this.state.deleteGoal} goals={this.state.currentGoal.goals}/>
-                <div>
-                    <button className='submit-goals' type='submit' onClick={this.handleSubmit} onKeyPress={e => {
-                        if (e.key === 'Enter') e.preventDefault();
-                    }}>+
-                    </button>
-                </div>
+
             </form>
         )
     }

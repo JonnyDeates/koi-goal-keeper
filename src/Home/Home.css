@@ -1,7 +1,7 @@
 .home {
 
 }
-.home h1 {
+.home h1, .home h2{
     text-align: left;
     color: white;
     margin: .67em 4px;

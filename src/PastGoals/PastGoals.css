@@ -1,5 +1,10 @@
-.pastgoal-links {
+.past-goals {
 
+}
+.past-goals h1, .past-goals h2 {
+    color: white;
+    text-align: left;
+    margin-left: 8px;
 }
 .pastgoal-links > a {
     display: inline-block;

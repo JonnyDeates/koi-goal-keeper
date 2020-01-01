@@ -13,6 +13,8 @@ class GoalList extends React.Component {
         showCompleted: this.props.showCompleted,
         isEditable: this.props.isEditable,
         showChecked: this.props.showChecked,
+        showDelete: this.props.showDelete,
+        compacted: this.props.compacted,
         deleteGoal: this.props.deleteGoal,
         past: this.props.past,
         checkedamt: this.props.checkedamt
@@ -41,6 +43,12 @@ class GoalList extends React.Component {
         if(prevProps.goalId !== this.props.goalId) {
             this.setState({goalId: this.props.goalId})
         }
+        if(prevProps.showDelete !== this.props.showDelete) {
+            this.setState({showDelete: this.props.showDelete})
+        }
+        if(prevProps.compacted !== this.props.compacted) {
+            this.setState({compacted: this.props.compacted})
+        }
     }
     handleGoal(e) {
         this.setState({value: e.target.value})
@@ -58,15 +66,13 @@ class GoalList extends React.Component {
     render() {
         return (
             <div className="goallist">
-
-
-                <div className="goallist-title">
+                <div className={this.state.compacted ? 'goallist-title compacted' : 'goallist-title'}>
                     <p>{this.state.type}</p>
                     <p>{new Date(this.state.date).toLocaleDateString()}</p>
                     {(this.state.checkedamt === this.state.goals.length && !this.state.past) ? <img src={pushIco} alt="Push Goals" width='50px' height='50px' onClick={()=> this.props.pushGoal(this.state.goalId)}/> : <></>}
-                    {(this.state.showCompleted) ? <p>{this.state.checkedamt}</p> : ''}
+                    {(this.state.showCompleted && this.state.goals.length > 1) ? <p>{this.state.checkedamt}</p> : ''}
                 </div>
-                <ul>
+                <ul className={this.state.compacted ? 'compacted' : ''}>
                     {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.goal} checked={goal.checked}
                                                                  handleChecked={this.props.handleChecked} id={goal.id}
                                                                  bgColor={(i % 2) ? 'tinted' : ''}
@@ -74,6 +80,7 @@ class GoalList extends React.Component {
                                                                  handleEditGoal={this.handleEditGoal}
                                                                  deleteGoal={this.state.deleteGoal}
                                                                  showChecked={this.state.showChecked}
+                                                                 showDelete={this.state.showDelete}
                                                                  past={this.state.past}
                     />)}
                 </ul>

@@ -35,9 +35,9 @@ class GoalItem extends React.Component {
 
                 <div>{(this.state.isEditable) ? <img onClick={this.toggleEdit} alt={'edit'}
                                                      src={(this.state.isEditing) ? require('../../assets/icons/plus.ico') : require('../../assets/icons/pencil.ico')}/> : ''}
-                    <button type="button" className="close-button"
+                    {(this.props.showDelete) ? <button type="button" className="close-button"
                             onClick={() => this.state.deleteGoal(this.props.goalId, this.props.id)}>X
-                    </button>
+                    </button> : ''}
                 </div>
             </li>
         );

@@ -78,18 +78,24 @@
     background-color: lightgray;
 }
 .submit-goals {
+    position: absolute;
+    right: 0;
+    margin-top: 12px;
+    margin-right: 12px;
+    z-index: 1;
+}
+.submit-goals > button {
     border: none;
     border-radius: 15px;
     margin: 4px;
-    position: fixed;
-    padding: 16px 10vw;
-    left: 40%;
-    font-size: xx-large;
+    padding: 24px 4vw;
+    font-size: medium;
+    width: min-content;
     cursor: pointer;
     background: #ffffff88;
-    bottom: 14vh;
+
 }
-.submit-goals:hover {
+.submit-goals:hover > button {
     background: #ffffffdd;
 }
 @media (min-width: 480px) {
@@ -110,5 +116,31 @@
     }
 }
 @media (min-width: 481px) and (max-width: 767px) {
+    .submit-goals > button {
+        margin: 4px;
+        padding: 20px 6vw;
+        font-size: larger;
+        width: min-content;
+        cursor: pointer;
+        background: #ffffff88;
 
+    }
+}
+@media (min-width: 767px) {
+    .submit-goals {
+        position: absolute;
+        right: unset;
+        margin: -21px 0 0 113px;
+        z-index: 0;
+    }
+    .submit-goals > button {
+        margin: 4px;
+        padding: 12px 16px;
+        width: unset;
+        font-size: large;
+        cursor: pointer;
+        border-radius: 15px 15px 0 0;
+        background: #e6eef5;
+
+    }
 }

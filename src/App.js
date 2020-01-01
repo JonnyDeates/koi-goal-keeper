@@ -6,7 +6,6 @@ import AddGoal from './AddGoal/AddGoal.js'
 import {Route, BrowserRouter as Router, Switch, Redirect} from "react-router-dom";
 import {SettingsContext} from "./Settings/SettingsContext"
 import PastGoals from "./PastGoals/PastGoals";
-import PastGoalsLinks from "./PastGoals/PastGoalsLinks";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
 import GoalApiService from "./services/goals-api-service";
@@ -295,17 +294,11 @@ class App extends React.Component {
 
                             <Route
                                 exact path={'/past-goals'}>
-                                {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <PastGoalsLinks
-                                    types={this.state.types}/>}</Route>
-                            <Route path={'/past-goals/'}
-                                   component={(routeProps) => !(TokenService.hasAuthToken()) ?
-                                       <Redirect to={'/login'}/> :
-                                       <PastGoals
-                                           type={routeProps.location.pathname.substring(12)}
-                                           deleteGoal={this.deletePastGoal}
-                                           handleChecked={this.handleChecked}
-
-                                           pastGoals={this.state.pastGoals.filter((pg) => pg.type === routeProps.location.pathname.substring(12))}/>}/>
+                                {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <PastGoals
+                                    types={this.state.types}
+                                    deleteGoal={this.deletePastGoal}
+                                    handleChecked={this.handleChecked}
+                                    pastGoals={this.state.pastGoals.reverse()}/>}</Route>
                             <Route
                                 exact path={'/settings'}>
                                 {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <Settings/>}

@@ -18,6 +18,7 @@
     border-radius: 12px;
     width: 35px;
     height: 35px;
+    filter: grayscale(1);
 }
 .nav > a {
     font-size: x-large;
@@ -35,6 +36,7 @@
     cursor:pointer;
     width: 35px;
     height: 35px;
+    filter: grayscale(1);
 }
 .nav > button {
     font-size: x-large;
@@ -80,6 +82,7 @@
         height: 48px;
         transition: all;
         animation: ease-in 1s;
+        filter: grayscale(0);
     }
     .nav > a {
         font-size: x-large;

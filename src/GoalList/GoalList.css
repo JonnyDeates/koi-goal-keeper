@@ -9,6 +9,12 @@
     position: relative;
     display: flex;
 }
+.goallist-title img {
+    filter: grayscale(1) brightness(1.25) opacity(0.5);
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+}
 .goallist > p {
     position: absolute;
     left: 16px;
@@ -69,11 +75,12 @@
     background-color: #ffffff55;
     padding: 4px 4px;
     border-radius: 10px;
+
 }
 .goallist-item > div > img:hover {
     background-color: #ffffffaa;
 }
-.goallist-item > .checkboxinput {
+.checkboxinput {
     margin: auto 0;
     width: 20px;
     height: 20px;
@@ -85,10 +92,13 @@
     height: fit-content;
     margin: 16px 0;
 }
+.compacted > * { margin: 4px 0}
+.compacted > li > *{ margin: 4px 0}
 @media (min-width: 481px) and (max-width:766px){
 
 }
 @media (min-width: 767px) {
+    .compacted > * { margin: 0}
     .goallist {
         padding: 1em 16px;
         background-color: unset;
@@ -110,6 +120,7 @@
         left: 84px;
         top: -20px;
         border-radius: 0;
+        display: inline-flex;
     }
     .goallist-item:nth-child(odd) {
         background-color: #e6eef599;
