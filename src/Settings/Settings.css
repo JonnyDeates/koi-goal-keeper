@@ -8,11 +8,12 @@
 .settings h1, .settings h2{
     text-align: left;
     color: white;
+    margin-left: 8px;
 }
 .even-space{
     font-size: x-large;
     position: relative;
-    display: flex;
+    display: block;
     justify-content: space-between;
     color: white;
     cursor: pointer;
@@ -39,4 +40,21 @@
     font-size: large;
     cursor: pointer;
     background: #ffffff88;
+}
+@media (min-width: 481px) {
+    .nav > img, .nav > a > img {
+        width: 48px;
+        height: 48px;
+    }
+}
+@media (min-width: 767px) {
+    .settings h1, .settings h2 {
+        text-align: left;
+        color: white;
+        margin-left: 0px;
+    }
+
+    .even-space {
+        display: flex;
+    }
 }

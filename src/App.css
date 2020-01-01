@@ -13,7 +13,7 @@
 }
 
 .min-Width-Two {
-    min-width: 0;
+    min-width: -webkit-fill-available;
 }
 
 .App-logo {
@@ -57,6 +57,9 @@
     }
 }
 @media (min-width: 767px) {
+    .add-input > input {
+        font-size: large;
+    }
     .App {
         margin-top: 0;
     }

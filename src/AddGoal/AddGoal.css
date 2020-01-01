@@ -1,13 +1,18 @@
 .addition-wrapper {
-    justify-content: space-evenly;
     display: flex;
+    justify-content: space-evenly;
+}
+.add-goal h1{
+    color: white;
+    text-align: left;
+    margin-left: 8px;
 }
 .add-input {
     font-size: large;
     margin: 16px 0;
 }
 .add-input > input {
-    font-size: larger;
+    font-size: medium;
     margin: 0 10px;
 }
 .add-input > button {
@@ -30,10 +35,10 @@
     opacity: 1;
 }
 .dropdown-types > p {
-    width: 75px;
+    width: 50px;
     border-radius: 10px;
     margin: 0 auto;
-    padding: 16px;
+    padding: 16px 24px 16px 15px;
     background-color: white;
     border: 1px lightgray solid;
 }
@@ -46,7 +51,7 @@
     overflow: hidden;
     opacity: 0;
     z-index: 1;
-    width: 108px;
+    width: 88px;
     -webkit-transition: all 2s ease;
     -moz-transition: all 2s ease ;
     -ms-transition: all 2s ease ;
@@ -87,9 +92,10 @@
 .submit-goals:hover {
     background: #ffffffdd;
 }
-@media (max-width: 480px) {
+@media (min-width: 480px) {
 .addition-wrapper {
-    display: block;
+    justify-content: space-evenly;
+    display: flex;
 }
     .dropdown-types{
         width: unset;

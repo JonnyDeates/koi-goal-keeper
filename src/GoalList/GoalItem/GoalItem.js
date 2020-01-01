@@ -17,7 +17,7 @@ class GoalItem extends React.Component {
 
     render() {
         return (
-            <div className={'goallist-item ' + this.props.bgColor}>
+            <li className={'goallist-item ' + this.props.bgColor}>
                 {(this.props.past) ? (this.props.checked) ? <h6>Completed</h6> : <h6>Unchecked</h6> : ''}
                 {(this.props.showChecked) ? <input className="checkboxinput" type='checkbox'
                                                    onChange={() => this.props.handleChecked(this.props.goalId, this.props.id)}
@@ -32,12 +32,14 @@ class GoalItem extends React.Component {
                                                                               }
                                                                           }}
                 /> : <p onDoubleClick={this.toggleEdit}>{this.props.goal}</p>}
-                {(this.state.isEditable) ? <img onClick={this.toggleEdit} alt={'edit'}
-                                                  src={(this.state.isEditing) ? require('../../assets/icons/plus.ico') : require('../../assets/icons/pencil.ico')}/> : ''}
-                <button type="button" className="close-button"
-                        onClick={() => this.state.deleteGoal(this.props.goalId, this.props.id)}>X
-                </button>
-            </div>
+
+                <div>{(this.state.isEditable) ? <img onClick={this.toggleEdit} alt={'edit'}
+                                                     src={(this.state.isEditing) ? require('../../assets/icons/plus.ico') : require('../../assets/icons/pencil.ico')}/> : ''}
+                    <button type="button" className="close-button"
+                            onClick={() => this.state.deleteGoal(this.props.goalId, this.props.id)}>X
+                    </button>
+                </div>
+            </li>
         );
     }
 

@@ -77,7 +77,7 @@ class AddGoal extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.state.handleSubmit}>
+            <form className='add-goal' onSubmit={this.state.handleSubmit}>
                 <h1> Create Goal </h1>
                 <div className="addition-wrapper">
                     <div className='dropdown-types'>
@@ -88,15 +88,20 @@ class AddGoal extends React.Component {
                                                                    onClick={() => this.changeDate(type)}>{type}</li>)}
                         </ul>
                     </div>
-                    <div className='add-input'>
+                    <section className='add-input'>
                         <input value={this.state.value} onChange={this.handleInput} onKeyPress={e => {
                             if (e.key === 'Enter') {
                                 e.preventDefault();
                                 this.handleAdd(e);
                             }
                         }}/>
-                        <button type="button" onClick={this.handleAdd}>+</button>
-                    </div>
+                        <div className='even-space'>
+                            <button onClick={() => this.setState({value: ''})}
+                                    type='button'>Cancel
+                            </button>
+                            <button onClick={this.handleAdd} type='button'>Submit</button>
+                        </div>
+                    </section>
                 </div>
                 <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false}
                           date={this.state.currentGoal.date} type={this.state.currentGoal.type}

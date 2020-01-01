@@ -1,3 +1,8 @@
 .home {
 
 }
+.home h1 {
+    text-align: left;
+    color: white;
+    margin: .67em 4px;
+}

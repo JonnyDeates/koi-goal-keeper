@@ -1,6 +1,8 @@
 .goallist{
     background-color: #e6eef5;
-    padding: 2rem 0;
+    padding: 1rem 0;
+    margin: 1rem;
+    border-radius: 10px;
 }
 .goallist-title {
     justify-content: space-evenly;
@@ -30,13 +32,18 @@
     background: transparent;
     max-height: 85%;
 }
+.goallist > ul {
+    padding-inline-start: 0;
+}
 .goallist-item {
     display: flex;
     justify-content: space-evenly;
     position: relative;
-    border-radius: 25px;
     font-size: large;
     animation: 2s popIn forwards;
+}
+.goallist-item:nth-child(odd) {
+    background-color: #86c6ff33;
 }
 /*.goallist-item > button{*/
     /*margin: 16px 0;*/
@@ -50,7 +57,10 @@
      max-width: 50vw;
      min-width: 50vw;
  }
-.goallist-item > img {
+.goallist-item > div {
+    display: flex;
+}
+.goallist-item > div > img {
     width: 30px;
     height: 30px;
     cursor: pointer;
@@ -60,7 +70,7 @@
     padding: 4px 4px;
     border-radius: 10px;
 }
-.goallist-item > img:hover {
+.goallist-item > div > img:hover {
     background-color: #ffffffaa;
 }
 .goallist-item > .checkboxinput {
@@ -75,9 +85,50 @@
     height: fit-content;
     margin: 16px 0;
 }
-.tinted{
-    background-color: #00000033;
+@media (min-width: 481px) and (max-width:766px){
+
 }
+@media (min-width: 767px) {
+    .goallist {
+        padding: 1em 16px;
+        background-color: unset;
+    }
+    .goallist-title {
+        position: absolute;
+        display: block;
+        text-align: right;
+        margin-top: -4px !important;
+        padding: 0 0 8px 4px;
+        border-radius: 15px 0px 0px 0px;
+        background-color: #e6eef5;
+    }
+    .goallist-title > p {
+        margin: 0;
+    }
+    .goallist-item {
+        background-color: #e6eef5;
+        left: 84px;
+        top: -20px;
+        border-radius: 0;
+    }
+    .goallist-item:nth-child(odd) {
+        background-color: #e6eef599;
+    }
+    .goallist-item:first-child {
+        border-radius: 0 15px 0 0 ;
+    }
+    .goallist-item:last-child {
+        border-radius: 0 0 15px 15px;
+    }
+    .goallist-item > div > button {
+        padding: 0;
+        width: 34px;
+        height: 34px;
+        font-weight: 900;
+    }
+}
+
+
 
 @keyframes popIn {
     0% {

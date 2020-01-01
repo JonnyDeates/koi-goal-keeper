@@ -59,13 +59,14 @@ class GoalList extends React.Component {
         return (
             <div className="goallist">
 
-                {(this.state.showCompleted) ? <p>Completed: {this.state.checkedamt}</p> : ''}
+
                 <div className="goallist-title">
-                    <span>{this.state.type}</span>
-                    <span>Complete By {new Date(this.state.date).toLocaleDateString()}</span>
+                    <p>{this.state.type}</p>
+                    <p>{new Date(this.state.date).toLocaleDateString()}</p>
                     {(this.state.checkedamt === this.state.goals.length && !this.state.past) ? <img src={pushIco} alt="Push Goals" width='50px' height='50px' onClick={()=> this.props.pushGoal(this.state.goalId)}/> : <></>}
+                    {(this.state.showCompleted) ? <p>{this.state.checkedamt}</p> : ''}
                 </div>
-                <div>
+                <ul>
                     {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.goal} checked={goal.checked}
                                                                  handleChecked={this.props.handleChecked} id={goal.id}
                                                                  bgColor={(i % 2) ? 'tinted' : ''}
@@ -75,7 +76,7 @@ class GoalList extends React.Component {
                                                                  showChecked={this.state.showChecked}
                                                                  past={this.state.past}
                     />)}
-                </div>
+                </ul>
             </div>
         );
     }

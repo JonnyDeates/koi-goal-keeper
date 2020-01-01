@@ -120,7 +120,7 @@ class Settings extends React.Component {
 
     render() {
         return (
-            <div className="settings">
+            <main className="settings">
                 <h1>Profile</h1>
                 <section>
                     <h2>{this.context.username}</h2>
@@ -257,7 +257,7 @@ class Settings extends React.Component {
                         <span>{(this.context.autoArchiving) ? 'On' : 'Off'}</span></label>
                 </section>
                 <button className='delete' onClick={AuthApiService.deleteUser}>Suspend Account</button>
-            </div>
+            </main>
         )
     }
 }
