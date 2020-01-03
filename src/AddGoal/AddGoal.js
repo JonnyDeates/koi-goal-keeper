@@ -3,9 +3,11 @@ import "./AddGoal.css";
 import GoalList from "../GoalList/GoalList";
 import cuid from 'cuid';
 import {toast} from 'react-toastify';
+import {SettingsContext} from "../Settings/SettingsContext";
+import {getColor} from "../Utils/Utils";
 
 class AddGoal extends React.Component {
-
+    static contextType = SettingsContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -78,14 +80,18 @@ class AddGoal extends React.Component {
     render() {
         return (
             <form className='add-goal' onSubmit={this.state.handleSubmit}>
-                <h1> Create Goal </h1>
+                <h1> Create {this.props.selectedType} Goal </h1>
+                <div className='bar-indicator-top'style={getColor(this.context.currentType)}/>
                 <div className="addition-wrapper">
                     <div className='dropdown-types'>
-                        <p>{this.props.selectedType}</p>
+                        <li>{this.props.selectedType}<div className='bar-indicator-left' style={getColor(this.props.selectedType)}/>
+                            <div className='bar-indicator-right'style={getColor(this.props.selectedType)}/></li>
                         <ul className='dropdown-list'>
-                            {this.props.types.map((type, i) => <li key={i}
+                            {this.context.types.map((type, i) => <li key={i}
                                                                    className={(this.props.selectedType === type) ? 'tinted' : ''}
-                                                                   onClick={() => this.changeDate(type)}>{type}</li>)}
+                                                                   onClick={() => this.changeDate(type)}>{type}
+                                                                   <div className='bar-indicator-left' style={getColor(type)}/>
+                                                                   <div className='bar-indicator-right'style={getColor(type)}/></li>)}
                         </ul>
                     </div>
                     <section className='add-input'>
@@ -109,9 +115,11 @@ class AddGoal extends React.Component {
                     }}>Add Goal
                     </button>
                 </div>
+                {this.state.currentGoal.goals.length === 0 ? <div className='example-add'>Growth Worthy Goal</div> : ''}
                 <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false}
                           date={this.state.currentGoal.date} type={this.state.currentGoal.type}
                           showChecked={false} handleChecked={this.props.handleChecked}
+                          showDelete={true}
                           deleteGoal={this.state.deleteGoal} goals={this.state.currentGoal.goals}/>
 
             </form>

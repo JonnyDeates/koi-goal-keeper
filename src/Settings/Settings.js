@@ -3,7 +3,7 @@ import AuthApiService from "../services/auth-api-service";
 import './Settings.css';
 import {SettingsContext} from "./SettingsContext";
 import {toast} from "react-toastify";
-import UserService from "../services/user-api-service";
+import {getColor} from "../Utils/Utils";
 
 class Settings extends React.Component {
     static contextType = SettingsContext;
@@ -80,15 +80,6 @@ class Settings extends React.Component {
         if (this.state.newEmail === this.state.newEmailCheck) {
             this.context.updateEmail(this.state.newEmail);
             this.setState({isEmailEditable: false, newEmail: '', newEmailCheck: ''});
-            UserService.saveUser(JSON.stringify({
-                nickname: this.context.nickname,
-                username: this.context.username,
-                email: this.state.newEmail,
-                id: UserService.getUser().id
-            }));
-            AuthApiService.patchUser({
-                email: this.state.newEmail
-            });
             toast.success(`Email changed to: ${this.state.newEmail}`)
         } else {
             toast.error(`The Emails aren't matching`)
@@ -104,13 +95,6 @@ class Settings extends React.Component {
         if (this.state.newNickname.trim().length > 0) {
             this.context.updateNickname(this.state.newNickname);
             this.setState({isUsernameEditable: false});
-            UserService.saveUser(JSON.stringify({
-                nickname: this.state.newNickname,
-                username: this.context.username,
-                email: this.context.email,
-                id: UserService.getUser().id
-            }));
-            AuthApiService.patchUser({nickname: this.state.newNickname});
             toast.success(`Nickname changed to: ${this.state.newNickname}`)
         } else {
             toast.error(`Nickname is Empty`)
@@ -122,6 +106,7 @@ class Settings extends React.Component {
         return (
             <main className="settings">
                 <h1>Profile</h1>
+                <div className='bar-indicator-top'style={getColor(this.context.currentType)}/>
                 <section>
                     <h2>{this.context.username}</h2>
                     {(this.state.isUsernameEditable)

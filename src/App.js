@@ -3,8 +3,7 @@ import './App.css';
 import Home from './Home/Home.js'
 import TopNav from './TopNav/TopNav.js'
 import AddGoal from './AddGoal/AddGoal.js'
-import {Route, BrowserRouter as Router, Switch, Redirect} from "react-router-dom";
-import {SettingsContext} from "./Settings/SettingsContext"
+import {Route, Switch, Redirect} from "react-router-dom";
 import PastGoals from "./PastGoals/PastGoals";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
@@ -14,8 +13,6 @@ import PastGoalService from "./services/pastgoals-api-service";
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Settings from "./Settings/Settings";
-import UserService from "./services/user-api-service";
-import AuthApiService from "./services/auth-api-service";
 
 class App extends React.Component {
     constructor(props) {
@@ -32,20 +29,13 @@ class App extends React.Component {
                 goals: [],
                 date: dailyDate.toISOString()
             },
-            currentTheme: 'Blue / White',
-            autoArchiving: true,
             links: [{to: '/', name: 'Home', src: require(`${iconFolder}home.ico`)}, {
                 to: '/add', name: 'Add', src: require(`${iconFolder}document.ico`)
             }, {to: '/past-goals', name: 'Past Goals', src: require(`${iconFolder}archive.ico`)}, {
                 to: '/settings',
                 name: 'Settings',
                 src: require(`${iconFolder}user.ico`)
-            }],
-            types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly', '5-Year'],
-            username: '',
-            email: '',
-            nickname: '',
-            id: ''
+            }]
         };
         this.addGoal = this.addGoal.bind(this);
         this.deleteGoal = this.deleteGoal.bind(this);
@@ -62,18 +52,10 @@ class App extends React.Component {
 
     componentDidMount() {
         if (TokenService.getAuthToken()) {
-            if (UserService.hasUserInfo()) {
-                this.setState({username: UserService.getUser().username,
-                    autoArchiving: UserService.getUser().autoArchiving,
-                    email: UserService.getUser().email,
-                    nickname: UserService.getUser().nickname,
-                    id: UserService.getUser().id
-                })
-            }
             GoalApiService.getAllGoals()
                 .then((res) => this.setState({allGoals: this.breakApartAllGoalData(res)}))
                 .then(() => {
-                    if(this.state.autoArchiving) {
+                    if (this.state.autoArchiving) {
                         this.state.allGoals.forEach(Goal => this.checkCurrentGoals(Goal));
                     }
                     this.state.allGoals.sort((A, B) => new Date(A.date) - new Date(B.date));
@@ -121,7 +103,7 @@ class App extends React.Component {
         });
     }
 
-    pushGoal(id){
+    pushGoal(id) {
         let newPastGoal = this.state.allGoals.find(g => g.id === id);
         toast.success(`Archived ${newPastGoal.type} Goal`);
         PastGoalService.postPastGoal(newPastGoal);
@@ -135,8 +117,10 @@ class App extends React.Component {
 
     addGoal(goal) {
         GoalApiService.postGoal(goal)
-            .then((res) => this.setState({allGoals: [...this.state.allGoals, this.breakApartGoalData(res)]
-                    .sort((A, B) => new Date(A.date) - new Date(B.date))}));
+            .then((res) => this.setState({
+                allGoals: [...this.state.allGoals, this.breakApartGoalData(res)]
+                    .sort((A, B) => new Date(A.date) - new Date(B.date))
+            }));
     }
 
     deleteGoal(goalID, ID) {
@@ -208,7 +192,7 @@ class App extends React.Component {
         this.setState({allGoals: newGoalList})
     }
 
-    handleGoalAdd(Goal){
+    handleGoalAdd(Goal) {
         this.setState({currentGoal: Goal});
     }
 
@@ -228,49 +212,22 @@ class App extends React.Component {
             toast.error(`The ${this.state.currentGoal.type} Goal is Missing Objectives.`)
         }
     }
-    changeSelectedType(type){
+
+    changeSelectedType(type) {
         this.setState({selectedType: type})
     }
-    render() {
-        const value = {
-            themes: ['Blue / White', 'Blue / Black', 'Red / White', 'Red / Black'],
-            currentTheme: this.state.currentTheme,
-            autoArchiving: this.state.autoArchiving,
-            username: this.state.username,
-            email: this.state.email,
-            id: this.state.id,
-            nickname: this.state.nickname,
-            toggleArchiving: () => {
-                let {id, username, email, notifications, nickname} = UserService.getUser();
-                UserService.saveUser(JSON.stringify({id, username,email, notifications, nickname,
-                    autoArchiving: !this.state.autoArchiving}));
-                AuthApiService.patchUser({auto_archiver: !this.state.autoArchiving});
-                this.setState({autoArchiving: !this.state.autoArchiving})
-            },
-            setTheme: (e) => {
-                this.setState({currentTheme: e})
-            },
-            updateNickname: (e) => {
-                //UserService.saveUser(JSON.stringify({username: this.context.username, nickname: this.context.nickname, email: this.context.email, id:this.context.id}));
-                this.setState({nickname: e})
-            },
-            updateEmail: (e) => {
-                this.setState({email: e})
-            }
-        };
-        return (
-            <Router>
-                <SettingsContext.Provider value={value}>
-                    <div className="App">
-                        <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} autoClose={5000} hideProgressBar={false}
-                                        pauseOnHover={true} draggablePercent={60}/>
-                        <div className="min-Width">
-                            <Route render={(routeProps) => !(TokenService.hasAuthToken()) ? '' :
-                                <TopNav currentActive={routeProps.location}
-                                        links={this.state.links}/>}/>
-                        </div>
-                        <div className="min-Width-Two">
 
+    render() {
+        return (
+                <div className="App">
+                    <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} autoClose={5000} hideProgressBar={false}
+                                    pauseOnHover={true} draggablePercent={60}/>
+                    <section className="min-Width">
+                        <Route render={(routeProps) => !(TokenService.hasAuthToken()) ? '' :
+                            <TopNav currentActive={routeProps.location}
+                                    links={this.state.links}/>}/>
+                    </section>
+                    <section className="min-Width-Two">
                         <Switch>
                             <Route
                                 exact path={'/'}>
@@ -280,8 +237,7 @@ class App extends React.Component {
                             </Route>
                             <Route exact path={'/add'}>
                                 {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> :
-                                    <AddGoal types={this.state.types}
-                                             selectedType={this.state.selectedType}
+                                    <AddGoal selectedType={this.state.selectedType}
                                              currentGoal={this.state.currentGoal}
                                              addGoal={this.addGoal}
                                              deleteGoal={this.deleteGoal}
@@ -308,11 +264,9 @@ class App extends React.Component {
                             <Route path={'/register'}> {(TokenService.hasAuthToken()) ? <Redirect to={'/'}/> :
                                 <Register/>}</Route>
                         </Switch>
-                        </div>
-                    <div className="min-Width"/>
-                    </div>
-                </SettingsContext.Provider>
-            </Router>
+                    </section>
+                    <section className="min-Width"/>
+                </div>
         )
             ;
     }

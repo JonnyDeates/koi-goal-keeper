@@ -50,6 +50,34 @@ class GoalList extends React.Component {
             this.setState({compacted: this.props.compacted})
         }
     }
+    getColor(type) {
+        let color = '';
+        switch (type) {
+            case 'Daily':
+                color = '#8888ff';
+                break;
+            case 'Weekly':
+                color = '#88ff88';
+                break;
+            case 'Monthly':
+                color = '#ff8888';
+                break;
+            case 'Quarterly':
+                color = '#88ffff';
+                break;
+            case 'Yearly':
+                color = '#ff88ff';
+                break;
+            case '5-Year':
+                color = '#ffff88';
+                break;
+            default:
+                color = '#888888';
+                break;
+        }
+        return {backgroundColor: color}
+    }
+
     handleGoal(e) {
         this.setState({value: e.target.value})
     }
@@ -62,17 +90,17 @@ class GoalList extends React.Component {
         this.setState({goals: Goals})
     }
 
-
     render() {
         return (
-            <div className="goallist">
-                <div className={this.state.compacted ? 'goallist-title compacted' : 'goallist-title'}>
+            <div className={" goallist"}>
+                <div className={this.state.compacted + ' goallist-title'}>
                     <p>{this.state.type}</p>
                     <p>{new Date(this.state.date).toLocaleDateString()}</p>
                     {(this.state.checkedamt === this.state.goals.length && !this.state.past) ? <img src={pushIco} alt="Push Goals" width='50px' height='50px' onClick={()=> this.props.pushGoal(this.state.goalId)}/> : <></>}
                     {(this.state.showCompleted && this.state.goals.length > 1) ? <p>{this.state.checkedamt}</p> : ''}
+                    <div className='circle-indicator' style={this.getColor(this.state.type)}/>
                 </div>
-                <ul className={this.state.compacted ? 'compacted' : ''}>
+                <ul className={this.state.compacted}>
                     {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.goal} checked={goal.checked}
                                                                  handleChecked={this.props.handleChecked} id={goal.id}
                                                                  bgColor={(i % 2) ? 'tinted' : ''}

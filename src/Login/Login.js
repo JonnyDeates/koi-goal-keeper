@@ -20,10 +20,12 @@ class Login extends React.Component {
             .then(res => {
                 username.value = '';
                 password.value = '';
+                console.log({username: res.username, email: res.email, id: res.id,
+                    nickname: res.nickname, notifications: res.notifications, autoArchiving: res.autoarchiving || null})
                 TokenService.saveAuthToken(res.authToken);
-                UserService.saveUser(JSON.stringify({username: res.username, email: res.email, id: res.id,
-                    nickname: res.nickname, notifications: res.notifications, autoArchiving: res.autoarchiving || null}));
-                window.location.reload();
+                UserService.saveUser({username: res.username, email: res.email, id: res.id,
+                    nickname: res.nickname, notifications: res.notifications, autoArchiving: res.autoarchiving || null});
+                //window.location.reload();
                 toast.success(`Welcome Back ${(res.nickname) ? res.nickname : res.username}!`);
             })
             .catch(res => {

@@ -23,7 +23,7 @@
 }
 .goallist > div{
     max-height: 100vh;
-    overflow-y: scroll;
+    overflow-y: hidden;
     text-align: center;
     margin: auto;
 }
@@ -60,8 +60,10 @@
     /*cursor: pointer;*/
 /*}*/
 .goallist-item > p{
-     max-width: 50vw;
-     min-width: 50vw;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    WIDTH: 80%;
  }
 .goallist-item > div {
     display: flex;
@@ -81,7 +83,7 @@
     background-color: #ffffffaa;
 }
 .checkboxinput {
-    margin: auto 0;
+    margin: auto 0 auto 0;
     width: 20px;
     height: 20px;
     cursor: pointer;
@@ -92,13 +94,35 @@
     height: fit-content;
     margin: 16px 0;
 }
-.compacted > * { margin: 4px 0}
-.compacted > li > *{ margin: 4px 0}
+.Compacted > * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.Compacted > li > *{
+    margin-top: 0;
+    margin-bottom: 0;}
 @media (min-width: 481px) and (max-width:766px){
 
 }
 @media (min-width: 767px) {
-    .compacted > * { margin: 0}
+    .Compacted > * { margin-top: 0;
+        margin-bottom: 0;}
+    .Compacted > li > * {
+        margin-top: 4px;
+    }
+    .checkboxinput {
+        margin: auto 0 auto 0;
+        position: relative;
+    }
+    .circle-indicator {
+        width: 25px;
+        height: 25px;
+        border-radius: 10px 0 0 0;
+        margin-left: 44px;
+        margin-top: -17px;
+        position: absolute;
+        z-index: -1;
+    }
     .goallist {
         padding: 1em 16px;
         background-color: unset;
@@ -108,19 +132,25 @@
         display: block;
         text-align: right;
         margin-top: -4px !important;
+        margin-left: 16px !important;
+        overflow-x: hidden;
         padding: 0 0 8px 4px;
-        border-radius: 15px 0px 0px 0px;
+        border-radius: 15px 0px 0 15px;
         background-color: #e6eef5;
+        z-index: 0;
     }
     .goallist-title > p {
         margin: 0;
+        z-index: 1;
     }
     .goallist-item {
         background-color: #e6eef5;
         left: 84px;
         top: -20px;
+        width: 100%;
         border-radius: 0;
         display: inline-flex;
+        justify-content: center;
     }
     .goallist-item:nth-child(odd) {
         background-color: #e6eef599;
@@ -130,6 +160,11 @@
     }
     .goallist-item:last-child {
         border-radius: 0 0 15px 15px;
+    }
+    .goallist-item > div {
+        display: inline-flex;
+        position: absolute;
+        right: -36px;
     }
     .goallist-item > div > button {
         padding: 0;
