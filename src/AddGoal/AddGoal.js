@@ -1,7 +1,6 @@
 import React from 'react';
 import "./AddGoal.css";
 import GoalList from "../GoalList/GoalList";
-import cuid from 'cuid';
 import {toast} from 'react-toastify';
 import {SettingsContext} from "../Settings/SettingsContext";
 import {getColor} from "../Utils/Utils";
@@ -18,6 +17,7 @@ class AddGoal extends React.Component {
         };
         this.handleInput = this.handleInput.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
+        this.handleObjectiveClone = this.handleObjectiveClone.bind(this);
 
     }
 
@@ -69,19 +69,25 @@ class AddGoal extends React.Component {
         } else if(this.state.value.includes('"')) {
             toast.warn(`Can't Add the Objective due to ""`);
         } else {
-            Goals.push({goal: this.state.value.trim(), id: cuid(), checked: false});
-            this.setState({value: '', currentGoal: {goals: Goals, type: type, date: date}});
+            Goals.push({obj: this.state.value.trim(), id: Goals.length});
+            this.setState({value: '', currentGoal: {goals: Goals, type, date}});
         }
     }
 
-
+    handleObjectiveClone(neat, ID){
+        let GoalList = this.state.currentGoal;
+        GoalList.goals.push(GoalList.goals.find(goal=> goal.id === ID));
+        this.props.handleGoalAdd(GoalList);
+        toast.success(`Objective Cloned`);
+        this.setState({value: ''});
+    }
 
 
     render() {
         return (
             <form className='add-goal' onSubmit={this.state.handleSubmit}>
                 <h1> Create {this.props.selectedType} Goal </h1>
-                <div className='bar-indicator-top'style={getColor(this.context.currentType)}/>
+                <div className='bar-indicator-top' style={getColor(this.context.currentType)}/>
                 <div className="addition-wrapper">
                     <div className='dropdown-types'>
                         <li>{this.props.selectedType}<div className='bar-indicator-left' style={getColor(this.props.selectedType)}/>
@@ -119,7 +125,7 @@ class AddGoal extends React.Component {
                 <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false}
                           date={this.state.currentGoal.date} type={this.state.currentGoal.type}
                           showChecked={false} handleChecked={this.props.handleChecked}
-                          showDelete={true}
+                          showDelete={true} handleObjectiveClone={this.handleObjectiveClone}
                           deleteGoal={this.state.deleteGoal} goals={this.state.currentGoal.goals}/>
 
             </form>

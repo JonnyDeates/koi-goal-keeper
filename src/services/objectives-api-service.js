@@ -1,9 +1,8 @@
 import config from '../config'
 import TokenService from "./token-service";
-
-const GoalApiService = {
-    getAllGoals() {
-        return fetch(`${config.API_ENDPOINT}/goals`, {
+const ObjectivesApiService = {
+    getObjectiveList(id) {
+        return fetch(`${config.API_ENDPOINT}/objectives/goal-list/${id}`, {
             headers: {
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
@@ -14,8 +13,8 @@ const GoalApiService = {
                     : res.json()
             )
     },
-    getGoal(goalId) {
-        return fetch(`${config.API_ENDPOINT}/goals/${goalId}`, {
+    getObjective(objectiveId) {
+        return fetch(`${config.API_ENDPOINT}/objectives/${objectiveId}`, {
             headers: {
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
@@ -26,32 +25,26 @@ const GoalApiService = {
                     : res.json()
             )
     },
-    patchGoal(goal, id) {
-        return fetch(`${config.API_ENDPOINT}/goals/${id}`, {
+    patchObjective(objective, id) {
+        return fetch(`${config.API_ENDPOINT}/objectives/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
-            body: JSON.stringify({
-                type: goal.type,
-                date: goal.date,
-                checkedamt: goal.checkedamt
-            }),
+            body: JSON.stringify(objective),
         })
     },
-    postGoal(goal) {
-        return fetch(`${config.API_ENDPOINT}/goals`, {
+    postObjective(objective) {
+        return fetch(`${config.API_ENDPOINT}/objectives`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
             body: JSON.stringify({
-                type: goal.type,
-                goals: goal.goals,
-                date: goal.date,
-                checkedamt: 0
+                obj: objective.obj,
+                goalid: objective.goalid
             }),
         })
             .then(res =>
@@ -60,12 +53,24 @@ const GoalApiService = {
                     : res.json()
             )
     },
-    deleteGoal(id) {
-        return fetch(`${config.API_ENDPOINT}/goals/${id}`, {
+    toggleChecked(id){
+        return fetch(`${config.API_ENDPOINT}/objectives/toggle/${id}`, {
+            headers: {
+                'authorization': `bearer ${TokenService.getAuthToken()}`,
+            },
+        })
+            .then(res =>
+                (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
+            )
+    },
+    deleteObjective(id) {
+        return fetch(`${config.API_ENDPOINT}/objectives/${id}`, {
             method: 'DELETE',
             headers: {'authorization': `bearer ${TokenService.getAuthToken()}`}
         })
     }
 };
 
-export default GoalApiService
+export default ObjectivesApiService

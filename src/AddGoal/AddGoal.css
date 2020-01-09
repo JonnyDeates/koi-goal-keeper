@@ -31,6 +31,7 @@
     height: 10px;
     position: absolute;
     margin-top: -14px;
+    border-radius: 0 10px 10px 0;
 }
 .bar-indicator-right {
     width: 12px;
@@ -38,6 +39,7 @@
     position: absolute;
     margin-top: -14px;
     margin-left: 76px;
+    border-radius: 10px 0 0 10px;
 }
 .bar-indicator-top {
     right: 0%;
@@ -178,6 +180,9 @@
         text-align: center;
         padding: 16px 0 0 0;
     }
+    .add-goal .goallist-item {
+        left: 83px;
+    }
     .submit-goals {
         position: absolute;
         right: unset;
@@ -195,3 +200,5 @@
 
     }
 }
+
+

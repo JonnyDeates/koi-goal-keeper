@@ -23,7 +23,6 @@ class GoalList extends React.Component {
     constructor(props) {
         super(props);
         this.handleGoal = this.handleGoal.bind(this);
-        this.handleEditGoal = this.handleEditGoal.bind(this);
 
     }
 
@@ -81,35 +80,30 @@ class GoalList extends React.Component {
     handleGoal(e) {
         this.setState({value: e.target.value})
     }
-    handleEditGoal(e, ID) {
-        let goalIndex = this.state.goals.findIndex(g => g.id === ID);
-        let newGoal = this.state.goals.find(g => g.id === ID);
-        newGoal.goal = e.target.value;
-        let Goals = this.state.goals;
-        Goals.splice(goalIndex, 1, newGoal);
-        this.setState({goals: Goals})
-    }
+
 
     render() {
         return (
-            <div className={" goallist"}>
-                <div className={this.state.compacted + ' goallist-title'}>
+            <div className={this.state.compacted + " goallist"}>
+                <div className={'goallist-title'}>
                     <p>{this.state.type}</p>
                     <p>{new Date(this.state.date).toLocaleDateString()}</p>
                     {(this.state.checkedamt === this.state.goals.length && !this.state.past) ? <img src={pushIco} alt="Push Goals" width='50px' height='50px' onClick={()=> this.props.pushGoal(this.state.goalId)}/> : <></>}
                     {(this.state.showCompleted && this.state.goals.length > 1) ? <p>{this.state.checkedamt}</p> : ''}
                     <div className='circle-indicator' style={this.getColor(this.state.type)}/>
                 </div>
-                <ul className={this.state.compacted}>
-                    {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.goal} checked={goal.checked}
+                <ul>
+                    {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.obj} checked={goal.checked}
                                                                  handleChecked={this.props.handleChecked} id={goal.id}
                                                                  bgColor={(i % 2) ? 'tinted' : ''}
                                                                  isEditable={this.state.isEditable}
-                                                                 handleEditGoal={this.handleEditGoal}
+                                                                 handleEditGoal={this.props.handleEditGoal}
                                                                  deleteGoal={this.state.deleteGoal}
                                                                  showChecked={this.state.showChecked}
                                                                  showDelete={this.state.showDelete}
                                                                  past={this.state.past}
+                                                                 handleObjectiveClone={this.props.handleObjectiveClone}
+
                     />)}
                 </ul>
             </div>

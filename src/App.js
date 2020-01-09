@@ -13,6 +13,8 @@ import PastGoalService from "./services/pastgoals-api-service";
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Settings from "./Settings/Settings";
+import ObjectivesApiService from "./services/objectives-api-service";
+import PastObjectivesApiService from "./services/pastobjectives-api-service";
 
 class App extends React.Component {
     constructor(props) {
@@ -47,6 +49,8 @@ class App extends React.Component {
         this.pushGoal = this.pushGoal.bind(this);
         this.changeSelectedType = this.changeSelectedType.bind(this);
         this.handleGoalAdd = this.handleGoalAdd.bind(this);
+        this.handleObjectiveClone = this.handleObjectiveClone.bind(this);
+        this.handleEditGoal = this.handleEditGoal.bind(this);
 
     }
 
@@ -58,7 +62,7 @@ class App extends React.Component {
                     if (this.state.autoArchiving) {
                         this.state.allGoals.forEach(Goal => this.checkCurrentGoals(Goal));
                     }
-                    this.state.allGoals.sort((A, B) => new Date(A.date) - new Date(B.date));
+                    this.state.allGoals.sort((A, B) => new Date(A.date).getTime() - new Date(B.date).getTime);
                 });
             PastGoalService.getAllPastGoals()
                 .then((res) => this.setState({pastGoals: this.breakApartAllGoalData(res)}));
@@ -72,24 +76,16 @@ class App extends React.Component {
     }
 
     breakApartGoalData(data) {
-        return {
+        let x = {
             type: data.type,
             checkedamt: parseInt(data.checkedamt),
             id: data.id,
             userid: data.userid,
             date: data.date,
-            goals: data.goals.map(x => {
-                const textArr = x.split('"');
-                const idArr = textArr[textArr.findIndex(text => text === 'id') + 2]
-                const goalArr = textArr[textArr.findIndex(text => text === 'goal') + 2];
-                const checkedArr = textArr[textArr.findIndex(text => text === 'checked') + 1];
-                return {
-                    goal: goalArr,
-                    id: idArr,
-                    checked: (checkedArr.substring(1, checkedArr.length - 1) === 'true')
-                }
-            })
+            goals: []
         };
+        ObjectivesApiService.getObjectiveList(data.id).then(res => x.goals = res).then(() => this.forceUpdate());
+        return x;
     }
 
     checkCurrentGoals(Goal) {
@@ -110,17 +106,22 @@ class App extends React.Component {
         GoalApiService.deleteGoal(id);
         this.setState({
             allGoals: this.state.allGoals.filter((Goal) => Goal.id !== id)
-                .sort((A, B) => new Date(A.date) - new Date(B.date)),
+                .sort((A, B) => new Date(A.date).getTime() - new Date(B.date).getTime()),
             pastGoals: [...this.state.pastGoals, newPastGoal]
         });
     }
 
     addGoal(goal) {
         GoalApiService.postGoal(goal)
-            .then((res) => this.setState({
-                allGoals: [...this.state.allGoals, this.breakApartGoalData(res)]
-                    .sort((A, B) => new Date(A.date) - new Date(B.date))
-            }));
+            .then((res) => {
+                console.log(res);
+                this.state.currentGoal.goals.forEach((obj) =>
+                    ObjectivesApiService.postObjective({obj: obj.obj, goalid: res.id}));
+                this.setState({
+                    allGoals: [...this.state.allGoals, this.breakApartGoalData(res)]
+                        .sort((A, B) => new Date(A.date).getTime() - new Date(B.date).getTime())
+                })
+            }).then(()=> this.forceUpdate())
     }
 
     deleteGoal(goalID, ID) {
@@ -133,18 +134,19 @@ class App extends React.Component {
         }
         if (Goal.goals.length <= 0) {
             toast.warn(`${Goal.type} Goal Deleted`);
+            ObjectivesApiService.deleteObjective(ID);
             GoalApiService.deleteGoal(Goal.id)
                 .then(() => this.setState({allGoals: this.state.allGoals.filter((G) => Goal.id !== G.id)}))
         } else {
             toast.warn('Objective Deleted', {autoClose: 2000});
-            GoalApiService.patchGoal(Goal, goalID);
+            ObjectivesApiService.deleteObjective(ID);
             this.setState({allGoals: this.state.allGoals});
         }
     }
 
     deleteGoalAdd(neat, ID) {
         let newGoals = this.state.currentGoal.goals.filter(g => g.id !== ID);
-        toast.warn('Objective Deleted', {autoClose: 2000})
+        toast.warn('Objective Deleted', {autoClose: 2000});
         this.setState({
             currentGoal: {
                 type: this.state.currentGoal.type, date: this.state.currentGoal.date,
@@ -175,39 +177,84 @@ class App extends React.Component {
     }
 
     handleChecked(goalId, ID) {
-        let currentGoalList = this.state.allGoals.find(G => G.id === goalId);
-        let currentGoal = currentGoalList.goals.find(g => g.id === ID);
-        let index = currentGoalList.goals.indexOf(currentGoal);
-        currentGoalList.goals.splice(index, 1, {goal: currentGoal.goal, checked: !currentGoal.checked, id: ID});
-        if (currentGoal.checked) {
-            currentGoalList.checkedamt = currentGoalList.checkedamt - 1;
-        } else {
-            currentGoalList.checkedamt = currentGoalList.checkedamt + 1;
-        }
-        GoalApiService.patchGoal(currentGoalList, goalId);
-        let newGoalListIndex = this.state.allGoals.findIndex(G => G.id === goalId);
-        let newGoalList = this.state.allGoals.filter((G) => G.id !== goalId);
-
-        newGoalList.splice(newGoalListIndex, 0, currentGoalList);
-        this.setState({allGoals: newGoalList})
-    }
+        let allGoals = this.state.allGoals;
+        let currentGoalList = allGoals.find(G => G.id === goalId);
+        ObjectivesApiService.toggleChecked(ID).then((res) => {
+            let x = currentGoalList.checkedamt;
+            currentGoalList.checkedamt = (res.checked) ? x + 1 : x - 1;
+            GoalApiService.patchGoal(currentGoalList, goalId);
+            currentGoalList.goals.splice(currentGoalList.goals.findIndex((goal) => goal.id === res.id), 1, res);
+            allGoals.splice(allGoals.findIndex(goal => goal.id === goalId), 1, currentGoalList);
+            this.forceUpdate();
+        })
+    };
 
     handleGoalAdd(Goal) {
         this.setState({currentGoal: Goal});
     }
 
+    handleObjectiveClone(goalID, id) {
+        let goals = [...this.state.allGoals, ...this.state.pastGoals].find(goalList => goalList.id === goalID).goals;
+        let newObj = {obj: goals.find(Obj => Obj.id === id).obj, id: this.state.currentGoal.goals.length || 0};
+        toast.success('Objective Copied', {autoClose: 1500});
+        this.setState({
+            currentGoal:
+                {
+                    date: this.state.currentGoal.date, type: this.state.currentGoal.type,
+                    goals: [newObj, ...this.state.currentGoal.goals]
+                }
+        });
+    }
+
+    handleEditGoal(OBJ, goalID, ID) {
+        if(OBJ.length === 0)
+            return;
+        if (!!this.state.allGoals.find(gl => gl.id === goalID)) {
+            const allGoals = this.state.allGoals;
+            const GoalList = allGoals.find(goalList => goalList.id === goalID);
+            const obj = GoalList.goals.find(Obj => Obj.id === ID);
+            let newObj = {obj: OBJ, id: ID, checked: obj.checked};
+            GoalList.goals.splice(GoalList.goals.findIndex((Obj) => Obj.id === obj.id), 1, newObj);
+            ObjectivesApiService.patchObjective({obj: OBJ},ID);
+
+        } else {
+            const pastGoals = this.state.pastGoals;
+            const GoalList = pastGoals.find(goalList => goalList.id === goalID);
+            const obj = GoalList.goals.find(Obj => Obj.id === ID);
+            let newObj = {obj: OBJ, id: obj.id, checked: obj.checked};
+            GoalList.splice(GoalList.findIndex(obj), 1, newObj);
+            GoalApiService.patchGoal(pastGoals, goalID);
+            PastObjectivesApiService.patchObjective({obj: OBJ},ID);
+        }
+        this.forceUpdate()
+    }
+
+    handleSubmitEdit(x) {
+
+    }
+
     handleSubmitAdd(e) {
         e.preventDefault();
         if (this.state.currentGoal.goals.length > 0) {
-            this.addGoal(this.state.currentGoal);
             toast.success(`${this.state.currentGoal.type} Goal Added!`);
-            this.setState({
-                currentGoal: {
-                    type: this.state.selectedType,
-                    goals: [],
-                    date: new Date().toISOString()
-                }
-            });
+            GoalApiService.postGoal(this.state.currentGoal)
+                .then((res) => {
+                    this.state.currentGoal.goals.forEach((obj) =>
+                        ObjectivesApiService.postObjective({
+                            obj: obj.obj,
+                            goalid: res.id
+                        }).then(() => this.forceUpdate())
+                    );
+                    this.setState({
+                        allGoals: [...this.state.allGoals, this.breakApartGoalData(res)]
+                            .sort((A, B) => new Date(A.date).getTime() - new Date(B.date).getTime()),
+                        currentGoal: {
+                            type: this.state.selectedType,
+                            goals: [],
+                            date: new Date().toISOString()
+                        }
+                    });
+                })
         } else {
             toast.error(`The ${this.state.currentGoal.type} Goal is Missing Objectives.`)
         }
@@ -219,54 +266,56 @@ class App extends React.Component {
 
     render() {
         return (
-                <div className="App">
-                    <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} autoClose={5000} hideProgressBar={false}
-                                    pauseOnHover={true} draggablePercent={60}/>
-                    <section className="min-Width">
-                        <Route render={(routeProps) => !(TokenService.hasAuthToken()) ? '' :
-                            <TopNav currentActive={routeProps.location}
-                                    links={this.state.links}/>}/>
-                    </section>
-                    <section className="min-Width-Two">
-                        <Switch>
-                            <Route
-                                exact path={'/'}>
-                                {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <Home
-                                    allGoals={this.state.allGoals} deleteGoal={this.deleteGoal} pushGoal={this.pushGoal}
-                                    handleChecked={this.handleChecked}/>}
-                            </Route>
-                            <Route exact path={'/add'}>
-                                {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> :
-                                    <AddGoal selectedType={this.state.selectedType}
-                                             currentGoal={this.state.currentGoal}
-                                             addGoal={this.addGoal}
-                                             deleteGoal={this.deleteGoal}
-                                             changeSelectedType={this.changeSelectedType}
-                                             handleSubmit={this.handleSubmitAdd}
-                                             handleGoalAdd={this.handleGoalAdd}
-                                             deleteGoalAdd={this.deleteGoalAdd}
-                                             handleChecked={this.handleChecked}/>}
-                            </Route>
+            <div className="App">
+                <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} autoClose={5000} hideProgressBar={false}
+                                pauseOnHover={true} draggablePercent={60}/>
+                <section className="min-Width">
+                    <Route render={(routeProps) => !(TokenService.hasAuthToken()) ? '' :
+                        <TopNav currentActive={routeProps.location}
+                                links={this.state.links}/>}/>
+                </section>
+                <section className="min-Width-Two">
+                    <Switch>
+                        <Route
+                            exact path={'/'}>
+                            {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <Home
+                                allGoals={this.state.allGoals} deleteGoal={this.deleteGoal} pushGoal={this.pushGoal}
+                                handleEditGoal={this.handleEditGoal}
+                                handleChecked={this.handleChecked} handleObjectiveClone={this.handleObjectiveClone}/>}
+                        </Route>
+                        <Route exact path={'/add'}>
+                            {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> :
+                                <AddGoal selectedType={this.state.selectedType}
+                                         currentGoal={this.state.currentGoal}
+                                         addGoal={this.addGoal}
+                                         deleteGoal={this.deleteGoal}
+                                         changeSelectedType={this.changeSelectedType}
+                                         handleSubmit={this.handleSubmitAdd}
+                                         handleGoalAdd={this.handleGoalAdd}
+                                         deleteGoalAdd={this.deleteGoalAdd}
+                                         handleChecked={this.handleChecked}/>}
+                        </Route>
 
-                            <Route
-                                exact path={'/past-goals'}>
-                                {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <PastGoals
-                                    types={this.state.types}
-                                    deleteGoal={this.deletePastGoal}
-                                    handleChecked={this.handleChecked}
-                                    pastGoals={this.state.pastGoals.reverse()}/>}</Route>
-                            <Route
-                                exact path={'/settings'}>
-                                {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <Settings/>}
-                            </Route>
-                            <Route path={'/login'}> {(TokenService.hasAuthToken()) ? <Redirect to={'/'}/> :
-                                <Login/>}</Route>
-                            <Route path={'/register'}> {(TokenService.hasAuthToken()) ? <Redirect to={'/'}/> :
-                                <Register/>}</Route>
-                        </Switch>
-                    </section>
-                    <section className="min-Width"/>
-                </div>
+                        <Route
+                            exact path={'/past-goals'}>
+                            {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <PastGoals
+                                types={this.state.types}
+                                deleteGoal={this.deletePastGoal}
+                                handleChecked={this.handleChecked}
+                                handleObjectiveClone={this.handleObjectiveClone}
+                                pastGoals={this.state.pastGoals.reverse()}/>}</Route>
+                        <Route
+                            exact path={'/settings'}>
+                            {!(TokenService.hasAuthToken()) ? <Redirect to={'/login'}/> : <Settings/>}
+                        </Route>
+                        <Route path={'/login'}> {(TokenService.hasAuthToken()) ? <Redirect to={'/'}/> :
+                            <Login/>}</Route>
+                        <Route path={'/register'}> {(TokenService.hasAuthToken()) ? <Redirect to={'/'}/> :
+                            <Register/>}</Route>
+                    </Switch>
+                </section>
+                <section className="min-Width"/>
+            </div>
         )
             ;
     }
