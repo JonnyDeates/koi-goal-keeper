@@ -175,18 +175,18 @@
         left: unset;
         top: unset;
         position: absolute;
-        margin-left: 116px;
+        margin-left: 124px;
         border-radius: 0 10px 10px 10px;
         text-align: center;
         padding: 16px 0 0 0;
     }
     .add-goal .goallist-item {
-        left: 83px;
+        left: 92px;
     }
     .submit-goals {
         position: absolute;
         right: unset;
-        margin: -21px 0 0 113px;
+        margin: -21px 0 0 121px;
         z-index: 0;
     }
     .submit-goals > button {

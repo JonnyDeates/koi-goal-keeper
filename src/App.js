@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Settings from "./Settings/Settings";
 import ObjectivesApiService from "./services/objectives-api-service";
 import PastObjectivesApiService from "./services/pastobjectives-api-service";
+import UserService from "./services/user-api-service";
 
 class App extends React.Component {
     constructor(props) {
@@ -57,25 +58,25 @@ class App extends React.Component {
     componentDidMount() {
         if (TokenService.getAuthToken()) {
             GoalApiService.getAllGoals()
-                .then((res) => this.setState({allGoals: this.breakApartAllGoalData(res)}))
+                .then((res) => this.setState({allGoals: this.breakApartAllGoalData(res, false)}))
                 .then(() => {
-                    if (this.state.autoArchiving) {
+                    if (UserService.getUser().autoArchiving) {
                         this.state.allGoals.forEach(Goal => this.checkCurrentGoals(Goal));
                     }
                     this.state.allGoals.sort((A, B) => new Date(A.date).getTime() - new Date(B.date).getTime);
                 });
             PastGoalService.getAllPastGoals()
-                .then((res) => this.setState({pastGoals: this.breakApartAllGoalData(res)}));
+                .then((res) => this.setState({pastGoals: this.breakApartAllGoalData(res, true)}));
 
         }
 
     }
 
-    breakApartAllGoalData(data) {
-        return data.map(Goal => Goal = this.breakApartGoalData(Goal))
+    breakApartAllGoalData(data, isPast) {
+        return data.map(Goal => Goal = this.breakApartGoalData(Goal, isPast))
     }
 
-    breakApartGoalData(data) {
+    breakApartGoalData(data, isPast) {
         let x = {
             type: data.type,
             checkedamt: parseInt(data.checkedamt),
@@ -84,14 +85,26 @@ class App extends React.Component {
             date: data.date,
             goals: []
         };
-        ObjectivesApiService.getObjectiveList(data.id).then(res => x.goals = res).then(() => this.forceUpdate());
+        if (isPast) {
+            PastObjectivesApiService.getObjectiveList(data.id).then(res => x.goals = res).then(() => this.forceUpdate());
+        } else {
+            ObjectivesApiService.getObjectiveList(data.id).then(res => x.goals = res).then(() => this.forceUpdate());
+        }
         return x;
     }
 
     checkCurrentGoals(Goal) {
         let currentDate = new Date().getTime();
         if (new Date(Goal.date).getTime() < currentDate) {
-            PastGoalService.postPastGoal(this.state.allGoals.find(g => g.id = Goal.id));
+            const newPastGoalList = this.state.allGoals.find(g => g.id = Goal.id)
+            PastGoalService.postPastGoal(newPastGoalList)
+                .then((res) =>
+                    newPastGoalList.goals.map(pg => PastObjectivesApiService.postObjective({
+                            obj: pg.obj,
+                            checked: pg.checked,
+                            goalid: res.id
+                        })
+                    ));
             GoalApiService.deleteGoal(Goal.id);
         }
         this.setState({
@@ -102,7 +115,14 @@ class App extends React.Component {
     pushGoal(id) {
         let newPastGoal = this.state.allGoals.find(g => g.id === id);
         toast.success(`Archived ${newPastGoal.type} Goal`);
-        PastGoalService.postPastGoal(newPastGoal);
+        PastGoalService.postPastGoal(newPastGoal)
+            .then((res) =>
+                newPastGoal.goals.map(pg => PastObjectivesApiService.postObjective({
+                        obj: pg.obj,
+                        checked: pg.checked,
+                        goalid: res.id
+                    })
+                ));
         GoalApiService.deleteGoal(id);
         this.setState({
             allGoals: this.state.allGoals.filter((Goal) => Goal.id !== id)
@@ -121,7 +141,7 @@ class App extends React.Component {
                     allGoals: [...this.state.allGoals, this.breakApartGoalData(res)]
                         .sort((A, B) => new Date(A.date).getTime() - new Date(B.date).getTime())
                 })
-            }).then(()=> this.forceUpdate())
+            }).then(() => this.forceUpdate())
     }
 
     deleteGoal(goalID, ID) {
@@ -162,18 +182,16 @@ class App extends React.Component {
         if (checked) {
             Goal.checkedamt = Goal.checkedamt - 1;
         }
+        PastObjectivesApiService.deleteObjective(ID);
         if (Goal.goals.length <= 0) {
             toast.warn(`Past ${Goal.type} Goal Deleted`, {autoClose: 2000});
             PastGoalService.deletePastGoal(Goal.id)
                 .then(() => this.setState({pastGoals: this.state.pastGoals.filter((G) => Goal.id !== G.id)}))
         } else {
             toast.warn('Past Objective Deleted', {autoClose: 2000});
-            PastGoalService.patchPastGoal(Goal, goalID);
-            this.setState({pastGoals: this.state.pastGoals});
+            PastGoalService.patchPastGoal(Goal, Goal.id);
         }
-        if (Goal.goals.length <= 0) {
-
-        }
+        this.forceUpdate();
     }
 
     handleChecked(goalId, ID) {
@@ -207,7 +225,7 @@ class App extends React.Component {
     }
 
     handleEditGoal(OBJ, goalID, ID) {
-        if(OBJ.length === 0)
+        if (OBJ.length === 0)
             return;
         if (!!this.state.allGoals.find(gl => gl.id === goalID)) {
             const allGoals = this.state.allGoals;
@@ -215,7 +233,7 @@ class App extends React.Component {
             const obj = GoalList.goals.find(Obj => Obj.id === ID);
             let newObj = {obj: OBJ, id: ID, checked: obj.checked};
             GoalList.goals.splice(GoalList.goals.findIndex((Obj) => Obj.id === obj.id), 1, newObj);
-            ObjectivesApiService.patchObjective({obj: OBJ},ID);
+            ObjectivesApiService.patchObjective({obj: OBJ}, ID);
 
         } else {
             const pastGoals = this.state.pastGoals;
@@ -224,15 +242,10 @@ class App extends React.Component {
             let newObj = {obj: OBJ, id: obj.id, checked: obj.checked};
             GoalList.splice(GoalList.findIndex(obj), 1, newObj);
             GoalApiService.patchGoal(pastGoals, goalID);
-            PastObjectivesApiService.patchObjective({obj: OBJ},ID);
+            PastObjectivesApiService.patchObjective({obj: OBJ}, ID);
         }
         this.forceUpdate()
     }
-
-    handleSubmitEdit(x) {
-
-    }
-
     handleSubmitAdd(e) {
         e.preventDefault();
         if (this.state.currentGoal.goals.length > 0) {

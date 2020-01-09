@@ -37,7 +37,7 @@ class Home extends React.Component {
             ? this.props.allGoals.filter((pg) => pg.type === this.context.currentType)
             : this.props.allGoals;
         if(search.trim().length !== 0) {
-            this.setState({currentGoals: currentGoals.filter((data)=> data.goals.find(g=> (g.goal.toLowerCase()).includes(search.toLowerCase())))
+            this.setState({currentGoals: currentGoals.filter((data)=> data.goals.find(g=> (g.obj.toLowerCase()).includes(search.toLowerCase())))
             });
         }else {
             this.setState({currentGoals: currentGoals.sort((a,b)=> (a.date > b.date) ? 0 : 1)})

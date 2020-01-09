@@ -2,7 +2,7 @@ import config from '../config'
 import TokenService from "./token-service";
 const PastObjectivesApiService = {
     getObjectiveList(id) {
-        return fetch(`${config.API_ENDPOINT}/objectives/goal-list/${id}`, {
+        return fetch(`${config.API_ENDPOINT}/past/objectives/goal-list/${id}`, {
             headers: {
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
@@ -14,7 +14,7 @@ const PastObjectivesApiService = {
             )
     },
     getObjective(objectiveId) {
-        return fetch(`${config.API_ENDPOINT}/objectives/${objectiveId}`, {
+        return fetch(`${config.API_ENDPOINT}/past/objectives/${objectiveId}`, {
             headers: {
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
@@ -26,7 +26,7 @@ const PastObjectivesApiService = {
             )
     },
     patchObjective(objective, id) {
-        return fetch(`${config.API_ENDPOINT}/objectives/${id}`, {
+        return fetch(`${config.API_ENDPOINT}/past/objectives/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -36,7 +36,7 @@ const PastObjectivesApiService = {
         })
     },
     postObjective(objective) {
-        return fetch(`${config.API_ENDPOINT}/objectives`, {
+        return fetch(`${config.API_ENDPOINT}/past/objectives`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -44,7 +44,8 @@ const PastObjectivesApiService = {
             },
             body: JSON.stringify({
                 obj: objective.obj,
-                goalId: objective.goalId
+                checked: objective.checked,
+                goalid: objective.goalid
             }),
         })
             .then(res =>
@@ -54,7 +55,7 @@ const PastObjectivesApiService = {
             )
     },
     toggleChecked(id){
-        return fetch(`${config.API_ENDPOINT}/objectives/toggle/${id}`, {
+        return fetch(`${config.API_ENDPOINT}/past/objectives/toggle/${id}`, {
             headers: {
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
@@ -66,7 +67,7 @@ const PastObjectivesApiService = {
             )
     },
     deleteObjective(id) {
-        return fetch(`${config.API_ENDPOINT}/objectives/${id}`, {
+        return fetch(`${config.API_ENDPOINT}/past/objectives/${id}`, {
             method: 'DELETE',
             headers: {'authorization': `bearer ${TokenService.getAuthToken()}`}
         })

@@ -3,7 +3,7 @@ import TokenService from "./token-service";
 
 const PastGoalApiService = {
     getAllPastGoals() {
-        return fetch(`${config.API_ENDPOINT}/pastgoals`, {
+        return fetch(`${config.API_ENDPOINT}/past/goals`, {
             headers: {
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
@@ -15,7 +15,7 @@ const PastGoalApiService = {
             )
     },
     getPastGoal(goalId) {
-        return fetch(`${config.API_ENDPOINT}/pastgoals/${goalId}`, {
+        return fetch(`${config.API_ENDPOINT}/past/goals/${goalId}`, {
             headers: {
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
@@ -27,7 +27,7 @@ const PastGoalApiService = {
             )
     },
     patchPastGoal(goal, id) {
-        return fetch(`${config.API_ENDPOINT}/pastgoals/${id}`, {
+        return fetch(`${config.API_ENDPOINT}/past/goals/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -42,7 +42,7 @@ const PastGoalApiService = {
         })
     },
     postPastGoal(pastgoal) {
-        return fetch(`${config.API_ENDPOINT}/pastgoals`, {
+        return fetch(`${config.API_ENDPOINT}/past/goals`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -62,7 +62,7 @@ const PastGoalApiService = {
             )
     },
     deletePastGoal(id) {
-        return fetch(`${config.API_ENDPOINT}/pastgoals/${id}`, {
+        return fetch(`${config.API_ENDPOINT}/past/goals/${id}`, {
             method: 'DELETE',
             headers: {'authorization': `bearer ${TokenService.getAuthToken()}`}
         })
