@@ -8,8 +8,11 @@ class TopNav extends React.Component{
     render() {
         return (
             <nav className='nav'>
-                {this.props.links.map((link, index) => <div key={index} onClick={() =>
-                    window.scrollTo(0, 0)}><Link  to={link.to}
+                {this.props.links.map((link, index) => <div key={index} onClick={() => {
+                    window.scrollTo(0, 0);
+                    this.forceUpdate();
+                }
+                    }><Link  to={link.to}
                                                              className={(link.to === this.props.currentActive.pathname)
                                                                  ? 'active' : ''}><img src={link.src} alt={link.name}/></Link></div>)}
                 <img src={require(`../assets/icons/exit.ico`)} alt='Log Out' width='60px' height='60px' onClick={() => {

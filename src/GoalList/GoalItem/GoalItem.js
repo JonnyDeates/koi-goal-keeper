@@ -13,10 +13,13 @@ class GoalItem extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-    if(prevProps !== this.props)
-    {
-        this.forceUpdate();
-    }
+        if (prevProps !== this.props) {
+            this.setState({
+                isEditable: this.props.isEditable,
+                deleteGoal: this.props.deleteGoal,
+                value: this.props.goal
+            })
+        }
     }
 
     toggleEdit() {
@@ -32,23 +35,23 @@ class GoalItem extends React.Component {
                                                    onChange={() => this.props.handleChecked(this.props.goalId, this.props.id)}
                                                    checked={this.props.checked}/> : ''}
                 {(this.state.isEditing) ? <input type="text" className="textinput"
-                                                                          onChange={(e) => this.setState({value: e.target.value})}
-                                                                          value={this.state.value}
-                                                                          onKeyPress={e => {
-                                                                              if (e.key === 'Enter') {
-                                                                                  e.preventDefault();
-                                                                                  this.toggleEdit();
+                                                 onChange={(e) => this.setState({value: e.target.value})}
+                                                 value={this.state.value}
+                                                 onKeyPress={e => {
+                                                     if (e.key === 'Enter') {
+                                                         e.preventDefault();
+                                                         this.toggleEdit();
 
-                                                                              }
-                                                                          }}
+                                                     }
+                                                 }}
                 /> : <p onDoubleClick={this.toggleEdit}>{this.props.goal}</p>}
 
                 <div>{(this.state.isEditable) ? <img onClick={this.toggleEdit} alt={'edit'}
                                                      src={(this.state.isEditing) ? require('../../assets/icons/plus.ico') : require('../../assets/icons/pencil.ico')}/> : ''}
-                                                     <img onClick={()=> this.props.handleObjectiveClone(this.props.goalId, this.props.id)} alt={'copy'}
-                                                     src={require('../../assets/icons/copy.ico')}/>
+                    <img onClick={() => this.props.handleObjectiveClone(this.props.goalId, this.props.id)} alt={'copy'}
+                         src={require('../../assets/icons/copy.ico')}/>
                     {(this.props.showDelete) ? <button type="button" className="close-button"
-                            onClick={() => this.state.deleteGoal(this.props.goalId, this.props.id)}>X
+                                                       onClick={() => this.state.deleteGoal(this.props.goalId, this.props.id)}>X
                     </button> : ''}
                 </div>
             </li>

@@ -1,12 +1,16 @@
 .App {
     text-align: center;
-    justify-content: space-between;
     display: flex;
     max-width: 100vw;
     overflow: hidden;
-    margin-top: 50px;
+    margin-top: 0;
 }
+.App-Pages {
+    display: contents;
+    margin-top: 50px;
+    justify-content: space-between;
 
+}
 .min-Width {
     min-width: 0;
 }

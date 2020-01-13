@@ -25,7 +25,7 @@ class Login extends React.Component {
                 TokenService.saveAuthToken(res.authToken);
                 UserService.saveUser({username: res.username, email: res.email, id: res.id,
                     nickname: res.nickname, notifications: res.notifications, autoArchiving: res.autoarchiving || null});
-                //window.location.reload();
+                window.location.reload();
                 toast.success(`Welcome Back ${(res.nickname) ? res.nickname : res.username}!`);
             })
             .catch(res => {

@@ -27,26 +27,20 @@ class GoalList extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(prevProps.type !== this.props.type) {
-            this.setState({type: this.props.type})
-        }
-        if(prevProps.date !== this.props.date) {
-            this.setState({date: this.props.date})
-        }
-        if(prevProps.goals !== this.props.goals) {
-            this.setState({goals: this.props.goals})
-        }
-        if(prevProps.checkedamt !== this.props.checkedamt) {
-            this.setState({checkedamt: this.props.checkedamt})
-        }
-        if(prevProps.goalId !== this.props.goalId) {
-            this.setState({goalId: this.props.goalId})
-        }
-        if(prevProps.showDelete !== this.props.showDelete) {
-            this.setState({showDelete: this.props.showDelete})
-        }
-        if(prevProps.compacted !== this.props.compacted) {
-            this.setState({compacted: this.props.compacted})
+        if(prevProps !== this.props) {
+            this.setState({
+                type: this.props.type,
+                date: this.props.date,
+                goals: this.props.goals,
+                goalId: this.props.goalId,
+                showCompleted: this.props.showCompleted,
+                isEditable: this.props.isEditable,
+                showChecked: this.props.showChecked,
+                showDelete: this.props.showDelete,
+                compacted: this.props.compacted,
+                deleteGoal: this.props.deleteGoal,
+                past: this.props.past,
+                checkedamt: this.props.checkedamt})
         }
     }
     getColor(type) {

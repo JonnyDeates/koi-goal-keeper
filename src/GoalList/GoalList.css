@@ -117,7 +117,42 @@
     height: 20px;
     max-height: 20px;
 }
-
+.Extra-Compacted  {
+    margin-bottom: -50px;;
+}
+.Extra-Compacted ul > * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.Extra-Compacted li > *{
+    margin-top: 0;
+    margin-bottom: 0}
+.Extra-Compacted img {
+    width: 20px;
+    max-width: 20px;
+    height: 20px;
+    max-height: 20px;
+}
+.Ultra-Compacted  {
+    margin-bottom: -30px;
+}
+.Ultra-Compacted ul > li {
+    display: none;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.Ultra-Compacted .goallist-title > p:nth-child(3)  {
+    display: unset;
+}
+.Ultra-Compacted li > *{
+    margin-top: 0;
+    margin-bottom: 0}
+.Ultra-Compacted img {
+    width: 20px;
+    max-width: 20px;
+    height: 20px;
+    max-height: 20px;
+}
 @media (min-width: 481px) and (max-width:766px){
 
 }

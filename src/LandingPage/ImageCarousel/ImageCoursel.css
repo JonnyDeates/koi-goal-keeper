@@ -1,0 +1,35 @@
+.image-coursel {
+    display: flex;
+    justify-content: space-evenly;
+}
+.image-slide {
+    background-size: cover;
+    background-position: center;
+    width: 80vw;
+    max-width: 720px;
+    max-height: 80vw;
+    transition-timing-function: ease-in;
+}
+.slide-arrow {
+    margin: auto 0;
+    cursor: pointer;
+    padding: 4px;
+    background-color: white;
+    border-radius: 25px;
+}
+.image-slider {
+    width: 80vw;
+    display: flex;
+    margin: 1rem auto 0 auto;
+    justify-content: space-evenly;
+}
+.image-slider > div {
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    display: inline-flex;
+    background-color: #55555544;
+}
+.circle-active {
+    background-color: #00000011 !important;
+}

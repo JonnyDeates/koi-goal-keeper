@@ -39,7 +39,7 @@ class Home extends React.Component {
         if(search.trim().length !== 0) {
             this.setState({currentGoals: currentGoals.filter((data)=> data.goals.find(g=> (g.obj.toLowerCase()).includes(search.toLowerCase())))
             });
-        }else {
+        } else {
             this.setState({currentGoals: currentGoals.sort((a,b)=> (a.date > b.date) ? 0 : 1)})
         }
 
