@@ -1,0 +1,204 @@
+.addition-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+.add-goal h1{
+    color: white;
+    text-align: left;
+    margin-left: 8px;
+}
+.add-input {
+    font-size: large;
+    margin: 16px 0;
+}
+.add-input > input {
+    font-size: medium;
+    margin: 0 10px;
+}
+.add-input > button {
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    font-size: larger;
+    background-color: #ffffff88;
+    border-radius: 10px;
+}
+.add-input > button:hover {
+    background-color: #ffffffbb
+}
+.bar-indicator-left {
+    width: 12px;
+    height: 10px;
+    position: absolute;
+    margin-top: -14px;
+    border-radius: 0 10px 10px 0;
+}
+.bar-indicator-right {
+    width: 12px;
+    height: 10px;
+    position: absolute;
+    margin-top: -14px;
+    margin-left: 76px;
+    border-radius: 10px 0 0 10px;
+}
+.bar-indicator-top {
+    right: 0%;
+    top: 0;
+    height: 75px;
+    width: 55vw;
+    position: absolute;
+}
+.dropdown-types {
+    width: fit-content;
+}
+.dropdown-types:hover .dropdown-list {
+    max-height: 800px;
+    opacity: 1;
+}
+.dropdown-types > li {
+    position: relative;
+    width: 88px;
+    border-radius: 10px;
+    cursor: pointer;
+    left: 35%;
+    margin: 0;
+    display: block;
+    padding: 16px 0;
+    background-color: white;
+    border: 1px lightgray solid;
+}
+.dropdown-list{
+    position: absolute;
+    margin-top: -0.75em;
+    list-style: none;
+    margin-left: 33px;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    z-index: 1;
+    width: 88px;
+    -webkit-transition: all 2s ease;
+    -moz-transition: all 2s ease ;
+    -ms-transition: all 2s ease ;
+    -o-transition: all 2s ease;
+    transition: all 2s ease;
+}
+.dropdown-types > ul > li {
+    padding: 16px 0;
+    background-color: white;
+    cursor: pointer;
+}
+.dropdown-types > ul > li:hover {
+    background-color: lightgray;
+}
+.dropdown-types > ul > li:first-child {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.dropdown-types > ul > li:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.dropdown-types > ul > .tinted {
+    background-color: lightgray;
+}
+.submit-goals {
+    position: absolute;
+    right: 0;
+    margin-top: 12px;
+    margin-right: 12px;
+    z-index: 1;
+}
+.example-add {
+    position: absolute;
+    left: 5vw;
+    background-color: #c0c7ce;
+    top: 338px;
+    height: 78px;
+    width: 89%;
+    color: #ececec;
+    border-radius: 0 0 10px 10px;
+}
+.submit-goals > button {
+    border: none;
+    border-radius: 15px;
+    margin: 4px;
+    padding: 24px 4vw;
+    font-size: medium;
+    width: min-content;
+    cursor: pointer;
+    background: #ffffff88;
+
+}
+.submit-goals:hover > button {
+    background: #ffffffdd;
+}
+@media (min-width: 481px) and (max-width: 767px) {
+    .bar-indicator-top {
+        right: 0%;
+        top: 0;
+        height: 90px;
+        width: 250px;
+        position: absolute;
+    }
+    .example-add {
+        top: 346px;
+        border-radius: 0 0 15px 15px;
+    }
+    .submit-goals > button {
+        margin: 4px;
+        padding: 20px 6vw;
+        font-size: larger;
+        width: min-content;
+        cursor: pointer;
+        background: #ffffff88;
+
+    }
+}
+@media (min-width: 767px) {
+    .addition-wrapper {
+        justify-content: space-between;
+        display: flex;
+    }
+    .bar-indicator-top {
+        right: 20%;
+        top: 0;
+        width: 100px;
+        height: 10px;
+        position: absolute;
+    }
+    .example-add {
+        width: 45%;
+        margin-top: 28px;
+        height: 78px;
+        left: unset;
+        top: unset;
+        position: absolute;
+        margin-left: 124px;
+        border-radius: 0 10px 10px 10px;
+        text-align: center;
+        padding: 16px 0 0 0;
+    }
+    .add-goal .goallist-item {
+        left: 92px;
+    }
+    .submit-goals {
+        position: absolute;
+        right: unset;
+        margin: -21px 0 0 121px;
+        z-index: 0;
+    }
+    .submit-goals > button {
+        margin: 4px;
+        padding: 12px 16px;
+        width: unset;
+        font-size: large;
+        cursor: pointer;
+        border-radius: 15px 15px 0 0;
+        background: #e6eef5;
+
+    }
+}
+
+

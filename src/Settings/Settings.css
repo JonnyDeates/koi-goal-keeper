@@ -1,0 +1,60 @@
+.dropdown-wrapper {
+    position: relative;
+    z-index: 4;
+}
+.dropdown-types-settings {
+    position: relative;
+}
+.settings h1, .settings h2{
+    text-align: left;
+    color: white;
+    margin-left: 8px;
+}
+.even-space{
+    font-size: x-large;
+    position: relative;
+    display: block;
+    justify-content: space-between;
+    color: white;
+    cursor: pointer;
+}
+.even-space > input {
+    font-size: x-large;
+}
+.even-space > span, .even-space > p{
+    color: black;
+}
+.even-space > button {
+    background: #00000022;
+    border: 0;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 8px 4px;
+    padding: 4px 8px;
+}
+.delete {
+    border: none;
+    border-radius: 10px;
+    margin-top: 96px;
+    padding: 8px;
+    font-size: large;
+    cursor: pointer;
+    background: #ffffff88;
+}
+@media (min-width: 481px) {
+    .nav > img, .nav > a > img {
+        width: 48px;
+        height: 48px;
+    }
+}
+@media (min-width: 767px) {
+    .settings h1, .settings h2 {
+        text-align: left;
+        color: white;
+        margin-left: 0px;
+    }
+
+    .even-space {
+        display: flex;
+    }
+}

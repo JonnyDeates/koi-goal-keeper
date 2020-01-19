@@ -1,21 +1,39 @@
+.circle-indicator {
+    height: 10px;
+    background-color: rgb(255, 136, 255);
+    width: 33vw;
+    position: absolute;
+    /* margin-top: 16px; */
+    left: 0;
+    bottom: 0;
+    border-radius: 0 10px 10px 0;
+}
 .goallist{
     background-color: #e6eef5;
-    padding: 2rem 0;
+    padding: 1rem 0;
+    margin: 1rem;
+    border-radius: 10px;
 }
 .goallist-title {
     justify-content: space-evenly;
     position: relative;
     display: flex;
 }
+.goallist-title img {
+    filter: grayscale(1) brightness(1.25) opacity(0.5);
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+}
 .goallist > p {
     position: absolute;
     left: 16px;
-    margin: 4px;
+    margin: -22px 0px 0px 0px;
     color: gray;
 }
 .goallist > div{
     max-height: 100vh;
-    overflow-y: scroll;
+    overflow-y: hidden;
     text-align: center;
     margin: auto;
 }
@@ -30,35 +48,244 @@
     background: transparent;
     max-height: 85%;
 }
+.goallist > ul {
+    padding-inline-start: 0;
+}
 .goallist-item {
     display: flex;
     justify-content: space-evenly;
     position: relative;
-    border-radius: 25px;
     font-size: large;
     animation: 2s popIn forwards;
 }
-.goallist-item > button{
-    margin: 16px 0;
-    border: 1px lightgray solid;
-    border-radius: 25px;
-    padding: 4px 8px;
-    font-size: large;
-    cursor: pointer;
+.goallist-item:nth-child(odd) {
+    background-color: #86c6ff33;
 }
+/*.goallist-item > button{*/
+    /*margin: 16px 0;*/
+    /*border: 1px lightgray solid;*/
+    /*border-radius: 25px;*/
+    /*padding: 4px 8px;*/
+    /*font-size: large;*/
+    /*cursor: pointer;*/
+/*}*/
 .goallist-item > p{
-     max-width: 50vw;
-     min-width: 50vw;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    WIDTH: 80%;
  }
-.goallist-item > input {
+.goallist-item > div {
+    display: flex;
+}
+.goallist-item > div > img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
     margin: auto 0;
+    border: 0;
+    background-color: #ffffff55;
+    padding: 4px 4px;
+    border-radius: 10px;
+
+}
+.goallist-item > div > img:hover {
+    background-color: #ffffffaa;
+}
+.checkboxinput {
+    margin: auto 0 auto 0;
     width: 20px;
     height: 20px;
     cursor: pointer;
 }
-.tinted{
-    background-color: #00000033;
+.goallist-item > .textinput {
+    font-size: large;
+    width: 50vw;
+    height: fit-content;
+    margin: 16px 0;
 }
+.Compacted > ul > * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.Compacted li > *{
+    margin-top: 0;
+    margin-bottom: 0;}
+.Compacted img {
+    width: 20px;
+    max-width: 20px;
+    height: 20px;
+    max-height: 20px;
+}
+.Extra-Compacted  {
+    margin-bottom: -50px;;
+}
+.Extra-Compacted ul > * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.Extra-Compacted li > *{
+    margin-top: 0;
+    margin-bottom: 0}
+.Extra-Compacted img {
+    width: 20px;
+    max-width: 20px;
+    height: 20px;
+    max-height: 20px;
+}
+.Ultra-Compacted  {
+    margin-bottom: -30px;
+}
+.Ultra-Compacted ul > li {
+    display: none;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.Ultra-Compacted .goallist-title > p:nth-child(3)  {
+    display: unset;
+}
+.Ultra-Compacted li > *{
+    margin-top: 0;
+    margin-bottom: 0}
+.Ultra-Compacted img {
+    width: 20px;
+    max-width: 20px;
+    height: 20px;
+    max-height: 20px;
+}
+@media (min-width: 481px) and (max-width:766px){
+
+}
+@media (min-width: 767px) {
+    .Compacted > ul > * {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .Compacted li > *{
+        margin-top: 0;
+        margin-bottom: 0;}
+    .Compacted img {
+        width: 20px;
+        max-width: 20px;
+        height: 20px;
+        max-height: 20px;
+    }
+    .Extra-Compacted  {
+        margin-bottom: -20px;;
+    }
+    .Extra-Compacted ul > * {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .Extra-Compacted li > *{
+        margin-top: 0;
+        margin-bottom: 0}
+    .Extra-Compacted img {
+        width: 20px;
+        max-width: 20px;
+        height: 20px;
+        max-height: 20px;
+    }
+    .Ultra-Compacted  {
+        margin-bottom: 24px;
+    }
+    .Ultra-Compacted ul {
+        background-color: #e6eef599;
+        width: 45vw;
+        height: 74px;
+        position: absolute;
+        margin-left: 92px;
+        margin-top: -4px;
+        border-radius: 0 15px 15px 15px;
+    }
+    .Ultra-Compacted ul > li {
+        display: none;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .Ultra-Compacted .goallist-title > p:nth-child(3)  {
+        display: none;
+    }
+    .Ultra-Compacted li > *{
+        margin-top: 0;
+        margin-bottom: 0}
+    .Ultra-Compacted img {
+        width: 20px;
+        max-width: 20px;
+        height: 20px;
+        max-height: 20px;
+    }
+    .checkboxinput {
+        margin: auto 0 auto 0;
+        position: relative;
+    }
+    .circle-indicator {
+        width: 100%;
+        height: 25px;
+        border-radius: 0 20px 0 0;
+        margin-left: -2px;
+        margin-top: 0;
+        position: absolute;
+        z-index: -1;
+        left: unset;
+        bottom: unset;
+    }
+    .goallist {
+        padding: 1em 16px;
+        background-color: unset;
+    }
+    .goallist-title {
+        position: absolute;
+        display: block;
+        text-align: right;
+        margin-top: -4px !important;
+        margin-left: 16px !important;
+        overflow-x: hidden;
+        padding: 0 0 8px 4px;
+        border-radius: 15px 0px 0 15px;
+        background-color: #e6eef5;
+        z-index: 0;
+        width: 72px;
+    }
+    .goallist-title > p {
+        margin: 0;
+        z-index: 1;
+    }
+    .goallist-item {
+        background-color: #e6eef5;
+        left: 92px;
+        top: -20px;
+        width: 100%;
+        border-radius: 0;
+        display: inline-flex;
+        justify-content: center;
+    }
+    .goallist-item:nth-child(odd) {
+        background-color: #e6eef599;
+    }
+    .goallist-item:first-child {
+        border-radius: 0 15px 0 0 ;
+    }
+    .goallist-item:last-child {
+        border-radius: 0 0 15px 15px;
+    }
+    .goallist-item:only-child {
+        border-radius: 0 15px 15px 15px !important;
+    }
+    .goallist-item > div {
+        display: inline-flex;
+        position: absolute;
+        right: -36px;
+    }
+    .goallist-item > div > button {
+        padding: 0;
+        width: 34px;
+        height: 34px;
+        font-weight: 900;
+    }
+}
+
+
 
 @keyframes popIn {
     0% {

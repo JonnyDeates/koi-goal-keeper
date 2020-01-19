@@ -1,0 +1,32 @@
+.meet-the-developer-body {
+    display: block;
+    justify-content: space-evenly;
+    width: 80vw;
+    margin: 2em auto;
+}
+.meet-the-developer-body span{
+    color: dodgerblue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.meet-the-developer-body .chibi-frame {
+    margin: 4px auto;
+    -webkit-box-shadow: 0 2px 7px 4px rgba(0,0,0,0.19);
+    box-shadow: 0 2px 7px 4px rgba(0,0,0,0.19);
+    border-radius: 100%;
+}
+
+@media (min-width: 480px) {
+    .meet-the-developer-body {
+        display: inline-flex;
+        justify-content: space-evenly;
+        width: 80vw;
+        margin: 1em 0;
+    }
+    .meet-the-developer-body .chibi-frame {
+        margin: auto 2em !important;
+    }
+}
+@media (min-width: 767px) {
+
+}
