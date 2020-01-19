@@ -11,9 +11,7 @@
 }
 .meet-the-developer-body .chibi-frame {
     margin: 4px auto;
-    -webkit-box-shadow: 0 2px 7px 4px rgba(0,0,0,0.19);
-    box-shadow: 0 2px 7px 4px rgba(0,0,0,0.19);
-    border-radius: 100%;
+
 }
 
 @media (min-width: 480px) {
@@ -25,6 +23,9 @@
     }
     .meet-the-developer-body .chibi-frame {
         margin: auto 2em !important;
+        -webkit-box-shadow: 0 2px 7px 4px rgba(0,0,0,0.19);
+        box-shadow: 0 2px 7px 4px rgba(0,0,0,0.19);
+        border-radius: 100%;
     }
 }
 @media (min-width: 767px) {
