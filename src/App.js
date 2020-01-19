@@ -60,7 +60,7 @@ class App extends React.Component {
                 .then((res) => this.setState({allGoals: this.breakApartAllGoalData(res, false)}))
                 .then(() => {
                     if (UserService.getUser().autoArchiving) {
-                        this.state.allGoals.forEach(Goal => this.checkCurrentGoals(Goal));
+                       // this.state.allGoals.forEach(Goal => this.checkCurrentGoals(Goal));
                     }
                     this.state.allGoals.sort((A, B) => new Date(A.date) - new Date(B.date));
                 });
