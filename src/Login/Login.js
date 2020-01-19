@@ -5,6 +5,7 @@ import {Button, Input} from "../Utils/Utils";
 import {toast} from "react-toastify"
 import './Login.css';
 import UserService from "../services/user-api-service";
+import {Link} from "react-router-dom";
 class Login extends React.Component {
     state = { error: null };
 
@@ -40,7 +41,7 @@ class Login extends React.Component {
                 className='LoginForm'
                 onSubmit={this.handleSubmitJwtAuth}
             >
-                <h1>The Koi Goal Keeper</h1>
+                <h1 onClick={()=> window.location.replace('/home')}>The Koi Goal Keeper</h1>
                 <div role='alert'>
                     {error && <p className='red'>{error}</p>}
                 </div>
@@ -65,12 +66,13 @@ class Login extends React.Component {
                         id='LoginForm__password'>
                     </Input>
                 </div>
-                <Button type='button' onClick={()=>window.location.replace('/register')}>
-                    Register
+                <Button type='button' onClick={()=>window.location.replace('/home')}>
+                    Back
                 </Button>
                 <Button type='submit'>
                     Login
                 </Button>
+                <p><Link to={'/register'}>Sign Up?</Link></p>
             </form>
         )
     }

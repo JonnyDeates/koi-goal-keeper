@@ -1,0 +1,15 @@
+.modal-wrapper {
+    position: fixed;
+    z-index: 9;
+    background-color: #00000088;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+.modal-wrapper .privacy-policy, .modal-wrapper .terms-conditions {
+    max-height: 70vh;
+    max-width: 85vw;
+    margin: 1rem auto;
+    z-index: 9;
+}

@@ -1,24 +1,35 @@
 .LoginForm {
     display: block;
-    position: relative;
+}
+.LoginForm h1 {
+    color: #fff;
+    text-shadow: 2px 2px 3px #00000044;
+}
+.LoginForm p > a {
+
 }
 .username, .password, .full_name, .nickname{
     padding: 16px;
     font-size: larger;
 }
 .username > label, .password > label, .full_name > label, .nickname > label{
-    margin-right: 16px
+    margin-right: 16px;
+    color: gray;
 }
 .username > input, .password > input, .full_name > input, .nickname > input {
     font-size: larger;
 }
 .Button {
     padding: 16px;
-    margin: 0 16px;
+    margin: 8px 16px;
     cursor: pointer;
-    background-color: #ffffffaa;
-    border-radius: 10px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 2px 4px 4px rgba(0,0,0,0.09);
+    box-shadow: 0 2px 4px 4px rgba(0,0,0,0.09);
+    border-radius: 4px;
     border: 0;
+    color: black;
+    font-weight: bold;
 }
 .Button:hover {
     background-color: #ffffffff !important;

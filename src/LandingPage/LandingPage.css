@@ -14,22 +14,24 @@
     color: #fff;
     width: 100vw;
     text-shadow: 1px 1px 2px #00000044;
-    margin: 4rem 0 0 0 ;
+    margin: 10rem 0 0 0 ;
 }
 .landing-page nav {
     width: 100vw;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     background-color: #00000000;
-
     padding: 1rem;
 }
 .landing-page nav > a {
     color: white;
     margin-bottom: 10vh;
+    margin-left: 0rem;
+    margin-right: 4rem;
     text-decoration: none;
     font-weight: bold;
     text-shadow: 1px 1px 2px #00000044;
+    cursor: pointer;
 }
 .landing-page p {
     width: 80vw;

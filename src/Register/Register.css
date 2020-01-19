@@ -1,0 +1,39 @@
+.RegistrationForm {
+    max-width: 340px;
+    margin: 0 auto;
+}
+.RegistrationForm .disabled {
+     color: lightgray;
+ }
+.RegistrationForm .disabled:hover {
+    background-color: #fff;
+    box-shadow: 0 2px 4px 4px rgba(0,0,0,0.09);
+}
+.register-page h1{
+    cursor: pointer;
+}
+.register-page h1, .register-page h3 {
+    color: #fff;
+    text-shadow: 2px 2px 3px #00000044;
+}
+.checkbox-privacy {
+    justify-content: space-evenly;
+    margin: 1rem 0;
+    display: inline-flex;
+}
+.checkbox-privacy label {
+    display: block;
+    margin: 0 1rem;
+}
+.checkbox-privacy input {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: auto 0rem;
+    cursor: pointer;
+}
+.checkbox-privacy span {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}
