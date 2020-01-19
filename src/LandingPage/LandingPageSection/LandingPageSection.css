@@ -19,7 +19,7 @@
 .landing-page p {
     width: 80vw;
     text-align: justify;
-    margin: 1rem auto 4rem auto ;
+    margin: 1rem auto 2rem auto ;
 }
 .landing-page-body {
     display: block;
@@ -33,6 +33,8 @@
     width: 70vw;
     margin: 1rem auto;
     text-align: justify;
+    color: #777777cc;
+    font-size: small;
 }
 .landing-page-section img{
     width: 80vw;
@@ -60,19 +62,23 @@
 }
 @media (min-width: 767px) {
 
+
+    .landing-page-text {
+        width: 60vw;
+    }
+
+}
+@media (min-width: 867px) {
     .landing-page-body {
         display: inline-flex;
     }
-    .landing-page-text {
-        width: 50vw;
-    }
     .landing-page-full-section .landing-page-text {
         width: 30vw;
-        margin: 3rem 0 0 1rem;
     }
     .landing-page-section figcaption{
         width: 50vw;
         max-width: 480px;
+        font-size: medium;
     }
     .landing-page p {
         width: 50vw;

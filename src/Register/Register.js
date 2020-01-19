@@ -141,7 +141,10 @@ class Register extends React.Component {
                             By completing this form, I agree to the <span title={'Open Terms & Conditions Modal'}
                                                                           onClick={this.toggleTermsModal}>Terms</span> and <span
                             title={'Open Privacy Policy Modal'}
-                            onClick={this.togglePrivacyModal}> Privacy Policy. </span>
+                            onClick={() => {
+                                this.togglePrivacyModal();
+                                this.setState({isRead: true});
+                            }}> Privacy Policy. </span>
                         </label><input type='checkbox' disabled={!this.state.isRead}
                                        onChange={() => this.toggleSubmitable()}/>
                     </div>

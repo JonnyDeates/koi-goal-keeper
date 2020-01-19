@@ -46,14 +46,17 @@ class LandingPage extends Component {
                     'goal creation, tracking and archiving.']
             }, {
                 header: 'Plan of Success',
-                description: ['The Koi Goal Keeper app is a tool derived for growth. Being able to plan out your day to \n ' +
-                    'day, is vastly important for maintaining consistent personal growth. Each day is an opportunity, \n' +
-                    'the best way to attain the most of that opportunity is to know the priorities for that day. \n' +
-                    'Deadlines will be met, and growth will prosper. The solution is simple but time-tested. Plan \n' +
-                    'Your Days. The Koi Goal Keeper app is the tool you need to do just that. The quick and easy \n' +
-                    'solution to planning each day, and following through to your eventual goals. It allows for easy \n' +
-                    'goal creation, tracking and archiving.', '1% Better Every Day for 1 Year. 1.01 ^ (365) = 37.78',
-                    '1% Worse Every Day for 1 Year. 0.99 ^ (365) = 00.03'],
+                description: ['The idea of the app is for quick access to the priority checklist for your life, and \n' +
+                'the perpetual creation of that list. To maintain a good timeline and to plan quickly and accordingly \n' +
+                'the app must be used daily. When is the best time to start planning your days? Today, that’s when. \n' +
+                'Every day you are not moving forward you are taking steps backward in your life. This is shown through \n' +
+                'simple math: ', '1% Better Every Day for 1 Year. 1.01 ^ (365) = 37.78',
+                    '1% Worse Every Day for 1 Year. 0.99 ^ (365) = 00.03', 'So The best time to make the difference you \n' +
+                    'need to make is Today. Getting started is easy, after creating an account it is recommended to think \n' +
+                    'of stretch dream goals, that you could see yourself having in 5 - Years Time, reasonable, achievable goals \n' +
+                    'is a must. Then plan downward.', 'Ask What do I need to do with-in this Year to make sure I am on track for my 5 - Year Goals? \n' +
+                    'Then Repeat for the shorter Goals. What do I need to do with-in this Quarter? What about this \n' +
+                    'Month? What about this Week? And What do I need to do Today?', 'Eventual Success and meeting of those goals will become a normal occurrence, so change your life starting today!'],
                 image: compImpr,
                 imageDesc: 'The effects of even the smallest habits compound over time. For example, if you get just 1\n' +
                     ' percent better each day, you’ll end up with results that are nearly 37 times better after a single year.'
