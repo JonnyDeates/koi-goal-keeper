@@ -5,6 +5,9 @@
     overflow: hidden;
     margin-top: 0;
 }
+.min-Width-Two > section, .min-Width-Two main {
+    margin-top: 4rem;
+}
 .App-Pages {
     display: contents;
     margin-top: 50px;
@@ -63,8 +66,8 @@
     background-color: #75e88b;
 }
 @media (min-width: 480px) {
-    .App {
-        margin-top: 58px;
+    .min-Width-Two > section, .min-Width-Two main {
+        margin-top: 6rem;
     }
 }
 @media (min-width: 767px) {
@@ -72,6 +75,9 @@
         font-size: large;
     }
     .App {
+        margin-top: 0;
+    }
+    .min-Width-Two > section, .min-Width-Two main {
         margin-top: 0;
     }
     .min-Width {

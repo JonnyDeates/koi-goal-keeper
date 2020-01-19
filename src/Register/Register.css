@@ -9,6 +9,9 @@
     background-color: #fff;
     box-shadow: 0 2px 4px 4px rgba(0,0,0,0.09);
 }
+.register-page {
+    margin-top: 0 !important;
+}
 .register-page h1{
     cursor: pointer;
 }

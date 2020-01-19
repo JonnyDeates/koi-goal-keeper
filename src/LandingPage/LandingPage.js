@@ -7,6 +7,8 @@ import goalList2 from "../assets/banner/goallist2.png"
 import goalList3 from "../assets/banner/goallist3.png"
 import goalList4 from "../assets/banner/goallist4.png"
 import goalList5 from "../assets/banner/goallist5.png"
+import Yin from "../assets/banner/Yin.png"
+import Yang from "../assets/banner/Yang.png"
 import addPage from "../assets/images/koigoalkeeper-addpagev2.png"
 import homePage from "../assets/images/koigoalkeeper-hompagev2.png"
 import homePageUC from "../assets/images/koigoalkeeper-hompage-ultra-compactedv2.png"
@@ -73,18 +75,21 @@ class LandingPage extends Component {
                         <header>
                             <nav><Link to={'/register'}>Register</Link><Link to={'/login'}>LogIn</Link> </nav>
                             <ParallaxBanner layers={[
+                                {image: Yin, amount: 0.3},
+                                {image: Yang, amount: 1.2},
                                 {image: goalList1, amount: 0.8},
                                 {image: goalList2, amount: 0.6},
                                 {image: goalList3, amount: 0.4},
                                 {image: goalList4, amount: 0.2},
                                 {image: goalList5, amount: 0.9},
+
                             ]}
                                             style={{minHeight: '60vh', maxHeight: '6l0vh'}}>
                                 <h1>{this.state.title}</h1>
                             </ParallaxBanner>
                         </header>
 
-                        <div>
+                        <section>
                             <LandingPageSection header={this.state.topSection.header}
                                                 description={this.state.topSection.description}/>
                             <ImageCoursel imageUrls={this.state.imageCoursel}/>
@@ -93,7 +98,7 @@ class LandingPage extends Component {
                                                                                       image={sect.image}
                                                                                       imageDesc={sect.imageDesc}/>)}
                         <MeetTheDeveloper />
-                        </div>
+                        </section>
                     </ParallaxProvider>
                 </div>
                 <Footer/>
