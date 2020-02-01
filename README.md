@@ -1,6 +1,33 @@
 # Koi Goal Keeper
-## Developed by Jonny Deates
 
-This app is designed for a consumer to have an easy and accessible way to consistantly update their goals and priorites. The application restricts the dates you can set goals, to be now intervals. So what ever time it is now plus the time of selected options like Daily, Weekly, Monthly, Quarterly, Yearly, and 5-Year Goals. This allows the user to focus more on the goal and not when to set the deadline. 
+#### Created by Jonny Deates
+
+### Demo
+Username: demoAccount
+
+Password: Password123!
 
 
+# Technologies Used
+
+### Client Side:  
+React | Javascript | Zeit |  HTML | CSS
+
+### Server Side:
+Express.js | Node.js | PostgreSQL | Heroku
+
+# Introduction
+A full stack application created for the easy posting, updating, and archiving of personal goals of individuals and inspired by the own need for something as such. The site minimizes the Users need to select timing and heavily focuses on the substance being the goals. Each goal can be checked off, edited, transfered, and deleted. The website uses a sql database to store all of the data with a middleman api that I also developed. The site includes full security for the user, and proper encryption of the persons data.  
+
+# Home Page
+![Home page](./assets/images/koigoalkeeper-homepagev2.png)
+
+# Add Page
+![Add Page](./assets/images/koigoalkeeper-addpagev2.png)
+
+# Settings Page
+![Settings](./assets/images/koigoalkeeper-settingsv2.png)
+
+
+# Home Page Condensed View
+![Home Page Condensed](./assets/images/koigoalkeeper-homepage-ultra-compactedv2.png)
