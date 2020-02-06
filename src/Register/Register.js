@@ -152,7 +152,7 @@ class Register extends React.Component {
                     <Button type='button' onClick={() => window.location.replace('/')}>
                         Back
                     </Button>
-                    <Button type='submit'>
+                    {(this.state.isSubmitable) ? <Button type='submit'>
                         Submit
                     </Button> : <Button type={'button'} className={'disabled noselect'}>Submit</Button>}
                     <p><Link to={'/login'}>Already A User?</Link></p>
