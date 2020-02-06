@@ -23,7 +23,7 @@ class App extends React.Component {
                 <PublicRoute exact path={'/'} component={LandingPage}/>
                 <div className={'App-Pages'}>
                     <section className="min-Width">
-                        <PrivateRoute exact path={'/koi'} component={TopNav}/>
+                        <PrivateRoute path={'/koi'} component={TopNav}/>
                         </section>
                     <section className="min-Width-Two">
                         <Switch>
