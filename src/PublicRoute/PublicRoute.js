@@ -9,7 +9,7 @@ export default function PublicRoute({ component, ...props }) {
       {...props}
       render={componentProps => (
           !!TokenService.hasAuthToken()
-              ? <Redirect to={'/koi/home'} />
+              ? <Redirect to={'/'} />
               : <Component {...componentProps} />
 
       )}

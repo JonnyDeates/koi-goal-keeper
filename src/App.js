@@ -27,10 +27,10 @@ class App extends React.Component {
                         </section>
                     <section className="min-Width-Two">
                         <Switch>
-                            <PrivateRoute exact path={'/koi/'} component={Home}/>
-                            <PrivateRoute path={'/koi/add'} component={AddGoal}/>
-                            <PrivateRoute path={'/koi/past-goals'} component={PastGoals}/>
-                            <PrivateRoute path={'/koi/settings'} component={Settings}/>
+                            <PrivateRoute exact path={'/'} component={Home}/>
+                            <PrivateRoute path={'/add'} component={AddGoal}/>
+                            <PrivateRoute path={'/past-goals'} component={PastGoals}/>
+                            <PrivateRoute path={'/settings'} component={Settings}/>
                                 <PublicRoute path={'/login'} component={Login}/>
                                 <PublicRoute path={'/register'} component={Register}/>
                         </Switch>
