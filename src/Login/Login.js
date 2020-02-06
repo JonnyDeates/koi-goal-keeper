@@ -66,7 +66,7 @@ class Login extends React.Component {
                         id='LoginForm__password'>
                     </Input>
                 </div>
-                <Button type='button' onClick={()=>window.location.replace('/home')}>
+                <Button type='button' onClick={()=>window.location.replace('/')}>
                     Back
                 </Button>
                 <Button type='submit'>

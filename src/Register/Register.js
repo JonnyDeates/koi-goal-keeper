@@ -148,12 +148,13 @@ class Register extends React.Component {
                         </label><input type='checkbox' disabled={!this.state.isRead}
                                        onChange={() => this.toggleSubmitable()}/>
                     </div>
-                    <Button type='button' onClick={() => window.location.replace('/home')}>
+                    <Button type='button' onClick={() => window.location.replace('/')}>
                         Back
                     </Button>
-                    {(this.state.isSubmitable) ? <Button type='submit'>
+                    <Button type='submit'>
                         Submit
-                    </Button> : <Button type={'button'} className={'disabled noselect'}>Submit</Button>}
+                    </Button>
+                    {/*</Button> : <Button type={'button'} className={'disabled noselect'}>Submit</Button>}*/}
                     <p><Link to={'/login'}>Already A User?</Link></p>
                 </form>
                 {(this.state.isPrivacyModal) ?

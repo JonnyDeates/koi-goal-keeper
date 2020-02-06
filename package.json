@@ -1,6 +1,6 @@
 {
   "name": "koi-goal-keeper",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "private": true,
   "dependencies": {
     "cuid": "^2.1.6",
@@ -47,5 +47,5 @@
   "bugs": {
     "url": "https://github.com/JonnyDeates/koi-goal-keeper/issues"
   },
-  "homepage": ""
+  "homepage": "https://github.com/JonnyDeates/koi-goal-keeper#readme"
 }
