@@ -23,16 +23,16 @@ class App extends React.Component {
                 <PublicRoute exact path={'/'} component={LandingPage}/>
                 <div className={'App-Pages'}>
                     <section className="min-Width">
-                        <PrivateRoute path={'/'} component={TopNav}/>
+                        <PrivateRoute exact path={'/koi'} component={TopNav}/>
                         </section>
                     <section className="min-Width-Two">
                         <Switch>
-                            <PrivateRoute exact path={'/'} component={Home}/>
-                            <PrivateRoute path={'/add'} component={AddGoal}/>
-                            <PrivateRoute path={'/past-goals'} component={PastGoals}/>
-                            <PrivateRoute path={'/settings'} component={Settings}/>
-                                <PublicRoute path={'/login'} component={Login}/>
-                                <PublicRoute path={'/register'} component={Register}/>
+                            <PrivateRoute exact path={'/koi/'} component={Home}/>
+                            <PrivateRoute path={'/koi/add'} component={AddGoal}/>
+                            <PrivateRoute path={'/koi/past-goals'} component={PastGoals}/>
+                            <PrivateRoute path={'/koi/settings'} component={Settings}/>
+                            <PublicRoute path={'/login'} component={Login}/>
+                            <PublicRoute path={'/register'} component={Register}/>
                         </Switch>
                     </section>
                     <section className="min-Width"/>
