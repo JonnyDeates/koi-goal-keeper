@@ -4,12 +4,14 @@ import GoalList from '../GoalList/GoalList';
 import {SettingsContext} from "../Settings/SettingsContext";
 import SearchFilter from "../SearchFilter/SearchFilter";
 import {getColor} from "../Utils/Utils";
+
 class Home extends React.Component {
     static contextType = SettingsContext;
-    constructor(props){
+
+    constructor(props) {
         super(props);
         this.state = {
-            currentGoals: this.props.allGoals.sort((a,b)=> (a.date > b.date) ? 0 : 1),
+            currentGoals: []
         };
         this.changeFilter = this.changeFilter.bind(this);
         this.searchGoals = this.searchGoals.bind(this);
@@ -17,33 +19,40 @@ class Home extends React.Component {
 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps !== this.props) {
-           this.searchGoals('')
+        if(prevProps.goalListContext !== this.props.goalListContext) {
+            this.setState({currentGoals: this.props.goalListContext.currentGoals});
         }
     }
+
     componentDidMount() {
+        this.props.goalListContext.fetchData(() => this.setState({currentGoals: this.props.goalListContext.currentGoals}));
+
         this.searchGoals('');
     }
-    changeFilter(type){
+
+    changeFilter(type) {
         this.context.setType(type);
-        this.setState({currentGoals: (type !== 'All')
-                ? this.props.allGoals.filter((pg) => pg.type === type)
-                : this.props.allGoals
+        this.setState({
+            currentGoals: (type !== 'All')
+                ? this.props.goalListContext.currentGoals.filter((pg) => pg.type === type)
+                : this.props.goalListContext.currentGoals
         })
     }
 
     searchGoals(search) {
         let currentGoals = (this.context.currentType !== 'All')
-            ? this.props.allGoals.filter((pg) => pg.type === this.context.currentType)
-            : this.props.allGoals;
-        if(search.trim().length !== 0) {
-            this.setState({currentGoals: currentGoals.filter((data)=> data.goals.find(g=> (g.obj.toLowerCase()).includes(search.toLowerCase())))
+            ? this.props.goalListContext.currentGoals.filter((pg) => pg.type === this.context.currentType)
+            : this.props.goalListContext.currentGoals;
+        if (search.trim().length !== 0) {
+            this.setState({
+                currentGoals: currentGoals.filter((data) => data.goals.find(g => (g.obj.toLowerCase()).includes(search.toLowerCase())))
             });
         } else {
-            this.setState({currentGoals: currentGoals.sort((a,b)=> (a.date > b.date) ? 0 : 1)})
+            this.setState({currentGoals: currentGoals})
         }
 
     }
+
     render() {
         const type = (this.context.currentType !== 'All') ? this.context.currentType : '';
         return (
@@ -57,11 +66,18 @@ class Home extends React.Component {
                     <span>{this.context.compacted}</span></p>
                 <SearchFilter changeFilter={this.changeFilter} searchGoals={this.searchGoals}/>
                 {this.state.currentGoals.length === 0 ? <h2>No Current {type} Goals</h2> : ''}
-                {this.state.currentGoals.map((Goal, i) => <GoalList key={i} showChecked={true} deleteGoal={this.props.deleteGoal}
-                                                                pushGoal={this.props.pushGoal} goalId={Goal.id} handleChecked={this.props.handleChecked}
-                                                                isEditable={true} showCompleted={true} goals={Goal.goals} type={Goal.type} handleEditGoal={this.props.handleEditGoal}
-                                                                date={Goal.date} checkedamt={Goal.checkedamt} showDelete={this.context.showDelete}
-                                                                compacted={this.context.compacted} handleObjectiveClone={this.props.handleObjectiveClone}/>)}
+                {this.state.currentGoals.map((Goal, i) => <GoalList key={i} showChecked={true}
+                                                                    deleteGoal={this.props.goalListContext.deleteGoal}
+                                                                    pushGoal={this.props.goalListContext.pushGoal}
+                                                                    goalId={Goal.id}
+                                                                    handleChecked={this.props.goalListContext.handleChecked}
+                                                                    isEditable={true} showCompleted={true}
+                                                                    goals={Goal.goals} type={Goal.type}
+                                                                    handleEditGoal={this.props.goalListContext.handleEditGoal}
+                                                                    date={Goal.date} checkedamt={Goal.checkedamt}
+                                                                    showDelete={this.context.showDelete}
+                                                                    compacted={this.context.compacted}
+                                                                    handleObjectiveClone={this.props.goalListContext.handleObjectiveClone}/>)}
             </main>
         )
     }

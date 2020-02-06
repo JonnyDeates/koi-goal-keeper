@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import "./MeetTheDeveloper.css";
-import {Link} from "react-router-dom";
 import Chibi from "./Chibi/Chibi";
 
 class MeetTheDeveloper extends Component {

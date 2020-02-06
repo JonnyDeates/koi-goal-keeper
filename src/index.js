@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {SettingsProvider} from "./Settings/SettingsContext";
+import {GoalListProvider} from "./GoalList/GoalListContext";
 import {BrowserRouter as Router} from "react-router-dom";
-
+import './fonts/Cabin-Regular.ttf';
 ReactDOM.render(
     <Router>
         <SettingsProvider>
+        <GoalListProvider>
             <App/>
+        </GoalListProvider>
         </SettingsProvider>
     </Router>
     , document.getElementById('root'));

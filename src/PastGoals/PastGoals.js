@@ -9,32 +9,33 @@ class PastGoals extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentGoals: [...this.props.pastGoals],
+            currentGoals: [],
         };
         this.changeFilter = this.changeFilter.bind(this);
         this.searchGoals = this.searchGoals.bind(this)
     }
     componentDidMount() {
         this.searchGoals('');
+        this.setState({currentGoals: this.props.goalListContext.pastGoals})
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevProps !== this.props) {
-            this.setState({currentGoals: [...this.props.pastGoals.sort((a,b)=> (new Date(a.date).getTime() > new Date(b.date).getTime() ? 0 : 1))]})
+            this.setState({currentGoals: [...this.props.goalListContext.pastGoals.sort((A, B) => new Date(A.date) - new Date(B.date))]})
         }
     }
     changeFilter(type){
         this.context.setType(type);
         this.setState({currentGoals: (type !== 'All')
-                ? this.props.pastGoals.filter((pg) => pg.type === type)
-                : this.props.pastGoals
+                ? this.props.goalListContext.pastGoals.filter((pg) => pg.type === type)
+                : this.props.goalListContext.pastGoals
         })
     }
 
     searchGoals(search) {
         let pastGoals = (this.context.currentType !== 'All')
-            ? this.props.pastGoals.filter((pg) => pg.type === this.context.currentType)
-            : this.props.pastGoals;
+            ? this.props.goalListContext.pastGoals.filter((pg) => pg.type === this.context.currentType)
+            : this.props.goalListContext.pastGoals;
         pastGoals.sort((a,b)=> (new Date(a.date).getTime() > new Date(b.date).getTime() ? 0 : 1)).reverse();
         if(search.trim().length !== 0) {
             this.setState({currentGoals: pastGoals.filter((data)=> data.goals.find(g=> (g.goal.toLowerCase()).includes(search.toLowerCase())))
@@ -57,18 +58,18 @@ class PastGoals extends React.Component {
                 <span>{this.context.compacted}</span></p>
             <SearchFilter changeFilter={this.changeFilter} searchGoals={this.searchGoals}/>
             {(this.context.currentType === 'All')
-                ? this.state.currentGoals.map((pg, i) => <GoalList key={i} goalId={pg.id} deleteGoal={this.props.deleteGoal}
+                ? this.state.currentGoals.map((pg, i) => <GoalList key={i} goalId={pg.id} deleteGoal={this.props.goalListContext.deletePastGoal}
                                                                    showChecked={false} isEditable={false} showCompleted={true}
                                                                    date={pg.date} type={pg.type} goals={pg.goals} past={true}
                                                                    showDelete={this.context.showDelete} checkedamt={pg.checkedamt}
                                                                    compacted={this.context.compacted}
-                                                                   handleObjectiveClone={this.props.handleObjectiveClone}
+                                                                   handleObjectiveClone={this.props.goalListContext.handleObjectiveClone}
                 />)
-                : this.state.currentGoals.map((pg, i) => <GoalList key={i} goalId={pg.id} deleteGoal={this.props.deleteGoal}
+                : this.state.currentGoals.map((pg, i) => <GoalList key={i} goalId={pg.id} deleteGoal={this.props.goalListContext.deletePastGoal}
                                                                    showChecked={false} isEditable={false} showCompleted={true}
                                                                    date={pg.date} showDelete={this.context.showDelete} type={pg.type}
                                                                    goals={pg.goals} past={true} checkedamt={pg.checkedamt}
-                                                                   compacted={this.context.compacted} handleObjectiveClone={this.props.handleObjectiveClone}/>)
+                                                                   compacted={this.context.compacted} handleObjectiveClone={this.props.goalListContext.handleObjectiveClone}/>)
             }
             {(this.state.currentGoals.length > 0) ? ''
                 : <h2>Currently No Past {type} Goals</h2>}

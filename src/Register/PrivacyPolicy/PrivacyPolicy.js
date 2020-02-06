@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import './PrivacyPolicy.css'
 class PrivacyPolicy extends Component {
-    constructor(props) {
-        super(props)
-    }
     componentDidMount() {
         document.addEventListener('scroll', this.trackScrolling);
     }
