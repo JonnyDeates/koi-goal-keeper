@@ -145,7 +145,8 @@ class Register extends React.Component {
                                 this.togglePrivacyModal();
                                 this.setState({isRead: true});
                             }}> Privacy Policy. </span>
-                        </label><input type='checkbox' disabled={!this.state.isRead}
+                        </label><input type='checkbox'
+                                       // disabled={!this.state.isRead}
                                        onChange={() => this.toggleSubmitable()}/>
                     </div>
                     <Button type='button' onClick={() => window.location.replace('/')}>
@@ -153,8 +154,7 @@ class Register extends React.Component {
                     </Button>
                     <Button type='submit'>
                         Submit
-                    </Button>
-                    {/*</Button> : <Button type={'button'} className={'disabled noselect'}>Submit</Button>}*/}
+                    </Button> : <Button type={'button'} className={'disabled noselect'}>Submit</Button>}
                     <p><Link to={'/login'}>Already A User?</Link></p>
                 </form>
                 {(this.state.isPrivacyModal) ?
