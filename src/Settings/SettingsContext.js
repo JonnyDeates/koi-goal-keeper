@@ -59,7 +59,7 @@ export class SettingsProvider extends React.Component {
             currentTheme: this.state.currentTheme,
             currentType: this.state.currentType,
             autoArchiving: this.state.autoArchiving,
-            types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly', '5-Year'],
+            types: ['Daily', 'Weekly', 'BiWeekly', 'Monthly', 'Quarterly', '6-Month', 'Yearly','3-Year', '5-Year', '10-Year','25-Year','Distant'],
             username: this.state.username,
             email: this.state.email,
             id: this.state.id,

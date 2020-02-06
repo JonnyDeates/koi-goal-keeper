@@ -7,6 +7,7 @@
     text-align: left;
     margin-left: 8px;
 }
+
 .add-input {
     font-size: large;
     margin: 16px 0;
@@ -47,6 +48,14 @@
     height: 75px;
     width: 55vw;
     position: absolute;
+}
+.date-input{
+    padding: 0;
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    margin-left: -84px;
+    margin-top: 55px;
 }
 .dropdown-types {
     width: fit-content;
@@ -142,6 +151,9 @@
         width: 250px;
         position: absolute;
     }
+    .date-input{
+        margin-left: -20%;
+    }
     .example-add {
         top: 346px;
         border-radius: 0 0 15px 15px;
@@ -167,6 +179,9 @@
         width: 100px;
         height: 10px;
         position: absolute;
+    }
+    .date-input{
+        margin-left: -20px;
     }
     .example-add {
         width: 45%;
