@@ -14,7 +14,10 @@ class ImageCoursel extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({imageUrls: this.props.imageUrls});
+        if(this.props.imageUrls) {
+            this.setState({imageUrls: this.props.imageUrls});
+        }
+
     }
 
     nextSlide() {

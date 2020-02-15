@@ -21,7 +21,12 @@ class LandingPageSection extends Component {
         if (this.props.isFlipped) {
             this.setState({isFlipped: this.props.isFlipped});
         }
-        this.setState({header: this.props.header, description: this.props.description});
+        if (this.props.header) {
+            this.setState({header: this.props.header});
+        }
+        if (this.props.description) {
+            this.setState({description: this.props.description})
+        }
     }
 
     render() {
@@ -31,7 +36,7 @@ class LandingPageSection extends Component {
         </figure> : '');
 
         const Body = (<div>
-            {this.state.description.map((paragraph,i) => <p key={i} className={'landing-page-text'}>
+            {this.state.description.map((paragraph, i) => <p key={i} className={'landing-page-text'}>
                 {paragraph}
             </p>)}
         </div>);

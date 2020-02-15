@@ -4,8 +4,10 @@ import "./PastGoals.css"
 import {SettingsContext} from "../Settings/SettingsContext";
 import SearchFilter from "../SearchFilter/SearchFilter";
 import {getColor} from "../Utils/Utils";
+
 class PastGoals extends React.Component {
     static contextType = SettingsContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -14,19 +16,24 @@ class PastGoals extends React.Component {
         this.changeFilter = this.changeFilter.bind(this);
         this.searchGoals = this.searchGoals.bind(this)
     }
+
     componentDidMount() {
-        this.searchGoals('');
-        this.setState({currentGoals: this.props.goalListContext.pastGoals})
+        if (this.props.goalListContext) {
+            this.searchGoals('');
+            this.setState({currentGoals: this.props.goalListContext.pastGoals})
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps !== this.props) {
+        if (prevProps !== this.props) {
             this.setState({currentGoals: [...this.props.goalListContext.pastGoals.sort((A, B) => new Date(A.date) - new Date(B.date))]})
         }
     }
-    changeFilter(type){
+
+    changeFilter(type) {
         this.context.setType(type);
-        this.setState({currentGoals: (type !== 'All')
+        this.setState({
+            currentGoals: (type !== 'All')
                 ? this.props.goalListContext.pastGoals.filter((pg) => pg.type === type)
                 : this.props.goalListContext.pastGoals
         })
@@ -36,9 +43,10 @@ class PastGoals extends React.Component {
         let pastGoals = (this.context.currentType !== 'All')
             ? this.props.goalListContext.pastGoals.filter((pg) => pg.type === this.context.currentType)
             : this.props.goalListContext.pastGoals;
-        pastGoals.sort((a,b)=> (new Date(a.date).getTime() > new Date(b.date).getTime() ? 0 : 1)).reverse();
-        if(search.trim().length !== 0) {
-            this.setState({currentGoals: pastGoals.filter((data)=> data.goals.find(g=> (g.goal.toLowerCase()).includes(search.toLowerCase())))
+        pastGoals.sort((a, b) => (new Date(a.date).getTime() > new Date(b.date).getTime() ? 0 : 1)).reverse();
+        if (search.trim().length !== 0) {
+            this.setState({
+                currentGoals: pastGoals.filter((data) => data.goals.find(g => (g.goal.toLowerCase()).includes(search.toLowerCase())))
             });
         } else {
             this.setState({currentGoals: pastGoals})
@@ -50,7 +58,7 @@ class PastGoals extends React.Component {
 
         return (<main className='past-goals'>
             <h1>Past {type} Goals </h1>
-            <div className='bar-indicator-top'style={getColor(type)}/>
+            <div className='bar-indicator-top' style={getColor(type)}/>
             <p className='even-space noselect' onClick={this.context.toggleShowDelete}>Show
                 Delete
                 <span>{(this.context.showDelete) ? 'Yes' : 'No'}</span></p>
@@ -58,18 +66,27 @@ class PastGoals extends React.Component {
                 <span>{this.context.compacted}</span></p>
             <SearchFilter changeFilter={this.changeFilter} searchGoals={this.searchGoals}/>
             {(this.context.currentType === 'All')
-                ? this.state.currentGoals.map((pg, i) => <GoalList key={i} goalId={pg.id} deleteGoal={this.props.goalListContext.deletePastGoal}
-                                                                   showChecked={false} isEditable={false} showCompleted={true}
-                                                                   date={pg.date} type={pg.type} goals={pg.goals} past={true}
-                                                                   showDelete={this.context.showDelete} checkedamt={pg.checkedamt}
+                ? this.state.currentGoals.map((pg, i) => <GoalList key={i} goalId={pg.id}
+                                                                   deleteGoal={this.props.goalListContext.deletePastGoal}
+                                                                   showChecked={false} isEditable={false}
+                                                                   showCompleted={true}
+                                                                   date={pg.date} type={pg.type} goals={pg.goals}
+                                                                   past={true}
+                                                                   showDelete={this.context.showDelete}
+                                                                   checkedamt={pg.checkedamt}
                                                                    compacted={this.context.compacted}
                                                                    handleObjectiveClone={this.props.goalListContext.handleObjectiveClone}
                 />)
-                : this.state.currentGoals.map((pg, i) => <GoalList key={i} goalId={pg.id} deleteGoal={this.props.goalListContext.deletePastGoal}
-                                                                   showChecked={false} isEditable={false} showCompleted={true}
-                                                                   date={pg.date} showDelete={this.context.showDelete} type={pg.type}
-                                                                   goals={pg.goals} past={true} checkedamt={pg.checkedamt}
-                                                                   compacted={this.context.compacted} handleObjectiveClone={this.props.goalListContext.handleObjectiveClone}/>)
+                : this.state.currentGoals.map((pg, i) => <GoalList key={i} goalId={pg.id}
+                                                                   deleteGoal={this.props.goalListContext.deletePastGoal}
+                                                                   showChecked={false} isEditable={false}
+                                                                   showCompleted={true}
+                                                                   date={pg.date} showDelete={this.context.showDelete}
+                                                                   type={pg.type}
+                                                                   goals={pg.goals} past={true}
+                                                                   checkedamt={pg.checkedamt}
+                                                                   compacted={this.context.compacted}
+                                                                   handleObjectiveClone={this.props.goalListContext.handleObjectiveClone}/>)
             }
             {(this.state.currentGoals.length > 0) ? ''
                 : <h2>Currently No Past {type} Goals</h2>}

@@ -19,15 +19,18 @@ class Home extends React.Component {
 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps.goalListContext !== this.props.goalListContext) {
+        if (prevProps.goalListContext !== this.props.goalListContext) {
             this.setState({currentGoals: this.props.goalListContext.currentGoals});
         }
     }
 
     componentDidMount() {
-        this.props.goalListContext.fetchData(() => this.setState({currentGoals: this.props.goalListContext.currentGoals}));
+        if (this.props.goalListContext) {
+            this.props.goalListContext.fetchData(() => this.setState({currentGoals: this.props.goalListContext.currentGoals}));
+            this.searchGoals('');
+        }
 
-        this.searchGoals('');
+
     }
 
     changeFilter(type) {

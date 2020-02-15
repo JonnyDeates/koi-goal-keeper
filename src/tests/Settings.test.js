@@ -7,7 +7,7 @@ import Settings from "../Settings/Settings";
 
 Enzyme.configure({adapter: new Adapter()});
 
-describe(`App component`, () => {
+describe(`Settings component`, () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
         ReactDOM.render(
