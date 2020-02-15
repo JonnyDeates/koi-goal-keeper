@@ -29,12 +29,15 @@ class AddGoal extends React.Component {
 
     }
     componentDidMount() {
-        this.setState({
-            currentGoal: this.props.goalListContext.currentGoal,
-            handleSubmit: this.props.goalListContext.handleSubmitAdd,
-
-        });
-        setTimeout(()=>this.changeDate(this.props.goalListContext.currentGoal.type),100);
+        if(this.props.goalListContext) {
+            this.setState({
+                currentGoal: this.props.goalListContext.currentGoal,
+                handleSubmit: this.props.goalListContext.handleSubmitAdd,
+                handleChecked:this.props.goalListContext.handleChecked,
+                handleEditGoal:this.props.goalListContext.handleEditCurrentGoal
+            });
+            setTimeout(()=>this.changeDate(this.props.goalListContext.currentGoal.type),100);
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -183,7 +186,7 @@ class AddGoal extends React.Component {
                 {this.state.currentGoal.goals.length === 0 ? <div className='example-add'>Growth Worthy Goal</div> : ''}
                 <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false}
                           date={this.state.currentGoal.date} type={this.state.currentGoal.type}
-                          showChecked={false} handleChecked={this.props.goalListContext.handleChecked} handleEditGoal={this.props.goalListContext.handleEditCurrentGoal}
+                          showChecked={false} handleChecked={this.state.handleChecked} handleEditGoal={this.state.handleEditCurrentGoal}
                           showDelete={true} handleObjectiveClone={this.handleObjectiveClone}
                           deleteGoal={this.deleteObjective} goals={this.state.currentGoal.goals}/>
 

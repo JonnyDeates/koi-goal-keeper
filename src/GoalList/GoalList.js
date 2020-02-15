@@ -7,24 +7,42 @@ const pushIco = require("../assets/icons/push.ico");
 class GoalList extends React.Component {
     state = {
         value: '',
-        type: this.props.type,
-        date: this.props.date,
-        goals: this.props.goals,
-        goalId: this.props.goalId,
-        showCompleted: this.props.showCompleted,
-        isEditable: this.props.isEditable,
-        showChecked: this.props.showChecked,
-        showDelete: this.props.showDelete,
-        compacted: this.props.compacted,
-        deleteGoal: this.props.deleteGoal,
-        past: this.props.past,
-        checkedamt: this.props.checkedamt
+        type: '',
+        date: '',
+        goals: [],
+        goalId: '',
+        showCompleted: false,
+        isEditable: false,
+        showChecked: false,
+        showDelete: false,
+        compacted: '',
+        deleteGoal: '',
+        past: false,
+        checkedamt: 0
     };
 
     constructor(props) {
         super(props);
         this.handleGoal = this.handleGoal.bind(this);
 
+    }
+    componentDidMount(){
+        if(!!this.props.goals) {
+            this.setState({
+                type: this.props.type,
+                date: this.props.date,
+                goals: this.props.goals,
+                goalId: this.props.goalId,
+                showCompleted: this.props.showCompleted,
+                isEditable: this.props.isEditable,
+                showChecked: this.props.showChecked,
+                showDelete: this.props.showDelete,
+                compacted: this.props.compacted,
+                deleteGoal: this.props.deleteGoal,
+                past: this.props.past,
+                checkedamt: this.props.checkedamt
+            })
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -56,7 +74,7 @@ class GoalList extends React.Component {
                 <div className={'goallist-title'}>
                     <p>{this.state.type}</p>
                     <p>{new Date(this.state.date).toLocaleDateString()}</p>
-                    {(this.state.checkedamt === this.state.goals.length && !this.state.past) ? <img src={pushIco} alt="Push Goals" width='50px' height='50px' onClick={()=> this.props.pushGoal(this.state.goalId)}/> : <></>}
+                    {this.state.goals !== 0 && (this.state.checkedamt === this.state.goals.length && !this.state.past) ? <img src={pushIco} alt="Push Goals" width='50px' height='50px' onClick={()=> this.props.pushGoal(this.state.goalId)}/> : <></>}
                     {(this.state.showCompleted && this.state.goals.length > 1) ? <p>{this.state.checkedamt}</p> : ''}
                     <div className='circle-indicator' style={getColor(this.state.type)}/>
                 </div>
