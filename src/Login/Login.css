@@ -4,6 +4,7 @@
 .LoginForm h1 {
     color: #fff;
     text-shadow: 2px 2px 3px #00000044;
+    cursor:pointer; 
 }
 .LoginForm p > a {
 

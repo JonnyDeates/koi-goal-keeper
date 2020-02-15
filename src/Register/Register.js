@@ -71,7 +71,7 @@ class Register extends React.Component {
         const {error} = this.state
         return (
             <main className={'register-page'}>
-                <h1 onClick={() => window.location.replace('/home')}>The Koi Goal Keeper</h1>
+                <h1 onClick={() => window.location.replace('/')}>The Koi Goal Keeper</h1>
                 <h3>Register</h3>
                 <form
                     className='RegistrationForm'

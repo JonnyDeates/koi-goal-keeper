@@ -29,12 +29,16 @@ class AddGoal extends React.Component {
 
     }
     componentDidMount() {
-        this.setState({
-            currentGoal: this.props.goalListContext.currentGoal,
-            handleSubmit: this.props.goalListContext.handleSubmitAdd,
+        // if(!!this.props.goalListContext) {
+            this.setState({
+                currentGoal: this.props.goalListContext.currentGoal,
+                handleSubmit: this.props.goalListContext.handleSubmitAdd,
+                handleChecked:this.props.goalListContext.handleChecked,
+                handleEditGoal:this.props.goalListContext.handleEditCurrentGoal
+            });
+            setTimeout(()=>this.changeDate(this.props.goalListContext.currentGoal.type),100);
+        // }
 
-        });
-        setTimeout(()=>this.changeDate(this.props.goalListContext.currentGoal.type),100);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -96,7 +100,7 @@ class AddGoal extends React.Component {
         this.props.goalListContext.handleGoalAdd({date: tempDate.toISOString(), type, goals: this.state.currentGoal.goals});
     }
     deleteObjective(neat, ID) {
-        let newGoals = this.props.goalListContext.goals.filter(g => g.id !== ID);
+        let newGoals = this.props.goalListContext.currentGoal.goals.filter(g => g.id !== ID);
         newGoals.forEach((goal, i) => goal.id = i);
         toast.warn('Objective Deleted', {autoClose: 2000});
         let newGL = {type: this.state.currentGoal.type, date: this.state.currentGoal.date, goals: newGoals};
@@ -183,7 +187,7 @@ class AddGoal extends React.Component {
                 {this.state.currentGoal.goals.length === 0 ? <div className='example-add'>Growth Worthy Goal</div> : ''}
                 <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false}
                           date={this.state.currentGoal.date} type={this.state.currentGoal.type}
-                          showChecked={false} handleChecked={this.props.goalListContext.handleChecked} handleEditGoal={this.props.goalListContext.handleEditCurrentGoal}
+                          showChecked={false} handleChecked={this.state.handleChecked} handleEditGoal={this.state.handleEditGoal}
                           showDelete={true} handleObjectiveClone={this.handleObjectiveClone}
                           deleteGoal={this.deleteObjective} goals={this.state.currentGoal.goals}/>
 

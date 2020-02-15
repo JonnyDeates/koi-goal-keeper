@@ -41,7 +41,7 @@ class Login extends React.Component {
                 className='LoginForm'
                 onSubmit={this.handleSubmitJwtAuth}
             >
-                <h1 onClick={()=> window.location.replace('/home')}>The Koi Goal Keeper</h1>
+                <h1 onClick={()=> window.location.replace('/')}>The Koi Goal Keeper</h1>
                 <div role='alert'>
                     {error && <p className='red'>{error}</p>}
                 </div>
