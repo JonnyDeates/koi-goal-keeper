@@ -58,6 +58,7 @@ export class GoalListProvider extends React.Component {
         this.handleEditGoal = this.handleEditGoal.bind(this);
         this.handleGoalAdd = this.handleGoalAdd.bind(this);
         this.handleObjectiveClone = this.handleObjectiveClone.bind(this);
+        this.handlePastObjectiveClone = this.handlePastObjectiveClone.bind(this);
         this.handleSelectedType = this.handleSelectedType.bind(this);
         this.handleSubmitAdd = this.handleSubmitAdd.bind(this);
         this.pushGoal = this.pushGoal.bind(this);
@@ -228,7 +229,7 @@ export class GoalListProvider extends React.Component {
     }
 
     handleObjectiveClone(goalID, id) {
-        let goals = [...this.state.currentGoals, ...this.state.pastGoals].find(goalList => goalList.id === goalID).goals;
+        let goals = this.state.currentGoals.find(goalList => goalList.id === goalID).goals;
         let newObj = {obj: goals.find(Obj => Obj.id === id).obj, id: this.state.currentGoal.goals.length || 0};
         toast.success('Objective Copied', {autoClose: 1500});
         this.setState({
@@ -239,7 +240,18 @@ export class GoalListProvider extends React.Component {
                 }
         });
     }
-
+    handlePastObjectiveClone(goalID, id) {
+        let goals = this.state.pastGoals.find(goalList => goalList.id === goalID).goals;
+        let newObj = {obj: goals.find(Obj => Obj.id === id).obj, id: this.state.currentGoal.goals.length || 0};
+        toast.success('Objective Copied', {autoClose: 1500});
+        this.setState({
+            currentGoal:
+                {
+                    date: this.state.currentGoal.date, type: this.state.currentGoal.type,
+                    goals: [newObj, ...this.state.currentGoal.goals]
+                }
+        });
+    }
     handleSelectedType(type) {
         this.setState({selectedType: type})
     }
@@ -247,18 +259,22 @@ export class GoalListProvider extends React.Component {
     handleSubmitAdd(e) {
         e.preventDefault();
         if (this.state.currentGoal.goals.length > 0) {
-            toast.success(`${this.state.currentGoal.type} Goal Added!`);
-            if(this.state.currentGoal.type === 'Other') {
-                this.state.currentGoal.type = this.updateTypeTimeline(this.state.currentGoal);
-                this.forceUpdate();
+            const {goals, date} = this.state.currentGoal;
+            let newCurrentGoal = {type: this.state.currentGoal.type, goals, date};
+            if(this.state.currentGoal.type === 'Other') { // Checks to see if the Type was Other
+                newCurrentGoal.type = this.updateTypeTimeline(this.state.currentGoal);
+                this.setState({currentGoal: newCurrentGoal})
             }
-            GoalApiService.postGoal(this.state.currentGoal)
+            // Posting The Goal with a Fetch Call
+            GoalApiService.postGoal(newCurrentGoal)
                 .then((res) => {
                     this.state.currentGoal.goals.forEach((obj) =>
+                        // Posting Each Objective
                         ObjectivesApiService.postObjective({
                             obj: obj.obj,
                             goalid: res.id
                         }).then(() => this.forceUpdate()));
+                    // Reseting The Date to be properly Formated
                     let newDate = new Date();
                     newDate = newDate.setDate(newDate.getDate() + 1);
                     newDate = new Date(newDate).toISOString();
@@ -271,7 +287,8 @@ export class GoalListProvider extends React.Component {
                             date: newDate
                         }
                     });
-                })
+                });
+            toast.success(`${this.state.currentGoal.type} Goal Added!`);
         } else {
             toast.error(`The ${this.state.currentGoal.type} Goal is Missing Objectives.`)
         }
@@ -351,16 +368,16 @@ export class GoalListProvider extends React.Component {
                 tempDate.setMonth(tempDate.getMonth() + 10);
                 break;
             case '3-Year':
-                tempDate.setMonth(tempDate.getMonth() + (2 * 12));
+                tempDate.setMonth(tempDate.getMonth() + (3 * 12));
                 break;
             case '5-Year':
-                tempDate.setMonth(tempDate.getMonth() + (4 * 12));
+                tempDate.setMonth(tempDate.getMonth() + (5 * 12));
                 break;
             case '10-Year':
-                tempDate.setMonth(tempDate.getMonth() + (7 * 12));
+                tempDate.setMonth(tempDate.getMonth() + (10 * 12));
                 break;
             case '25-Year':
-                tempDate.setMonth(tempDate.getMonth() + (15 * 12));
+                tempDate.setMonth(tempDate.getMonth() + (25 * 12));
                 break;
             case 'Distant':
                 tempDate.setMonth(tempDate.getMonth() + (30 * 12));
@@ -396,6 +413,7 @@ export class GoalListProvider extends React.Component {
             handleEditGoal: this.handleEditGoal,
             handleGoalAdd: this.handleGoalAdd,
             handleObjectiveClone: this.handleObjectiveClone,
+            handlePastObjectiveClone: this.handlePastObjectiveClone,
             handleSelectedType: this.handleSelectedType,
             handleSubmitAdd: this.handleSubmitAdd,
             pushGoal: this.pushGoal,

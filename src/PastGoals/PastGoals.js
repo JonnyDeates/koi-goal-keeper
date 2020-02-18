@@ -18,7 +18,7 @@ class PastGoals extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.goalListContext) {
+        if (!!this.props.goalListContext) {
             this.searchGoals('');
             this.setState({currentGoals: this.props.goalListContext.pastGoals})
         }
@@ -75,7 +75,7 @@ class PastGoals extends React.Component {
                                                                    showDelete={this.context.showDelete}
                                                                    checkedamt={pg.checkedamt}
                                                                    compacted={this.context.compacted}
-                                                                   handleObjectiveClone={this.props.goalListContext.handleObjectiveClone}
+                                                                   handleObjectiveClone={this.props.goalListContext.handlePastObjectiveClone}
                 />)
                 : this.state.currentGoals.map((pg, i) => <GoalList key={i} goalId={pg.id}
                                                                    deleteGoal={this.props.goalListContext.deletePastGoal}
@@ -86,7 +86,7 @@ class PastGoals extends React.Component {
                                                                    goals={pg.goals} past={true}
                                                                    checkedamt={pg.checkedamt}
                                                                    compacted={this.context.compacted}
-                                                                   handleObjectiveClone={this.props.goalListContext.handleObjectiveClone}/>)
+                                                                   handleObjectiveClone={this.props.goalListContext.handlePastObjectiveClone}/>)
             }
             {(this.state.currentGoals.length > 0) ? ''
                 : <h2>Currently No Past {type} Goals</h2>}
