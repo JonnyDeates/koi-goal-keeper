@@ -1,7 +1,7 @@
 import React from 'react';
 import './GoalList.css'
 import GoalItem from "./GoalItem/GoalItem";
-import {getColor} from '../Utils/Utils';
+import {getColor, getThemeColors} from '../Utils/Utils';
 const pushIco = require("../assets/icons/push.ico");
 
 class GoalList extends React.Component {
@@ -71,23 +71,24 @@ class GoalList extends React.Component {
     render() {
         return (
             <div className={this.state.compacted + " goallist"}>
-                <div className={'goallist-title'}>
+                <div className={'goallist-title'} style={{backgroundColor: getThemeColors().tColor+'aa',color: getThemeColors().fontColor}}>
                     <p>{this.state.type}</p>
                     <p>{new Date(this.state.date).toLocaleDateString()}</p>
                     {this.state.goals !== 0 && (this.state.checkedamt === this.state.goals.length && !this.state.past) ? <img src={pushIco} alt="Push Goals" width='50px' height='50px' onClick={()=> this.props.pushGoal(this.state.goalId)}/> : <></>}
                     {(this.state.showCompleted && this.state.goals.length > 1) ? <p>{this.state.checkedamt}</p> : ''}
                     <div className='circle-indicator' style={getColor(this.state.type)}/>
                 </div>
-                <ul>
+                <ul >
                     {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.obj} checked={goal.checked}
                                                                  handleChecked={this.props.handleChecked} id={goal.id}
-                                                                 bgColor={(i % 2) ? 'tinted' : ''}
+                                                                 bgColor={(i % 2) ? getThemeColors().tColor+'aa' : getThemeColors().tColor+'88'}
+                                                                 fontColor={getThemeColors().fontColor}
                                                                  isEditable={this.state.isEditable}
                                                                  handleEditGoal={this.props.handleEditGoal}
                                                                  deleteGoal={this.state.deleteGoal}
                                                                  showChecked={this.state.showChecked}
                                                                  showDelete={this.state.showDelete}
-                                                                 past={this.state.past}
+                                                                 past={this.state.past} compacted={this.state.compacted}
                                                                  handleObjectiveClone={this.props.handleObjectiveClone}
 
                     />)}

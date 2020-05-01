@@ -1,9 +1,23 @@
+.theme-list .dropdown-types {
+
+}
 .dropdown-wrapper {
     position: relative;
     z-index: 4;
 }
 .dropdown-types-settings {
     position: relative;
+    left: 50%;
+    width: 88px;
+    padding: 8px 0;
+    margin-left: -50px;
+    border-radius: 10px;
+}
+.dropdown-types-settings .dropdown-list {
+    margin-left: 0;
+}
+.dropdown-types-settings .dropdown-list > li:hover {
+    background-color: #ffffff66 !important;
 }
 .settings h1, .settings h2{
     text-align: left;

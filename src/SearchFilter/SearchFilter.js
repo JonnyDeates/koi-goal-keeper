@@ -1,9 +1,7 @@
 import React from 'react';
-import {SettingsContext} from "../Settings/SettingsContext";
-import {getColor} from "../Utils/Utils";
+import {getColor, getThemeColors} from "../Utils/Utils";
 
 class SearchFilter extends React.Component {
-    static contextType = SettingsContext;
 
     constructor(props) {
         super(props);
@@ -15,7 +13,13 @@ class SearchFilter extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({types: ['All', ...this.context.types]})
+        this.setState({types: ['All', ...this.props.types]});
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.types.length !== this.props.types.length) {
+            this.setState({types: ['All', ...this.props.types]});
+        }
     }
 
     handleSearch(e) {
@@ -27,16 +31,29 @@ class SearchFilter extends React.Component {
         return (
             <div className="addition-wrapper">
                 <div className='dropdown-types'>
-                    <li>{this.context.currentType}
-                    <div className='bar-indicator-left' style={getColor(this.context.currentType)}/>
-                        <div className='bar-indicator-right' style={getColor(this.context.currentType)}/>
+                    <li style={{
+                        backgroundColor: getThemeColors().tColor,
+                        color: getThemeColors().fontColor
+                    }}>{this.props.currentType}
+                        <div className='bar-indicator-left' style={getColor(this.props.currentType)}/>
+                        <div className='bar-indicator-right' style={getColor(this.props.currentType)}/>
                     </li>
 
                     <ul className='dropdown-list'>
                         {this.state.types.map((type, i) => <li key={i}
-                                                               className={(this.context.currentType === type) ? 'tinted' : ''}
-                                                               onClick={() => this.props.changeFilter(type)}>{type}  <div className='bar-indicator-left' style={getColor(type)}/>
-                            <div className='bar-indicator-right'style={getColor(type)}/></li>)}
+                                                               className={(this.props.currentType === type) ? 'tinted' : ''}
+                                                               style={(i >= 4) ? {
+                                                                   padding: 16 * (1 / (i - 4)) + 'px 0px',
+                                                                   color: getThemeColors().fontColor,
+                                                                   backgroundColor: getThemeColors().tColor
+                                                               } : {
+                                                                   color: getThemeColors().fontColor,
+                                                                   backgroundColor: getThemeColors().tColor,
+                                                               }}
+                                                               onClick={() => this.props.changeFilter(type)}>{type}
+                            <div className='bar-indicator-left' style={getColor(type)}/>
+                            <div className='bar-indicator-right' style={getColor(type)}/>
+                        </li>)}
                     </ul>
                 </div>
                 <section className='add-input'>
@@ -47,10 +64,14 @@ class SearchFilter extends React.Component {
                         }
                     }}/>
                     <div className='even-space'>
-                        <button onClick={() => this.setState({search: ''})}
+                        <button onClick={() => this.setState({search: ''})} title={'Remove Search Input'}
+                                style={{backgroundColor: getThemeColors().tColor, color: getThemeColors().fontColor}}
                                 type='button'>Cancel
                         </button>
-                        <button onClick={() => this.props.searchGoals(this.state.search)} type='button'>Search</button>
+                        <button onClick={() => this.props.searchGoals(this.state.search)}
+                                style={{backgroundColor: getThemeColors().tColor, color: getThemeColors().fontColor}}
+                                title={'Search'} type='button'>Search
+                        </button>
                     </div>
                 </section>
             </div>)

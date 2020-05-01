@@ -1,4 +1,5 @@
 import React from 'react';
+import CircleButton from "./CircleButton/CircleButton";
 
 class GoalItem extends React.Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class GoalItem extends React.Component {
 
     render() {
         return (
-            <li className={'goallist-item ' + this.props.bgColor}>
+            <li className={'goallist-item'} style={{backgroundColor: this.props.bgColor, color: this.props.fontColor}}>
                 {(this.props.past) ? (this.props.checked) ? <h6>Completed</h6> : <h6>Unchecked</h6> : ''}
                 {(this.props.showChecked) ? <input className="checkboxinput" type='checkbox'
                                                    onChange={() => this.props.handleChecked(this.props.goalId, this.props.id)}
@@ -45,14 +46,22 @@ class GoalItem extends React.Component {
                                                      }
                                                  }}
                 /> : <p onDoubleClick={this.toggleEdit}>{this.props.goal}</p>}
-
-                <div>{(this.state.isEditable) ? <img onClick={this.toggleEdit} alt={'edit'}
-                                                     src={(this.state.isEditing) ? require('../../assets/icons/plus.ico') : require('../../assets/icons/pencil.ico')}/> : ''}
-                    <img onClick={() => this.props.handleObjectiveClone(this.props.goalId, this.props.id)} alt={'copy'}
-                         src={require('../../assets/icons/copy.ico')}/>
-                    {(this.props.showDelete) ? <button type="button" className="close-button"
-                                                       onClick={() => this.state.deleteGoal(this.props.goalId, this.props.id)}>X
-                    </button> : ''}
+                <div>
+                    {(this.props.compacted === 'No') ? <CircleButton past={this.props.past} toggleEdit={this.toggleEdit}
+                                                                     isEditing={this.state.isEditing} id={this.props.id}
+                                                                     handleObjectiveClone={this.props.handleObjectiveClone}
+                                                                     goalId={this.props.goalId} showDelete={this.props.showDelete}
+                                                                     deleteGoal={this.state.deleteGoal} isEditable={this.props.isEditable}/> :
+                        <div className={'row-buttons'}>
+                            {(this.state.isEditable) ? <img onClick={this.toggleEdit} alt={'edit'}
+                                                            src={(this.state.isEditing) ? require('../../assets/icons/plus.ico') : require('../../assets/icons/pencil.ico')}/> : ''}
+                            <img onClick={() => this.props.handleObjectiveClone(this.props.goalId, this.props.id)}
+                                 alt={'copy'}
+                                 src={require('../../assets/icons/copy.ico')}/>
+                            {(this.props.showDelete) ? <button type="button" className="close-button"
+                                                               onClick={() => this.state.deleteGoal(this.props.goalId, this.props.id)}>X
+                            </button> : ''}
+                        </div> }
                 </div>
             </li>
         );

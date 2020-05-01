@@ -9,7 +9,6 @@
     border-radius: 0 10px 10px 0;
 }
 .goallist{
-    background-color: #e6eef5;
     padding: 1rem 0;
     margin: 1rem;
     border-radius: 10px;
@@ -35,7 +34,9 @@
     max-height: 100vh;
     overflow-y: hidden;
     text-align: center;
-    margin: auto;
+    border-radius: 10px 10px 0 0;
+    padding: 16px 0;
+    margin: 0px 0 -16px 0;
 }
 .goallist > div::-webkit-scrollbar-thumb {
     border: unset;
@@ -61,22 +62,16 @@
 .goallist-item:nth-child(odd) {
     background-color: #86c6ff33;
 }
-/*.goallist-item > button{*/
-    /*margin: 16px 0;*/
-    /*border: 1px lightgray solid;*/
-    /*border-radius: 25px;*/
-    /*padding: 4px 8px;*/
-    /*font-size: large;*/
-    /*cursor: pointer;*/
-/*}*/
 .goallist-item > p{
     overflow-wrap: break-word;
     word-wrap: break-word;
     hyphens: auto;
-    WIDTH: 80%;
+    width: 70%;
+    margin: 16px 16px;
  }
 .goallist-item > div {
     display: flex;
+    margin: auto 0;
 }
 .goallist-item > div > img {
     width: 30px;
@@ -100,9 +95,9 @@
 }
 .goallist-item > .textinput {
     font-size: large;
-    width: 50vw;
+    width: 25vw;
     height: fit-content;
-    margin: 16px 0;
+    margin: 16px 16px;
 }
 .Compacted > ul > * {
     margin-top: 0;
@@ -153,6 +148,22 @@
     height: 20px;
     max-height: 20px;
 }
+.row-buttons .close-button{
+    padding: 0 5px;
+    font-weight: 800;
+    border-radius: 4px;
+    margin: 0 4px;
+}
+.row-buttons img {
+    cursor: pointer;
+    background-color: #ffffff55;
+    border-radius: 4px;
+    margin: 0 4px -4px 4px;
+    width: 20px;
+}
+.row-buttons img:hover {
+    background-color: #ffffffaa;
+}
 @media (min-width: 481px) and (max-width:766px){
 
 }
@@ -162,13 +173,19 @@
         margin-bottom: 0;
     }
     .Compacted li > *{
-        margin-top: 0;
+        margin-top: 4px;
         margin-bottom: 0;}
     .Compacted img {
         width: 20px;
         max-width: 20px;
         height: 20px;
         max-height: 20px;
+    }
+    .Compacted .goallist-item input[type=text] {
+        width: 25vw;
+        margin: 0 16px;
+        padding: 0;
+        font-size: medium;
     }
     .Extra-Compacted  {
         margin-bottom: -20px;;
@@ -178,7 +195,7 @@
         margin-bottom: 0;
     }
     .Extra-Compacted li > *{
-        margin-top: 0;
+        margin-top: 4px;
         margin-bottom: 0}
     .Extra-Compacted img {
         width: 20px;
@@ -238,11 +255,10 @@
         position: absolute;
         display: block;
         text-align: right;
-        margin-top: -4px !important;
-        margin-left: 16px !important;
+        margin: -4px 0 0 16px !important;
         overflow-x: hidden;
-        padding: 0 0 8px 4px;
-        border-radius: 15px 0px 0 15px;
+        padding: 0 0 8px 4px !important;
+        border-radius: 15px 0 0 15px !important;
         background-color: #e6eef5;
         z-index: 0;
         width: 72px;
@@ -274,8 +290,7 @@
     }
     .goallist-item > div {
         display: inline-flex;
-        position: absolute;
-        right: -36px;
+        margin: auto 0;
     }
     .goallist-item > div > button {
         padding: 0;

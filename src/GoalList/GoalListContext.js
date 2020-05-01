@@ -6,6 +6,8 @@ import PastGoalService from "../services/pastgoals-api-service";
 import PastObjectivesApiService from "../services/pastobjectives-api-service";
 import ObjectivesApiService from "../services/objectives-api-service";
 import {toast} from "react-toastify";
+import SettingsService from "../services/settings-service";
+import {getTime} from "../Utils/Utils";
 
 export const GoalListContext = React.createContext({
     currentGoals: [],
@@ -111,6 +113,12 @@ export class GoalListProvider extends React.Component {
             date: data.date,
             goals: []
         };
+        let newType = this.updateTypeTimeline(x);
+        if(x.type !== newType) {
+            x.type = newType;
+            GoalApiService.patchGoal({type: newType, checkedamt: x.checkedamt, date: x.date}, x.id)
+        }
+
         if (isPast) {
             PastObjectivesApiService.getObjectiveList(data.id).then(res => x.goals = res).then(() => this.forceUpdate());
         } else {
@@ -240,6 +248,7 @@ export class GoalListProvider extends React.Component {
                 }
         });
     }
+
     handlePastObjectiveClone(goalID, id) {
         let goals = this.state.pastGoals.find(goalList => goalList.id === goalID).goals;
         let newObj = {obj: goals.find(Obj => Obj.id === id).obj, id: this.state.currentGoal.goals.length || 0};
@@ -252,6 +261,7 @@ export class GoalListProvider extends React.Component {
                 }
         });
     }
+
     handleSelectedType(type) {
         this.setState({selectedType: type})
     }
@@ -261,7 +271,7 @@ export class GoalListProvider extends React.Component {
         if (this.state.currentGoal.goals.length > 0) {
             const {goals, date} = this.state.currentGoal;
             let newCurrentGoal = {type: this.state.currentGoal.type, goals, date};
-            if(this.state.currentGoal.type === 'Other') { // Checks to see if the Type was Other
+            if (this.state.currentGoal.type === 'Other') { // Checks to see if the Type was Other
                 newCurrentGoal.type = this.updateTypeTimeline(this.state.currentGoal);
                 this.setState({currentGoal: newCurrentGoal})
             }
@@ -274,17 +284,13 @@ export class GoalListProvider extends React.Component {
                             obj: obj.obj,
                             goalid: res.id
                         }).then(() => this.forceUpdate()));
-                    // Reseting The Date to be properly Formated
-                    let newDate = new Date();
-                    newDate = newDate.setDate(newDate.getDate() + 1);
-                    newDate = new Date(newDate).toISOString();
                     this.setState({
                         currentGoals: [...this.state.currentGoals, this.breakApartGoalData(res)]
                             .sort((a, b) => new Date(a.date) - new Date(b.date)),
                         currentGoal: {
                             type: this.state.currentGoal.type,
                             goals: [],
-                            date: newDate
+                            date: this.state.currentGoal.date
                         }
                     });
                 });
@@ -314,79 +320,13 @@ export class GoalListProvider extends React.Component {
 
     updateTypeTimeline(Goal) {
         let GoalDate = new Date(Goal.date).getTime();
-        let type = '';
-        if (this.getTime('Daily') < GoalDate && this.getTime('Weekly') > GoalDate) {
-            type = 'Daily';
-        } else if (this.getTime('Weekly') < GoalDate && this.getTime('BiWeekly') > GoalDate) {
-            type = 'Weekly';
-        } else if (this.getTime('BiWeekly') < GoalDate && this.getTime('Monthly') > GoalDate) {
-            type = 'BiWeekly';
-        } else if (this.getTime('Monthly') < GoalDate && this.getTime('Quarterly') > GoalDate) {
-            type = 'Monthly';
-        } else if (this.getTime('Quarterly') < GoalDate && this.getTime('6-Month') > GoalDate) {
-            type = 'Quarterly';
-        } else if (this.getTime('6-Month') < GoalDate && this.getTime('Yearly') > GoalDate) {
-            type = '6-Month';
-        } else if (this.getTime('Yearly') < GoalDate && this.getTime('3-Year') > GoalDate) {
-            type = 'Yearly';
-        } else if (this.getTime('3-Year') < GoalDate && this.getTime('5-Year') > GoalDate) {
-            type = '3-Year';
-        } else if (this.getTime('5-Year') < GoalDate && this.getTime('10-Year') > GoalDate) {
-            type = '5-Year';
-        } else if (this.getTime('10-Year') < GoalDate && this.getTime('25-Year') > GoalDate) {
-            type = '10-Year';
-        } else if (this.getTime('25-Year') < GoalDate && this.getTime('Distant') > GoalDate) {
-            type = '25-Year';
-        } else {
-            type = 'Distant';
+        let types = (SettingsService.getSettings().types);
+        for (let x = 0; x < types.length; x++) {
+            if (GoalDate <= getTime(types[x]).getTime() ) {
+                return types[x]
+            }
         }
-        return type;
-    }
-
-    getTime(type) {
-        let tempDate = new Date();
-        switch (type) {
-            case 'Daily':
-                tempDate.setDate(tempDate.getDate());
-                break;
-            case 'Weekly':
-                tempDate.setDate(tempDate.getDate() + 7);
-                break;
-            case 'BiWeekly':
-                tempDate.setDate(tempDate.getDate() + (7 * 2));
-                break;
-            case 'Monthly':
-                tempDate.setMonth(tempDate.getMonth() + 1);
-                break;
-            case 'Quarterly':
-                tempDate.setMonth(tempDate.getMonth() + 3);
-                break;
-            case '6-Month':
-                tempDate.setMonth(tempDate.getMonth() + 6);
-                break;
-            case 'Yearly':
-                tempDate.setMonth(tempDate.getMonth() + 10);
-                break;
-            case '3-Year':
-                tempDate.setMonth(tempDate.getMonth() + (3 * 12));
-                break;
-            case '5-Year':
-                tempDate.setMonth(tempDate.getMonth() + (5 * 12));
-                break;
-            case '10-Year':
-                tempDate.setMonth(tempDate.getMonth() + (10 * 12));
-                break;
-            case '25-Year':
-                tempDate.setMonth(tempDate.getMonth() + (25 * 12));
-                break;
-            case 'Distant':
-                tempDate.setMonth(tempDate.getMonth() + (30 * 12));
-                break;
-            default:
-                tempDate.setDate(tempDate.getDate());
-                break;
-        }
-        return tempDate.getTime();
+        return 'Distant'
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {

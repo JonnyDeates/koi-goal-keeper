@@ -6,9 +6,7 @@ const UserService = {
                 id: (!!user.id) ? user.id : userTemp.id,
                 username: (!!user.username) ? user.username : userTemp.username,
                 email: (!!user.email) ? user.email : userTemp.email,
-                notifications: (!!user.notifications) ? user.notifications : userTemp.notifications,
                 nickname: (!!user.nickname) ? user.nickname : userTemp.nickname,
-                autoArchiving: (user.autoArchiving !== undefined) ? user.autoArchiving : userTemp.autoArchiving
             });
         } else {
             return JSON.stringify({...user})

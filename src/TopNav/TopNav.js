@@ -7,6 +7,7 @@ import home from '../assets/icons/home.ico';
 import document from '../assets/icons/document.ico';
 import archive from '../assets/icons/archive.ico';
 import user from '../assets/icons/user.ico';
+import {getThemeColors} from "../Utils/Utils";
 class TopNav extends React.Component{
     constructor(props) {
         super(props);
@@ -24,9 +25,14 @@ class TopNav extends React.Component{
                     window.scrollTo(0, 0);
                     this.forceUpdate();
                 }
-                    }><Link  to={link.to} className={(link.to === this.props.currentActive.pathname) ? 'active' : ''}>
+                    }><Link to={link.to} className={(link.to === this.props.currentActive.pathname) ? 'active' : ''} style={{
+                    backgroundColor: getThemeColors().sColor,
+                }}>
                     <img src={link.src} alt={link.name}/></Link></div>)}
-                <img src={require(`../assets/icons/exit.ico`)} alt='Log Out' width='60px' height='60px' onClick={() => {
+                <img src={require(`../assets/icons/exit.ico`)} alt='Log Out' width='60px' height='60px'
+                     style={{
+                    backgroundColor: getThemeColors().sColor,
+                }} className={'nav-logout'} onClick={() => {
                     TokenService.clearAuthToken();
                     UserService.clearUser();
                     window.location.reload();

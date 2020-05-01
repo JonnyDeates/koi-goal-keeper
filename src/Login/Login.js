@@ -2,10 +2,10 @@ import React from 'react';
 import AuthApiService from "../services/auth-api-service";
 import TokenService from "../services/token-service";
 import {Button, Input} from "../Utils/Utils";
-import {toast} from "react-toastify"
 import './Login.css';
 import UserService from "../services/user-api-service";
 import {Link} from "react-router-dom";
+import SettingsService from "../services/settings-service";
 class Login extends React.Component {
     state = { error: null };
 
@@ -21,13 +21,14 @@ class Login extends React.Component {
             .then(res => {
                 username.value = '';
                 password.value = '';
-                console.log({username: res.username, email: res.email, id: res.id,
-                    nickname: res.nickname, notifications: res.notifications, autoArchiving: res.autoarchiving || null})
+                const { theme, type_list, type_selected, id: settingid, show_delete, notifications, auto_archiving, compacted} = res.payload.settings;
+                const {id, nickname, email} = res.payload.payload;
                 TokenService.saveAuthToken(res.authToken);
-                UserService.saveUser({username: res.username, email: res.email, id: res.id,
-                    nickname: res.nickname, notifications: res.notifications, autoArchiving: res.autoarchiving || null});
+                UserService.saveUser({id, nickname, email, username: res.payload.payload.username});
+                SettingsService.saveSettings({theme, type_list, type_selected, id: settingid,
+                    types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', '6-Month', 'Yearly', '3-Year', '5-Year', 'Distant'],
+                    show_delete, notifications, auto_archiving, compacted});
                 window.location.reload();
-                toast.success(`Welcome Back ${(res.nickname) ? res.nickname : res.username}!`);
             })
             .catch(res => {
                 this.setState({ error: res.error })

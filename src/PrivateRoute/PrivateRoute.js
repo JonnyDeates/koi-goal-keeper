@@ -13,7 +13,11 @@ export default function PrivateRoute({component, ...props}) {
             render={componentProps => (
                 <>
                     {!!TokenService.hasAuthToken() ?
-                        <GoalListContext.Consumer>{(goalListContext) => <Component goalListContext={goalListContext} currentActive={componentProps.location} {...componentProps} />}</GoalListContext.Consumer>
+                        <GoalListContext.Consumer>{(goalListContext) =>
+                       <Component goalListContext={goalListContext}
+                                       currentActive={componentProps.location} {...componentProps} />
+                        }
+                        </GoalListContext.Consumer>
                         : (
                             <Redirect
                                 to={{
