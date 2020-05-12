@@ -4,6 +4,7 @@ import './Settings.css';
 import {SettingsContext} from "./SettingsContext";
 import {toast} from "react-toastify";
 import {getColor, getThemeColors} from "../Utils/Utils";
+import DeleteModel from "./DeleteModel/DeleteModel";
 
 class Settings extends React.Component {
     static contextType = SettingsContext;
@@ -15,6 +16,7 @@ class Settings extends React.Component {
             isUsernameEditable: false,
             isEmailEditable: false,
             isPasswordEditable: false,
+            deleteModel: false,
             newEmail: '',
             newEmailCheck: '',
             oldPasswordCheck: '',
@@ -106,6 +108,7 @@ class Settings extends React.Component {
         this.context.setTheme(theme);
         document.body.style.backgroundColor = getThemeColors().pColor;
     }
+
     componentDidMount() {
         document.body.style.backgroundColor = getThemeColors().pColor;
     }
@@ -119,7 +122,8 @@ class Settings extends React.Component {
                     <h2 title={'UserId'} style={{color: getThemeColors().headerColor}}>{this.context.username}</h2>
                     {(this.state.isUsernameEditable)
                         ? <form onSubmit={(e) => this.submitNickname(e)}>
-                            <label className='even-space' style={{color: getThemeColors().fontColor}} title={'Nickname' }>Nickname:
+                            <label className='even-space' style={{color: getThemeColors().fontColor}}
+                                   title={'Nickname'}>Nickname:
                                 <input type='text' onChange={(e) => this.changeNickname(e)}
                                        value={this.state.newNickname} title={'New Nickname Input'}
                                        onKeyPress={e => {
@@ -136,8 +140,10 @@ class Settings extends React.Component {
                             </div>
                         </form>
                         :
-                        <p className='even-space' title={'Click to Change Nickname'} style={{color: getThemeColors().fontColor}}
-                           onClick={() => this.setState({isUsernameEditable: true})}>Nickname: <span style={{color: getThemeColors().headerColor}}
+                        <p className='even-space' title={'Click to Change Nickname'}
+                           style={{color: getThemeColors().fontColor}}
+                           onClick={() => this.setState({isUsernameEditable: true})}>Nickname: <span
+                            style={{color: getThemeColors().headerColor}}
                             title={this.context.nickname}>{this.context.nickname}</span>
                         </p>
                     }
@@ -145,59 +151,67 @@ class Settings extends React.Component {
                 </section>
                 <section>
                     <form onSubmit={(e) => this.submitEmail(e)}>{(this.state.isEmailEditable) ? <>
-                        <label className='even-space' title={'Old Email'} style={{color: getThemeColors().fontColor}}>Old Email: <span
-                            title={this.context.email} style={{color: getThemeColors().fontColor}}>{this.context.email}</span></label>
-                        <label className='even-space' title={'New Email'} style={{color: getThemeColors().fontColor}}>New Email: <input type='text'
-                                                                                            title={'New Email Input'}
-                                                                                            onChange={(e) => this.changeEmail(e)}
-                                                                                            value={this.state.newEmail}
-                                                                                            onKeyPress={e => {
-                                                                                                if (e.key === 'Enter') {
-                                                                                                    e.preventDefault();
-                                                                                                }
-                                                                                            }}/></label>
-                        <label className='even-space' title={'Confirm New Email'} style={{color: getThemeColors().fontColor}}>Confirm Email: <input type='text'
-                                                                                                        title={'Confirm New Email Input'}
-                                                                                                        onChange={(e) => this.changeEmailCheck(e)}
-                                                                                                        value={this.state.newEmailCheck}
-                                                                                                        onKeyPress={e => {
-                                                                                                            if (e.key === 'Enter') {
-                                                                                                                e.preventDefault();
-                                                                                                                this.submitEmail(e);
-                                                                                                            }
-                                                                                                        }}/></label>
+                        <label className='even-space' title={'Old Email'} style={{color: getThemeColors().fontColor}}>Old
+                            Email: <span
+                                title={this.context.email}
+                                style={{color: getThemeColors().fontColor}}>{this.context.email}</span></label>
+                        <label className='even-space' title={'New Email'} style={{color: getThemeColors().fontColor}}>New
+                            Email: <input type='text'
+                                          title={'New Email Input'}
+                                          onChange={(e) => this.changeEmail(e)}
+                                          value={this.state.newEmail}
+                                          onKeyPress={e => {
+                                              if (e.key === 'Enter') {
+                                                  e.preventDefault();
+                                              }
+                                          }}/></label>
+                        <label className='even-space' title={'Confirm New Email'}
+                               style={{color: getThemeColors().fontColor}}>Confirm Email: <input type='text'
+                                                                                                 title={'Confirm New Email Input'}
+                                                                                                 onChange={(e) => this.changeEmailCheck(e)}
+                                                                                                 value={this.state.newEmailCheck}
+                                                                                                 onKeyPress={e => {
+                                                                                                     if (e.key === 'Enter') {
+                                                                                                         e.preventDefault();
+                                                                                                         this.submitEmail(e);
+                                                                                                     }
+                                                                                                 }}/></label>
                         <div className='even-space'>
                             <button onClick={() => this.setState({isEmailEditable: false})}
                                     title={'Cancel Email Changes'}>Cancel
                             </button>
                             <button type='submit' title={'Submit Changes'}>Submit</button>
                         </div>
-                    </> : <p className='even-space' onClick={() => this.setState({isEmailEditable: true})} style={{color: getThemeColors().fontColor}}
+                    </> : <p className='even-space' onClick={() => this.setState({isEmailEditable: true})}
+                             style={{color: getThemeColors().fontColor}}
                              title={'Click to Change Email'}>Change
                         Email <span style={{color: getThemeColors().headerColor}}>{this.context.email}</span></p>}
                     </form>
                 </section>
                 <section>
                     {(this.state.isPasswordEditable) ? <form onSubmit={(e) => this.submitPassword(e)}>
-                        <label className='even-space' title={'Old Password'} style={{color: getThemeColors().fontColor}}>Old Password<input type='password'
-                                                                                                title={'Old Password Input'}
-                                                                                                onChange={(e) => this.changeOldPasswordCheck(e)}
-                                                                                                value={this.state.oldPasswordCheck}
-                                                                                                onKeyPress={e => {
-                                                                                                    if (e.key === 'Enter') {
-                                                                                                        e.preventDefault();
-                                                                                                    }
-                                                                                                }}/></label>
-                        <label className='even-space' title={'New Password'} style={{color: getThemeColors().fontColor}}>New Password<input type='password'
-                                                                                                title={'New Password Input'}
-                                                                                                onChange={(e) => this.changePassword(e)}
-                                                                                                value={this.state.newPassword}
-                                                                                                onKeyPress={e => {
-                                                                                                    if (e.key === 'Enter') {
-                                                                                                        e.preventDefault();
-                                                                                                    }
-                                                                                                }}/></label>
-                        <label className='even-space' title={'Confirm New Password'} style={{color: getThemeColors().fontColor}}>Confirm Password<input
+                        <label className='even-space' title={'Old Password'}
+                               style={{color: getThemeColors().fontColor}}>Old Password<input type='password'
+                                                                                              title={'Old Password Input'}
+                                                                                              onChange={(e) => this.changeOldPasswordCheck(e)}
+                                                                                              value={this.state.oldPasswordCheck}
+                                                                                              onKeyPress={e => {
+                                                                                                  if (e.key === 'Enter') {
+                                                                                                      e.preventDefault();
+                                                                                                  }
+                                                                                              }}/></label>
+                        <label className='even-space' title={'New Password'}
+                               style={{color: getThemeColors().fontColor}}>New Password<input type='password'
+                                                                                              title={'New Password Input'}
+                                                                                              onChange={(e) => this.changePassword(e)}
+                                                                                              value={this.state.newPassword}
+                                                                                              onKeyPress={e => {
+                                                                                                  if (e.key === 'Enter') {
+                                                                                                      e.preventDefault();
+                                                                                                  }
+                                                                                              }}/></label>
+                        <label className='even-space' title={'Confirm New Password'}
+                               style={{color: getThemeColors().fontColor}}>Confirm Password<input
                             type='password' title={'Confirm New Password Input'}
                             onChange={(e) => this.changePasswordCheck(e)}
                             value={this.state.newPasswordCheck}
@@ -213,24 +227,29 @@ class Settings extends React.Component {
                             </button>
                             <button type='submit' title={'Submit Changes'}>Submit</button>
                         </div>
-                    </form> : <p className='even-space' title={'Click To Change Password'} style={{color: getThemeColors().fontColor}}
+                    </form> : <p className='even-space' title={'Click To Change Password'}
+                                 style={{color: getThemeColors().fontColor}}
                                  onClick={() => this.setState({isPasswordEditable: true})}>Change
                         Password<span style={{color: getThemeColors().headerColor}}>*******</span></p>}
                 </section>
                 {/*<h1>Settings</h1>*/}
-                <section className={'theme-list'} >
-                    <div className={'dropdown-wrapper'}>
-                        <div className='dropdown-types dropdown-types-settings' style={{backgroundColor: getThemeColors().tColor, color: getThemeColors().fontColor}}>
-                            <p>{this.context.theme}</p>
-                            <ul className={'dropdown-list'}>
-                                {this.context.themes.map((theme, i) => <li key={i}
-                                                                           className={(this.context.currentTheme === theme) ? 'tinted' : ''}
-                                                                           style={{backgroundColor: getThemeColors().tColor}}
-                                                                           onClick={() => this.setTheme(theme)}>{theme}</li>)}
-                            </ul>
+                <div className={'even-space'}>
+                    <p title={'Theme'} style={{color: getThemeColors().fontColor}}>Theme</p>
+                    <section className={'theme-list'}>
+                        <div className={'dropdown-wrapper'}>
+                            <div className='dropdown-types dropdown-types-settings'
+                                 style={{backgroundColor: getThemeColors().tColor, color: getThemeColors().fontColor}}>
+                                <p>{this.context.theme}</p>
+                                <ul className={'dropdown-list'}>
+                                    {this.context.themes.map((theme, i) => <li key={i}
+                                                                               className={(this.context.currentTheme === theme) ? 'tinted' : ''}
+                                                                               style={{backgroundColor: getThemeColors().tColor}}
+                                                                               onClick={() => this.setTheme(theme)}>{theme}</li>)}
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
                 {/*</div>*/}
                 {/*<h3>Notifications</h3>*/}
                 {/*<div>*/}
@@ -261,17 +280,24 @@ class Settings extends React.Component {
                 {/*</div>*/}
                 <section>
                     <label className='even-space' onClick={() => this.context.toggleArchiving()}
-                           title={'Click To Toggle The Automatic Daily Archiver'} style={{color: getThemeColors().fontColor}}>
+                           title={'Click To Toggle The Automatic Daily Archiver'}
+                           style={{color: getThemeColors().fontColor}}>
                         Automatic Daily Archiver
-                        <span style={{color: getThemeColors().headerColor}}>{(this.context.autoArchiving) ? 'On' : 'Off'}</span></label>
+                        <span
+                            style={{color: getThemeColors().headerColor}}>{(this.context.autoArchiving) ? 'On' : 'Off'}</span></label>
                 </section>
                 <section>
-                    <label className='even-space noselect' onClick={() => this.context.toggleType()}
+                    <p className='even-space noselect' onClick={() => this.context.toggleType()}
                            title={'Click To Toggle Through The Types List'} style={{color: getThemeColors().fontColor}}>
                         Types List
-                        <span style={{color: getThemeColors().headerColor}}>{this.context.typeListSelected}</span></label>
+                        <span
+                            style={{color: getThemeColors().headerColor}}>{this.context.typeListSelected}</span></p>
                 </section>
-                <button className='delete' onClick={AuthApiService.deleteUser} style={{backgroundColor: getThemeColors().tColor,color: getThemeColors().headerColor}}>Suspend Account</button>
+                <button className='delete' onClick={() => this.setState({deleteModel: true})}
+                        style={{backgroundColor: getThemeColors().tColor, color: getThemeColors().fontColor+'77'}}>Suspend
+                    Account
+                </button>
+                {(this.state.deleteModel) ? <DeleteModel closeModel={() => this.setState({deleteModel: false})}/> : ''}
             </main>
         )
     }

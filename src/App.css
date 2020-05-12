@@ -70,6 +70,12 @@
     padding: 4px !important;
     min-height: 48px !important;
 }
+h1, h2 {
+    animation: 1s fade-in;
+}
+.even-space {
+    animation: 1s fade-in;
+}
 @media (min-width: 480px) {
     .min-Width-Two > section, .min-Width-Two main, .min-Width-Two > form {
         margin-top: 6rem;
@@ -90,5 +96,64 @@
     }
     .min-Width-Two {
         min-width: 50%;
+    }
+}
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes pop-in {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes slide-in-down {
+    0%{
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes slide-in-left {
+    0%{
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes slide-in-up {
+    0%{
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes slide-in-right {
+    0%{
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
     }
 }

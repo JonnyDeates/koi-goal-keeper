@@ -60,7 +60,6 @@ export class SettingsProvider extends React.Component {
             if (UserService.hasUserInfo()) {
                 this.setState({
                     username: UserService.getUser().username,
-                    autoArchiving: UserService.getUser().autoArchiving,
                     email: UserService.getUser().email,
                     nickname: UserService.getUser().nickname,
                     id: UserService.getUser().id
@@ -70,11 +69,11 @@ export class SettingsProvider extends React.Component {
                 this.setState({
                     typeListSelected: SettingsService.getSettings().type_list,
                     currentType: SettingsService.getSettings().type_selected,
-                    autoArchiving: SettingsService.getSettings().auto_archiving,
-                    showDelete: SettingsService.getSettings().show_delete,
+                    autoArchiving: SettingsService.getSettings().auto_archiving || false,
+                    showDelete: SettingsService.getSettings().show_delete || false,
                     compacted: SettingsService.getSettings().compacted,
                     theme: SettingsService.getSettings().theme,
-                    notifications: SettingsService.getSettings().notifications,
+                    notifications: SettingsService.getSettings().notifications || false,
                 }, () => this.updateTypes());
             }
         }
@@ -120,9 +119,10 @@ export class SettingsProvider extends React.Component {
             showDelete: this.state.showDelete,
             compacted: this.state.compacted,
             toggleArchiving: () => {
-                SettingsService.saveSettings({auto_archiving: !this.state.autoArchiving});
-                SettingsApiService.toggleAutoArchiving(SettingsService.getSettings().id);
-                this.setState({autoArchiving: !this.state.autoArchiving})
+                this.setState({autoArchiving: !this.state.autoArchiving}, ()=> {
+                    SettingsService.saveSettings({auto_archiving: this.state.autoArchiving});
+                    SettingsApiService.toggleAutoArchiving(SettingsService.getSettings().id);
+                })
             },
             toggleCompacted: () => {
                 let compactedTemp = '';

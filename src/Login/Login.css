@@ -4,14 +4,34 @@
 .LoginForm h1 {
     color: #fff;
     text-shadow: 2px 2px 3px #00000044;
-    cursor:pointer; 
+    cursor:pointer;
+    opacity: 0;
+    animation: 3s slide-in-down forwards;
+    -o-animation: 3s slide-in-down forwards;
+    -moz-animation: 3s slide-in-down forwards;
 }
 .LoginForm p > a {
-
+    opacity: 0;
+    animation: 2s .75s slide-in-up forwards;
+    -o-animation: 2s .75s slide-in-up forwards;
+    -moz-animation: 2s .75s slide-in-up forwards;
 }
 .username, .password, .full_name, .nickname{
     padding: 16px;
     font-size: larger;
+
+}
+.username {
+    opacity: 0;
+    animation: 2s slide-in-up forwards;
+    -o-animation: 2s slide-in-up forwards;
+    -moz-animation: 2s slide-in-up forwards;
+}
+.password {
+    opacity: 0;
+    animation: 2s .25s slide-in-up forwards;
+    -o-animation: 2s .25s slide-in-up forwards;
+    -moz-animation: 2s .25s slide-in-up forwards;
 }
 .username > label, .password > label, .full_name > label, .nickname > label{
     margin-right: 16px;
@@ -31,6 +51,10 @@
     border: 0;
     color: black;
     font-weight: bold;
+    opacity: 0;
+    animation: 2s .5s slide-in-up forwards;
+    -o-animation: 2s .5s slide-in-up forwards;
+    -moz-animation: 2s .5s slide-in-up forwards;
 }
 .Button:hover {
     background-color: #ffffffff !important;

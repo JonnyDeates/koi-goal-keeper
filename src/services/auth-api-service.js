@@ -18,6 +18,7 @@ const AuthApiService = {
             )
     },
     deleteUser() {
+        console.log(UserService.getUser())
         if(UserService.getUser().id)
         return fetch(`${config.API_ENDPOINT}/users/${UserService.getUser().id}`, {
             method: 'DELETE',

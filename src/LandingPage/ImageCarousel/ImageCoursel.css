@@ -10,13 +10,6 @@
     width: 80vw;
     max-width: 720px;
     max-height: 80vw;
-    animation-duration: 1s;
-    animation-fill-mode: both;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    opacity: 0;
-    animation-name: fadeInUp;
-    -webkit-animation-name: fadeInUp;
 }
 
 .image-slider {

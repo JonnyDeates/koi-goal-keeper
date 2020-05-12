@@ -20,7 +20,7 @@ class MeetTheDeveloper extends Component {
 
     render() {
         return (
-            <section className={'meet-the-developer-page-wrapper'}>
+            <section className={`meet-the-developer-page-wrapper ${this.props.animation ? 'section-animation' : ''}`}>
                 <h2>{this.state.header}</h2>
                 <div className={'meet-the-developer-body'}>
                     <Chibi/>

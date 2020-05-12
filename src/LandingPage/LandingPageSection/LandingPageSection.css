@@ -29,6 +29,18 @@
     width: 70vw;
     margin: 0 auto;
 }
+.landing-page-section{
+    opacity: 0;
+}
+.section-animation {
+    opacity: 1;
+}
+.section-animation > .landing-page-body{
+    animation: 2s slide-in-up forwards;
+}
+.section-animation h2 {
+    animation: 2s slide-in-down forwards;
+}
 .landing-page-section figcaption{
     width: 70vw;
     margin: 1rem auto;

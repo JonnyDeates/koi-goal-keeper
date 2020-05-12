@@ -13,7 +13,12 @@
     margin: 4px auto;
 
 }
-
+.section-animation > .meet-the-developer-body{
+    animation: 2s slide-in-up forwards;
+}
+.section-animation > .meet-the-developer-body > .chibi-frame{
+    animation: 2s slide-in-right forwards;
+}
 @media (min-width: 480px) {
     .meet-the-developer-body {
         display: inline-flex;

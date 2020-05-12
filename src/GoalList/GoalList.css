@@ -17,6 +17,7 @@
     justify-content: space-evenly;
     position: relative;
     display: flex;
+    animation: 2s pop-in;
 }
 .goallist-title img {
     filter: grayscale(1) brightness(1.25) opacity(0.5);
@@ -57,7 +58,8 @@
     justify-content: space-evenly;
     position: relative;
     font-size: large;
-    animation: 2s popIn forwards;
+    opacity: 0;
+    animation: 2s pop-in forwards;
 }
 .goallist-item:nth-child(odd) {
     background-color: #86c6ff33;
@@ -68,6 +70,7 @@
     hyphens: auto;
     width: 70%;
     margin: 16px 16px;
+    animation: .25s fade-in forwards;
  }
 .goallist-item > div {
     display: flex;
@@ -95,9 +98,11 @@
 }
 .goallist-item > .textinput {
     font-size: large;
-    width: 25vw;
+    width: 70%;
     height: fit-content;
     margin: 16px 16px;
+    padding: 0;
+    animation: .25s fade-in forwards;
 }
 .Compacted > ul > * {
     margin-top: 0;
@@ -262,6 +267,8 @@
         background-color: #e6eef5;
         z-index: 0;
         width: 72px;
+        opacity: 0;
+        animation: 3s slide-in-down forwards;
     }
     .goallist-title > p {
         margin: 0;
@@ -302,12 +309,3 @@
 
 
 
-@keyframes popIn {
-    0% {
-        transform: scale(0);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
