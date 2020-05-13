@@ -1,5 +1,5 @@
-.theme-list .dropdown-types {
-
+.theme-list {
+    display: inline;
 }
 .dropdown-wrapper {
     position: relative;
@@ -24,28 +24,7 @@
     color: white;
     margin-left: 8px;
 }
-.even-space{
-    font-size: x-large;
-    position: relative;
-    display: block;
-    justify-content: space-between;
-    color: white;
-    cursor: pointer;
-}
-.even-space > input {
-    font-size: x-large;
-}
-.even-space > span, .even-space > p{
-    color: black;
-}
-.even-space > button {
-    background: #00000022;
-    border: 0;
-    cursor: pointer;
-    border-radius: 4px;
-    margin: 8px 4px;
-    padding: 4px 8px;
-}
+
 .delete {
     border: none;
     border-radius: 10px;
@@ -54,6 +33,9 @@
     font-size: large;
     cursor: pointer;
     background: #ffffff88;
+}
+.settings .delete:hover {
+    background-color: #ffb9baaa !important;
 }
 .model-wrapper-delete {
     background-color: #00000077;
@@ -94,6 +76,9 @@
 }
 .model-delete .even-space {
     margin-top: 1rem;
+}
+.theme-list-wrapper {
+    display: inline-flex;
 }
 @media (min-width: 481px) {
     .nav > img, .nav > a > img {

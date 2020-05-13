@@ -63,21 +63,21 @@
     transform: rotate3d(0, 0, 1,-21deg);
 }
 .content.first:hover ~ .background{
-    background: #ffffffaa;
+    background-color: rgba(117, 232, 139, 0.67) !important;
 }
 .content.second {
     left: 50%;
-    top: 28%;
+    top: 31%;
 }
 .content.second:hover ~ .background{
-    background: #ffffffaa;
+    background-color: rgba(230, 232, 139, 0.67) !important;
 }
 .content.third {
     bottom: 19%;
     left: 40%;
 }
 .content.third:hover ~ .background{
-    background: #ffffffaa;
+    background-color: rgba(255, 155, 158, 0.67) !important;
 }
 .circle li:first-child .background {
     transform: rotate(240deg) skewY(30deg);

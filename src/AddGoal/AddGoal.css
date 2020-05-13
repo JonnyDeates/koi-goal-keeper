@@ -147,7 +147,7 @@
 
 }
 .submit-goals:hover > button {
-    background: #ffffffdd;
+    background-color: rgba(117, 232, 139, 0.67) !important;
 }
 @media (min-width: 481px) and (max-width: 767px) {
     .bar-indicator-top {

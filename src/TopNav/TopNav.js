@@ -20,7 +20,7 @@ class TopNav extends React.Component{
 
     render() {
         return (
-            <nav className='nav'>
+            <nav className='nav' style={{backgroundColor: getThemeColors().sColor}}>
                 {this.state.links.map((link, index) => <div key={index} onClick={() => {
                     window.scrollTo(0, 0);
                     this.forceUpdate();

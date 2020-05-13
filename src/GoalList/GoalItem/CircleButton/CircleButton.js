@@ -20,9 +20,10 @@ class CircleButton extends React.Component {
                                         <div className="content second">
                                             <div className="icon">
                                             </div>
-                                            <button type="button" className="close-button"
-                                                    onClick={() => this.props.deleteGoal(this.props.goalId, this.props.id)}>X
-                                            </button>
+                                            <img
+                                                onClick={() => this.props.handleObjectiveClone(this.props.goalId, this.props.id)}
+                                                alt={'copy'} src={require('../../../assets/icons/copy.ico')}/>
+
                                         </div>
                                         <div className="background"/>
                                     </li>
@@ -31,8 +32,8 @@ class CircleButton extends React.Component {
                                             <div className="icon">
                                             </div>
                                             <img
-                                                onClick={() => this.props.handleObjectiveClone(this.props.goalId, this.props.id)}
-                                                alt={'copy'} src={require('../../../assets/icons/copy.ico')}/>
+                                                onClick={() => this.props.deleteGoal(this.props.goalId, this.props.id)}
+                                                alt={'copy'} src={require('../../../assets/icons/trash.ico')}/>
                                         </div>
                                         <div className="background"/>
                                     </li>
@@ -77,9 +78,9 @@ class CircleButton extends React.Component {
                             <div className="content second">
                                 <div className="icon">
                                 </div>
-                                <button type="button" className="close-button"
-                                        onClick={() => this.props.deleteGoal(this.props.goalId, this.props.id)}>X
-                                </button>
+                                <img
+                                    onClick={() => this.props.deleteGoal(this.props.goalId, this.props.id)}
+                                    alt={'copy'} src={require('../../../assets/icons/trash.ico')}/>
 
                             </div>
                             <div className="background"/>

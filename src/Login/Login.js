@@ -74,6 +74,7 @@ class Login extends React.Component {
                     Login
                 </Button>
                 <p><Link to={'/register'}>Sign Up?</Link></p>
+                <div className="g-signin2" data-onsuccess="onSignIn"></div>
             </form>
         )
     }

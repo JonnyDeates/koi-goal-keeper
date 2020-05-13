@@ -233,7 +233,7 @@ class Settings extends React.Component {
                         Password<span style={{color: getThemeColors().headerColor}}>*******</span></p>}
                 </section>
                 {/*<h1>Settings</h1>*/}
-                <div className={'even-space'}>
+                <div className={'even-space theme-list-wrapper'}>
                     <p title={'Theme'} style={{color: getThemeColors().fontColor}}>Theme</p>
                     <section className={'theme-list'}>
                         <div className={'dropdown-wrapper'}>

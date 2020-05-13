@@ -40,3 +40,14 @@
     color: blue;
     cursor: pointer;
 }
+.full_name {
+    animation: 1.75s slide-in-up forwards;
+    -o-animation: 1.75s slide-in-up forwards;
+    -moz-animation: 1.75s slide-in-up forwards;
+}
+.nickname {
+    opacity: 0;
+    animation: 2s .5s slide-in-up forwards;
+    -o-animation: 2s .5s slide-in-up forwards;
+    -moz-animation: 2s .5s slide-in-up forwards;
+}

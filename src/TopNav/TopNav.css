@@ -7,7 +7,6 @@
     top: 0;
     justify-content: space-evenly;
     width: 100vw;
-    background-color: #84adea;
     display: inline-flex;
     animation: 1s slide-in-down;
 }

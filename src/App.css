@@ -53,6 +53,34 @@
 .close-button:hover {
     background-color: #ffffffaa;
 }
+.even-space{
+    font-size: x-large;
+    position: relative;
+    display: block;
+    justify-content: space-between;
+    color: white;
+    cursor: pointer;
+}
+.even-space > input {
+    font-size: x-large;
+}
+.even-space > span, .even-space > p{
+    color: black;
+}
+.even-space > button {
+    background: #00000022;
+    border: 0;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 8px 4px;
+    padding: 4px 8px;
+}
+.even-space > button:first-child:hover {
+    background-color: #ffb9baaa !important;
+}
+.even-space > button:nth-child(2):hover {
+    background-color: rgba(117, 232, 139, 0.67) !important;
+}
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
