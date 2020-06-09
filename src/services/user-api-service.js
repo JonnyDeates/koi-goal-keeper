@@ -5,7 +5,7 @@ const UserService = {
             return JSON.stringify({
                 id: (!!user.id) ? user.id : userTemp.id,
                 username: (!!user.username) ? user.username : userTemp.username,
-                email: (!!user.email) ? user.email : userTemp.email,
+                // email: (!!user.email) ? user.email : userTemp.email,
                 nickname: (!!user.nickname) ? user.nickname : userTemp.nickname,
             });
         } else {

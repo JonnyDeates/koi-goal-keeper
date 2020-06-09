@@ -60,7 +60,8 @@ export class SettingsProvider extends React.Component {
             if (UserService.hasUserInfo()) {
                 this.setState({
                     username: UserService.getUser().username,
-                    email: UserService.getUser().email,
+                    autoArchiving: UserService.getUser().autoArchiving,
+                    // email: UserService.getUser().email,
                     nickname: UserService.getUser().nickname,
                     id: UserService.getUser().id
                 })
@@ -196,11 +197,11 @@ export class SettingsProvider extends React.Component {
                 AuthApiService.patchUser({nickname: this.state.newNickname});
                 this.setState({nickname})
             },
-            updateEmail: (email) => {
-                UserService.saveUser({email});
-                AuthApiService.patchUser({email});
-                this.setState({email})
-            }
+            // updateEmail: (email) => {
+            //     UserService.saveUser({email});
+            //     AuthApiService.patchUser({email});
+            //     this.setState({email})
+            // }
         };
         return (
             <SettingsContext.Provider value={value}>

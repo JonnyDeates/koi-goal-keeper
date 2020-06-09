@@ -1,6 +1,6 @@
 import React from 'react';
 import AuthApiService from "../services/auth-api-service";
-import {Button, Input, Required} from "../Utils/Utils";
+import {Button, Input, Required, validateEmail} from "../Utils/Utils";
 import "./Register.css";
 import {Link} from "react-router-dom";
 import PrivacyPolicy from './PrivacyPolicy/PrivacyPolicy'
@@ -42,28 +42,31 @@ class Register extends React.Component {
 
     handleSubmit = ev => {
         ev.preventDefault();
-        const {email, nickname, username, password, confirmPassword} = ev.target;
+        const {nickname, username, password, confirmPassword} = ev.target;
 
         this.setState({error: null});
-        if (password.value === confirmPassword.value) {
-            AuthApiService.postUser({
-                username: username.value,
-                password: password.value,
-                email: email.value,
-                nickname: nickname.value,
-            })
-                .then(user => {
-                    email.value = '';
-                    nickname.value = '';
-                    username.value = '';
-                    password.value = '';
-                    window.location.replace('/login');
+
+        if (validateEmail(username.value))
+            if (password.value === confirmPassword.value) {
+                AuthApiService.postUser({
+                    username: username.value,
+                    password: password.value,
+                    nickname: nickname.value,
                 })
-                .catch(res => {
-                    this.setState({error: res.error})
-                })
-        } else {
-            this.setState({error: 'Passwords dont Match'});
+                    .then(user => {
+                        nickname.value = '';
+                        username.value = '';
+                        password.value = '';
+                        window.location.replace('/login');
+                    })
+                    .catch(res => {
+                        this.setState({error: res.error})
+                    })
+            } else {
+                this.setState({error: 'Passwords dont Match'});
+            }
+        else {
+            this.setState({error: 'Email not properly formatted'});
         }
     }
 
@@ -80,20 +83,9 @@ class Register extends React.Component {
                     <div role='alert'>
                         {error && <p className='red'>{error}</p>}
                     </div>
-                    <div className='full_name'>
-                        <label htmlFor='RegistrationForm__email'>
-                            Email <Required/>
-                        </label>
-                        <Input
-                            name='email'
-                            type='text'
-                            required
-                            id='RegistrationForm__email'>
-                        </Input>
-                    </div>
                     <div className='username'>
                         <label htmlFor='RegistrationForm__username'>
-                            User name <Required/>
+                            Email <Required/>
                         </label>
                         <Input
                             name='username'
@@ -146,7 +138,7 @@ class Register extends React.Component {
                                 this.setState({isRead: true});
                             }}> Privacy Policy. </span>
                         </label><input type='checkbox'
-                                       // disabled={!this.state.isRead}
+                        // disabled={!this.state.isRead}
                                        onChange={() => this.toggleSubmitable()}/>
                     </div>
                     <Button type='button' onClick={() => window.location.replace('/')}>
