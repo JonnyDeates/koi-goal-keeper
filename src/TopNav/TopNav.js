@@ -8,7 +8,6 @@ import document from '../assets/icons/document.ico';
 import archive from '../assets/icons/archive.ico';
 import user from '../assets/icons/user.ico';
 import {getThemeColors} from "../Utils/Utils";
-import {GoogleLogout} from 'react-google-login';
 
 class TopNav extends React.Component {
     constructor(props) {
@@ -27,13 +26,12 @@ class TopNav extends React.Component {
     render() {
         const logout = () => {
             let auth2 = window.gapi.auth2.getAuthInstance();
-            console.log(auth2)
             if (auth2)
                 auth2.signOut();
             TokenService.clearAuthToken();
             UserService.clearUser();
             window.location.reload();
-        }
+        };
         return (
             <nav className='nav' style={{backgroundColor: getThemeColors().sColor}}>
                 {this.state.links.map((link, index) => <div key={index} onClick={() => {
