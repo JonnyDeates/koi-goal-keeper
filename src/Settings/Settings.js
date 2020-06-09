@@ -63,28 +63,28 @@ class Settings extends React.Component {
         }
     }
 
-    changeEmail(e) {
-        this.setState({newEmail: e.target.value})
-    }
+    // changeEmail(e) {
+    //     this.setState({newEmail: e.target.value})
+    // }
+    //
+    // changeEmailCheck(e) {
+    //     this.setState({newEmailCheck: e.target.value})
+    // }
 
-    changeEmailCheck(e) {
-        this.setState({newEmailCheck: e.target.value})
-    }
-
-    submitEmail(e) {
-        e.preventDefault();
-        if (this.state.newEmail.trim().length === 0 || this.state.newEmailCheck.trim().length === 0) {
-            toast.warn('Please Enter an Email');
-            return null;
-        }
-        if (this.state.newEmail === this.state.newEmailCheck) {
-            this.context.updateEmail(this.state.newEmail);
-            this.setState({isEmailEditable: false, newEmail: '', newEmailCheck: ''});
-            toast.success(`Email changed to: ${this.state.newEmail}`)
-        } else {
-            toast.error(`The Emails aren't matching`)
-        }
-    }
+    // submitEmail(e) {
+    //     e.preventDefault();
+    //     if (this.state.newEmail.trim().length === 0 || this.state.newEmailCheck.trim().length === 0) {
+    //         toast.warn('Please Enter an Email');
+    //         return null;
+    //     }
+    //     if (this.state.newEmail === this.state.newEmailCheck) {
+    //         this.context.updateEmail(this.state.newEmail);
+    //         this.setState({isEmailEditable: false, newEmail: '', newEmailCheck: ''});
+    //         toast.success(`Email changed to: ${this.state.newEmail}`)
+    //     } else {
+    //         toast.error(`The Emails aren't matching`)
+    //     }
+    // }
 
     changeNickname(e) {
         this.setState({newNickname: e.target.value})
@@ -143,40 +143,40 @@ class Settings extends React.Component {
                     }
 
                 </section>
-                <section>
-                    <form onSubmit={(e) => this.submitEmail(e)}>{(this.state.isEmailEditable) ? <>
-                        <label className='even-space' title={'Old Email'} style={{color: getThemeColors().fontColor}}>Old Email: <span
-                            title={this.context.email} style={{color: getThemeColors().fontColor}}>{this.context.email}</span></label>
-                        <label className='even-space' title={'New Email'} style={{color: getThemeColors().fontColor}}>New Email: <input type='text'
-                                                                                            title={'New Email Input'}
-                                                                                            onChange={(e) => this.changeEmail(e)}
-                                                                                            value={this.state.newEmail}
-                                                                                            onKeyPress={e => {
-                                                                                                if (e.key === 'Enter') {
-                                                                                                    e.preventDefault();
-                                                                                                }
-                                                                                            }}/></label>
-                        <label className='even-space' title={'Confirm New Email'} style={{color: getThemeColors().fontColor}}>Confirm Email: <input type='text'
-                                                                                                        title={'Confirm New Email Input'}
-                                                                                                        onChange={(e) => this.changeEmailCheck(e)}
-                                                                                                        value={this.state.newEmailCheck}
-                                                                                                        onKeyPress={e => {
-                                                                                                            if (e.key === 'Enter') {
-                                                                                                                e.preventDefault();
-                                                                                                                this.submitEmail(e);
-                                                                                                            }
-                                                                                                        }}/></label>
-                        <div className='even-space'>
-                            <button onClick={() => this.setState({isEmailEditable: false})}
-                                    title={'Cancel Email Changes'}>Cancel
-                            </button>
-                            <button type='submit' title={'Submit Changes'}>Submit</button>
-                        </div>
-                    </> : <p className='even-space' onClick={() => this.setState({isEmailEditable: true})} style={{color: getThemeColors().fontColor}}
-                             title={'Click to Change Email'}>Change
-                        Email <span style={{color: getThemeColors().headerColor}}>{this.context.email}</span></p>}
-                    </form>
-                </section>
+                {/*<section>*/}
+                {/*    <form onSubmit={(e) => this.submitEmail(e)}>{(this.state.isEmailEditable) ? <>*/}
+                {/*        <label className='even-space' title={'Old Email'} style={{color: getThemeColors().fontColor}}>Old Email: <span*/}
+                {/*            title={this.context.email} style={{color: getThemeColors().fontColor}}>{this.context.email}</span></label>*/}
+                {/*        <label className='even-space' title={'New Email'} style={{color: getThemeColors().fontColor}}>New Email: <input type='text'*/}
+                {/*                                                                            title={'New Email Input'}*/}
+                {/*                                                                            onChange={(e) => this.changeEmail(e)}*/}
+                {/*                                                                            value={this.state.newEmail}*/}
+                {/*                                                                            onKeyPress={e => {*/}
+                {/*                                                                                if (e.key === 'Enter') {*/}
+                {/*                                                                                    e.preventDefault();*/}
+                {/*                                                                                }*/}
+                {/*                                                                            }}/></label>*/}
+                {/*        <label className='even-space' title={'Confirm New Email'} style={{color: getThemeColors().fontColor}}>Confirm Email: <input type='text'*/}
+                {/*                                                                                        title={'Confirm New Email Input'}*/}
+                {/*                                                                                        onChange={(e) => this.changeEmailCheck(e)}*/}
+                {/*                                                                                        value={this.state.newEmailCheck}*/}
+                {/*                                                                                        onKeyPress={e => {*/}
+                {/*                                                                                            if (e.key === 'Enter') {*/}
+                {/*                                                                                                e.preventDefault();*/}
+                {/*                                                                                                this.submitEmail(e);*/}
+                {/*                                                                                            }*/}
+                {/*                                                                                        }}/></label>*/}
+                {/*        <div className='even-space'>*/}
+                {/*            <button onClick={() => this.setState({isEmailEditable: false})}*/}
+                {/*                    title={'Cancel Email Changes'}>Cancel*/}
+                {/*            </button>*/}
+                {/*            <button type='submit' title={'Submit Changes'}>Submit</button>*/}
+                {/*        </div>*/}
+                {/*    </> : <p className='even-space' onClick={() => this.setState({isEmailEditable: true})} style={{color: getThemeColors().fontColor}}*/}
+                {/*             title={'Click to Change Email'}>Change*/}
+                {/*        Email <span style={{color: getThemeColors().headerColor}}>{this.context.email}</span></p>}*/}
+                {/*    </form>*/}
+                {/*</section>*/}
                 <section>
                     {(this.state.isPasswordEditable) ? <form onSubmit={(e) => this.submitPassword(e)}>
                         <label className='even-space' title={'Old Password'} style={{color: getThemeColors().fontColor}}>Old Password<input type='password'
