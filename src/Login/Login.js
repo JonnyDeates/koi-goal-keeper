@@ -16,6 +16,11 @@ class Login extends React.Component {
         this.setState({error: null});
         const {username, password} = ev.target;
 
+        this.handleSubmit(username, password)
+
+    };
+
+    handleSubmit = (username, password) => {
         if (validateEmail(username.value))
             AuthApiService.postLogin({
                 username: username.value,
@@ -40,25 +45,41 @@ class Login extends React.Component {
                 })
         else
             this.setState({error: 'Email not properly formatted'})
-    };
-    onSignIn(googleUser) {
-    // Useful data for your client-side scripts:
-        try {
-            let profile = googleUser.getBasicProfile();
-            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-            console.log('Full Name: ' + profile.getName());
-            console.log('Given Name: ' + profile.getGivenName());
-            console.log('Family Name: ' + profile.getFamilyName());
-            console.log("Image URL: " + profile.getImageUrl());
-            console.log("Email: " + profile.getEmail());
+    }
 
-            // The ID token you need to pass to your backend:
-            let id_token = googleUser.getAuthResponse().id_token;
-            console.log("ID Token: " + id_token);
-        } catch (e) {
-            // console.log(e)
-        }
-}
+    onSignIn(googleUser) {
+        let profile = googleUser.getBasicProfile();
+        let handleSubmit = (username, password) => {
+            AuthApiService.postLogin({
+                username: username.value,
+                password: password.value,
+            })
+                .then(res => {
+                    const {theme, type_list, type_selected, id: settingid, show_delete, notifications, auto_archiving, compacted} = res.payload.settings;
+                    const {id, nickname, email} = res.payload.payload;
+                    TokenService.saveAuthToken(res.authToken);
+                    UserService.saveUser({id, nickname, email, username: res.payload.payload.username});
+                    SettingsService.saveSettings({
+                        theme, type_list, type_selected, id: settingid,
+                        types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', '6-Month', 'Yearly', '3-Year', '5-Year', 'Distant'],
+                        show_delete, notifications, auto_archiving, compacted
+                    });
+                    window.location.reload();
+                })
+                .catch(res => {
+                    this.setState({error: res.error})
+                });
+        };
+        AuthApiService
+            .postGoogleLogin({
+                username: profile.getEmail(),
+                nickname: profile.getGivenName(),
+                token: googleUser.getAuthResponse().id_token
+            })
+            .then(res => (res.token) ? handleSubmit({value: res.username}, {value: res.token}) : console.log(res)
+            )
+    }
+
     render() {
         const {error} = this.state;
         return (
@@ -103,6 +124,7 @@ class Login extends React.Component {
                     buttonText={'Sign-in'}
                     onFailure={this.onSignIn}
                     onSuccess={this.onSignIn}
+                    isSignedIn={true}
                 />
             </form>
         )
