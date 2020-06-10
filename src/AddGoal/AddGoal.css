@@ -72,7 +72,7 @@
     width: 88px;
     border-radius: 10px;
     cursor: pointer;
-    left: 35%;
+    left: 5%;
     margin: 0;
     display: block;
     padding: 16px 0;
@@ -83,11 +83,10 @@
     position: absolute;
     margin-top: -0.75em;
     list-style: none;
-    margin-left: 33px;
+    margin-left:  5px;
     padding: 0;
     max-height: 0;
     overflow: hidden;
-    opacity: 0;
     z-index: 1;
     width: 88px;
 

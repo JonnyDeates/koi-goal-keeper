@@ -25,9 +25,14 @@ class TopNav extends React.Component {
 
     render() {
         const logout = () => {
-            let auth2 = window.gapi.auth2.getAuthInstance();
-            if (auth2)
-                auth2.signOut();
+            try {
+                let auth2 = window.gapi.auth2.getAuthInstance();
+                if (auth2)
+                    auth2.signOut();
+            } catch (e) {
+                console.log('Not the main Domain is it my guy? Im watching you <.<'
+                )
+            }
             TokenService.clearAuthToken();
             UserService.clearUser();
             window.location.reload();

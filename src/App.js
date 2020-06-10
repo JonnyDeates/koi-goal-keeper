@@ -13,15 +13,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import PublicRoute from "./PublicRoute/PublicRoute";
 import LandingPage from "./LandingPage/LandingPage";
+import {catchClause} from "@babel/types";
 
 class App extends React.Component {
 
     componentDidMount() {
-        window.gapi.load('auth2', () => {
-            this.auth2 = window.gapi.auth2.init({
-                client_id: '210398171394-4tvu2p5580kl3d959vidn4avuif5p53n.apps.googleusercontent.com',
+        try {
+            window.gapi.load('auth2', () => {
+                this.auth2 = window.gapi.auth2.init({
+                    client_id: '210398171394-4tvu2p5580kl3d959vidn4avuif5p53n.apps.googleusercontent.com',
+                })
             })
-        })
+        }
+        catch(e) {
+            console.log('Hello There!')
+        }
     }
 
     render() {

@@ -185,3 +185,11 @@ h1, h2 {
         opacity: 1;
     }
 }
+@keyframes pulse {
+    0%,100% {
+        transform: scaleX(1);
+    }
+    50%{
+        transform: scaleX(1.1);
+    }
+}

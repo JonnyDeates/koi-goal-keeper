@@ -19,6 +19,7 @@ class AddGoal extends React.Component {
                 goals: [],
                 date: today
             },
+            goalListLength: 0,
             otherDate: today.toISOString(),
             today
         };
@@ -39,6 +40,9 @@ class AddGoal extends React.Component {
                 handleEditGoal: this.props.goalListContext.handleEditCurrentGoal
             }, () => this.changeDate(this.props.goalListContext.currentGoal.type))
         }
+        if(this.state.currentGoal.goals.length){
+            this.handleGoalListLength()
+        }
         document.body.style.backgroundColor = getThemeColors().pColor;
     }
 
@@ -50,7 +54,8 @@ class AddGoal extends React.Component {
                     goals: this.props.goalListContext.currentGoal.goals,
                     date: this.props.goalListContext.currentGoal.date
                 }
-            })
+            }, ()=> this.handleGoalListLength())
+
         }
     }
 
@@ -61,13 +66,13 @@ class AddGoal extends React.Component {
             goals: this.state.currentGoal.goals
         });
     }
-
+    handleGoalListLength = () => this.setState({goalListLength: this.state.currentGoal.goals.length});
     deleteObjective(neat, ID) {
         let newGoals = this.props.goalListContext.currentGoal.goals.filter(g => g.id !== ID);
         newGoals.forEach((goal, i) => goal.id = i);
         toast.warn('Objective Deleted', {autoClose: 2000});
         let newGL = {type: this.state.currentGoal.type, date: this.state.currentGoal.date, goals: newGoals};
-        this.setState({currentGoal: newGL});
+        this.setState({currentGoal: newGL},()=> this.handleGoalListLength());
         this.props.goalListContext.handleGoalAdd(newGL);
     }
 
@@ -82,7 +87,7 @@ class AddGoal extends React.Component {
         } else {
             let objective = {obj: this.state.value.trim(), id: goals.length};
             goals.push(objective);
-            this.setState({value: ''});
+            this.setState({value: ''}, ()=> this.handleGoalListLength());
             this.props.goalListContext.handleGoalAdd({date, type, goals: this.state.currentGoal.goals})
         }
     }
@@ -96,7 +101,7 @@ class AddGoal extends React.Component {
         GoalList.goals.push(obj);
         this.props.goalListContext.handleGoalAdd(GoalList);
         toast.success(`Objective Cloned`);
-        this.setState({value: ''});
+        this.setState({value: ''}, ()=> this.handleGoalListLength());
     }
 
     handleOtherDate(e) {
@@ -170,7 +175,7 @@ class AddGoal extends React.Component {
                         </div>
                     </section>
                 </div>
-                <div className='submit-goals'>
+                <div className='submit-goals' style={{animation: (this.state.goalListLength >= 1) ? '1s pulse infinite' : ''}}>
                     <button type='submit' className='dropdown-current' onClick={(e) => this.state.handleSubmit(e)}
                             onKeyPress={e => {
                                 if (e.key === 'Enter') e.preventDefault();
