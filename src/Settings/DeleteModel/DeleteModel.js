@@ -19,9 +19,9 @@ export default class DeleteModel extends Component {
             SettingsService.clearSettings();
             window.location.reload()
         } else if(this.state.username !== '' && this.state.username !== UserService.getUser().username){
-            this.setState({error: 'Username Incorrect'})
+            this.setState({error: 'Email Incorrect'})
         } else {
-            this.setState({error: 'Please Enter Your Username'})
+            this.setState({error: 'Please Enter Your Email'})
         }
     }
     render() {
@@ -31,8 +31,8 @@ export default class DeleteModel extends Component {
         <div className={'model-delete'}>
             <h2 title={confirmationText}>{confirmationText}</h2>
             <p className={'error'}>{this.state.error}</p>
-            <p><i>*Your Username is <b>{username}</b></i></p>
-            <label title={'Username'}>Username: <input title={'text'} type={'text'} onChange={this.updateUsername} value={this.state.username}/></label>
+            <p><i>*Your Email is <b>{username}</b></i></p>
+            <label title={'Email'}>Email: <input title={'text'} type={'text'} onChange={this.updateUsername} value={this.state.username}/></label>
             <div className={'even-space'}>
                 <button onClick={this.props.closeModel}>Cancel</button>
                 <button onClick={this.validation}>Confirm</button>
