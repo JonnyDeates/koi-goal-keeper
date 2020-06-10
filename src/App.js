@@ -15,6 +15,15 @@ import PublicRoute from "./PublicRoute/PublicRoute";
 import LandingPage from "./LandingPage/LandingPage";
 
 class App extends React.Component {
+
+    componentDidMount() {
+        window.gapi.load('auth2', () => {
+            this.auth2 = window.gapi.auth2.init({
+                client_id: '210398171394-4tvu2p5580kl3d959vidn4avuif5p53n.apps.googleusercontent.com',
+            })
+        })
+    }
+
     render() {
         return (
             <div className="App">

@@ -76,7 +76,7 @@ class Login extends React.Component {
                 nickname: profile.getGivenName(),
                 token: googleUser.getAuthResponse().id_token
             })
-            .then(res => (res.token) ? handleSubmit({value: res.username}, {value: res.token}) : console.log(res)
+            .then(res => (res.token) ? handleSubmit({value: res.username}, {value: res.token}) : this.onSignIn(googleUser)
             )
     }
 
