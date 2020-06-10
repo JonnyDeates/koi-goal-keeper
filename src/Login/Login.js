@@ -48,7 +48,7 @@ class Login extends React.Component {
     }
 
     onSignIn(googleUser) {
-        try {
+        if(googleUser){
             let profile = googleUser.getBasicProfile();
             let handleSubmit = (username, password) => {
                 AuthApiService.postLogin({
@@ -78,10 +78,7 @@ class Login extends React.Component {
                     token: googleUser.getAuthResponse().id_token
                 })
                 .then(res => (res.token) ? handleSubmit({value: res.username}, {value: res.token}) : this.onSignIn(googleUser)
-                )
-        } catch (e) {
-            console.log('')
-        }
+                )}
     }
 
     render() {

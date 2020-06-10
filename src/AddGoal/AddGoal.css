@@ -211,7 +211,6 @@
         right: unset;
         margin: -21px 0 0 121px;
         z-index: 0;
-        opacity: 0;
         animation: 3s slide-in-left forwards;
     }
     .submit-goals > button {
