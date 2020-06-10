@@ -25,7 +25,7 @@ export default class DeleteModel extends Component {
         }
     }
     render() {
-        const confirmationText = 'Enter Your Username to Delete Your Account'
+        const confirmationText = 'Enter Your Email to Delete Your Account'
         const username = UserService.getUser() ? UserService.getUser().username : ''
         return <><div className={'model-wrapper-delete'} onClick={this.props.closeModel}/>
         <div className={'model-delete'}>
