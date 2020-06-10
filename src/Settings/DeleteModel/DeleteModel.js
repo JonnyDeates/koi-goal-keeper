@@ -13,6 +13,14 @@ export default class DeleteModel extends Component {
 
     validation = () => {
         if(this.state.username === UserService.getUser().username) {
+            try {
+                let auth2 = window.gapi.auth2.getAuthInstance();
+                if (auth2)
+                    auth2.signOut();
+            } catch (e) {
+                console.log('Not the main Domain is it my guy? Im watching you <.<'
+                )
+            }
             AuthApiService.deleteUser();
             UserService.clearUser();
             TokenService.clearAuthToken();
