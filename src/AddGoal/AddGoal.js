@@ -191,7 +191,7 @@ class AddGoal extends React.Component {
                 <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false}
                           date={this.state.currentGoal.date} type={this.state.currentGoal.type}
                           showChecked={false} handleChecked={this.state.handleChecked}
-                          handleEditGoal={this.state.handleEditGoal}
+                          handleEditGoal={this.state.handleEditGoal} compacted={'No'}
                           showDelete={true} handleObjectiveClone={this.handleObjectiveClone}
                           deleteGoal={this.deleteObjective} goals={this.state.currentGoal.goals}/>
 
