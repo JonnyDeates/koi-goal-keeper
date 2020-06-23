@@ -8,9 +8,9 @@ const SettingsService = {
                 types: (!!setting.types) ? setting.types : settingTemp.types,
                 theme: (!!setting.theme) ? setting.theme : settingTemp.theme,
                 type_selected: (!!setting.type_selected) ? setting.type_selected : settingTemp.type_selected,
-                show_delete: (!!setting.show_delete) ? setting.show_delete : settingTemp.show_delete,
-                notifications: (!!setting.notifications) ? setting.notifications : settingTemp.notifications,
-                auto_archiving: (!!setting.auto_archiving) ? setting.auto_archiving : settingTemp.auto_archiving,
+                show_delete: setting.show_delete,
+                notifications: setting.notifications,
+                auto_archiving: setting.auto_archiving,
                 compacted: (!!setting.compacted) ? setting.compacted : settingTemp.compacted,
             });
         } else {

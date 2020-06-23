@@ -20,6 +20,7 @@ import Footer from "./Footer/Footer"
 import ImageCoursel from "./ImageCarousel/ImageCoursel";
 import LandingPageSection from "./LandingPageSection/LandingPageSection";
 import MeetTheDeveloper from "./MeetTheDeveloper/MeetTheDeveloper";
+import TrackVisibility from "../Utils/TrackVisibility";
 
 class LandingPage extends Component {
 
@@ -31,6 +32,7 @@ class LandingPage extends Component {
                 alt: 'Home Page Ultra Compacted'
             }, {img: phoneAddPage, alt: 'Phone Add Page'}, {img: settingsPage, alt: 'Settings Page'}],
             title: 'The Koi Goal Keeper',
+            runAnimation: false,
             topSection: {
                 header: 'What is it?',
                 description: ['A minimalistic easy to use daily tool for goal tracking, creating, and achieving. \n' +
@@ -91,14 +93,16 @@ class LandingPage extends Component {
                         </header>
 
                         <section>
-                            <LandingPageSection header={this.state.topSection.header}
+                            <TrackVisibility onVisible={()=> this.setState({animationRun: true})}>
+                            <LandingPageSection header={this.state.topSection.header} animationRun={this.state.animationRun}
                                                 description={this.state.topSection.description}/>
+                            </TrackVisibility>
                             <ImageCoursel imageUrls={this.state.imageCoursel}/>
-                            {this.state.pageData.map((sect, i) => <LandingPageSection key={i} header={sect.header}
-                                                                                      description={sect.description}
-                                                                                      image={sect.image}
-                                                                                      imageDesc={sect.imageDesc}/>)}
-                        <MeetTheDeveloper />
+                            {this.state.pageData.map((sect, i) => <TrackVisibility onVisible={()=> this.setState({[`animationSection${i+1}`]: true})}><LandingPageSection key={i} header={sect.header}
+                                                                                      description={sect.description} image={sect.image} imageDesc={sect.imageDesc} animationRun={this.state[`animationSection${i+1}`]}/></TrackVisibility>)}
+                            <TrackVisibility onVisible={()=> this.setState({meetTheDeveloperAnimation: true})}>
+                                <MeetTheDeveloper animation={this.state.meetTheDeveloperAnimation}/>
+                            </TrackVisibility>
                         </section>
                     </ParallaxProvider>
                 </div>

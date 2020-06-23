@@ -4,7 +4,6 @@ import UserService from "./user-api-service";
 
 const AuthApiService = {
         postLogin({username, password}) {
-            console.log(username, password)
             return fetch(`${config.API_ENDPOINT}/auth/login`, {
                 method: 'POST',
                 headers: {

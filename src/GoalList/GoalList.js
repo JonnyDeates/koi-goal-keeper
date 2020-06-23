@@ -74,7 +74,10 @@ class GoalList extends React.Component {
                 <div className={'goallist-title'} style={{backgroundColor: getCurrentThemeColors().tColor+'aa',color: getCurrentThemeColors().fontColor}}>
                     <p>{this.state.type}</p>
                     <p>{new Date(this.state.date).toLocaleDateString()}</p>
-                    {this.state.goals !== 0 && (this.state.checkedamt === this.state.goals.length && !this.state.past) ? <img src={pushIco} alt="Push Goals" width='50px' height='50px' onClick={()=> this.props.pushGoal(this.state.goalId)}/> : <></>}
+                    {this.state.goals !== 0 && (this.state.checkedamt >= 1 && !this.state.past)
+                        ? <img src={pushIco} alt="Push Goals" title={'Archive Goal'} width='50px' height='50px'
+                               onClick={()=> this.props.pushGoal(this.state.goalId)}/>
+                               : ''}
                     {(this.state.showCompleted && this.state.goals.length > 1) ? <p>{this.state.checkedamt}</p> : ''}
                     <div className='circle-indicator' style={getColor(this.state.type)}/>
                 </div>

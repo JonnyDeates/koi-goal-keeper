@@ -4,6 +4,7 @@ import AuthApiService from "../../services/auth-api-service.js"
 import TokenService from "../../services/token-service";
 import SettingsService from "../../services/settings-service";
 import {getCurrentThemeColors} from "../../Utils/Utils";
+
 export default class DeleteModel extends Component {
     constructor(props){
         super(props)

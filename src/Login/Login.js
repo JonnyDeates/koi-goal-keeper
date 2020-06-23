@@ -68,23 +68,27 @@ class Login extends React.Component {
                         window.location.reload();
                     })
                     .catch(e => {
-                    window.location.reload();
+                        window.location.reload();
+                    })
+                    .catch(res => {
+                        this.setState({error: res.error})
+                    });
+            };
+            AuthApiService
+                .postGoogleLogin({
+                    username: profile.getEmail(),
+                    nickname: profile.getGivenName(),
+                    token: googleUser.getAuthResponse().id_token
                 })
+                .then(res => {
+                        handleSubmit({value: res.username}, {value: '******'})
+                    }
+                )
                 .catch(res => {
                     this.setState({error: res.error})
                 });
-        };
-        AuthApiService
-            .postGoogleLogin({
-                username: profile.getEmail(),
-                nickname: profile.getGivenName(),
-                token: googleUser.getAuthResponse().id_token
-            })
-            .then(res => {
-                handleSubmit({value: res.username}, {value: '******'})
-            }
-            )
         }
+        ;
     }
 
     render() {

@@ -6,3 +6,9 @@
     color: white;
     margin: 1em 4px;
 }
+.dropdown-types {
+    z-index: 4;
+}
+.dropdown-list > li:hover{
+    background-color: #ffffff !important;
+}

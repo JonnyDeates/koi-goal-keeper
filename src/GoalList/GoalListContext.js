@@ -1,5 +1,4 @@
 import * as React from "react";
-import UserService from "../services/user-api-service";
 import TokenService from "../services/token-service";
 import GoalApiService from "../services/goals-api-service";
 import PastGoalService from "../services/pastgoals-api-service";
@@ -79,22 +78,17 @@ export class GoalListProvider extends React.Component {
         }
     }
 
-    fetchData(callback = () => {
-    }) {
-        if (TokenService.getAuthToken()) {
-            GoalApiService.getAllGoals()
-                .then((res) => this.setState({currentGoals: this.breakApartAllGoalData(res, false)}))
-                .then(() => {
-                    if (UserService.getUser().autoArchiving) {
-                        this.state.currentGoals.forEach(Goal => this.checkCurrentGoals(Goal));
-                    }
-                    this.state.currentGoals.sort((A, B) => new Date(A.date) - new Date(B.date));
-                    callback();
-                });
-            PastGoalService.getAllPastGoals()
+    fetchData() {
+        if (TokenService.getAuthToken()) { // Checks to see if the user has a webtoken
+            GoalApiService.getAllGoals() // Gets all of the current goals from the server
+                .then((res) => this.setState({currentGoals: this.breakApartAllGoalData(res, false)}, () =>
+                    setTimeout(() => { // Time out is to ensure that the current Goal lists have the goals mapped on
+                        if (!!SettingsService.getSettings().auto_archiving)  // Checks to see if the user has auto archiving enabled
+                            this.state.currentGoals.forEach(Goal => this.checkCurrentGoals(Goal));
+                    }, 200)
+                ))
+            PastGoalService.getAllPastGoals() // Gets all of the current goals from the server
                 .then((res) => this.setState({pastGoals: this.breakApartAllGoalData(res, true)}));
-
-
         }
     }
 
@@ -108,7 +102,9 @@ export class GoalListProvider extends React.Component {
     }
 
     breakApartAllGoalData(data, isPast) {
-        return data.map(Goal => Goal = this.breakApartGoalData(Goal, isPast))
+        let x = data.map(Goal => Goal = this.breakApartGoalData(Goal, isPast))
+
+        return x
     }
 
     breakApartGoalData(data, isPast) {
@@ -121,39 +117,36 @@ export class GoalListProvider extends React.Component {
             goals: []
         };
         let newType = this.updateTypeTimeline(x);
-        if(x.type !== newType) {
+        if (x.type !== newType) {
             x.type = newType;
             GoalApiService.patchGoal({type: newType, checkedamt: x.checkedamt, date: x.date}, x.id)
         }
 
         if (isPast) {
-            PastObjectivesApiService.getObjectiveList(data.id).then(res => x.goals = res).then(() => this.forceUpdate());
+            PastObjectivesApiService.getObjectiveList(data.id).then(res => x.goals = res).then(() => this.forceUpdate())
         } else {
-            ObjectivesApiService.getObjectiveList(data.id).then(res => x.goals = res).then(() => this.forceUpdate());
+            ObjectivesApiService.getObjectiveList(data.id).then(res => x.goals = res).then(() => this.forceUpdate())
         }
         return x;
     }
 
     checkCurrentGoals(Goal) {
-        let currentDate = new Date().getTime();
-        let GoalDate = new Date(Goal.date).getTime();
-        if (GoalDate < currentDate) {
-            const newPastGoalList = this.state.currentGoals.find(g => g.id = Goal.id);
-            PastGoalService.postPastGoal(newPastGoalList)
-                .then((res) =>
-                    newPastGoalList.goals.map(pg => PastObjectivesApiService.postObjective({
+        let currentDate = new Date().getTime(); // Gets the Current Local Date
+        let GoalDate = new Date(Goal.date).getTime(); // Gets the Current Date of the Goal
+        if (GoalDate < currentDate) { // Checks to see if the current goal date is before the current Date
+            if (Goal && Goal.goals && Goal.goals.length > 0) {
+                PastGoalService.postPastGoal(Goal).then((res) =>
+                    Goal.goals.map(pg => PastObjectivesApiService.postObjective({
                             obj: pg.obj,
                             checked: pg.checked,
                             goalid: res.id
                         })
-                    ));
+                    )).then(()=> this.setState({pastGoals: [Goal, ...this.state.pastGoals]}))
+            }
             GoalApiService.deleteGoal(Goal.id);
             this.setState({
                 currentGoals: this.state.currentGoals.filter((Goal) => (new Date(Goal.date).getTime()) >= currentDate)
             });
-        } else {
-            Goal.type = this.updateTypeTimeline(Goal);
-            this.forceUpdate();
         }
     }
 
@@ -329,7 +322,7 @@ export class GoalListProvider extends React.Component {
         let GoalDate = new Date(Goal.date).getTime();
         let types = (SettingsService.getSettings().types);
         for (let x = 0; x < types.length; x++) {
-            if (GoalDate <= getTime(types[x]).getTime() ) {
+            if (GoalDate <= getTime(types[x]).getTime()) {
                 return types[x]
             }
         }

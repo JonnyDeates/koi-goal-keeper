@@ -1,14 +1,14 @@
 .nav {
     margin-right: 16px;
-    z-index: 3;
+    z-index: 5;
     text-align: center;
     position: fixed;
     left: 0;
     top: 0;
     justify-content: space-evenly;
     width: 100vw;
-    background-color: #84adea;
     display: inline-flex;
+    animation: 1s slide-in-down;
 }
 .nav > img{
     display: block;
@@ -75,6 +75,7 @@
         position: fixed;
         width: max-content;
         background-color: #00000000 !important;
+        animation: 1s slide-in-right;
     }
     .nav .nav-logout{
         display: block;

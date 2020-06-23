@@ -50,18 +50,20 @@ class GoalItem extends React.Component {
                     {(this.props.compacted === 'No') ? <CircleButton past={this.props.past} toggleEdit={this.toggleEdit}
                                                                      isEditing={this.state.isEditing} id={this.props.id}
                                                                      handleObjectiveClone={this.props.handleObjectiveClone}
-                                                                     goalId={this.props.goalId} showDelete={this.props.showDelete}
-                                                                     deleteGoal={this.state.deleteGoal} isEditable={this.props.isEditable}/> :
+                                                                     goalId={this.props.goalId}
+                                                                     showDelete={this.props.showDelete}
+                                                                     deleteGoal={this.state.deleteGoal}
+                                                                     isEditable={this.props.isEditable}/> :
                         <div className={'row-buttons'}>
                             {(this.state.isEditable) ? <img onClick={this.toggleEdit} alt={'edit'}
                                                             src={(this.state.isEditing) ? require('../../assets/icons/plus.ico') : require('../../assets/icons/pencil.ico')}/> : ''}
                             <img onClick={() => this.props.handleObjectiveClone(this.props.goalId, this.props.id)}
                                  alt={'copy'}
                                  src={require('../../assets/icons/copy.ico')}/>
-                            {(this.props.showDelete) ? <button type="button" className="close-button"
-                                                               onClick={() => this.state.deleteGoal(this.props.goalId, this.props.id)}>X
-                            </button> : ''}
-                        </div> }
+                            {(this.props.showDelete) ? <img
+                                onClick={() => this.props.deleteGoal(this.props.goalId, this.props.id)}
+                                alt={'copy'} src={require('../../assets/icons/trash.ico')}/> : ''}
+                        </div>}
                 </div>
             </li>
         );

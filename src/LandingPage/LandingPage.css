@@ -22,6 +22,10 @@
     z-index: 10;
     padding: 1rem 1rem;
     margin: 0;
+    opacity: 0;
+    animation: 1s slide-in-down forwards;
+    -o-animation: 1s slide-in-down forwards;
+    -moz-animation: 1s slide-in-down forwards;
 }
 .landing-page nav > a {
     color: black;

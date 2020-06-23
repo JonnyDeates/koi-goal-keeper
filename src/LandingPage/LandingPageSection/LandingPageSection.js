@@ -7,6 +7,7 @@ class LandingPageSection extends Component {
         super(props);
         this.state = {
             header: '',
+            runAnimation: false,
             description: [],
             image: null,
             imageDesc: '',
@@ -29,6 +30,12 @@ class LandingPageSection extends Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+    if(prevProps.animationRun !== this.props.animationRun){
+        this.setState({runAnimation: this.props.animationRun})
+    }
+    }
+
     render() {
         const Image = ((this.state.image) ? <figure>
             <img src={this.state.image} alt={this.state.imageDesc}/>
@@ -42,12 +49,12 @@ class LandingPageSection extends Component {
         </div>);
         const flipped = (this.state.isFlipped) ? <>{Body}{Image}</> : <>{Image}{Body}</>;
         return (
-            <section className={`landing-page-section ${(this.state.image) ? 'landing-page-full-section' : ''}`}>
-                <h2>{this.state.header}</h2>
-                <div className={'landing-page-body'}>
+                <section className={`landing-page-section ${(this.state.image) ? 'landing-page-full-section' : ''} ${(this.state.runAnimation) ? 'section-animation' : ''}`}>
+                <h2 >{this.state.header}</h2>
+                <div className={`landing-page-body`}>
                     {flipped}
                 </div>
-            </section>
+          </section>
         )
     }
 }

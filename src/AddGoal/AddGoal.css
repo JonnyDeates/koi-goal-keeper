@@ -48,6 +48,7 @@
     height: 75px;
     width: 55vw;
     position: absolute;
+    animation: 1s slide-in-down;
 }
 .date-input{
     width: 88px;
@@ -60,6 +61,7 @@
 }
 .dropdown-types {
     width: fit-content;
+    animation: 2s fade-in forwards;
 }
 .dropdown-types:hover .dropdown-list {
     max-height: 800px;
@@ -70,7 +72,7 @@
     width: 88px;
     border-radius: 10px;
     cursor: pointer;
-    left: 35%;
+    left: 5%;
     margin: 0;
     display: block;
     padding: 16px 0;
@@ -81,13 +83,13 @@
     position: absolute;
     margin-top: -0.75em;
     list-style: none;
-    margin-left: 33px;
+    margin-left:  5px;
     padding: 0;
     max-height: 0;
     overflow: hidden;
-    opacity: 0;
     z-index: 1;
     width: 88px;
+
     -webkit-transition: all 2s ease;
     -moz-transition: all 2s ease ;
     -ms-transition: all 2s ease ;
@@ -116,23 +118,25 @@
 .submit-goals {
     position: absolute;
     right: 0;
-    margin-top: 12px;
+    margin-top: 28px;
     margin-right: 12px;
     z-index: 1;
+    animation: 2s pop-in forwards;
 }
 .example-add {
     position: absolute;
     left: 5vw;
     background-color: #c0c7ce55;
-    top: 338px;
+    top: 332px;
     height: 78px;
     width: 89%;
     color: #ececec;
     border-radius: 0 0 10px 10px;
+    animation: 2s pop-in forwards;
 }
 .submit-goals > button {
     border: none;
-    border-radius: 15px;
+    border-radius: 0 15px 0 0;
     margin: 4px;
     padding: 24px 4vw;
     font-size: medium;
@@ -142,7 +146,7 @@
 
 }
 .submit-goals:hover > button {
-    background: #ffffffdd;
+    background-color: rgba(117, 232, 139, 0.67) !important;
 }
 @media (min-width: 481px) and (max-width: 767px) {
     .bar-indicator-top {
@@ -157,7 +161,7 @@
         margin-left: -22.5%;
     }
     .example-add {
-        top: 346px;
+        top: 365px;
         border-radius: 0 0 15px 15px;
     }
     .submit-goals > button {
@@ -197,6 +201,7 @@
         border-radius: 0 10px 10px 10px;
         text-align: center;
         padding: 16px 0 0 0;
+        animation: 3s pop-in forwards;
     }
     .add-goal .goallist-item {
         left: 92px;
@@ -206,6 +211,7 @@
         right: unset;
         margin: -21px 0 0 121px;
         z-index: 0;
+        animation: 3s slide-in-left forwards;
     }
     .submit-goals > button {
         margin: 4px;

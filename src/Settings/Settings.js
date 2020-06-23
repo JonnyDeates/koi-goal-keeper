@@ -16,6 +16,7 @@ class Settings extends React.Component {
             isUsernameEditable: false,
             isEmailEditable: false,
             isPasswordEditable: false,
+            deleteModel: false,
             newEmail: '',
             newEmailCheck: '',
             oldPasswordCheck: '',
@@ -107,6 +108,7 @@ class Settings extends React.Component {
         this.context.setTheme(theme);
         document.body.style.backgroundColor = getCurrentThemeColors().pColor;
     }
+
     componentDidMount() {
         document.body.style.backgroundColor = getCurrentThemeColors().pColor;
     }
@@ -120,7 +122,6 @@ class Settings extends React.Component {
                     <h2 title={'UserId'} style={{color: getCurrentThemeColors().headerColor}}>{this.context.username}</h2>
                     {(this.state.isUsernameEditable)
                         ? <form onSubmit={(e) => this.submitNickname(e)}>
-
                             <label className='even-space' style={{color: getCurrentThemeColors().fontColor}}
                                    title={'Nickname'}>Nickname:
                                 <input type='text' onChange={(e) => this.changeNickname(e)}
@@ -289,8 +290,6 @@ class Settings extends React.Component {
                         style={{backgroundColor: getCurrentThemeColors().tColor, color: getCurrentThemeColors().fontColor+'77'}}>Suspend
                     Account
                 </button>
-
-
                 {(this.state.deleteModel) ? <DeleteModel closeModel={() => this.setState({deleteModel: false})}/> : ''}
             </main>
         )
