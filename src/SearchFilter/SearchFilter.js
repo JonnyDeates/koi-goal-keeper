@@ -1,5 +1,5 @@
 import React from 'react';
-import {getColor, getThemeColors} from "../Utils/Utils";
+import {getColor, getCurrentThemeColors} from "../Utils/Utils";
 
 class SearchFilter extends React.Component {
 
@@ -32,8 +32,8 @@ class SearchFilter extends React.Component {
             <div className="addition-wrapper">
                 <div className='dropdown-types'>
                     <li style={{
-                        backgroundColor: getThemeColors().tColor,
-                        color: getThemeColors().fontColor
+                        backgroundColor: getCurrentThemeColors().tColor,
+                        color: getCurrentThemeColors().fontColor
                     }}>{this.props.currentType}
                         <div className='bar-indicator-left' style={getColor(this.props.currentType)}/>
                         <div className='bar-indicator-right' style={getColor(this.props.currentType)}/>
@@ -44,11 +44,11 @@ class SearchFilter extends React.Component {
                                                                className={(this.props.currentType === type) ? 'tinted' : ''}
                                                                style={(i >= 4) ? {
                                                                    padding: 16 * (1 / (i - 4)) + 'px 0px',
-                                                                   color: getThemeColors().fontColor,
-                                                                   backgroundColor: getThemeColors().tColor
+                                                                   color: getCurrentThemeColors().fontColor,
+                                                                   backgroundColor: getCurrentThemeColors().tColor
                                                                } : {
-                                                                   color: getThemeColors().fontColor,
-                                                                   backgroundColor: getThemeColors().tColor,
+                                                                   color: getCurrentThemeColors().fontColor,
+                                                                   backgroundColor: getCurrentThemeColors().tColor,
                                                                }}
                                                                onClick={() => this.props.changeFilter(type)}>{type}
                             <div className='bar-indicator-left' style={getColor(type)}/>
@@ -65,11 +65,11 @@ class SearchFilter extends React.Component {
                     }}/>
                     <div className='even-space'>
                         <button onClick={() => this.setState({search: ''})} title={'Remove Search Input'}
-                                style={{backgroundColor: getThemeColors().tColor, color: getThemeColors().fontColor}}
+                                style={{backgroundColor: getCurrentThemeColors().tColor, color: getCurrentThemeColors().fontColor}}
                                 type='button'>Cancel
                         </button>
                         <button onClick={() => this.props.searchGoals(this.state.search)}
-                                style={{backgroundColor: getThemeColors().tColor, color: getThemeColors().fontColor}}
+                                style={{backgroundColor: getCurrentThemeColors().tColor, color: getCurrentThemeColors().fontColor}}
                                 title={'Search'} type='button'>Search
                         </button>
                     </div>

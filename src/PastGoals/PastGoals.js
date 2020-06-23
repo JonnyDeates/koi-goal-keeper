@@ -3,7 +3,7 @@ import GoalList from "../GoalList/GoalList";
 import "./PastGoals.css"
 import {SettingsContext} from "../Settings/SettingsContext";
 import SearchFilter from "../SearchFilter/SearchFilter";
-import {getColor, getThemeColors} from "../Utils/Utils";
+import {getColor, getCurrentThemeColors} from "../Utils/Utils";
 
 class PastGoals extends React.Component {
     static contextType = SettingsContext;
@@ -22,7 +22,7 @@ class PastGoals extends React.Component {
             this.searchGoals('');
             this.setState({currentGoals: this.props.goalListContext.pastGoals})
         }
-        document.body.style.backgroundColor = getThemeColors().pColor;
+        document.body.style.backgroundColor = getCurrentThemeColors().pColor;
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -59,13 +59,13 @@ class PastGoals extends React.Component {
         const type = (this.context.currentType !== 'All') ? this.context.currentType : '';
 
         return (<main className='past-goals'>
-            <h1 style={{color: getThemeColors().headerColor}}>Past {type} Goals </h1>
+            <h1 style={{color: getCurrentThemeColors().headerColor}}>Past {type} Goals </h1>
             <div className='bar-indicator-top' style={getColor(type)}/>
-            <p style={{color: getThemeColors().fontColor}} className='even-space noselect' onClick={this.context.toggleShowDelete}>Show
+            <p style={{color: getCurrentThemeColors().fontColor}} className='even-space noselect' onClick={this.context.toggleShowDelete}>Show
                 Delete
-                <span style={{color: getThemeColors().headerColor}}>{(this.context.showDelete) ? 'Yes' : 'No'}</span></p>
-            <p style={{color: getThemeColors().fontColor}} className='even-space noselect' onClick={this.context.toggleCompacted}>Compacted
-                <span style={{color: getThemeColors().headerColor}}>{this.context.compacted}</span></p>
+                <span style={{color: getCurrentThemeColors().headerColor}}>{(this.context.showDelete) ? 'Yes' : 'No'}</span></p>
+            <p style={{color: getCurrentThemeColors().fontColor}} className='even-space noselect' onClick={this.context.toggleCompacted}>Compacted
+                <span style={{color: getCurrentThemeColors().headerColor}}>{this.context.compacted}</span></p>
             <SearchFilter changeFilter={this.changeFilter} searchGoals={this.searchGoals} currentType={this.context.currentType} types={this.context.types}/>
             {(this.context.currentType === 'All')
                 ? this.state.currentGoals.map((pg, i) => <GoalList key={i} goalId={pg.id}

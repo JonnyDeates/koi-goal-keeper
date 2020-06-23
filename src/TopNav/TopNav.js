@@ -7,8 +7,7 @@ import home from '../assets/icons/home.ico';
 import document from '../assets/icons/document.ico';
 import archive from '../assets/icons/archive.ico';
 import user from '../assets/icons/user.ico';
-import {getThemeColors} from "../Utils/Utils";
-import {GoogleLogout} from 'react-google-login';
+import {getCurrentThemeColors} from "../Utils/Utils";
 
 class TopNav extends React.Component {
     constructor(props) {
@@ -23,31 +22,30 @@ class TopNav extends React.Component {
         };
     }
 
-
     render() {
         const logout = () => {
             let auth2 = window.gapi.auth2.getAuthInstance();
-            console.log(auth2)
             if (auth2)
                 auth2.signOut();
             TokenService.clearAuthToken();
             UserService.clearUser();
             window.location.reload();
-        }
+        };
         return (
-            <nav className='nav'>
+
+            <nav className='nav' style={{backgroundColor: getCurrentThemeColors().sColor}}>
                 {this.state.links.map((link, index) => <div key={index} onClick={() => {
                     window.scrollTo(0, 0);
                     this.forceUpdate();
                 }
                 }><Link to={link.to} className={(link.to === this.props.currentActive.pathname) ? 'active' : ''}
                         style={{
-                            backgroundColor: getThemeColors().sColor,
+                            backgroundColor: getCurrentThemeColors().sColor,
                         }}>
                     <img src={link.src} alt={link.name}/></Link></div>)}
                 <img src={require(`../assets/icons/exit.ico`)} alt='Log Out' width='60px' height='60px'
                      style={{
-                         backgroundColor: getThemeColors().sColor,
+                         backgroundColor: getCurrentThemeColors().sColor,
                      }} className={'nav-logout'} onClick={logout}/>
             </nav>
         );

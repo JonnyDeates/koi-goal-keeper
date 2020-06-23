@@ -73,21 +73,49 @@ export function getColor(type) {
     }
     return {backgroundColor: color}
 }
-export function getThemeColors(){
-    const themes = [
+export function getThemes() {
+    return [
         {
-        name: 'Light Mode',
-        pColor: '#abceea', sColor: '#84adea', tColor: '#e6eef5',
-        headerColor: '#ffffff',fontColor: '#000000', inputColor: ''
-    },
+            name: 'Light Mode',
+            pColor: '#abceea', sColor: '#84adea', tColor: '#e6eef5',
+            headerColor: '#ffffff',fontColor: '#000000', inputColor: ''
+        },
         {
-        name: 'Dark Mode',
-        pColor: '#343f47', sColor: '#202938', tColor: '#55585b',
-        headerColor: '#000000',fontColor: '#cccccc'
-    },
+            name: 'Dark Mode',
+            pColor: '#343f47', sColor: '#202938', tColor: '#55585b',
+            headerColor: '#000000',fontColor: '#cccccc'
+        },
+        {
+            name: 'King Koi',
+            pColor: '#343f47', sColor: '#4d7174', tColor: '#0028ff',
+            headerColor: '#cccccc',fontColor: '#000000'
+        },
+        {
+            name: 'Queen Koi',
+            pColor: '#9347b2', sColor: '#5b2c6e', tColor: '#9a00ad',
+            headerColor: '#000000',fontColor: '#cccccc'
+        },
+        {
+            name: 'Red Koi',
+            pColor: '#691408', sColor: '#380a00', tColor: '#a43238',
+            headerColor: '#000000',fontColor: '#cccccc'
+        },
+        {
+            name: 'Blue Koi',
+            pColor: '#081269', sColor: '#000a38', tColor: '#385ca4',
+            headerColor: '#575757',fontColor: '#cccccc'
+        },
+        {
+            name: 'Green Koi',
+            pColor: '#086912', sColor: '#00380a', tColor: '#38a45c',
+            headerColor: '#000000',fontColor: '#cccccc'
+        },
+
     ];
-    const currentTheme = themes.find((theme) =>  theme.name === SettingsService.getSettings().theme);
-    return (!!currentTheme) ? currentTheme : themes[0];
+}
+export function getCurrentThemeColors(){
+    const currentTheme = getThemes().find((theme) =>  theme.name === SettingsService.getSettings().theme);
+    return (!!currentTheme) ? currentTheme : getThemes()[0];
 
 }
 export function formatDate(tempDate) {

@@ -3,7 +3,7 @@ import "./AddGoal.css";
 import GoalList from "../GoalList/GoalList";
 import {toast} from 'react-toastify';
 import {SettingsContext} from "../Settings/SettingsContext";
-import {formatDate, getColor, getThemeColors, getTime} from "../Utils/Utils";
+import {formatDate, getColor, getCurrentThemeColors, getTime} from "../Utils/Utils";
 
 class AddGoal extends React.Component {
     static contextType = SettingsContext;
@@ -39,7 +39,10 @@ class AddGoal extends React.Component {
                 handleEditGoal: this.props.goalListContext.handleEditCurrentGoal
             }, () => this.changeDate(this.props.goalListContext.currentGoal.type))
         }
-        document.body.style.backgroundColor = getThemeColors().pColor;
+        if(this.state.currentGoal.goals.length){
+            this.handleGoalListLength()
+        }
+        document.body.style.backgroundColor = getCurrentThemeColors().pColor;
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -113,30 +116,30 @@ class AddGoal extends React.Component {
     render() {
         return (
             <form className='add-goal' onSubmit={this.state.handleSubmit}>
-                <h1 style={{color: getThemeColors().headerColor}}> Create {this.state.currentGoal.type} Goal </h1>
+                <h1 style={{color: getCurrentThemeColors().headerColor}}> Create {this.state.currentGoal.type} Goal </h1>
                 <div className='bar-indicator-top' style={getColor(this.context.currentType)}/>
                 <div className="addition-wrapper">
                     <div className='dropdown-types'>
                         <li style={{
-                            backgroundColor: getThemeColors().tColor,
-                            color: getThemeColors().fontColor
+                            backgroundColor: getCurrentThemeColors().tColor,
+                            color: getCurrentThemeColors().fontColor
                         }}>{this.state.currentGoal.type}
                             <div className='bar-indicator-left' style={getColor(this.state.currentGoal.type)}/>
                             <div className='bar-indicator-right' style={getColor(this.state.currentGoal.type)}/>
                         </li>
                         <ul className='dropdown-list' style={{
-                            backgroundColor: getThemeColors().tColor,
-                            color: getThemeColors().fontColor
+                            backgroundColor: getCurrentThemeColors().tColor,
+                            color: getCurrentThemeColors().fontColor
                         }}>
                             {['Other', ...this.context.types].map((type, i) => <li key={i}
                                                                                    className={(this.state.currentGoal.type === type) ? 'tinted' : ''}
                                                                                    style={(i >= 4) ? {
                                                                                        padding: 16 * (1 / (i - 4)) + 'px 0px',
-                                                                                       color: getThemeColors().fontColor,
-                                                                                       backgroundColor: getThemeColors().tColor
+                                                                                       color: getCurrentThemeColors().fontColor,
+                                                                                       backgroundColor: getCurrentThemeColors().tColor
                                                                                    } : {
-                                                                                       color: getThemeColors().fontColor,
-                                                                                       backgroundColor: getThemeColors().tColor,
+                                                                                       color: getCurrentThemeColors().fontColor,
+                                                                                       backgroundColor: getCurrentThemeColors().tColor,
                                                                                    }}
                                                                                    onClick={() => this.changeDate(type)}>{type}
                                 <div className='bar-indicator-left' style={getColor(type)}/>
@@ -157,14 +160,14 @@ class AddGoal extends React.Component {
                         }}/>
                         <div className='even-space'>
                             <button onClick={() => this.setState({value: ''})} style={{
-                                backgroundColor: getThemeColors().tColor,
-                                color: getThemeColors().fontColor
+                                backgroundColor: getCurrentThemeColors().tColor,
+                                color: getCurrentThemeColors().fontColor
                             }}
                                     type='button'>Cancel
                             </button>
                             <button onClick={this.handleAdd} type='button' style={{
-                                backgroundColor: getThemeColors().tColor,
-                                color: getThemeColors().fontColor
+                                backgroundColor: getCurrentThemeColors().tColor,
+                                color: getCurrentThemeColors().fontColor
                             }}>Submit
                             </button>
                         </div>
@@ -175,13 +178,13 @@ class AddGoal extends React.Component {
                             onKeyPress={e => {
                                 if (e.key === 'Enter') e.preventDefault();
                             }} style={{
-                        backgroundColor: getThemeColors().tColor + 'aa',
-                        color: getThemeColors().fontColor
+                        backgroundColor: getCurrentThemeColors().tColor + 'aa',
+                        color: getCurrentThemeColors().fontColor
                     }}>Add Goal
                     </button>
                 </div>
                 {this.state.currentGoal.goals.length === 0 ? <div className='example-add' style={{
-                    color: getThemeColors().fontColor
+                    color: getCurrentThemeColors().fontColor
                 }}>Growth Worthy Goal</div> : ''}
                 <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false}
                           date={this.state.currentGoal.date} type={this.state.currentGoal.type}

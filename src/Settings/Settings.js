@@ -3,7 +3,8 @@ import AuthApiService from "../services/auth-api-service";
 import './Settings.css';
 import {SettingsContext} from "./SettingsContext";
 import {toast} from "react-toastify";
-import {getColor, getThemeColors} from "../Utils/Utils";
+import {getColor, getCurrentThemeColors, getThemes} from "../Utils/Utils";
+import DeleteModel from "./DeleteModel/DeleteModel";
 
 class Settings extends React.Component {
     static contextType = SettingsContext;
@@ -104,22 +105,24 @@ class Settings extends React.Component {
 
     setTheme(theme) {
         this.context.setTheme(theme);
-        document.body.style.backgroundColor = getThemeColors().pColor;
+        document.body.style.backgroundColor = getCurrentThemeColors().pColor;
     }
     componentDidMount() {
-        document.body.style.backgroundColor = getThemeColors().pColor;
+        document.body.style.backgroundColor = getCurrentThemeColors().pColor;
     }
 
     render() {
         return (
             <main className="settings">
-                <h1 style={{color: getThemeColors().headerColor}}>Profile</h1>
+                <h1 style={{color: getCurrentThemeColors().headerColor}}>Profile</h1>
                 <div className='bar-indicator-top' style={getColor(this.context.currentType)}/>
                 <section>
-                    <h2 title={'UserId'} style={{color: getThemeColors().headerColor}}>{this.context.username}</h2>
+                    <h2 title={'UserId'} style={{color: getCurrentThemeColors().headerColor}}>{this.context.username}</h2>
                     {(this.state.isUsernameEditable)
                         ? <form onSubmit={(e) => this.submitNickname(e)}>
-                            <label className='even-space' style={{color: getThemeColors().fontColor}} title={'Nickname' }>Nickname:
+
+                            <label className='even-space' style={{color: getCurrentThemeColors().fontColor}}
+                                   title={'Nickname'}>Nickname:
                                 <input type='text' onChange={(e) => this.changeNickname(e)}
                                        value={this.state.newNickname} title={'New Nickname Input'}
                                        onKeyPress={e => {
@@ -136,8 +139,10 @@ class Settings extends React.Component {
                             </div>
                         </form>
                         :
-                        <p className='even-space' title={'Click to Change Nickname'} style={{color: getThemeColors().fontColor}}
-                           onClick={() => this.setState({isUsernameEditable: true})}>Nickname: <span style={{color: getThemeColors().headerColor}}
+                        <p className='even-space' title={'Click to Change Nickname'}
+                           style={{color: getCurrentThemeColors().fontColor}}
+                           onClick={() => this.setState({isUsernameEditable: true})}>Nickname: <span
+                            style={{color: getCurrentThemeColors().headerColor}}
                             title={this.context.nickname}>{this.context.nickname}</span>
                         </p>
                     }
@@ -179,7 +184,7 @@ class Settings extends React.Component {
                 {/*</section>*/}
                 <section>
                     {(this.state.isPasswordEditable) ? <form onSubmit={(e) => this.submitPassword(e)}>
-                        <label className='even-space' title={'Old Password'} style={{color: getThemeColors().fontColor}}>Old Password<input type='password'
+                        <label className='even-space' title={'Old Password'} style={{color: getCurrentThemeColors().fontColor}}>Old Password<input type='password'
                                                                                                 title={'Old Password Input'}
                                                                                                 onChange={(e) => this.changeOldPasswordCheck(e)}
                                                                                                 value={this.state.oldPasswordCheck}
@@ -188,7 +193,7 @@ class Settings extends React.Component {
                                                                                                         e.preventDefault();
                                                                                                     }
                                                                                                 }}/></label>
-                        <label className='even-space' title={'New Password'} style={{color: getThemeColors().fontColor}}>New Password<input type='password'
+                        <label className='even-space' title={'New Password'} style={{color: getCurrentThemeColors().fontColor}}>New Password<input type='password'
                                                                                                 title={'New Password Input'}
                                                                                                 onChange={(e) => this.changePassword(e)}
                                                                                                 value={this.state.newPassword}
@@ -197,7 +202,8 @@ class Settings extends React.Component {
                                                                                                         e.preventDefault();
                                                                                                     }
                                                                                                 }}/></label>
-                        <label className='even-space' title={'Confirm New Password'} style={{color: getThemeColors().fontColor}}>Confirm Password<input
+                        <label className='even-space' title={'Confirm New Password'}
+                               style={{color: getCurrentThemeColors().fontColor}}>Confirm Password<input
                             type='password' title={'Confirm New Password Input'}
                             onChange={(e) => this.changePasswordCheck(e)}
                             value={this.state.newPasswordCheck}
@@ -213,24 +219,29 @@ class Settings extends React.Component {
                             </button>
                             <button type='submit' title={'Submit Changes'}>Submit</button>
                         </div>
-                    </form> : <p className='even-space' title={'Click To Change Password'} style={{color: getThemeColors().fontColor}}
+                    </form> : <p className='even-space' title={'Click To Change Password'}
+                                 style={{color: getCurrentThemeColors().fontColor}}
                                  onClick={() => this.setState({isPasswordEditable: true})}>Change
-                        Password<span style={{color: getThemeColors().headerColor}}>*******</span></p>}
+                        Password<span style={{color: getCurrentThemeColors().headerColor}}>*******</span></p>}
                 </section>
-                {/*<h1>Settings</h1>*/}
-                <section className={'theme-list'} >
-                    <div className={'dropdown-wrapper'}>
-                        <div className='dropdown-types dropdown-types-settings' style={{backgroundColor: getThemeColors().tColor, color: getThemeColors().fontColor}}>
-                            <p>{this.context.theme}</p>
-                            <ul className={'dropdown-list'}>
-                                {this.context.themes.map((theme, i) => <li key={i}
-                                                                           className={(this.context.currentTheme === theme) ? 'tinted' : ''}
-                                                                           style={{backgroundColor: getThemeColors().tColor}}
-                                                                           onClick={() => this.setTheme(theme)}>{theme}</li>)}
-                            </ul>
+                <div className={'even-space theme-list-wrapper'}>
+                    <p title={'Theme'} style={{color: getCurrentThemeColors().fontColor}}>Theme</p>
+                    <section className={'theme-list'}>
+                        <div className={'dropdown-wrapper'}>
+                            <div className='dropdown-types dropdown-types-settings'
+                                 style={{backgroundColor: getCurrentThemeColors().tColor, color: getCurrentThemeColors().fontColor}}>
+                                <p>{this.context.theme}</p>
+                                <ul className={'dropdown-list'}>
+                                    {this.context.themes.map((theme, i) => <li key={i}
+                                                                               className={(this.context.currentTheme === theme) ? 'tinted' : ''}
+                                                                               style={{backgroundColor:  getThemes().find((t)=> t.name === theme).tColor,
+                                                                                   color: getThemes().find((t)=> t.name === theme).fontColor}}
+                                                                               onClick={() => this.setTheme(theme)}>{theme}</li>)}
+                                </ul>
+                            </div>
                         </div>
+                    </section>
                     </div>
-                </section>
                 {/*</div>*/}
                 {/*<h3>Notifications</h3>*/}
                 {/*<div>*/}
@@ -261,17 +272,26 @@ class Settings extends React.Component {
                 {/*</div>*/}
                 <section>
                     <label className='even-space' onClick={() => this.context.toggleArchiving()}
-                           title={'Click To Toggle The Automatic Daily Archiver'} style={{color: getThemeColors().fontColor}}>
+                           title={'Click To Toggle The Automatic Daily Archiver'}
+                           style={{color: getCurrentThemeColors().fontColor}}>
                         Automatic Daily Archiver
-                        <span style={{color: getThemeColors().headerColor}}>{(this.context.autoArchiving) ? 'On' : 'Off'}</span></label>
+                        <span
+                            style={{color: getCurrentThemeColors().headerColor}}>{(this.context.autoArchiving) ? 'On' : 'Off'}</span></label>
                 </section>
                 <section>
-                    <label className='even-space noselect' onClick={() => this.context.toggleType()}
-                           title={'Click To Toggle Through The Types List'} style={{color: getThemeColors().fontColor}}>
+                    <p className='even-space noselect' onClick={() => this.context.toggleType()}
+                       title={'Click To Toggle Through The Types List'} style={{color: getCurrentThemeColors().fontColor}}>
                         Types List
-                        <span style={{color: getThemeColors().headerColor}}>{this.context.typeListSelected}</span></label>
+                        <span
+                            style={{color: getCurrentThemeColors().headerColor}}>{this.context.typeListSelected}</span></p>
                 </section>
-                <button className='delete' onClick={AuthApiService.deleteUser} style={{backgroundColor: getThemeColors().tColor,color: getThemeColors().headerColor}}>Suspend Account</button>
+                <button className='delete' onClick={() => this.setState({deleteModel: true})}
+                        style={{backgroundColor: getCurrentThemeColors().tColor, color: getCurrentThemeColors().fontColor+'77'}}>Suspend
+                    Account
+                </button>
+
+
+                {(this.state.deleteModel) ? <DeleteModel closeModel={() => this.setState({deleteModel: false})}/> : ''}
             </main>
         )
     }

@@ -106,7 +106,7 @@ export class SettingsProvider extends React.Component {
 
     render() {
         const value = {
-            themes: ['Light Mode', 'Dark Mode'], // , 'King Koi', 'Queen Koi', 'Red Koi', 'Blue Koi', 'Green Koi'],
+            themes: ['Light Mode', 'Dark Mode', 'King Koi', 'Queen Koi', 'Red Koi', 'Blue Koi', 'Green Koi'],
             theme: this.state.theme,
             currentType: this.state.currentType,
             autoArchiving: this.state.autoArchiving,
