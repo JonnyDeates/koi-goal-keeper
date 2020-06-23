@@ -8,6 +8,7 @@ class GoalItem extends React.Component {
             isEditing: false,
             isEditable: this.props.isEditable,
             deleteGoal: this.props.deleteGoal,
+            className: this.props.className,
             value: this.props.goal
         };
         this.toggleEdit = this.toggleEdit.bind(this);
@@ -21,6 +22,9 @@ class GoalItem extends React.Component {
                 value: this.props.goal
             })
         }
+        if(prevProps.className !== this.props.className){
+            this.setState({className: this.props.className})
+        }
     }
 
     toggleEdit() {
@@ -30,7 +34,7 @@ class GoalItem extends React.Component {
 
     render() {
         return (
-            <li className={'goallist-item'} style={{backgroundColor: this.props.bgColor, color: this.props.fontColor}}>
+            <li className={'goallist-item ' + this.state.className} style={{backgroundColor: this.props.bgColor, color: this.props.fontColor}}>
                 {(this.props.past) ? (this.props.checked) ? <h6>Completed</h6> : <h6>Unchecked</h6> : ''}
                 {(this.props.showChecked) ? <input className="checkboxinput" type='checkbox'
                                                    onChange={() => this.props.handleChecked(this.props.goalId, this.props.id)}

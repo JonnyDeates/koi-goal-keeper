@@ -1,9 +1,7 @@
 .circle-indicator {
     height: 10px;
-    background-color: rgb(255, 136, 255);
     width: 33vw;
     position: absolute;
-    /* margin-top: 16px; */
     left: 0;
     bottom: 0;
     border-radius: 0 10px 10px 0;
@@ -24,6 +22,21 @@
     cursor: pointer;
     width: 50px;
     height: 50px;
+}
+.goallist .add-button {
+    position: relative;
+    left: 180px;
+    top: -25px;
+    border-radius: 0 0 10px 10px;
+    border: unset;
+    padding: 0 16px 4px 16px;
+    cursor: pointer;
+}
+.goallist .add-button:hover {
+    opacity: .7;
+}
+.goallist .last-goal {
+    border-radius: 0 0 15px 15px;
 }
 .goallist > p {
     position: absolute;
@@ -60,9 +73,6 @@
     font-size: large;
     opacity: 0;
     animation: 2s pop-in forwards;
-}
-.goallist-item:nth-child(odd) {
-    background-color: #86c6ff33;
 }
 .goallist-item > p{
     overflow-wrap: break-word;
@@ -152,6 +162,9 @@
     max-width: 20px;
     height: 20px;
     max-height: 20px;
+}
+.Ultra-Compacted button {
+    display: none;
 }
 .row-buttons .close-button{
     padding: 0 5px;

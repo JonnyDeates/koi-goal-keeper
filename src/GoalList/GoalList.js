@@ -15,10 +15,11 @@ class GoalList extends React.Component {
         isEditable: false,
         showChecked: false,
         showDelete: false,
+        showAdd: true,
         compacted: '',
         deleteGoal: '',
         past: false,
-        checkedamt: 0
+        checkedamt: 0,
     };
 
     constructor(props) {
@@ -86,7 +87,7 @@ class GoalList extends React.Component {
                                                                  handleChecked={this.props.handleChecked} id={goal.id}
                                                                  bgColor={(i % 2) ? getCurrentThemeColors().tColor+'aa' : getCurrentThemeColors().tColor+'88'}
                                                                  fontColor={getCurrentThemeColors().fontColor}
-                                                                 isEditable={this.state.isEditable}
+                                                                 isEditable={this.state.isEditable} className={i === (this.state.goals.length-1) ? 'last-goal' : ''}
                                                                  handleEditGoal={this.props.handleEditGoal}
                                                                  deleteGoal={this.state.deleteGoal}
                                                                  showChecked={this.state.showChecked}
@@ -95,7 +96,10 @@ class GoalList extends React.Component {
                                                                  handleObjectiveClone={this.props.handleObjectiveClone}
 
                     />)}
+                    {this.state.showAdd ? <button className={'add-button'}
+                                                  style={{backgroundColor: getCurrentThemeColors().sColor, color: getCurrentThemeColors().headerColor}}>+</button> : ''}
                 </ul>
+
             </div>
         );
     }
