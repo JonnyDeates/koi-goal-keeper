@@ -70,11 +70,13 @@ export class GoalListProvider extends React.Component {
 
     componentDidMount() {
         this.fetchData();
-        window.gapi.load('auth2', () => {
-            this.auth2 = window.gapi.auth2.init({
-                client_id: '210398171394-4tvu2p5580kl3d959vidn4avuif5p53n.apps.googleusercontent.com',
+        if(window.gapi) {
+            window.gapi.load('auth2', () => {
+                this.auth2 = window.gapi.auth2.init({
+                    client_id: '210398171394-4tvu2p5580kl3d959vidn4avuif5p53n.apps.googleusercontent.com',
+                })
             })
-        })
+        }
     }
 
     fetchData(callback = () => {

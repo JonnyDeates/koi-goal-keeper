@@ -4,6 +4,7 @@
 }
 .theme-list {
     display: inline;
+    font-size: medium;
 }
 .dropdown-wrapper {
     position: relative;
@@ -104,6 +105,8 @@
 }
 .theme-list-wrapper {
     display: inline-flex;
+    margin: 1em 0;
+
 }
 @media (min-width: 481px) {
     .nav > img, .nav > a > img {

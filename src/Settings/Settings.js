@@ -225,12 +225,12 @@ class Settings extends React.Component {
                         Password<span style={{color: getCurrentThemeColors().headerColor}}>*******</span></p>}
                 </section>
                 <div className={'even-space theme-list-wrapper'}>
-                    <p title={'Theme'} style={{color: getCurrentThemeColors().fontColor}}>Theme</p>
+                    <label title={'Theme'} style={{color: getCurrentThemeColors().fontColor}}>Theme</label>
                     <section className={'theme-list'}>
                         <div className={'dropdown-wrapper'}>
                             <div className='dropdown-types dropdown-types-settings'
                                  style={{backgroundColor: getCurrentThemeColors().tColor, color: getCurrentThemeColors().fontColor}}>
-                                <p>{this.context.theme}</p>
+                                <span>{this.context.theme}</span>
                                 <ul className={'dropdown-list'}>
                                     {this.context.themes.map((theme, i) => <li key={i}
                                                                                className={(this.context.currentTheme === theme) ? 'tinted' : ''}
