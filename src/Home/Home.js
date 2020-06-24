@@ -84,7 +84,7 @@ class Home extends React.Component {
                                                                     handleEditGoal={this.props.goalListContext.handleEditGoal}
                                                                     date={Goal.date} checkedamt={Goal.checkedamt}
                                                                     showDelete={this.context.showDelete}
-                                                                    compacted={this.context.compacted}
+                                                                    compacted={this.context.compacted} showAdd={true}
                                                                     handleObjectiveClone={this.props.goalListContext.handleObjectiveClone}/>)}
             </main>
         )

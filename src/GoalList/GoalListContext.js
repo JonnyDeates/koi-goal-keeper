@@ -127,6 +127,9 @@ export class GoalListProvider extends React.Component {
         } else {
             ObjectivesApiService.getObjectiveList(data.id).then(res => x.goals = res).then(() => this.forceUpdate())
         }
+        if(x.goals === 0){
+            return null
+        }
         return x;
     }
 

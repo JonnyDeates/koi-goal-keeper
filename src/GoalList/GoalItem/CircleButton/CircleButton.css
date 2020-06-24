@@ -73,8 +73,8 @@
     background-color: rgba(230, 232, 139, 0.67) !important;
 }
 .content.third {
-    bottom: 19%;
-    left: 40%;
+    bottom: 22%;
+    left: 38%;
 }
 .content.third:hover ~ .background{
     background-color: rgba(255, 155, 158, 0.67) !important;

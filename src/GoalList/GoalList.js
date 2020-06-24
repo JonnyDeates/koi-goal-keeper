@@ -15,7 +15,7 @@ class GoalList extends React.Component {
         isEditable: false,
         showChecked: false,
         showDelete: false,
-        showAdd: true,
+        showAdd: false,
         compacted: '',
         deleteGoal: '',
         past: false,
@@ -41,7 +41,8 @@ class GoalList extends React.Component {
                 compacted: this.props.compacted,
                 deleteGoal: this.props.deleteGoal,
                 past: this.props.past,
-                checkedamt: this.props.checkedamt
+                checkedamt: this.props.checkedamt,
+                showAdd: this.props.showAdd,
             })
         }
     }
@@ -85,7 +86,7 @@ class GoalList extends React.Component {
                 <ul >
                     {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.obj} checked={goal.checked}
                                                                  handleChecked={this.props.handleChecked} id={goal.id}
-                                                                 bgColor={(i % 2) ? getCurrentThemeColors().tColor+'aa' : getCurrentThemeColors().tColor+'88'}
+                                                                 bgColor={(i % 2) ? getCurrentThemeColors().tColor+'bb' : getCurrentThemeColors().tColor+'99'}
                                                                  fontColor={getCurrentThemeColors().fontColor}
                                                                  isEditable={this.state.isEditable} className={i === (this.state.goals.length-1) ? 'last-goal' : ''}
                                                                  handleEditGoal={this.props.handleEditGoal}
@@ -96,8 +97,8 @@ class GoalList extends React.Component {
                                                                  handleObjectiveClone={this.props.handleObjectiveClone}
 
                     />)}
-                    {this.state.showAdd ? <button className={'add-button'}
-                                                  style={{backgroundColor: getCurrentThemeColors().sColor, color: getCurrentThemeColors().headerColor}}>+</button> : ''}
+                    {this.state.showAdd ? <button className={'add-button'} onClick={this.props.handleAddObjective}
+                                                  style={{backgroundColor: getCurrentThemeColors().tColor+'66', color: getCurrentThemeColors().headerColor}}>+</button> : ''}
                 </ul>
 
             </div>

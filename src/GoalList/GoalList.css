@@ -36,7 +36,8 @@
     opacity: .7;
 }
 .goallist .last-goal {
-    border-radius: 0 0 15px 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 .goallist > p {
     position: absolute;
@@ -300,13 +301,7 @@
         background-color: #e6eef599;
     }
     .goallist-item:first-child {
-        border-radius: 0 15px 0 0 ;
-    }
-    .goallist-item:last-child {
-        border-radius: 0 0 15px 15px;
-    }
-    .goallist-item:only-child {
-        border-radius: 0 15px 15px 15px !important;
+        border-top-right-radius: 15px;
     }
     .goallist-item > div {
         display: inline-flex;
