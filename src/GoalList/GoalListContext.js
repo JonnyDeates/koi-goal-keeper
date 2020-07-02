@@ -5,8 +5,9 @@ import PastGoalService from "../services/pastgoals-api-service";
 import PastObjectivesApiService from "../services/pastobjectives-api-service";
 import ObjectivesApiService from "../services/objectives-api-service";
 import {toast} from "react-toastify";
-import SettingsService from "../services/settings-service";
+import SettingsService from "../Local Services/settings-service";
 import {getTime} from "../Utils/Utils";
+import GoalService from "../services/goals-service";
 
 export const GoalListContext = React.createContext({
     currentGoals: [],
@@ -80,15 +81,22 @@ export class GoalListProvider extends React.Component {
 
     fetchData() {
         if (TokenService.getAuthToken()) { // Checks to see if the user has a webtoken
-            GoalApiService.getAllGoals() // Gets all of the current goals from the server
-                .then((res) => this.setState({currentGoals: this.breakApartAllGoalData(res, false)}, () =>
-                    setTimeout(() => { // Time out is to ensure that the current Goal lists have the goals mapped on
-                        if (!!SettingsService.getSettings().auto_archiving)  // Checks to see if the user has auto archiving enabled
-                            this.state.currentGoals.forEach(Goal => this.checkCurrentGoals(Goal));
-                    }, 200)
-                ))
-            PastGoalService.getAllPastGoals() // Gets all of the current goals from the server
-                .then((res) => this.setState({pastGoals: this.breakApartAllGoalData(res, true)}));
+            if (!SettingsService.isLocal()) {
+                GoalApiService.getAllGoals() // Gets all of the current goals from the server
+                    .then((res) => this.setState({currentGoals: this.breakApartAllGoalData(res, false)}, () =>
+                        setTimeout(() => { // Time out is to ensure that the current Goal lists have the goals mapped on
+                            if (!!SettingsService.getSettings().auto_archiving)  // Checks to see if the user has auto archiving enabled
+                                this.state.currentGoals.forEach(Goal => this.checkCurrentGoals(Goal));
+                        }, 200)
+                    ))
+                PastGoalService.getAllPastGoals() // Gets all of the current goals from the server
+                    .then((res) => this.setState({pastGoals: this.breakApartAllGoalData(res, true)}));
+            } else {
+                return (GoalService.hasGoals())
+                    ? this.setState({currentGoals: GoalService.getAllGoals()}, () =>
+                        (!!SettingsService.getSettings().auto_archiving) ? this.state.currentGoals.forEach(Goal => this.checkCurrentGoals(Goal)) : '')
+                    : []
+            }
         }
     }
 

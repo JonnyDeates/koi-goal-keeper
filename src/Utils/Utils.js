@@ -1,6 +1,6 @@
 import React from 'react'
 import './Utils.css'
-import SettingsService from "../services/settings-service";
+import SettingsService from "../Local Services/settings-service";
 
 export function getColor(type) {
     let color = '';

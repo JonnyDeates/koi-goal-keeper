@@ -5,7 +5,7 @@ import {Button, Input, validateEmail} from "../Utils/Utils";
 import './Login.css';
 import UserService from "../services/user-api-service";
 import {Link} from "react-router-dom";
-import SettingsService from "../services/settings-service";
+import SettingsService from "../Local Services/settings-service";
 import {GoogleLogin} from "react-google-login";
 
 class Login extends React.Component {

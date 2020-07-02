@@ -76,13 +76,15 @@ class GoalList extends React.Component {
                 <div className={'goallist-title'} style={{backgroundColor: getCurrentThemeColors().tColor+'aa',color: getCurrentThemeColors().fontColor}}>
                     <p>{this.state.type}</p>
                     <p>{new Date(this.state.date).toLocaleDateString()}</p>
-                    {this.state.goals !== 0 && (this.state.checkedamt >= 1 && !this.state.past)
-                        ? <img src={pushIco} alt="Push Goals" title={'Archive Goal'} width='50px' height='50px'
-                               onClick={()=> this.props.pushGoal(this.state.goalId)}/>
-                               : ''}
-                    {(this.state.showCompleted && this.state.goals.length > 1) ? <p>{this.state.checkedamt}</p> : ''}
+
+
                     <div className='circle-indicator' style={getColor(this.state.type)}/>
                 </div>
+                {this.state.goals !== 0 && (this.state.checkedamt >= 1 && !this.state.past)
+                    ? <img src={pushIco} alt="Push Goals" title={'Archive Goal'} className={'goallist-push'} style={{backgroundColor: getCurrentThemeColors().tColor+'66'}}
+                           onClick={()=> this.props.pushGoal(this.state.goalId)}/>
+                    : ''}
+                {(this.state.showCompleted && this.state.goals.length > 1  && this.state.checkedamt >= 1) ? <p className={'goallist-count'}  style={{backgroundColor: getCurrentThemeColors().tColor+'66', color: getCurrentThemeColors().headerColor}}>{this.state.checkedamt}</p> : ''}
                 <ul >
                     {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.obj} checked={goal.checked}
                                                                  handleChecked={this.props.handleChecked} id={goal.id}

@@ -8,9 +8,13 @@ const SettingsService = {
                 types: (!!setting.types) ? setting.types : settingTemp.types,
                 theme: (!!setting.theme) ? setting.theme : settingTemp.theme,
                 type_selected: (!!setting.type_selected) ? setting.type_selected : settingTemp.type_selected,
+                color_style: (!!setting.color_style) ? setting.color_style : settingTemp.color_style,
                 show_delete: setting.show_delete,
                 notifications: setting.notifications,
                 auto_archiving: setting.auto_archiving,
+                dark_mode: setting.dark_mode,
+                local_storage: setting.local_storage,
+                paid_account: setting.paid_account,
                 compacted: (!!setting.compacted) ? setting.compacted : settingTemp.compacted,
             });
         } else {
@@ -33,6 +37,9 @@ const SettingsService = {
     hasSettings() {
         return !!SettingsService.getSettings()
     },
+    isLocal(){
+        return this.hasSettings() ? this.getSettings().local_storage : false
+    }
 };
 
 export default SettingsService

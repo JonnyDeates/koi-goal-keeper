@@ -2,7 +2,7 @@ import * as React from "react";
 import UserService from "../services/user-api-service";
 import AuthApiService from "../services/auth-api-service";
 import TokenService from "../services/token-service";
-import SettingsService from "../services/settings-service";
+import SettingsService from "../Local Services/settings-service";
 import SettingsApiService from "../services/settings-api-service";
 
 export const SettingsContext = React.createContext({
@@ -50,6 +50,9 @@ export class SettingsProvider extends React.Component {
             autoArchiving: true,
             showDelete: false,
             notifications: false,
+            localStorage: false,
+            paidAccount: false,
+            colorStyle: '',
             compacted: 'No',
             types: []
         }
@@ -72,6 +75,10 @@ export class SettingsProvider extends React.Component {
                     currentType: SettingsService.getSettings().type_selected,
                     autoArchiving: SettingsService.getSettings().auto_archiving || false,
                     showDelete: SettingsService.getSettings().show_delete || false,
+                    localStorage: SettingsService.getSettings().local_storage || false,
+                    darkMode: SettingsService.getSettings().dark_mode || false,
+                    paidAccount: SettingsService.getSettings().paid_account || false,
+                    colorStyle: SettingsService.getSettings().color_style,
                     compacted: SettingsService.getSettings().compacted,
                     theme: SettingsService.getSettings().theme,
                     notifications: SettingsService.getSettings().notifications || false,
@@ -118,6 +125,9 @@ export class SettingsProvider extends React.Component {
             id: this.state.id,
             nickname: this.state.nickname,
             showDelete: this.state.showDelete,
+            paidAccount: this.state.paidAccount,
+            darkMode: this.state.darkMode,
+            localStorage: this.state.localStorage,
             compacted: this.state.compacted,
             toggleArchiving: () => {
                 this.setState({autoArchiving: !this.state.autoArchiving}, ()=> {
@@ -177,10 +187,21 @@ export class SettingsProvider extends React.Component {
                     }
                 )
             },
+
+            toggleDarkMode: () => {
+                SettingsApiService.toggleDarkMode(SettingsService.getSettings().id);
+                SettingsService.saveSettings({dark_mode: !this.state.darkMode});
+                this.setState({darkMode: !this.state.darkMode})
+            },
             toggleShowDelete: () => {
                 SettingsApiService.toggleDelete(SettingsService.getSettings().id);
                 SettingsService.saveSettings({show_delete: !this.state.showDelete});
                 this.setState({showDelete: !this.state.showDelete})
+            },
+            toggleLocalStorage: () => {
+                SettingsApiService.toggleLocalStorage(SettingsService.getSettings().id);
+                SettingsService.saveSettings({local_storage: !this.state.localStorage});
+                this.setState({localStorage: !this.state.localStorage})
             },
             setTheme: (e) => {
                 SettingsApiService.patchSetting({theme: e}, SettingsService.getSettings().id);

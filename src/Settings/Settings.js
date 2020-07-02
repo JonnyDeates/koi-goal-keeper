@@ -149,40 +149,6 @@ class Settings extends React.Component {
                     }
 
                 </section>
-                {/*<section>*/}
-                {/*    <form onSubmit={(e) => this.submitEmail(e)}>{(this.state.isEmailEditable) ? <>*/}
-                {/*        <label className='even-space' title={'Old Email'} style={{color: getThemeColors().fontColor}}>Old Email: <span*/}
-                {/*            title={this.context.email} style={{color: getThemeColors().fontColor}}>{this.context.email}</span></label>*/}
-                {/*        <label className='even-space' title={'New Email'} style={{color: getThemeColors().fontColor}}>New Email: <input type='text'*/}
-                {/*                                                                            title={'New Email Input'}*/}
-                {/*                                                                            onChange={(e) => this.changeEmail(e)}*/}
-                {/*                                                                            value={this.state.newEmail}*/}
-                {/*                                                                            onKeyPress={e => {*/}
-                {/*                                                                                if (e.key === 'Enter') {*/}
-                {/*                                                                                    e.preventDefault();*/}
-                {/*                                                                                }*/}
-                {/*                                                                            }}/></label>*/}
-                {/*        <label className='even-space' title={'Confirm New Email'} style={{color: getThemeColors().fontColor}}>Confirm Email: <input type='text'*/}
-                {/*                                                                                        title={'Confirm New Email Input'}*/}
-                {/*                                                                                        onChange={(e) => this.changeEmailCheck(e)}*/}
-                {/*                                                                                        value={this.state.newEmailCheck}*/}
-                {/*                                                                                        onKeyPress={e => {*/}
-                {/*                                                                                            if (e.key === 'Enter') {*/}
-                {/*                                                                                                e.preventDefault();*/}
-                {/*                                                                                                this.submitEmail(e);*/}
-                {/*                                                                                            }*/}
-                {/*                                                                                        }}/></label>*/}
-                {/*        <div className='even-space'>*/}
-                {/*            <button onClick={() => this.setState({isEmailEditable: false})}*/}
-                {/*                    title={'Cancel Email Changes'}>Cancel*/}
-                {/*            </button>*/}
-                {/*            <button type='submit' title={'Submit Changes'}>Submit</button>*/}
-                {/*        </div>*/}
-                {/*    </> : <p className='even-space' onClick={() => this.setState({isEmailEditable: true})} style={{color: getThemeColors().fontColor}}*/}
-                {/*             title={'Click to Change Email'}>Change*/}
-                {/*        Email <span style={{color: getThemeColors().headerColor}}>{this.context.email}</span></p>}*/}
-                {/*    </form>*/}
-                {/*</section>*/}
                 <section>
                     {(this.state.isPasswordEditable) ? <form onSubmit={(e) => this.submitPassword(e)}>
                         <label className='even-space' title={'Old Password'} style={{color: getCurrentThemeColors().fontColor}}>Old Password<input type='password'
@@ -272,12 +238,28 @@ class Settings extends React.Component {
                 {/*    </div>*/}
                 {/*</div>*/}
                 <section>
-                    <label className='even-space' onClick={() => this.context.toggleArchiving()}
+                    <p className='even-space' onClick={() => this.context.toggleArchiving()}
                            title={'Click To Toggle The Automatic Daily Archiver'}
                            style={{color: getCurrentThemeColors().fontColor}}>
                         Automatic Daily Archiver
                         <span
-                            style={{color: getCurrentThemeColors().headerColor}}>{(this.context.autoArchiving) ? 'On' : 'Off'}</span></label>
+                            style={{color: getCurrentThemeColors().headerColor}}>{(this.context.autoArchiving) ? 'On' : 'Off'}</span></p>
+                </section>
+                <section>
+                    <p className='even-space' onClick={() => this.context.toggleLocalStorage()}
+                           title={'Click To Toggle The Local Storage'}
+                           style={{color: getCurrentThemeColors().fontColor}}>
+                        Local Storage
+                        <span
+                            style={{color: getCurrentThemeColors().headerColor}}>{(this.context.localStorage) ? 'On' : 'Off'}</span></p>
+                </section>
+                <section>
+                    <p className='even-space' onClick={() => this.context.toggleDarkMode()}
+                       title={'Click To Toggle Dark Mode'}
+                       style={{color: getCurrentThemeColors().fontColor}}>
+                        Dark Mode
+                        <span
+                            style={{color: getCurrentThemeColors().headerColor}}>{(this.context.darkMode) ? 'On' : 'Off'}</span></p>
                 </section>
                 <section>
                     <p className='even-space noselect' onClick={() => this.context.toggleType()}

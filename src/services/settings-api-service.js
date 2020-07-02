@@ -40,6 +40,22 @@ const SettingsApiService = {
             },
         })
     },
+    toggleLocalStorage(id) {
+        return fetch(`${config.API_ENDPOINT}/settings/toggle/local_storage/${id}`, {
+            method: 'GET',
+            headers: {
+                'authorization': `bearer ${TokenService.getAuthToken()}`,
+            },
+        })
+    },
+    toggleDarkMode(id) {
+        return fetch(`${config.API_ENDPOINT}/settings/toggle/dark_mode/${id}`, {
+            method: 'GET',
+            headers: {
+                'authorization': `bearer ${TokenService.getAuthToken()}`,
+            },
+        })
+    },
     toggleNotifications(id) {
         return fetch(`${config.API_ENDPOINT}/settings/toggle/notifications/${id}`, {
             method: 'GET',

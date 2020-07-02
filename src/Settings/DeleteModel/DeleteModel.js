@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import UserService from "../../services/user-api-service.js";
 import AuthApiService from "../../services/auth-api-service.js"
 import TokenService from "../../services/token-service";
-import SettingsService from "../../services/settings-service";
+import SettingsService from "../../Local Services/settings-service";
 import {getCurrentThemeColors} from "../../Utils/Utils";
 
 export default class DeleteModel extends Component {

@@ -1,5 +1,6 @@
 import config from '../config'
 import TokenService from "./token-service";
+import settingsService from "../Local Services/settings-service";
 
 const GoalApiService = {
     getAllGoals() {
@@ -61,6 +62,7 @@ const GoalApiService = {
             )
     },
     deleteGoal(id) {
+
         return fetch(`${config.API_ENDPOINT}/goals/${id}`, {
             method: 'DELETE',
             headers: {'authorization': `bearer ${TokenService.getAuthToken()}`}

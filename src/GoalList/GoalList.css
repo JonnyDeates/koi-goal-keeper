@@ -17,12 +17,7 @@
     display: flex;
     animation: 2s pop-in;
 }
-.goallist-title img {
-    filter: grayscale(1) brightness(1.25) opacity(0.5);
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-}
+
 .goallist .add-button {
     position: relative;
     left: 180px;
@@ -100,6 +95,15 @@
 }
 .goallist-item > div > img:hover {
     background-color: #ffffffaa;
+}
+
+.goalist-push {
+    filter: grayscale(1) brightness(1.25) opacity(0.5);
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 20vw;
 }
 .checkboxinput {
     margin: auto 0 auto 0;
@@ -266,9 +270,35 @@
         left: unset;
         bottom: unset;
     }
+
     .goallist {
         padding: 1em 16px;
         background-color: unset;
+    }
+    .goallist-count {
+        position: relative !important;
+        left: 24% !important;
+        margin: -29px 0px 0px 0px !important;
+        color: gray;
+        padding: 4px 16px;
+        top: -4px;
+        width: min-content;
+        border-radius: 10px 10px 0 0;
+    }
+    .goallist-push {
+        filter: grayscale(1) brightness(1) opacity(1);
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        margin-top: -42px;
+        display: block;
+        left: 94%;
+        right: -123%;
+        padding: 6px 12px;
+        background-color: aliceblue;
+        top: -4px;
+        border-radius: 10px 10px 0 0;
     }
     .goallist-title {
         position: absolute;
