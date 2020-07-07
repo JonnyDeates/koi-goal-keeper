@@ -60,13 +60,13 @@ class GoalItem extends React.Component {
                                                                      isEditable={this.props.isEditable}/> :
                         <div className={'row-buttons'}>
                             {(this.state.isEditable) ? <img onClick={this.toggleEdit} alt={'edit'}
-                                                            src={(this.state.isEditing) ? require('../../assets/icons/plus.ico') : require('../../assets/icons/pencil.ico')}/> : ''}
+                                                            src={(this.state.isEditing) ? require('../../assets/icons/plus.svg') : require('../../assets/icons/pencil.svg')}/> : ''}
                             <img onClick={() => this.props.handleObjectiveClone(this.props.goalId, this.props.id)}
                                  alt={'copy'}
-                                 src={require('../../assets/icons/copy.ico')}/>
+                                 src={require('../../assets/icons/copy.svg')}/>
                             {(this.props.showDelete) ? <img
                                 onClick={() => this.props.deleteGoal(this.props.goalId, this.props.id)}
-                                alt={'copy'} src={require('../../assets/icons/trash.ico')}/> : ''}
+                                alt={'copy'} src={require('../../assets/icons/trash.svg')}/> : ''}
                         </div>}
                 </div>
             </li>

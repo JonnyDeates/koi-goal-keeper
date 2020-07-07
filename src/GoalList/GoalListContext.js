@@ -105,14 +105,12 @@ export class GoalListProvider extends React.Component {
             .then((res) => {
                 this.state.currentGoal.goals.forEach((obj) =>
                     ObjectivesApiService.postObjective({obj: obj.obj, goalid: res.id}));
-                this.setState({currentGoals: [...this.state.currentGoals, this.breakApartGoalData(res)]})
+                this.setState({currentGoals: [...this.state.currentGoals, this.breakApartGoalData(res)]}, ()=> GoalService.saveGoals(this.state.currentGoals))
             }).then(() => this.forceUpdate())
     }
 
     breakApartAllGoalData(data, isPast) {
-        let x = data.map(Goal => Goal = this.breakApartGoalData(Goal, isPast))
-
-        return x
+        return data.map(Goal => Goal = this.breakApartGoalData(Goal, isPast))
     }
 
     breakApartGoalData(data, isPast) {
@@ -157,7 +155,7 @@ export class GoalListProvider extends React.Component {
             GoalApiService.deleteGoal(Goal.id);
             this.setState({
                 currentGoals: this.state.currentGoals.filter((Goal) => (new Date(Goal.date).getTime()) >= currentDate)
-            });
+            }, ()=> GoalService.saveGoals(this.state.currentGoals));
         }
     }
 
@@ -173,11 +171,11 @@ export class GoalListProvider extends React.Component {
             toast.warn(`${Goal.type} Goal Deleted`);
             ObjectivesApiService.deleteObjective(ID);
             GoalApiService.deleteGoal(Goal.id)
-                .then(() => this.setState({currentGoals: this.state.currentGoals.filter((G) => Goal.id !== G.id)}))
+                .then(() => this.setState({currentGoals: this.state.currentGoals.filter((G) => Goal.id !== G.id)}, ()=> GoalService.saveGoals(this.state.currentGoals)))
         } else {
             toast.warn('Objective Deleted', {autoClose: 2000});
             ObjectivesApiService.deleteObjective(ID);
-            this.setState({currentGoals: this.state.currentGoals});
+            this.setState({currentGoals: this.state.currentGoals}, ()=> GoalService.saveGoals(this.state.currentGoals));
         }
     }
 
@@ -209,6 +207,7 @@ export class GoalListProvider extends React.Component {
             GoalApiService.patchGoal(currentGoalList, goalId);
             currentGoalList.goals.splice(currentGoalList.goals.findIndex((goal) => goal.id === res.id), 1, res);
             allGoals.splice(allGoals.findIndex(goal => goal.id === goalId), 1, currentGoalList);
+            GoalService.saveGoals(this.state.currentGoals);
             this.forceUpdate();
         })
     };
@@ -230,8 +229,9 @@ export class GoalListProvider extends React.Component {
             const obj = GoalList.goals.find(Obj => Obj.id === ID);
             let newObj = {obj: OBJ, id: ID, checked: obj.checked};
             GoalList.goals.splice(GoalList.goals.findIndex((Obj) => Obj.id === obj.id), 1, newObj);
-            ObjectivesApiService.patchObjective({obj: OBJ}, ID);
-
+            if(!SettingsService.isLocal()){
+                ObjectivesApiService.patchObjective({obj: OBJ}, ID);
+            }
         } else {
             const pastGoals = this.state.pastGoals;
             const GoalList = pastGoals.find(goalList => goalList.id === goalID);
@@ -286,25 +286,37 @@ export class GoalListProvider extends React.Component {
                 newCurrentGoal.type = this.updateTypeTimeline(this.state.currentGoal);
                 this.setState({currentGoal: newCurrentGoal})
             }
-            // Posting The Goal with a Fetch Call
-            GoalApiService.postGoal(newCurrentGoal)
-                .then((res) => {
-                    this.state.currentGoal.goals.forEach((obj) =>
-                        // Posting Each Objective
-                        ObjectivesApiService.postObjective({
-                            obj: obj.obj,
-                            goalid: res.id
-                        }).then(() => this.forceUpdate()));
-                    this.setState({
-                        currentGoals: [...this.state.currentGoals, this.breakApartGoalData(res)]
-                            .sort((a, b) => new Date(a.date) - new Date(b.date)),
-                        currentGoal: {
-                            type: this.state.currentGoal.type,
-                            goals: [],
-                            date: this.state.currentGoal.date
-                        }
+            if(SettingsService.isLocal()) { // Checks to see if it is only local content
+                this.setState({
+                    currentGoals: [...this.state.currentGoals, this.state.currentGoal]
+                        .sort((a, b) => new Date(a.date) - new Date(b.date)),
+                    currentGoal: {
+                        type: this.state.currentGoal.type,
+                        goals: [],
+                        date: this.state.currentGoal.date
+                    }
+                })
+            } else {
+                // Posting The Goal with a Fetch Call
+                GoalApiService.postGoal(newCurrentGoal)
+                    .then((res) => {
+                        this.state.currentGoal.goals.forEach((obj) =>
+                            // Posting Each Objective
+                            ObjectivesApiService.postObjective({
+                                obj: obj.obj,
+                                goalid: res.id
+                            }).then(() => this.forceUpdate()));
+                        this.setState({
+                            currentGoals: [...this.state.currentGoals, this.breakApartGoalData(res)]
+                                .sort((a, b) => new Date(a.date) - new Date(b.date)),
+                            currentGoal: {
+                                type: this.state.currentGoal.type,
+                                goals: [],
+                                date: this.state.currentGoal.date
+                            }
+                        });
                     });
-                });
+            }
             toast.success(`${this.state.currentGoal.type} Goal Added!`);
         } else {
             toast.error(`The ${this.state.currentGoal.type} Goal is Missing Objectives.`)

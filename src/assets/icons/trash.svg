@@ -1,0 +1,47 @@
+<svg id="Trash_Can" data-name="Trash Can" xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #636363;
+        stroke: #000;
+      }
+
+      .cls-1, .cls-4 {
+        stroke-width: 35px;
+      }
+
+      .cls-2 {
+        fill: #111;
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4, .cls-5 {
+        fill: #a1a1a1;
+      }
+
+      .cls-4 {
+        stroke: #111;
+      }
+
+      .cls-5, .cls-6 {
+        stroke: #464646;
+        stroke-width: 17.5px;
+      }
+
+      .cls-6 {
+        fill: #b7b7b7;
+      }
+    </style>
+  </defs>
+  <path id="Rounded_Rectangle_1" data-name="Rounded Rectangle 1" class="cls-1" d="M250,344H750a0,0,0,0,1,0,0V874a70,70,0,0,1-70,70H320a70,70,0,0,1-70-70V344A0,0,0,0,1,250,344Z"/>
+  <path id="Rounded_Rectangle_2_copy" data-name="Rounded Rectangle 2 copy" class="cls-2" d="M379.667,177.99H621.333A66.667,66.667,0,0,1,688,244.657h0a33.333,33.333,0,0,1-33.333,33.333H346.333A33.333,33.333,0,0,1,313,244.657h0A66.667,66.667,0,0,1,379.667,177.99Z"/>
+  <path id="Rounded_Rectangle_2_copy_2" data-name="Rounded Rectangle 2 copy 2" class="cls-3" d="M393,199H609a64,64,0,0,1,64,64v0a32,32,0,0,1-32,32H361a32,32,0,0,1-32-32v0A64,64,0,0,1,393,199Z"/>
+  <path id="Rounded_Rectangle_2" data-name="Rounded Rectangle 2" class="cls-4" d="M270,230H730a70,70,0,0,1,70,70v45a35,35,0,0,1-35,35H235a35,35,0,0,1-35-35V300A70,70,0,0,1,270,230Z"/>
+  <rect id="Rounded_Rectangle_3" data-name="Rounded Rectangle 3" class="cls-5" x="329" y="418" width="76" height="452" rx="35" ry="35"/>
+  <rect id="Rounded_Rectangle_3_copy" data-name="Rounded Rectangle 3 copy" class="cls-6" x="597" y="418" width="76" height="452" rx="35" ry="35"/>
+  <rect id="Rounded_Rectangle_3_copy_2" data-name="Rounded Rectangle 3 copy 2" class="cls-6" x="463" y="418" width="76" height="452" rx="35" ry="35"/>
+</svg>

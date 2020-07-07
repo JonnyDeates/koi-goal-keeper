@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        stroke: #000;
+        stroke-linejoin: round;
+        stroke-width: 29px;
+      }
+
+      .cls-1 {
+        filter: url(#filter);
+      }
+
+      .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        filter: url(#filter-2);
+      }
+    </style>
+    <filter id="filter" x="115" y="218" width="497" height="588" filterUnits="userSpaceOnUse">
+      <feFlood result="flood" flood-color="#fff"/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+    <filter id="filter-2" x="427" y="359" width="501" height="598.563" filterUnits="userSpaceOnUse">
+      <feFlood result="flood" flood-color="#fff"/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Back_Page" data-name="Back Page">
+    <g style="fill: ; filter: url(#filter)">
+      <rect id="Rounded_Rectangle_1" data-name="Rounded Rectangle 1" class="cls-1" x="115" y="218" width="497" height="588" rx="60" ry="60" style="stroke: inherit; filter: none; fill: inherit"/>
+    </g>
+    <use xlink:href="#Rounded_Rectangle_1" style="stroke: #000; filter: none; fill: none"/>
+    <g id="Descriptor">
+      <path class="cls-2" d="M220,450H382.25v35H220V450Zm0,0H382.25v35H220V450Zm0,0H382.25v35H220V450Z"/>
+      <path class="cls-2" d="M220,618H382.238v35H220V618Z"/>
+      <path class="cls-2" d="M220,534H382.238v35H220V534Z"/>
+    </g>
+  </g>
+  <g id="Front_Page" data-name="Front Page">
+    <g style="fill: ; filter: url(#filter-2)">
+      <path id="Front_Page-2" data-name="Front Page" class="cls-3" d="M428,425c0.8-21.277,10.514-41.566,28-54a66.158,66.158,0,0,1,38-12l215,1L928,579q-1,153.5-2,307a69.753,69.753,0,0,1-79,71l-357-1a68.295,68.295,0,0,1-63-68Q427.5,656.5,428,425Z" style="stroke: inherit; filter: none; fill: inherit"/>
+    </g>
+    <use xlink:href="#Front_Page-2" style="stroke: #000; filter: none; fill: none"/>
+    <g id="Descriptor-2" data-name="Descriptor">
+      <path class="cls-2" d="M544,635H812v35H544V635Zm0,0H812v35H544V635Zm0,0H812v35H544V635Z"/>
+      <rect x="544" y="803" width="268" height="35"/>
+      <rect x="544" y="719" width="268" height="35"/>
+    </g>
+  </g>
+  <path class="cls-2" d="M722,377c0,52.881-12.341,163.5,11,181,10.212,5.835,6.087,2.471,195,28C745.651,424.8,797.128,466.351,722,377Z"/>
+</svg>

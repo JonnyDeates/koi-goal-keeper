@@ -2,8 +2,8 @@ import React from 'react';
 import './GoalList.css'
 import GoalItem from "./GoalItem/GoalItem";
 import {getColor, getCurrentThemeColors} from '../Utils/Utils';
-const pushIco = require("../assets/icons/push.ico");
-
+const pushIco = require("../assets/icons/push.svg");
+const addIco = require("../assets/icons/plus.svg")
 class GoalList extends React.Component {
     state = {
         value: '',
@@ -100,7 +100,9 @@ class GoalList extends React.Component {
 
                     />)}
                     {this.state.showAdd ? <button className={'add-button'} onClick={this.props.handleAddObjective}
-                                                  style={{backgroundColor: getCurrentThemeColors().tColor+'66', color: getCurrentThemeColors().headerColor}}>+</button> : ''}
+                                                  style={{backgroundColor: getCurrentThemeColors().tColor+'66', color: getCurrentThemeColors().headerColor}}>
+                        <img src={addIco} alt={'+'} width={'20px'} height={'20px'}
+                        /></button> : ''}
                 </ul>
 
             </div>

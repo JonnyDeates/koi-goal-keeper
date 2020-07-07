@@ -5,6 +5,7 @@ import {SettingsContext} from "./SettingsContext";
 import {toast} from "react-toastify";
 import {getColor, getCurrentThemeColors, getThemes} from "../Utils/Utils";
 import DeleteModel from "./DeleteModel/DeleteModel";
+import GoalService from "../services/goals-service";
 
 class Settings extends React.Component {
     static contextType = SettingsContext;
@@ -24,6 +25,7 @@ class Settings extends React.Component {
             newPasswordCheck: '',
             newNickname: ''
         }
+        this.toggleLocal = this.toggleLocal.bind(this)
     }
 
     handleOptionChange(e) {
@@ -107,6 +109,11 @@ class Settings extends React.Component {
     setTheme(theme) {
         this.context.setTheme(theme);
         document.body.style.backgroundColor = getCurrentThemeColors().pColor;
+    }
+
+    toggleLocal() {
+        GoalService.saveGoals(this.props.goalListContext.currentGoals)
+        this.context.toggleLocalStorage()
     }
 
     componentDidMount() {
@@ -246,7 +253,7 @@ class Settings extends React.Component {
                             style={{color: getCurrentThemeColors().headerColor}}>{(this.context.autoArchiving) ? 'On' : 'Off'}</span></p>
                 </section>
                 <section>
-                    <p className='even-space' onClick={() => this.context.toggleLocalStorage()}
+                    <p className='even-space' onClick={this.toggleLocal}
                            title={'Click To Toggle The Local Storage'}
                            style={{color: getCurrentThemeColors().fontColor}}>
                         Local Storage

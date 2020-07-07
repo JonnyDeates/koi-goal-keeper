@@ -63,25 +63,26 @@ export class SettingsProvider extends React.Component {
             if (UserService.hasUserInfo()) {
                 this.setState({
                     username: UserService.getUser().username,
-                    autoArchiving: UserService.getUser().autoArchiving,
                     // email: UserService.getUser().email,
                     nickname: UserService.getUser().nickname,
                     id: UserService.getUser().id
                 })
             }
             if (SettingsService.hasSettings()) {
+                console.log(SettingsService.getSettings())
+                let {type_list, type_selected, auto_archiving, show_delete, local_storage, dark_mode, paid_account, color_style, compacted, theme, notifications} = SettingsService.getSettings()
                 this.setState({
-                    typeListSelected: SettingsService.getSettings().type_list,
-                    currentType: SettingsService.getSettings().type_selected,
-                    autoArchiving: SettingsService.getSettings().auto_archiving || false,
-                    showDelete: SettingsService.getSettings().show_delete || false,
-                    localStorage: SettingsService.getSettings().local_storage || false,
-                    darkMode: SettingsService.getSettings().dark_mode || false,
-                    paidAccount: SettingsService.getSettings().paid_account || false,
-                    colorStyle: SettingsService.getSettings().color_style,
-                    compacted: SettingsService.getSettings().compacted,
-                    theme: SettingsService.getSettings().theme,
-                    notifications: SettingsService.getSettings().notifications || false,
+                    typeListSelected: type_list,
+                    currentType: type_selected,
+                    autoArchiving: auto_archiving || false,
+                    showDelete: show_delete || false,
+                    localStorage: local_storage || false,
+                    darkMode: dark_mode || false,
+                    paidAccount: paid_account || false,
+                    colorStyle: color_style,
+                    compacted,
+                    theme,
+                    notifications: notifications || false,
                 }, () => this.updateTypes());
             }
         }

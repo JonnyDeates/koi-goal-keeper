@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c148 79.164036, 2019/08/13-01:06:57        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+         <xmp:CreatorTool>Adobe Photoshop CC 2019 (Windows)</xmp:CreatorTool>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?></metadata>
+<defs>
+    <style>
+      .cls-1 {
+        filter: url(#filter);
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+        stroke: #000;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        stroke-width: 35px;
+      }
+
+      .cls-3, .cls-4, .cls-5 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        filter: url(#filter-2);
+      }
+
+      .cls-4 {
+        filter: url(#filter-3);
+      }
+
+      .cls-5, .cls-6 {
+        stroke-width: 17.5px;
+      }
+
+      .cls-5 {
+        filter: url(#filter-4);
+      }
+    </style>
+    <filter id="filter" filterUnits="userSpaceOnUse">
+      <feFlood result="flood"/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+    <filter id="filter-2" x="410.938" y="242.906" width="235.281" height="241.5" filterUnits="userSpaceOnUse">
+      <feFlood result="flood"/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+    <filter id="filter-3" x="409.75" y="486.219" width="238.5" height="238.562" filterUnits="userSpaceOnUse">
+      <feFlood result="flood"/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+    <filter id="filter-4" x="174.875" y="298.063" width="543.25" height="376.875" filterUnits="userSpaceOnUse">
+      <feFlood result="flood"/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Arrow" class="cls-1">
+    <rect class="cls-2" x="149" y="440" width="486" height="91" rx="35" ry="35"/>
+    <g style="fill: #fff; filter: url(#filter-2)">
+      <path id="Rectangle_2_copy" data-name="Rectangle 2 copy" class="cls-3" d="M472.178,247.681L641.965,425.075c7.889,8.243,4.47,24.319-7.636,35.906L621.176,473.57c-12.107,11.588-28.317,14.3-36.206,6.056L415.183,302.232c-7.89-8.242-4.471-24.318,7.636-35.906l13.153-12.589C448.079,242.15,464.289,239.438,472.178,247.681Z" style="stroke: inherit; filter: none; fill: inherit"/>
+    </g>
+    <use xlink:href="#Rectangle_2_copy" style="stroke: #000; filter: none; fill: none"/>
+    <g style="fill: #fff; filter: url(#filter-3)">
+      <path id="Rectangle_2_copy_2" data-name="Rectangle 2 copy 2" class="cls-4" d="M414.222,664.706L587.71,490.753c8.061-8.083,24.25-5.07,36.159,6.729l12.938,12.82c11.908,11.8,15.027,27.917,6.966,36L470.285,720.256c-8.061,8.083-24.25,5.07-36.159-6.73l-12.937-12.819C409.28,688.907,406.161,672.789,414.222,664.706Z" style="stroke: inherit; filter: none; fill: inherit"/>
+    </g>
+    <use xlink:href="#Rectangle_2_copy_2" style="stroke: #000; filter: none; fill: none"/>
+    <g style="fill: #fff; filter: url(#filter-4)">
+      <path id="path" class="cls-5" d="M174.861,524.169h398.89L422.874,674.928H529.53L718.139,486.505,529.53,298.072H422.874L573.751,448.819H174.861v75.35Z" style="stroke: inherit; filter: none; fill: inherit"/>
+    </g>
+    <use xlink:href="#path" style="stroke: #000; filter: none; fill: none"/>
+    <rect class="cls-6" x="747" y="250" width="82" height="519" rx="20.5" ry="20.5"/>
+  </g>
+</svg>

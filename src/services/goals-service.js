@@ -1,10 +1,10 @@
 const GoalService = {
     serializeGoals(goals){
-            return JSON.stringify({...goals})
+            return JSON.stringify({goals})
     },
     getAllGoals() {
         try {
-            return JSON.parse(window.localStorage.getItem('goals'));
+            return JSON.parse(window.localStorage.getItem('goals')).goals;
         } catch(error){
             console.log(error);
             return null;
@@ -17,7 +17,7 @@ const GoalService = {
         window.localStorage.setItem('goals', this.serializeGoals(goals))
     },
     hasGoals() {
-        return !!GoalService.getSettings()
+        return !!GoalService.getAllGoals()
     }
 };
 
