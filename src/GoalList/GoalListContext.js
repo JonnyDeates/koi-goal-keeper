@@ -6,7 +6,7 @@ import PastObjectivesApiService from "../services/database/pastobjectives-api-se
 import ObjectivesApiService from "../services/database/objectives-api-service";
 import {toast} from "react-toastify";
 import SettingsService from "../services/local/settings-service";
-import {getTime} from "../Utils/Utils";
+import {getTime, uuid} from "../Utils/Utils";
 import GoalService from "../services/local/goals-service";
 
 export const GoalListContext = React.createContext({
@@ -102,6 +102,7 @@ export class GoalListProvider extends React.Component {
 
     addGoal(goal) {
         this.setState({currentGoals: [...this.state.currentGoals, goal]}, () => GoalService.saveGoals(this.state.currentGoals));
+
         if (!SettingsService.isLocal()) {
             GoalApiService.postGoal(goal)
                 .then((res) => {
@@ -182,10 +183,10 @@ export class GoalListProvider extends React.Component {
             toast.warn('Objective Deleted', {autoClose: 2000});
             this.setState({currentGoals: this.state.currentGoals}, () => GoalService.saveGoals(this.state.currentGoals));
         }
-        if (!SettingsService.isLocal()) {
-            if (goalLength) {
-                ObjectivesApiService.deleteObjective(ID);
-                GoalApiService.deleteGoal(Goal.id)
+        if (!SettingsService.isLocal()) { // Handles Local Check
+            if (goalLength) { // Checks to see if Goal Length Exists & is not 0
+                ObjectivesApiService.deleteObjective(ID);  // Deletes Objective
+                GoalApiService.deleteGoal(Goal.id) // Deletes Goal List
             } else {
                 ObjectivesApiService.deleteObjective(ID);
             }
@@ -217,14 +218,18 @@ export class GoalListProvider extends React.Component {
         let checkedAmt = currentGoalList.checkedamt;
         let currentObj = currentGoalList.goals.find((obj) => obj.id === ID);
 
-        currentObj.checked = !currentObj.checked;
-        currentGoalList.checkedamt = (currentObj.checked) ? checkedAmt + 1 : checkedAmt - 1;
-        currentGoalList.goals.sort((a,b) => a.id > b.id)
+        if(typeof currentGoalList.checkedamt === 'undefined' || typeof currentGoalList.checkedamt === 'NaN') { // Handles Local Storage Bug
+            checkedAmt = 0
+        }
+        currentGoalList.checkedamt = !(currentObj.checked) ? checkedAmt + 1 : checkedAmt - 1; // Sets The Goalist's Checked Amount
+        currentObj.checked = !currentObj.checked; // Reverses the Current Goals Checked
 
-        console.log(allGoals, this.state.currentGoals)
-        this.setState({currentGoals: allGoals}, () => GoalService.saveGoals(this.state.currentGoals));
-        if (!SettingsService.isLocal())
-            ObjectivesApiService.toggleChecked(ID)
+        this.setState({currentGoals: allGoals}, () => GoalService.saveGoals(this.state.currentGoals)); // Sets the State & Saves
+
+        if (!SettingsService.isLocal()) { // Checks to see if Local
+            ObjectivesApiService.toggleChecked(ID); // Updates The Objective Checked
+            GoalApiService.patchGoal(currentGoalList, currentGoalList.id); // Updates the Current Goals Checked Amount
+        }
     }
 
     handleEditCurrentGoal(obj, neat, ID) {
@@ -245,6 +250,7 @@ export class GoalListProvider extends React.Component {
             let newObj = {obj: str, id: ID, checked: obj.checked};
             GoalList.goals.splice(GoalList.goals.findIndex((Obj) => Obj.id === obj.id), 1, newObj);
 
+            this.setState({currentGoals: allGoals}, () => GoalService.saveGoals(this.state.currentGoals));
             if (!SettingsService.isLocal()) {
                 ObjectivesApiService.patchObjective({obj: str}, ID);
             }
@@ -297,7 +303,7 @@ export class GoalListProvider extends React.Component {
         e.preventDefault();
         if (this.state.currentGoal.goals.length > 0) {
             const {goals, date} = this.state.currentGoal;
-            let newCurrentGoal = {type: this.state.currentGoal.type, goals, date};
+            let newCurrentGoal = {type: this.state.currentGoal.type, goals, date, id: uuid()};
             if (this.state.currentGoal.type === 'Other') { // Checks to see if the Type was Other
                 newCurrentGoal.type = this.updateTypeTimeline(this.state.currentGoal);
                 this.setState({currentGoal: newCurrentGoal})
@@ -318,14 +324,14 @@ export class GoalListProvider extends React.Component {
                     });
             }
             this.setState({
-                currentGoals: [...this.state.currentGoals, this.state.currentGoal]
+                currentGoals: [...this.state.currentGoals, newCurrentGoal]
                     .sort((a, b) => new Date(a.date) - new Date(b.date)),
                 currentGoal: {
                     type: this.state.currentGoal.type,
                     goals: [],
                     date: this.state.currentGoal.date
                 }
-            });
+            }, ()=> GoalService.saveGoals(this.state.currentGoals));
             toast.success(`${this.state.currentGoal.type} Goal Added!`);
         } else {
             toast.error(`The ${this.state.currentGoal.type} Goal is Missing Objectives.`)
