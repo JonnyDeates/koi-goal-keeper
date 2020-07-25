@@ -17,7 +17,7 @@ export const SettingsContext = React.createContext({
     email: '',
     nickname: '',
     id: '',
-    currentTheme: 'Light Mode',
+    currentTheme: 'Default',
     currentType: '',
     autoArchiving: true,
     showDelete: false,
@@ -46,7 +46,7 @@ export class SettingsProvider extends React.Component {
             email: '',
             nickname: '',
             id: '',
-            theme: 'Light Mode',
+            theme: 'Default',
             currentType: 'All',
             typeList: ['Today List', 'Short List', "Normal List", "Extended List", "Full List"],
             typeListSelected: '',
@@ -117,7 +117,7 @@ export class SettingsProvider extends React.Component {
 
     render() {
         const value = {
-            themes: ['Light Mode', 'Dark Mode', 'King Koi', 'Queen Koi', 'Red Koi', 'Blue Koi', 'Green Koi'],
+            themes: ['Default', 'Bekko', 'Benigoi', 'Kigoi', 'Kin Showa', 'Lucki', 'Platinum', 'Sanke'],
             theme: this.state.theme,
             currentType: this.state.currentType,
             autoArchiving: this.state.autoArchiving,

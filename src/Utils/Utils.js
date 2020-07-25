@@ -17,7 +17,7 @@ export function getColor(type) {
         ['#ff1700', '#000dd0', '#00a8ff', '#f08100'
             , '#d400f0', '#ffe600', '#00bf0b', '#00770d'
             , '#007a06', '#005406', '#003e08', '#002a04'
-            , '#46006a', '#1d002c', '#180027', '#000000'],]
+            , '#46006a', '#1d002c', '#180027', '#000000'],];
     switch (type) {
         case 'Daily':
             color = ColorThemes[index][0];
@@ -73,51 +73,101 @@ export function getColor(type) {
     }
     return {backgroundColor: color}
 }
+
 export function getThemes() {
-    return [
-        {
-            name: 'Light Mode',
-            pColor: '#abceea', sColor: '#84adea', tColor: '#e6eef5',
-            headerColor: '#ffffff',fontColor: '#000000', inputColor: ''
-        },
-        {
-            name: 'Dark Mode',
+    return (SettingsService.getSettings().dark_mode) ?  // Checks to see if Dark Mode is Enabled
+        [{
+        name: 'Default',
             pColor: '#343f47', sColor: '#202938', tColor: '#55585b',
-            headerColor: '#000000',fontColor: '#cccccc'
+            headerColor: '#000000', fontColor: '#cccccc'
         },
         {
-            name: 'King Koi',
-            pColor: '#343f47', sColor: '#4d7174', tColor: '#0028ff',
-            headerColor: '#cccccc',fontColor: '#000000'
+            name: 'Kigoi',
+            pColor: '#615c00', sColor: '#453114', tColor: '#6e6a4b',
+            headerColor: '#000000', fontColor: '#a5a5a5'
         },
         {
-            name: 'Queen Koi',
-            pColor: '#9347b2', sColor: '#5b2c6e', tColor: '#9a00ad',
-            headerColor: '#000000',fontColor: '#cccccc'
+            name: 'Bekko',
+            pColor: '#777777', sColor: '#a09ea6', tColor: '#3d3d3d',
+            headerColor: '#cccccc', fontColor: '#000000'
         },
         {
-            name: 'Red Koi',
+            name: 'Benigoi',
             pColor: '#691408', sColor: '#380a00', tColor: '#a43238',
-            headerColor: '#000000',fontColor: '#cccccc'
+            headerColor: '#000000', fontColor: '#cccccc'
         },
         {
-            name: 'Blue Koi',
+            name: 'Kin Showa',
+            pColor: '#692804', sColor: '#363636', tColor: '#706e6d',
+            headerColor: '#000000', fontColor: '#cccccc'
+        },
+        {
+            name: 'Sanke',
+            pColor: '#691408', sColor: '#363636', tColor: '#905b57',
+            headerColor: '#000000', fontColor: '#000000'
+
+        },
+        {
+            name: 'Platinum',
             pColor: '#081269', sColor: '#000a38', tColor: '#385ca4',
-            headerColor: '#575757',fontColor: '#cccccc'
-        },
+            headerColor: '#575757', fontColor: '#cccccc'
+        },            {
+            name: 'Lucki',
+            pColor: '#086912', sColor: '#00380a', tColor: '#254b25',
+            headerColor: '#000000', fontColor: '#cccccc'
+        }
+
+        ] : [
         {
-            name: 'Green Koi',
-            pColor: '#086912', sColor: '#00380a', tColor: '#38a45c',
-            headerColor: '#000000',fontColor: '#cccccc'
+            name: 'Default',
+            pColor: '#abceea', sColor: '#84adea', tColor: '#e6eef5',
+            headerColor: '#ffffff', fontColor: '#000000', inputColor: ''
         },
+            {
+                name: 'Kigoi',
+                pColor: '#e2b521', sColor: '#cd923b', tColor: '#d2ca8e',
+                headerColor: '#000000', fontColor: '#ffffff'
+            },
+            {
+                name: 'Bekko',
+                pColor: '#ffffff', sColor: '#a09ea6', tColor: '#828282',
+                headerColor: '#909090', fontColor: '#000000'
+            },
+            {
+                name: 'Benigoi',
+                pColor: '#d10300', sColor: '#751b00', tColor: '#d97375',
+                headerColor: '#000000', fontColor: '#cccccc'
+            },
+            {
+                name: 'Kin Showa',
+                pColor: '#de4e07', sColor: '#676767', tColor: '#7f7d7c',
+                headerColor: '#000000', fontColor: '#ffffff'
+            },
+            {
+                name: 'Sanke',
+                pColor: '#c3210d', sColor: '#cccccc', tColor: '#e99d98',
+                headerColor: '#000000', fontColor: '#000000'
+
+            },
+            {
+                name: 'Platinum',
+                pColor: '#84adea', sColor: '#49678a', tColor: '#587aaa',
+                headerColor: '#5f5f5f', fontColor: '#ffffff'
+            },            {
+                name: 'Lucki',
+                pColor: '#0cc61f', sColor: '#009012', tColor: '#309d2c',
+                headerColor: '#000000', fontColor: '#edffef'
+            }
 
     ];
 }
-export function getCurrentThemeColors(){
-    const currentTheme = getThemes().find((theme) =>  theme.name === SettingsService.getSettings().theme);
+
+export function getCurrentThemeColors() {
+    const currentTheme = getThemes().find((theme) => theme.name === SettingsService.getSettings().theme);
     return (!!currentTheme) ? currentTheme : getThemes()[0];
 
 }
+
 export function formatDate(tempDate) {
     const Month = (tempDate.getMonth() + 1 < 10) ? '0' + (tempDate.getMonth() + 1) : (tempDate.getMonth() + 1);
     const Date = (tempDate.getDate() < 10) ? '0' + tempDate.getDate() : tempDate.getDate();
@@ -141,12 +191,14 @@ export function Required({className, ...props}) {
     </span>
     )
 }
+
 export function uuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
         let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
 }
+
 export function getTime(type) {
     let tempDate = new Date();
     switch (type) {
@@ -202,7 +254,8 @@ export function getTime(type) {
     return tempDate;
 
 }
-export function validateEmail (email) {
+
+export function validateEmail(email) {
 
     let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);

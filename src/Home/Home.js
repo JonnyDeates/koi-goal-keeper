@@ -77,7 +77,7 @@ class Home extends React.Component {
                 {this.state.currentGoals.map((Goal, i) => <GoalList key={i} showChecked={true}
                                                                     deleteGoal={this.props.goalListContext.deleteGoal}
                                                                     pushGoal={this.props.goalListContext.pushGoal}
-                                                                    goalId={Goal.id}
+                                                                    goalId={Goal.id} handleAddObjective={this.props.goalListContext.handleAddObjective}
                                                                     handleChecked={this.props.goalListContext.handleChecked}
                                                                     isEditable={true} showCompleted={true}
                                                                     goals={Goal.goals} type={Goal.type}

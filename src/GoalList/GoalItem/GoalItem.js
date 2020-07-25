@@ -14,6 +14,12 @@ class GoalItem extends React.Component {
         this.toggleEdit = this.toggleEdit.bind(this);
     }
 
+    componentDidMount() {
+        if(this.props.newObj){
+            this.setState({isEditing: true})
+        }
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps !== this.props) {
             this.setState({
@@ -38,8 +44,8 @@ class GoalItem extends React.Component {
                 {(this.props.past) ? (this.props.checked) ? <h6>Completed</h6> : <h6>Unchecked</h6> : ''}
                 {(this.props.showChecked) ? <input className="checkboxinput" type='checkbox'
                                                    onChange={() => this.props.handleChecked(this.props.goalId, this.props.id)}
-                                                   checked={this.props.checked}/> : ''}
-                {(this.state.isEditing) ? <input type="text" className="textinput"
+                                                   checked={(typeof this.props.checked === 'boolean' ? this.props.checked : false)}/> : ''}
+                {(typeof this.props.past === 'boolean'? this.props.past : false) ? <p>{this.props.goal}</p> : (this.state.isEditing) ? <input type="text" className="textinput"
                                                  onChange={(e) => this.setState({value: e.target.value})}
                                                  value={this.state.value}
                                                  onKeyPress={e => {

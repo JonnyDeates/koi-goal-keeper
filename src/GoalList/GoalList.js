@@ -86,7 +86,7 @@ class GoalList extends React.Component {
                     : ''}
                 {(this.state.showCompleted && this.state.goals.length > 1  && this.state.checkedamt >= 1) ? <p className={'goallist-count'}  style={{backgroundColor: getColor(this.state.type).backgroundColor, color: getCurrentThemeColors().headerColor}}>{this.state.checkedamt}{(this.state.compacted === 'Ultra-Compacted') ? ('/' + this.state.goals.length) : ''}</p> : ''}
                 <ul >
-                    {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.obj} checked={goal.checked}
+                    {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.obj} checked={goal.checked} newObj={ (typeof goal.newObj === 'boolean' ? goal.newObj : false)}
                                                                  handleChecked={this.props.handleChecked} id={goal.id}
                                                                  bgColor={(i % 2) ? getCurrentThemeColors().tColor+'bb' : getCurrentThemeColors().tColor+'99'}
                                                                  fontColor={getCurrentThemeColors().fontColor}
@@ -99,7 +99,7 @@ class GoalList extends React.Component {
                                                                  handleObjectiveClone={this.props.handleObjectiveClone}
 
                     />)}
-                    {this.state.showAdd ? <button className={'add-button'} onClick={this.props.handleAddObjective}
+                    {this.state.showAdd ? <button className={'add-button'} onClick={()=>this.props.handleAddObjective(this.state.goalId)}
                                                   style={{backgroundColor: getCurrentThemeColors().tColor+'66', color: getCurrentThemeColors().headerColor}}>
                         <img src={addIco} alt={'+'} width={'20px'} height={'20px'}
                         /></button> : ''}
