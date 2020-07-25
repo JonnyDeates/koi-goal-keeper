@@ -1,11 +1,11 @@
 import React from 'react';
-import AuthApiService from "../services/auth-api-service";
-import TokenService from "../services/token-service";
+import AuthApiService from "../services/database/auth-api-service";
+import TokenService from "../services/local/token-service";
 import {Button, Input, validateEmail} from "../Utils/Utils";
 import './Login.css';
-import UserService from "../services/user-api-service";
+import UserService from "../services/local/user-api-service";
 import {Link} from "react-router-dom";
-import SettingsService from "../Local Services/settings-service";
+import SettingsService from "../services/local/settings-service";
 import {GoogleLogin} from "react-google-login";
 
 class Login extends React.Component {
@@ -49,8 +49,7 @@ class Login extends React.Component {
     }
 
     onSignIn(googleUser) {
-        console.log(googleUser)
-        if (googleUser) {
+        if (googleUser && !(!!googleUser.error)) {
             let profile = googleUser.getBasicProfile();
             let handleSubmit = (username, password) => {
                 AuthApiService.postLogin({

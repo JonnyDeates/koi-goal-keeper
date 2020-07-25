@@ -1,11 +1,13 @@
 import React from 'react';
-import AuthApiService from "../services/auth-api-service";
+import AuthApiService from "../services/database/auth-api-service";
 import './Settings.css';
 import {SettingsContext} from "./SettingsContext";
 import {toast} from "react-toastify";
 import {getColor, getCurrentThemeColors, getThemes} from "../Utils/Utils";
 import DeleteModel from "./DeleteModel/DeleteModel";
-import GoalService from "../services/goals-service";
+import GoalService from "../services/local/goals-service";
+import GoalApiService from "../services/database/goals-api-service";
+import ObjectivesApiService from "../services/database/objectives-api-service";
 
 class Settings extends React.Component {
     static contextType = SettingsContext;
@@ -113,7 +115,13 @@ class Settings extends React.Component {
 
     toggleLocal() {
         GoalService.saveGoals(this.props.goalListContext.currentGoals)
-        this.context.toggleLocalStorage()
+        this.context.toggleLocalStorage(()=>GoalApiService.purgeGoals().then(() => {
+            this.props.goalListContext.currentGoals.forEach((goal) => {
+                GoalApiService.postGoal(goal);
+                console.log(goal)
+                goal.goals.forEach((obj) => ObjectivesApiService.postObjective(obj));
+            });
+        }))
     }
 
     componentDidMount() {

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Route, Redirect} from 'react-router-dom'
-import TokenService from "../services/token-service";
+import TokenService from "../services/local/token-service";
 import {GoalListContext} from "../GoalList/GoalListContext";
 
 export default function PrivateRoute({component, ...props}) {

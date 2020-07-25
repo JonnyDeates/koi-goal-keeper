@@ -84,7 +84,7 @@ class GoalList extends React.Component {
                     ? <img src={pushIco} alt="Push Goals" title={'Archive Goal'} className={'goallist-push'} style={{backgroundColor: getCurrentThemeColors().tColor+'66'}}
                            onClick={()=> this.props.pushGoal(this.state.goalId)}/>
                     : ''}
-                {(this.state.showCompleted && this.state.goals.length > 1  && this.state.checkedamt >= 1) ? <p className={'goallist-count'}  style={{backgroundColor: getCurrentThemeColors().tColor+'66', color: getCurrentThemeColors().headerColor}}>{this.state.checkedamt}</p> : ''}
+                {(this.state.showCompleted && this.state.goals.length > 1  && this.state.checkedamt >= 1) ? <p className={'goallist-count'}  style={{backgroundColor: getColor(this.state.type).backgroundColor, color: getCurrentThemeColors().headerColor}}>{this.state.checkedamt}{(this.state.compacted === 'Ultra-Compacted') ? ('/' + this.state.goals.length) : ''}</p> : ''}
                 <ul >
                     {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.obj} checked={goal.checked}
                                                                  handleChecked={this.props.handleChecked} id={goal.id}

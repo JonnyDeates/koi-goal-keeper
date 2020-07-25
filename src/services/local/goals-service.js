@@ -1,5 +1,6 @@
 const GoalService = {
     serializeGoals(goals){
+        console.log(goals)
             return JSON.stringify({goals})
     },
     getAllGoals() {

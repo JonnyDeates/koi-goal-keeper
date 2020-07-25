@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import './TopNav.css';
-import TokenService from "../services/token-service";
-import UserService from "../services/user-api-service";
+import TokenService from "../services/local/token-service";
+import UserService from "../services/local/user-api-service";
 import home from '../assets/icons/home.ico';
 import document from '../assets/icons/document.ico';
 import archive from '../assets/icons/archive.ico';

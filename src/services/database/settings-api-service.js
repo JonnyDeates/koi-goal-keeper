@@ -1,5 +1,5 @@
-import config from '../config'
-import TokenService from "./token-service";
+import config from '../../config'
+import TokenService from "../local/token-service";
 
 const SettingsApiService = {
     getSettings(settingId) {
@@ -16,6 +16,16 @@ const SettingsApiService = {
     },
     patchSetting(setting, id) {
         return fetch(`${config.API_ENDPOINT}/settings/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                'authorization': `bearer ${TokenService.getAuthToken()}`,
+            },
+            body: JSON.stringify(setting),
+        })
+    },
+    patchAllSettings(setting, id) {
+        return fetch(`${config.API_ENDPOINT}/settings/all/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',

@@ -1,8 +1,9 @@
-import config from '../config'
-import TokenService from "./token-service";
-const PastObjectivesApiService = {
-    getObjectiveList(id) {
-        return fetch(`${config.API_ENDPOINT}/past/objectives/goal-list/${id}`, {
+import config from '../../config'
+import TokenService from "../local/token-service";
+
+const PastGoalApiService = {
+    getAllPastGoals() {
+        return fetch(`${config.API_ENDPOINT}/past/goals`, {
             headers: {
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
@@ -13,8 +14,8 @@ const PastObjectivesApiService = {
                     : res.json()
             )
     },
-    getObjective(objectiveId) {
-        return fetch(`${config.API_ENDPOINT}/past/objectives/${objectiveId}`, {
+    getPastGoal(goalId) {
+        return fetch(`${config.API_ENDPOINT}/past/goals/${goalId}`, {
             headers: {
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
@@ -25,28 +26,33 @@ const PastObjectivesApiService = {
                     : res.json()
             )
     },
-    patchObjective(objective, id) {
-        return fetch(`${config.API_ENDPOINT}/past/objectives/${id}`, {
+    patchPastGoal(goal, id) {
+        return fetch(`${config.API_ENDPOINT}/past/goals/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
-            body: JSON.stringify(objective),
+            body: JSON.stringify({
+                type: goal.type,
+                goals: goal.goals,
+                date: goal.date,
+                checkedamt: goal.checkedamt
+            }),
         })
     },
-    postObjective(objective) {
-        console.log(objective.checked, objective, 'here');
-        return fetch(`${config.API_ENDPOINT}/past/objectives`, {
+    postPastGoal(pastgoal) {
+        return fetch(`${config.API_ENDPOINT}/past/goals`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
             body: JSON.stringify({
-                obj: objective.obj,
-                checked: objective.checked,
-                goalid: objective.goalid
+                type: pastgoal.type,
+                goals: pastgoal.goals,
+                date: pastgoal.date,
+                checkedamt: pastgoal.checkedamt
             }),
         })
             .then(res =>
@@ -55,24 +61,12 @@ const PastObjectivesApiService = {
                     : res.json()
             )
     },
-    toggleChecked(id){
-        return fetch(`${config.API_ENDPOINT}/past/objectives/toggle/${id}`, {
-            headers: {
-                'authorization': `bearer ${TokenService.getAuthToken()}`,
-            },
-        })
-            .then(res =>
-                (!res.ok)
-                    ? res.json().then(e => Promise.reject(e))
-                    : res.json()
-            )
-    },
-    deleteObjective(id) {
-        return fetch(`${config.API_ENDPOINT}/past/objectives/${id}`, {
+    deletePastGoal(id) {
+        return fetch(`${config.API_ENDPOINT}/past/goals/${id}`, {
             method: 'DELETE',
             headers: {'authorization': `bearer ${TokenService.getAuthToken()}`}
         })
     }
-};
+}
 
-export default PastObjectivesApiService;
+export default PastGoalApiService

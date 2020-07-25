@@ -1,9 +1,12 @@
 import * as React from "react";
-import UserService from "../services/user-api-service";
-import AuthApiService from "../services/auth-api-service";
-import TokenService from "../services/token-service";
-import SettingsService from "../Local Services/settings-service";
-import SettingsApiService from "../services/settings-api-service";
+import UserService from "../services/local/user-api-service";
+import AuthApiService from "../services/database/auth-api-service";
+import TokenService from "../services/local/token-service";
+import SettingsService from "../services/local/settings-service";
+import SettingsApiService from "../services/database/settings-api-service";
+import GoalList from "../GoalList/GoalList";
+import GoalApiService from "../services/database/goals-api-service";
+import ObjectivesApiService from "../services/database/objectives-api-service";
 
 export const SettingsContext = React.createContext({
     themes: [],
@@ -133,8 +136,10 @@ export class SettingsProvider extends React.Component {
             toggleArchiving: () => {
                 this.setState({autoArchiving: !this.state.autoArchiving}, ()=> {
                     SettingsService.saveSettings({auto_archiving: this.state.autoArchiving});
+                });
+                if(!SettingsService.isLocal()) {
                     SettingsApiService.toggleAutoArchiving(SettingsService.getSettings().id);
-                })
+                }
             },
             toggleCompacted: () => {
                 let compactedTemp = '';
@@ -156,8 +161,11 @@ export class SettingsProvider extends React.Component {
                         break;
                 }
                 SettingsService.saveSettings({compacted: compactedTemp});
-                SettingsApiService.toggleCompacted(SettingsService.getSettings().id);
-                this.setState({compacted: compactedTemp})
+                this.setState({compacted: compactedTemp});
+
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.toggleCompacted(SettingsService.getSettings().id);
+                }
             },
             toggleType: () => {
                 let newTypeSelected = '';
@@ -181,43 +189,73 @@ export class SettingsProvider extends React.Component {
                         newTypeSelected = 'Normal List';
                         break;
                 }
-                SettingsApiService.toggleTypeList(JSON.stringify(SettingsService.getSettings().id));
                 this.setState({typeListSelected: newTypeSelected}, () => {
                         SettingsService.saveSettings({type_list: newTypeSelected});
                         this.updateTypes();
                     }
-                )
+                );
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.toggleTypeList(JSON.stringify(SettingsService.getSettings().id));
+                }
             },
 
             toggleDarkMode: () => {
                 SettingsApiService.toggleDarkMode(SettingsService.getSettings().id);
                 SettingsService.saveSettings({dark_mode: !this.state.darkMode});
-                this.setState({darkMode: !this.state.darkMode})
+                this.setState({darkMode: !this.state.darkMode});
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.toggleDarkMode(SettingsService.getSettings().id);
+                }
             },
             toggleShowDelete: () => {
-                SettingsApiService.toggleDelete(SettingsService.getSettings().id);
                 SettingsService.saveSettings({show_delete: !this.state.showDelete});
                 this.setState({showDelete: !this.state.showDelete})
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.toggleDelete(SettingsService.getSettings().id);
+                }
             },
-            toggleLocalStorage: () => {
+            toggleLocalStorage: (callback) => {
                 SettingsApiService.toggleLocalStorage(SettingsService.getSettings().id);
                 SettingsService.saveSettings({local_storage: !this.state.localStorage});
+                if (this.state.localStorage) {
+                    const {type_list, theme, type_selected, color_style, show_delete, notifications, auto_archiving, dark_mode, local_storage, compacted} = SettingsService.getSettings();
+                    SettingsApiService.patchAllSettings({
+                        type_list,
+                        theme,
+                        type_selected,
+                        color_style,
+                        show_delete,
+                        notifications,
+                        auto_archiving,
+                        dark_mode,
+                        local_storage,
+                        compacted
+                    }).catch((e)=> console.log(e));
+
+                    callback();
+                }
                 this.setState({localStorage: !this.state.localStorage})
             },
             setTheme: (e) => {
-                SettingsApiService.patchSetting({theme: e}, SettingsService.getSettings().id);
                 SettingsService.saveSettings({theme: e});
                 this.setState({theme: e});
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.patchSetting({theme: e}, SettingsService.getSettings().id);
+                }
             },
             setType: (e) => {
-                SettingsApiService.patchSetting({type_selected: e}, SettingsService.getSettings().id);
                 SettingsService.saveSettings({type_selected: e});
                 this.setState({currentType: e})
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.patchSetting({type_selected: e}, SettingsService.getSettings().id);
+                }
             },
             updateNickname: (nickname) => {
                 UserService.saveUser({nickname});
-                AuthApiService.patchUser({nickname: this.state.newNickname});
                 this.setState({nickname})
+                if(!SettingsService.isLocal()) {
+                    AuthApiService.patchUser({nickname: this.state.newNickname});
+                }
             },
             // updateEmail: (email) => {
             //     UserService.saveUser({email});

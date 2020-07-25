@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthApiService from "../services/auth-api-service";
+import AuthApiService from "../services/database/auth-api-service";
 import {Button, Input, Required, validateEmail} from "../Utils/Utils";
 import "./Register.css";
 import {Link} from "react-router-dom";

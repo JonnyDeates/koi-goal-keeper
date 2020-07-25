@@ -226,6 +226,9 @@
         height: 20px;
         max-height: 20px;
     }
+    .Compacted .goallist-push, .Extra-Compacted .goallist-push {
+        margin-top: -32px;
+    }
     .Ultra-Compacted  {
         margin-bottom: 24px;
     }
@@ -243,8 +246,19 @@
         margin-top: 0;
         margin-bottom: 0;
     }
+    .Ultra-Compacted .goallist-push {
+        top: 6px !important;
+    }
     .Ultra-Compacted .goallist-title > p:nth-child(3)  {
         display: none;
+    }
+    .Ultra-Compacted .goallist-count {
+        top: 16px !important;
+        left: 90px !important;
+        padding: 0 7px !important;
+        z-index: 1;
+        border-radius: 0 0 100% 100%;
+        margin-top: -11px !important;
     }
     .Ultra-Compacted li > *{
         margin-top: 0;
@@ -277,7 +291,7 @@
     }
     .goallist-count {
         position: relative !important;
-        left: 24% !important;
+        left: 51px !important;
         margin: -29px 0px 0px 0px !important;
         color: gray;
         padding: 4px 16px;
@@ -304,13 +318,13 @@
         position: absolute;
         display: block;
         text-align: right;
-        margin: -4px 0 0 16px !important;
+        margin: -4px 0 0 6px !important;
         overflow-x: hidden;
         padding: 0 0 8px 4px !important;
         border-radius: 15px 0 0 15px !important;
         background-color: #e6eef5;
         z-index: 0;
-        width: 72px;
+        width: 82px;
         opacity: 0;
         animation: 3s slide-in-down forwards;
     }
