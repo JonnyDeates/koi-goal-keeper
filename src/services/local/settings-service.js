@@ -10,10 +10,8 @@ const SettingsService = {
                 type_selected: (!!setting.type_selected) ? setting.type_selected : settingTemp.type_selected,
                 color_style: (!!setting.color_style) ? setting.color_style : settingTemp.color_style,
                 show_delete: typeof setting.show_delete === 'boolean' ? setting.show_delete : settingTemp.show_delete,
-                notifications:  typeof setting.notifications !== 'boolean' ? settingTemp.notifications : setting.notifications,
                 auto_archiving: typeof setting.auto_archiving !== 'boolean' ? settingTemp.auto_archiving : setting.auto_archiving,
                 dark_mode: typeof setting.dark_mode !== 'boolean' ? settingTemp.dark_mode : setting.dark_mode,
-                local_storage: typeof setting.local_storage !== 'boolean' ? settingTemp.local_storage : setting.local_storage,
                 paid_account: typeof setting.paid_account !== 'boolean' ? settingTemp.paid_account : setting.paid_account,
                 compacted: (!!setting.compacted) ? setting.compacted : settingTemp.compacted,
             });
@@ -36,9 +34,6 @@ const SettingsService = {
     },
     hasSettings() {
         return !!SettingsService.getSettings()
-    },
-    isLocal(){
-        return this.hasSettings() ? this.getSettings().local_storage : false
     }
 };
 

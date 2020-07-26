@@ -3,7 +3,8 @@ import './GoalList.css'
 import GoalItem from "./GoalItem/GoalItem";
 import {getColor, getCurrentThemeColors} from '../Utils/Utils';
 const pushIco = require("../assets/icons/push.svg");
-const addIco = require("../assets/icons/plus.svg")
+const addIco = require("../assets/icons/plus.svg");
+
 class GoalList extends React.Component {
     state = {
         value: '',

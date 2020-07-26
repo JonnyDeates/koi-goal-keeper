@@ -1,6 +1,6 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
-import TokenService from "../services/local/token-service";
+import { Route } from 'react-router-dom'
+import {GoalListContext} from "../GoalList/GoalListContext";
 
 export default function PublicRoute({ component, ...props }) {
   const Component = component;
@@ -8,9 +8,11 @@ export default function PublicRoute({ component, ...props }) {
     <Route
       {...props}
       render={componentProps => (
-          !!TokenService.hasAuthToken()
-              ? <Redirect to={'/koi/'} />
-              : <Component {...componentProps} />
+          <GoalListContext.Consumer>{(goalListContext) =>
+              <Component goalListContext={goalListContext}
+                         currentActive={componentProps.location} {...componentProps} />
+          }
+          </GoalListContext.Consumer>
 
       )}
     />

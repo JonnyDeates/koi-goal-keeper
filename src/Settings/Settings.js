@@ -1,13 +1,9 @@
 import React from 'react';
-import AuthApiService from "../services/database/auth-api-service";
 import './Settings.css';
 import {SettingsContext} from "./SettingsContext";
 import {toast} from "react-toastify";
 import {getColor, getCurrentThemeColors, getThemes} from "../Utils/Utils";
 import DeleteModel from "./DeleteModel/DeleteModel";
-import GoalService from "../services/local/goals-service";
-import GoalApiService from "../services/database/goals-api-service";
-import ObjectivesApiService from "../services/database/objectives-api-service";
 
 class Settings extends React.Component {
     static contextType = SettingsContext;
@@ -17,80 +13,10 @@ class Settings extends React.Component {
         this.state = {
             selectedNotification: 'All',
             isUsernameEditable: false,
-            isEmailEditable: false,
-            isPasswordEditable: false,
             deleteModel: false,
-            newEmail: '',
-            newEmailCheck: '',
-            oldPasswordCheck: '',
-            newPassword: '',
-            newPasswordCheck: '',
             newNickname: ''
-        }
-        this.toggleLocal = this.toggleLocal.bind(this)
+        };
     }
-
-    handleOptionChange(e) {
-        this.setState({
-            selectedNotification: e.target.value
-        });
-    }
-
-    changeOldPasswordCheck(e) {
-        this.setState({oldPasswordCheck: e.target.value})
-    }
-
-    changePassword(e) {
-        this.setState({newPassword: e.target.value})
-    }
-
-    changePasswordCheck(e) {
-        this.setState({newPasswordCheck: e.target.value})
-    }
-
-    submitPassword() {
-        if (this.state.oldPasswordCheck.trim().length === 0 || this.state.newPassword.trim().length === 0 || this.state.newPasswordCheck.trim().length === 0) {
-            toast.warn('Fill All Fields');
-            return null;
-        }
-        if (this.state.newPassword === this.state.newPasswordCheck) {
-            this.setState({isPasswordEditable: false});
-            AuthApiService.patchPassword({password: this.state.newPassword, oldPassword: this.state.oldPasswordCheck})
-                .then(() => {
-                    this.setState({newPassword: '', oldPasswordCheck: '', newPasswordCheck: ''});
-                    toast.success(`Password changed`)
-                })
-                .catch(error => {
-                    toast.error(`${error.error}`)
-                })
-
-        } else {
-            toast.error(`The Passwords aren't matching`)
-        }
-    }
-
-    // changeEmail(e) {
-    //     this.setState({newEmail: e.target.value})
-    // }
-    //
-    // changeEmailCheck(e) {
-    //     this.setState({newEmailCheck: e.target.value})
-    // }
-
-    // submitEmail(e) {
-    //     e.preventDefault();
-    //     if (this.state.newEmail.trim().length === 0 || this.state.newEmailCheck.trim().length === 0) {
-    //         toast.warn('Please Enter an Email');
-    //         return null;
-    //     }
-    //     if (this.state.newEmail === this.state.newEmailCheck) {
-    //         this.context.updateEmail(this.state.newEmail);
-    //         this.setState({isEmailEditable: false, newEmail: '', newEmailCheck: ''});
-    //         toast.success(`Email changed to: ${this.state.newEmail}`)
-    //     } else {
-    //         toast.error(`The Emails aren't matching`)
-    //     }
-    // }
 
     changeNickname(e) {
         this.setState({newNickname: e.target.value})
@@ -111,17 +37,6 @@ class Settings extends React.Component {
     setTheme(theme) {
         this.context.setTheme(theme);
         document.body.style.backgroundColor = getCurrentThemeColors().pColor;
-    }
-
-    toggleLocal() {
-        GoalService.saveGoals(this.props.goalListContext.currentGoals)
-        this.context.toggleLocalStorage(()=>GoalApiService.purgeGoals().then(() => {
-            this.props.goalListContext.currentGoals.forEach((goal) => {
-                GoalApiService.postGoal(goal);
-                console.log(goal)
-                goal.goals.forEach((obj) => ObjectivesApiService.postObjective(obj));
-            });
-        }))
     }
 
     componentDidMount() {
@@ -164,48 +79,6 @@ class Settings extends React.Component {
                     }
 
                 </section>
-                <section>
-                    {(this.state.isPasswordEditable) ? <form onSubmit={(e) => this.submitPassword(e)}>
-                        <label className='even-space' title={'Old Password'} style={{color: getCurrentThemeColors().fontColor}}>Old Password<input type='password'
-                                                                                                title={'Old Password Input'}
-                                                                                                onChange={(e) => this.changeOldPasswordCheck(e)}
-                                                                                                value={this.state.oldPasswordCheck}
-                                                                                                onKeyPress={e => {
-                                                                                                    if (e.key === 'Enter') {
-                                                                                                        e.preventDefault();
-                                                                                                    }
-                                                                                                }}/></label>
-                        <label className='even-space' title={'New Password'} style={{color: getCurrentThemeColors().fontColor}}>New Password<input type='password'
-                                                                                                title={'New Password Input'}
-                                                                                                onChange={(e) => this.changePassword(e)}
-                                                                                                value={this.state.newPassword}
-                                                                                                onKeyPress={e => {
-                                                                                                    if (e.key === 'Enter') {
-                                                                                                        e.preventDefault();
-                                                                                                    }
-                                                                                                }}/></label>
-                        <label className='even-space' title={'Confirm New Password'}
-                               style={{color: getCurrentThemeColors().fontColor}}>Confirm Password<input
-                            type='password' title={'Confirm New Password Input'}
-                            onChange={(e) => this.changePasswordCheck(e)}
-                            value={this.state.newPasswordCheck}
-                            onKeyPress={e => {
-                                if (e.key === 'Enter') {
-                                    e.preventDefault();
-                                    this.submitPassword(e);
-                                }
-                            }}/></label>
-                        <div className='even-space'>
-                            <button onClick={() => this.setState({isPasswordEditable: false})}
-                                    type='button' title={'Cancel Password Changes'}>Cancel
-                            </button>
-                            <button type='submit' title={'Submit Changes'}>Submit</button>
-                        </div>
-                    </form> : <p className='even-space' title={'Click To Change Password'}
-                                 style={{color: getCurrentThemeColors().fontColor}}
-                                 onClick={() => this.setState({isPasswordEditable: true})}>Change
-                        Password<span style={{color: getCurrentThemeColors().headerColor}}>*******</span></p>}
-                </section>
                 <div className={'even-space theme-list-wrapper'}>
                     <label title={'Theme'} style={{color: getCurrentThemeColors().fontColor}}>Theme</label>
                     <section className={'theme-list'}>
@@ -224,34 +97,6 @@ class Settings extends React.Component {
                         </div>
                     </section>
                     </div>
-                {/*</div>*/}
-                {/*<h3>Notifications</h3>*/}
-                {/*<div>*/}
-                {/*    <div className="radio">*/}
-                {/*        <label>*/}
-                {/*            <input type="radio" value="All"*/}
-                {/*                   checked={this.state.selectedNotification === 'All'}*/}
-                {/*                   onChange={(e) => this.handleOptionChange(e)}/>*/}
-                {/*            All Email & Phone*/}
-                {/*        </label>*/}
-                {/*    </div>*/}
-                {/*    <div className="radio">*/}
-                {/*        <label>*/}
-                {/*            <input type="radio" value="Mid"*/}
-                {/*                   checked={this.state.selectedNotification === 'Mid'}*/}
-                {/*                   onChange={(e) => this.handleOptionChange(e)}/>*/}
-                {/*            Just Phone*/}
-                {/*        </label>*/}
-                {/*    </div>*/}
-                {/*    <div className="radio">*/}
-                {/*        <label>*/}
-                {/*            <input type="radio" value="None"*/}
-                {/*                   checked={this.state.selectedNotification === 'None'}*/}
-                {/*                   onChange={(e) => this.handleOptionChange(e)}/>*/}
-                {/*            Off*/}
-                {/*        </label>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
                 <section>
                     <p className='even-space' onClick={() => this.context.toggleArchiving()}
                            title={'Click To Toggle The Automatic Daily Archiver'}
@@ -259,14 +104,6 @@ class Settings extends React.Component {
                         Automatic Daily Archiver
                         <span
                             style={{color: getCurrentThemeColors().headerColor}}>{(this.context.autoArchiving) ? 'On' : 'Off'}</span></p>
-                </section>
-                <section>
-                    <p className='even-space' onClick={this.toggleLocal}
-                           title={'Click To Toggle The Local Storage'}
-                           style={{color: getCurrentThemeColors().fontColor}}>
-                        Local Storage
-                        <span
-                            style={{color: getCurrentThemeColors().headerColor}}>{(this.context.localStorage) ? 'On' : 'Off'}</span></p>
                 </section>
                 <section>
                     <p className='even-space' onClick={() => this.context.toggleDarkMode()}
