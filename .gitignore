@@ -10,6 +10,7 @@
 
 # production
 /build
+/KoiGoalKeeper
 
 # misc
 .DS_Store
