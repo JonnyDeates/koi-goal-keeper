@@ -2,14 +2,11 @@ import React from 'react'
 import './Utils.css'
 import SettingsService from "../services/local/settings-service";
 
-export function getColor(type) {
-    let color = '';
-    let index = 0;
-    let ColorThemes = [
-        ['#007a0e', '#4fc300', '#65ff00', '#c7f000'
-            , '#f0ca00', '#f05c00', '#cf3900', '#ff2700'
-            , '#c51000', '#871000', '#770200', '#4d0000'
-            , '#8b005b', '#700077', '#a200f0', '#25002c'],
+export function getTypeColors() {
+    return [['#007a0e', '#4fc300', '#65ff00', '#c7f000'
+        , '#f0ca00', '#f05c00', '#cf3900', '#ff2700'
+        , '#c51000', '#871000', '#770200', '#4d0000'
+        , '#8b005b', '#700077', '#a200f0', '#25002c'],
         ['#0f00ff', '#0076d0', '#00a8ff', '#00def0'
             , '#a500f0', '#fe00ff', '#bf00b9', '#700077'
             , '#854d84', '#6e3973', '#692671', '#3e0a42'
@@ -17,7 +14,13 @@ export function getColor(type) {
         ['#ff1700', '#000dd0', '#00a8ff', '#f08100'
             , '#d400f0', '#ffe600', '#00bf0b', '#00770d'
             , '#007a06', '#005406', '#003e08', '#002a04'
-            , '#46006a', '#1d002c', '#180027', '#000000'],];
+            , '#46006a', '#1d002c', '#180027', '#000000']
+]}
+
+export function getColor(type) {
+    let color = '';
+    let index = 0;
+    let ColorThemes = getTypeColors();
     switch (type) {
         case 'Daily':
             color = ColorThemes[index][0];

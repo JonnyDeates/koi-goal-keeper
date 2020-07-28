@@ -244,6 +244,9 @@ class Settings extends React.Component {
                         <span
                             style={{color: getCurrentThemeColors().headerColor}}>{this.context.typeListSelected}</span></p>
                 </section>
+                <section>
+                    {/*<ul className={'even-space'}*/}
+                </section>
                 <button className='delete' onClick={() => this.setState({deleteModel: true})}
                         style={{backgroundColor: getCurrentThemeColors().tColor, color: getCurrentThemeColors().fontColor+'77'}}>Suspend
                     Account
