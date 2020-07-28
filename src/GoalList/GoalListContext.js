@@ -246,7 +246,7 @@ export class GoalListProvider extends React.Component {
         let checkedAmt = currentGoalList.checkedamt;
         let currentObj = currentGoalList.goals.find((obj) => obj.id === ID);
 
-        if (typeof currentGoalList.checkedamt === 'undefined' || typeof currentGoalList.checkedamt === 'NaN') { // Handles Local Storage Bug
+        if (typeof currentGoalList.checkedamt === 'undefined' || currentGoalList.checkedamt === 'NaN') { // Handles Local Storage Bug
             checkedAmt = 0
         }
         currentGoalList.checkedamt = !(currentObj.checked) ? checkedAmt + 1 : checkedAmt - 1; // Sets The Goalist's Checked Amount
@@ -342,15 +342,12 @@ export class GoalListProvider extends React.Component {
                 let goals = this.state.currentGoal.goals;
                 // Posting The Goal with a Fetch Call
                 GoalApiService.postGoal(newCurrentGoal)
-                    .then((res) => {
-                        console.log(res)
-                        goals.forEach((obj) =>
-                            // Posting Each Objective
+                    .then((res) => goals.forEach((obj) => // Posting Each Objective
                             ObjectivesApiService.postObjective({
                                 obj: obj.obj,
                                 goalid: res.id
                             }))
-                    });
+                    );
             }
             this.setState({
                 currentGoals: [...this.state.currentGoals, newCurrentGoal]

@@ -1,6 +1,5 @@
 import config from '../../config'
 import TokenService from "../local/token-service";
-import settingsService from "../local/settings-service";
 
 const GoalApiService = {
     getAllGoals() {

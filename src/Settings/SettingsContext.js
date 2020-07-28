@@ -4,9 +4,6 @@ import AuthApiService from "../services/database/auth-api-service";
 import TokenService from "../services/local/token-service";
 import SettingsService from "../services/local/settings-service";
 import SettingsApiService from "../services/database/settings-api-service";
-import GoalList from "../GoalList/GoalList";
-import GoalApiService from "../services/database/goals-api-service";
-import ObjectivesApiService from "../services/database/objectives-api-service";
 
 export const SettingsContext = React.createContext({
     themes: [],
@@ -72,7 +69,6 @@ export class SettingsProvider extends React.Component {
                 })
             }
             if (SettingsService.hasSettings()) {
-                console.log(SettingsService.getSettings())
                 let {type_list, type_selected, auto_archiving, show_delete, local_storage, dark_mode, paid_account, color_style, compacted, theme, notifications} = SettingsService.getSettings()
                 this.setState({
                     typeListSelected: type_list,
@@ -230,7 +226,8 @@ export class SettingsProvider extends React.Component {
                         dark_mode,
                         local_storage,
                         compacted
-                    }).catch((e)=> console.log(e));
+                    }, SettingsService.getSettings().id).catch((e)=> console.log(e));
+
 
                     callback();
                 }

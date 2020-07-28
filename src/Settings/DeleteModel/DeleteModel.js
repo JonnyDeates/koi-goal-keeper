@@ -37,7 +37,7 @@ export default class DeleteModel extends Component {
     render() {
         const confirmationText = 'Enter Your Email to Delete Your Account'
         const username = UserService.getUser() ? UserService.getUser().username : ''
-        return <><div className={'model-wrapper-delete'} onClick={this.props.closeModel}/>
+        return <><div className={'model-wrapper'} onClick={this.props.closeModel}/>
             <div className={'model-delete'} style={{backgroundColor: getCurrentThemeColors().pColor}}>
                 <h2 title={confirmationText} style={{color: getCurrentThemeColors().headerColor}}>{confirmationText}</h2>
                 <p className={'error'}>{this.state.error}</p>

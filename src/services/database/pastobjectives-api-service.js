@@ -36,7 +36,6 @@ const PastObjectivesApiService = {
         })
     },
     postObjective(objective) {
-        console.log(objective.checked, objective, 'here');
         return fetch(`${config.API_ENDPOINT}/past/objectives`, {
             method: 'POST',
             headers: {
@@ -45,7 +44,7 @@ const PastObjectivesApiService = {
             },
             body: JSON.stringify({
                 obj: objective.obj,
-                checked: objective.checked,
+                checked: (typeof objective.checked === "boolean") ? objective.checked : false,
                 goalid: objective.goalid
             }),
         })

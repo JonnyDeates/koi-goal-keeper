@@ -66,6 +66,12 @@ const PastGoalApiService = {
             method: 'DELETE',
             headers: {'authorization': `bearer ${TokenService.getAuthToken()}`}
         })
+    },
+    purgePastGoals(){
+        return fetch(`${config.API_ENDPOINT}/past/goals`, {
+            method: 'DELETE',
+            headers: {'authorization': `bearer ${TokenService.getAuthToken()}`}
+        })
     }
 }
 

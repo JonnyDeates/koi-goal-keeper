@@ -8,6 +8,9 @@ import DeleteModel from "./DeleteModel/DeleteModel";
 import GoalService from "../services/local/goals-service";
 import GoalApiService from "../services/database/goals-api-service";
 import ObjectivesApiService from "../services/database/objectives-api-service";
+import PastGoalApiService from "../services/database/pastgoals-api-service";
+import PastObjectivesApiService from "../services/database/pastobjectives-api-service";
+import LocalStorageModel from "./LocalStorageModel/LocalStorageModel";
 
 class Settings extends React.Component {
     static contextType = SettingsContext;
@@ -20,20 +23,15 @@ class Settings extends React.Component {
             isEmailEditable: false,
             isPasswordEditable: false,
             deleteModel: false,
+            localStorageModel: false,
             newEmail: '',
             newEmailCheck: '',
             oldPasswordCheck: '',
             newPassword: '',
             newPasswordCheck: '',
             newNickname: ''
-        }
+        };
         this.toggleLocal = this.toggleLocal.bind(this)
-    }
-
-    handleOptionChange(e) {
-        this.setState({
-            selectedNotification: e.target.value
-        });
     }
 
     changeOldPasswordCheck(e) {
@@ -69,29 +67,6 @@ class Settings extends React.Component {
         }
     }
 
-    // changeEmail(e) {
-    //     this.setState({newEmail: e.target.value})
-    // }
-    //
-    // changeEmailCheck(e) {
-    //     this.setState({newEmailCheck: e.target.value})
-    // }
-
-    // submitEmail(e) {
-    //     e.preventDefault();
-    //     if (this.state.newEmail.trim().length === 0 || this.state.newEmailCheck.trim().length === 0) {
-    //         toast.warn('Please Enter an Email');
-    //         return null;
-    //     }
-    //     if (this.state.newEmail === this.state.newEmailCheck) {
-    //         this.context.updateEmail(this.state.newEmail);
-    //         this.setState({isEmailEditable: false, newEmail: '', newEmailCheck: ''});
-    //         toast.success(`Email changed to: ${this.state.newEmail}`)
-    //     } else {
-    //         toast.error(`The Emails aren't matching`)
-    //     }
-    // }
-
     changeNickname(e) {
         this.setState({newNickname: e.target.value})
     }
@@ -114,14 +89,26 @@ class Settings extends React.Component {
     }
 
     toggleLocal() {
-        GoalService.saveGoals(this.props.goalListContext.currentGoals)
-        this.context.toggleLocalStorage(()=>GoalApiService.purgeGoals().then(() => {
-            this.props.goalListContext.currentGoals.forEach((goal) => {
-                GoalApiService.postGoal(goal);
-                console.log(goal)
-                goal.goals.forEach((obj) => ObjectivesApiService.postObjective(obj));
-            });
-        }))
+        GoalService.saveGoals(this.props.goalListContext.currentGoals);
+        this.context.toggleLocalStorage(()=> {
+            GoalApiService.purgeGoals();
+            setTimeout(()=> this.props.goalListContext.currentGoals.forEach((goal) => {
+                    GoalApiService.postGoal(goal).then((res) => {
+                        goal.goals.forEach(obj => {
+                            obj.goalid = res.id;
+                            ObjectivesApiService.postObjective(obj)
+                        })
+                    })}),100);
+            PastGoalApiService.purgePastGoals();
+            setTimeout(()=> this.props.goalListContext.pastGoals.forEach((goal) => {
+                PastGoalApiService.postPastGoal(goal).then((res) => {
+                    goal.goals.forEach(obj => {
+                        obj.goalid = res.id;
+                        PastObjectivesApiService.postObjective(obj)
+                    })
+                })}),100);
+        });
+
     }
 
     componentDidMount() {
@@ -224,34 +211,6 @@ class Settings extends React.Component {
                         </div>
                     </section>
                     </div>
-                {/*</div>*/}
-                {/*<h3>Notifications</h3>*/}
-                {/*<div>*/}
-                {/*    <div className="radio">*/}
-                {/*        <label>*/}
-                {/*            <input type="radio" value="All"*/}
-                {/*                   checked={this.state.selectedNotification === 'All'}*/}
-                {/*                   onChange={(e) => this.handleOptionChange(e)}/>*/}
-                {/*            All Email & Phone*/}
-                {/*        </label>*/}
-                {/*    </div>*/}
-                {/*    <div className="radio">*/}
-                {/*        <label>*/}
-                {/*            <input type="radio" value="Mid"*/}
-                {/*                   checked={this.state.selectedNotification === 'Mid'}*/}
-                {/*                   onChange={(e) => this.handleOptionChange(e)}/>*/}
-                {/*            Just Phone*/}
-                {/*        </label>*/}
-                {/*    </div>*/}
-                {/*    <div className="radio">*/}
-                {/*        <label>*/}
-                {/*            <input type="radio" value="None"*/}
-                {/*                   checked={this.state.selectedNotification === 'None'}*/}
-                {/*                   onChange={(e) => this.handleOptionChange(e)}/>*/}
-                {/*            Off*/}
-                {/*        </label>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
                 <section>
                     <p className='even-space' onClick={() => this.context.toggleArchiving()}
                            title={'Click To Toggle The Automatic Daily Archiver'}
@@ -261,7 +220,7 @@ class Settings extends React.Component {
                             style={{color: getCurrentThemeColors().headerColor}}>{(this.context.autoArchiving) ? 'On' : 'Off'}</span></p>
                 </section>
                 <section>
-                    <p className='even-space' onClick={this.toggleLocal}
+                    <p className='even-space' onClick={()=> this.setState({localStorageModel: true})}
                            title={'Click To Toggle The Local Storage'}
                            style={{color: getCurrentThemeColors().fontColor}}>
                         Local Storage
@@ -288,6 +247,7 @@ class Settings extends React.Component {
                     Account
                 </button>
                 {(this.state.deleteModel) ? <DeleteModel closeModel={() => this.setState({deleteModel: false})}/> : ''}
+                {(this.state.localStorageModel) ? <LocalStorageModel closeModel={() => this.setState({localStorageModel: false})} toggleLocal={this.toggleLocal}/> : ''}
             </main>
         )
     }

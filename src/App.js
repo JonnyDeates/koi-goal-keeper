@@ -13,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import PublicRoute from "./PublicRoute/PublicRoute";
 import LandingPage from "./LandingPage/LandingPage";
-import {catchClause} from "@babel/types";
 
 class App extends React.Component {
 
