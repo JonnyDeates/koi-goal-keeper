@@ -9,7 +9,7 @@ export default class LocalStorageModel extends Component {
             this.props.closeModel()
         };
         const warningText = 'Warning';
-        const confirmationText = (SettingsService.isLocal())
+        const confirmationText = (!SettingsService.isLocal())
             ? 'You are About to Disconnect From The Database. Reconnecting to the Database Will Require the Data on the Database to be Cleared. Are You Sure You Want to Continue?'
             : 'You are About to Connect To The Database. This Will Clear The Database Data, and Replace It With Your Local Storage Data. Are You Sure You Want to Continue?';
 
