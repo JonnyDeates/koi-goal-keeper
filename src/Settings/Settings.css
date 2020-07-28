@@ -89,6 +89,9 @@
     }
 }
 @media (min-width: 767px) {
+    .settings {
+        width: unset;
+    }
     .settings h1, .settings h2 {
         text-align: left;
         color: white;
