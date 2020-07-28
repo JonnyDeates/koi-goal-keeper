@@ -148,11 +148,12 @@ class AddGoal extends React.Component {
                                 <div className='bar-indicator-right' style={getColor(type)}/>
                             </li>)}
                         </ul>
+                        {(this.state.currentGoal.type === 'Other') ? <input className={'date-input'} type='date'
+                                                                            value={formatDate(new Date(this.state.otherDate))}
+                                                                            min={formatDate(this.state.today)}
+                                                                            onChange={this.handleOtherDate}/> : ''}
                     </div>
-                    {(this.state.currentGoal.type === 'Other') ? <input className={'date-input'} type='date'
-                                                                        value={formatDate(new Date(this.state.otherDate))}
-                                                                        min={formatDate(this.state.today)}
-                                                                        onChange={this.handleOtherDate}/> : ''}
+
                     <section className='add-input'>
                         <input value={this.state.value} onChange={this.handleInput} onKeyPress={e => {
                             if (e.key === 'Enter') {

@@ -10,6 +10,12 @@
     padding: 1rem 0;
     margin: 1rem;
     border-radius: 10px;
+    width: 85vw;
+}
+.goallist-count {
+    border-radius: 0 16px 16px 0;
+    padding: 0 16px;
+    margin-top: -36px !important;
 }
 .goallist-title {
     justify-content: space-evenly;
@@ -19,8 +25,8 @@
 }
 .goallist .add-button {
     position: relative;
-    left: 180px;
-    top: -21px;
+    left: 80px;
+    top: 0;
     border-radius: 0 0 10px 10px;
     border: unset;
     padding: 0 16px 4px 16px;
@@ -97,13 +103,14 @@
     background-color: #ffffffaa;
 }
 
-.goalist-push {
+.goallist-push {
     filter: grayscale(1) brightness(1.25) opacity(0.5);
     cursor: pointer;
     width: 50px;
     height: 50px;
     position: absolute;
-    right: 20vw;
+    right: 10vw;
+    margin-top: -50px;
 }
 .checkboxinput {
     margin: auto 0 auto 0;
@@ -156,6 +163,10 @@
     margin-top: 0;
     margin-bottom: 0;
 }
+.Ultra-Compacted .goallist-title {
+    border-radius: 10px !important;
+    margin: 0;
+}
 .Ultra-Compacted .goallist-title > p:nth-child(3)  {
     display: unset;
 }
@@ -188,7 +199,17 @@
     background-color: #ffffffaa;
 }
 @media (min-width: 481px) and (max-width:766px){
-
+    .goallist {
+        padding: 1em 16px;
+        background-color: unset;
+        width: 90vw;
+    }
+    .goallist > p {
+        left: 32px;
+    }
+    .goallist-push {
+        right: 5vw;
+    }
 }
 @media (min-width: 767px) {
     .Compacted > ul > * {
@@ -248,6 +269,10 @@
     }
     .Ultra-Compacted .goallist-push {
         top: 6px !important;
+
+    }
+    .Ultra-Compacted .goallist-title {
+        border-radius: 10px 0 0 10px !important;
     }
     .Ultra-Compacted .goallist-title > p:nth-child(3)  {
         display: none;
@@ -269,6 +294,7 @@
         height: 20px;
         max-height: 20px;
     }
+
     .checkboxinput {
         margin: auto 0 auto 0;
         position: relative;
@@ -288,6 +314,17 @@
     .goallist {
         padding: 1em 16px;
         background-color: unset;
+        width: unset;
+    }
+    .goallist .add-button {
+        position: relative;
+        left: 180px;
+        top: -20px;
+        border-radius: 0 0 10px 10px;
+        border: unset;
+        padding: 0 16px 4px 16px;
+        cursor: pointer;
+        animation: slide-in-up 2s forwards;
     }
     .goallist-count {
         position: relative !important;
