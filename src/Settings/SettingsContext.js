@@ -31,8 +31,6 @@ export const SettingsContext = React.createContext({
     },
     updateNickname: () => {
     },
-    updateEmail: () => {
-    }
 });
 
 export class SettingsProvider extends React.Component {
@@ -63,7 +61,6 @@ export class SettingsProvider extends React.Component {
             if (UserService.hasUserInfo()) {
                 this.setState({
                     username: UserService.getUser().username,
-                    // email: UserService.getUser().email,
                     nickname: UserService.getUser().nickname,
                     id: UserService.getUser().id
                 })
@@ -198,7 +195,7 @@ export class SettingsProvider extends React.Component {
             toggleDarkMode: () => {
                 SettingsApiService.toggleDarkMode(SettingsService.getSettings().id);
                 SettingsService.saveSettings({dark_mode: !this.state.darkMode});
-                this.setState({darkMode: !this.state.darkMode});
+                this.setState({darkMode: !this.state.darkMode}, ()=> setTimeout(()=> this.forceUpdate(), 100));
                 if(!SettingsService.isLocal()) {
                     SettingsApiService.toggleDarkMode(SettingsService.getSettings().id);
                 }
@@ -235,7 +232,8 @@ export class SettingsProvider extends React.Component {
             },
             setTheme: (e) => {
                 SettingsService.saveSettings({theme: e});
-                this.setState({theme: e});
+                this.setState({theme: e}, ()=> setTimeout(()=> this.forceUpdate(), 100)
+                );
                 if(!SettingsService.isLocal()) {
                     SettingsApiService.patchSetting({theme: e}, SettingsService.getSettings().id);
                 }

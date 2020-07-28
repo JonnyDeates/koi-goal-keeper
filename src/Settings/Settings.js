@@ -86,6 +86,7 @@ class Settings extends React.Component {
     setTheme(theme) {
         this.context.setTheme(theme);
         document.body.style.backgroundColor = getCurrentThemeColors().pColor;
+        // setTimeout(()=>document.body.style.backgroundColor = getCurrentThemeColors().pColor,100);
     }
 
     toggleLocal() {
@@ -114,6 +115,7 @@ class Settings extends React.Component {
     componentDidMount() {
         document.body.style.backgroundColor = getCurrentThemeColors().pColor;
     }
+
 
     render() {
         return (
@@ -228,7 +230,7 @@ class Settings extends React.Component {
                             style={{color: getCurrentThemeColors().headerColor}}>{(this.context.localStorage) ? 'On' : 'Off'}</span></p>
                 </section>
                 <section>
-                    <p className='even-space' onClick={() => this.context.toggleDarkMode()}
+                    <p className='even-space' onClick={() => {this.context.toggleDarkMode(); document.body.style.backgroundColor = getCurrentThemeColors().pColor;}}
                        title={'Click To Toggle Dark Mode'}
                        style={{color: getCurrentThemeColors().fontColor}}>
                         Dark Mode

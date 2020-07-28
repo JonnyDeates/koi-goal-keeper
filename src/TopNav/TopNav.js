@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
 import './TopNav.css';
 import TokenService from "../services/local/token-service";
@@ -8,9 +8,11 @@ import document from '../assets/icons/document.ico';
 import archive from '../assets/icons/archive.ico';
 import user from '../assets/icons/user.ico';
 import {getCurrentThemeColors} from "../Utils/Utils";
+import {SettingsContext} from "../Settings/SettingsContext";
 
 
-class TopNav extends React.Component {
+class TopNav extends Component {
+    static contextType = SettingsContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -19,9 +21,10 @@ class TopNav extends React.Component {
                     to: '/koi/settings',
                     name: 'Settings',
                     src: user
-                }]
+                }],
         };
     }
+
 
     render() {
         const logout = () => {
