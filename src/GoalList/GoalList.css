@@ -16,12 +16,13 @@
     border-radius: 0 16px 16px 0;
     padding: 0 16px;
     margin-top: -36px !important;
+    animation: 2s pop-in forwards;
 }
 .goallist-title {
     justify-content: space-evenly;
     position: relative;
     display: flex;
-    animation: 2s pop-in;
+    animation: 2s pop-in forwards;
 }
 .goallist .add-button {
     position: relative;
