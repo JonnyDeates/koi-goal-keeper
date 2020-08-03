@@ -8,6 +8,33 @@
 .theme-list-wrapper label {
     padding: 16px 0 0 0;
 }
+.color-style {
+    display: block;
+    padding: 0;
+    max-width: 512px;
+}
+.color-style li {
+     max-width: 512px;
+     display: flex;
+     justify-content: space-evenly;
+     border-radius: 20px;
+     padding: 0;
+     overflow: hidden;
+ }
+.color-style li div{
+    display: inline-flex;
+    position: relative;
+    width: 32px;
+    height: 32px;
+    padding: 0 10px;
+    text-align: center;
+    transition: transform 1s;
+    z-index: 1;
+}
+.color-style li div:hover {
+    transform: scale(2);
+    z-index: 2;
+}
 .dropdown-wrapper {
     position: relative;
     z-index: 4;

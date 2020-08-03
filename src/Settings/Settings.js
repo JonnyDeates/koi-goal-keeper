@@ -3,7 +3,7 @@ import AuthApiService from "../services/database/auth-api-service";
 import './Settings.css';
 import {SettingsContext} from "./SettingsContext";
 import {toast} from "react-toastify";
-import {getColor, getCurrentThemeColors, getThemes} from "../Utils/Utils";
+import {getColor, getCurrentThemeColors, getThemes, getTypeColors} from "../Utils/Utils";
 import DeleteModel from "./DeleteModel/DeleteModel";
 import GoalService from "../services/local/goals-service";
 import GoalApiService from "../services/database/goals-api-service";
@@ -245,7 +245,10 @@ class Settings extends React.Component {
                             style={{color: getCurrentThemeColors().headerColor}}>{this.context.typeListSelected}</span></p>
                 </section>
                 <section>
-                    {/*<ul className={'even-space'}*/}
+                    <li>{getTypeColors().find((theme, i) => theme)} </li>
+                    <ul className={'color-style'}>
+                        {getTypeColors().map((theme, i)=> <li key={i}>{theme.map((color, j)=> <div key={i+''+j} style={{backgroundColor: color, width: '16px', height: '16px'}}/>)}</li>)}
+                    </ul>
                 </section>
                 <button className='delete' onClick={() => this.setState({deleteModel: true})}
                         style={{backgroundColor: getCurrentThemeColors().tColor, color: getCurrentThemeColors().fontColor+'77'}}>Suspend
