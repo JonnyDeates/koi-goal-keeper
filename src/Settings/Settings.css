@@ -34,7 +34,7 @@
     max-height: 100%;
 }
 
-.color-style li div{
+.color-style li div{ 
     display: inline-flex;
     position: relative;
     width: 32px;
