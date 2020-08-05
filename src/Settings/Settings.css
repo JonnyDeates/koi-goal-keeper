@@ -11,29 +11,53 @@
 .color-style {
     display: block;
     padding: 0;
-    max-width: 512px;
 }
 .color-style li {
      max-width: 512px;
+    width: 512px;
      display: flex;
      justify-content: space-evenly;
-     border-radius: 20px;
+     border-radius: 10px;
      padding: 0;
      overflow: hidden;
+    list-style: none;
  }
+.color-style > div{
+    margin: 0;
+    max-height: 0;
+    overflow-y: hidden;
+    position: absolute;
+    transition: all 2s;
+}
+.color-style > li:hover ~ div, .color-style > div:hover{
+    display: block;
+    max-height: 100%;
+}
+
 .color-style li div{
     display: inline-flex;
     position: relative;
     width: 32px;
-    height: 32px;
-    padding: 0 10px;
+    height: 16px;
+    max-height: 32px;
+    padding: 8px 4px;
     text-align: center;
     transition: transform 1s;
     z-index: 1;
 }
 .color-style li div:hover {
-    transform: scale(2);
+    transform: scale(1.5);
     z-index: 2;
+}
+.color-style li div span{
+    transition: transform 1s;
+    font-size: .45em;
+    height: 0;
+    width: 0;
+    color: white;
+}
+.color-style li div .hidden {
+    display: none;
 }
 .dropdown-wrapper {
     position: relative;
