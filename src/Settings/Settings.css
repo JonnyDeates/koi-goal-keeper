@@ -1,4 +1,5 @@
 .settings{
+    width: 100vw;
     height: 95vh;
     width: 100vw;
 }
@@ -10,12 +11,14 @@
     padding: 16px 0 0 0;
 }
 .color-style {
-    display: block;
+    width: 100%;
     padding: 0;
+    display: flex;
+    justify-content: space-evenly;
 }
 .color-style li {
-     max-width: 512px;
-    width: 512px;
+     max-width: 320px;
+    width: 300px;
      display: flex;
      justify-content: space-evenly;
      border-radius: 10px;
@@ -23,14 +26,17 @@
      overflow: hidden;
     list-style: none;
  }
-.color-style > div{
+.color-style > div {
+    display: block;
+}
+.color-style > div >div{
     margin: 0;
     max-height: 0;
     overflow-y: hidden;
     position: absolute;
     transition: all 2s;
 }
-.color-style > li:hover ~ div, .color-style > div:hover{
+.color-style > div > li:hover ~ div, .color-style > div  > div:hover{
     display: block;
     max-height: 100%;
 }
@@ -38,10 +44,10 @@
 .color-style li div{
     display: inline-flex;
     position: relative;
-    width: 32px;
+    width: 16px;
     height: 16px;
     max-height: 32px;
-    padding: 8px 4px;
+    padding: 4px 4px;
     text-align: center;
     transition: transform 1s;
     z-index: 1;
@@ -51,11 +57,7 @@
     z-index: 2;
 }
 .color-style li div span{
-    transition: transform 1s;
-    font-size: .45em;
-    height: 0;
-    width: 0;
-    color: white;
+    display: none;
 }
 .color-style li div .hidden {
     display: none;
@@ -154,5 +156,23 @@
     }
     .even-space {
         display: flex;
+    }
+    .color-style li {
+        max-width: 512px;
+        width: 512px;
+    }
+    .color-style li div{
+        width: 32px;
+        height: 16px;
+        max-height: 32px;
+        padding: 8px 4px;
+    }
+    .color-style li div span{
+        display: unset;
+        transition: transform 1s;
+        font-size: .45em;
+        height: 0;
+        width: 0;
+        color: white;
     }
 }
