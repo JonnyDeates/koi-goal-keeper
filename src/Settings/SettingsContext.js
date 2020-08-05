@@ -126,6 +126,7 @@ export class SettingsProvider extends React.Component {
             darkMode: this.state.darkMode,
             localStorage: this.state.localStorage,
             compacted: this.state.compacted,
+            colorStyle: this.state.colorStyle,
             toggleArchiving: () => {
                 this.setState({autoArchiving: !this.state.autoArchiving}, ()=> {
                     SettingsService.saveSettings({auto_archiving: this.state.autoArchiving});
@@ -252,11 +253,14 @@ export class SettingsProvider extends React.Component {
                     AuthApiService.patchUser({nickname: this.state.newNickname});
                 }
             },
-            // updateEmail: (email) => {
-            //     UserService.saveUser({email});
-            //     AuthApiService.patchUser({email});
-            //     this.setState({email})
-            // }
+            updateColorStyle: (color_style) => {
+                SettingsService.saveSettings({color_style});
+                this.setState({colorStyle: color_style})
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.patchSetting({color_style}, SettingsService.getSettings().id)
+                }
+
+            }
         };
         return (
             <SettingsContext.Provider value={value}>
