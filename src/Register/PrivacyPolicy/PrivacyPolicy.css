@@ -1,0 +1,15 @@
+.privacy-policy {
+    max-height: 300px;
+    overflow-y: scroll;
+    background-color: white;
+    padding: 0 1rem;
+    text-align: left;
+    border-radius: 10px;
+    margin: 2rem 0;
+    animation: 4s fade-in;
+}
+.privacy-policy h1, .privacy-policy h2, .privacy-policy h3 {
+    color: #000 !important;
+    text-shadow: unset !important;
+    text-align: left;
+}
