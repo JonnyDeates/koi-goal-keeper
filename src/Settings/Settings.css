@@ -1,4 +1,5 @@
 .settings{
+    width: 100vw;
     height: 95vh;
 }
 .theme-list {
@@ -7,6 +8,60 @@
 }
 .theme-list-wrapper label {
     padding: 16px 0 0 0;
+}
+.color-style {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+.color-style li {
+     max-width: 320px;
+    width: 300px;
+     display: flex;
+     justify-content: space-evenly;
+     border-radius: 10px;
+     padding: 0;
+     overflow: hidden;
+    list-style: none;
+ }
+.color-style > div {
+    display: block;
+}
+.color-style > div >div{
+    margin: 0;
+    max-height: 0;
+    overflow-y: hidden;
+    position: absolute;
+    transition: all 2s;
+}
+.color-style > div > li:hover ~ div, .color-style > div  > div:hover{
+    display: block;
+    max-height: 100%;
+}
+.color-style > div > div > li {
+    cursor: pointer;
+}
+.color-style li div{
+    display: inline-flex;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    max-height: 32px;
+    padding: 4px 4px;
+    text-align: center;
+    transition: transform 1s;
+    z-index: 1;
+}
+.color-style li div:hover {
+    transform: scale(1.5);
+    z-index: 2;
+}
+.color-style li div span{
+    display: none;
+}
+.color-style li div .hidden {
+    display: none;
 }
 .dropdown-wrapper {
     position: relative;
@@ -43,7 +98,7 @@
 .settings .delete:hover {
     background-color: #ffb9baaa !important;
 }
-.model-wrapper-delete {
+.model-wrapper {
     background-color: #00000077;
     position: absolute;
     top: 0;
@@ -88,6 +143,9 @@
     }
 }
 @media (min-width: 767px) {
+    .settings {
+        width: unset;
+    }
     .settings h1, .settings h2 {
         text-align: left;
         color: white;
@@ -99,5 +157,23 @@
     }
     .even-space {
         display: flex;
+    }
+    .color-style li {
+        max-width: 512px;
+        width: 512px;
+    }
+    .color-style li div{
+        width: 32px;
+        height: 16px;
+        max-height: 32px;
+        padding: 8px 4px;
+    }
+    .color-style li div span{
+        display: unset;
+        transition: transform 1s;
+        font-size: .45em;
+        height: 0;
+        width: 0;
+        color: white;
     }
 }

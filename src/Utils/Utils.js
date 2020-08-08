@@ -2,70 +2,106 @@ import React from 'react'
 import './Utils.css'
 import SettingsService from "../services/local/settings-service";
 
-export function getColor(type) {
-    let color = '';
-    let index = 0;
-    let ColorThemes = [
-        ['#007a0e', '#4fc300', '#65ff00', '#c7f000'
-            , '#f0ca00', '#f05c00', '#cf3900', '#ff2700'
-            , '#c51000', '#871000', '#770200', '#4d0000'
-            , '#8b005b', '#700077', '#a200f0', '#25002c'],
-        ['#0f00ff', '#0076d0', '#00a8ff', '#00def0'
+export function getSpecificType(i) {
+    return ['Daily', 'Weekly', 'Biweekly', 'Monthly', 'Quarterly', '6-Month', '9-Month', 'Yearly', '2-Year', '3-Year', '4-Year', '5-Year', '10-Year', '20-Year', '30-Year', 'Distant'][i];
+}
+
+export function getTypeColorsAvailable() {
+    let newType = [];
+    switch (SettingsService.getSettings().type_list) {
+        case 'Today List':
+            newType = [0, 15];
+            break;
+        case 'Short List':
+            newType = [0, 1, 3, 7, 11, 15];
+            break;
+        case 'Normal List':
+            newType = [0, 1, 3, 4, 5, 7, 9, 11, 15];
+            break;
+        case 'Extended List':
+            newType = [0, 1, 2, 3, 4, 5, 7, 8, 9, 11, 12, 15];
+            break;
+        case 'Full List':
+            newType = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+            break;
+        default:
+            newType = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+    }
+    return newType;
+}
+export function getTypeColors() {
+    return [{type: 'Default', colors: ['#007a0e', '#4fc300', '#65ff00', '#c7f000'
+        , '#f0ca00', '#f05c00', '#cf3900', '#ff2700'
+        , '#c51000', '#871000', '#770200', '#4d0000'
+        , '#8b005b', '#700077', '#a200f0', '#25002c']},
+        {type: 'Cold', colors: ['#0f00ff', '#0076d0', '#00a8ff', '#00def0'
             , '#a500f0', '#fe00ff', '#bf00b9', '#700077'
             , '#854d84', '#6e3973', '#692671', '#3e0a42'
-            , '#320729', '#2b002c', '#1b0027', '#000000'],
-        ['#ff1700', '#000dd0', '#00a8ff', '#f08100'
+            , '#320729', '#2b002c', '#1b0027', '#000000']},
+        {type: 'Earth', colors: ['#ff1700', '#000dd0', '#00a8ff', '#f08100'
             , '#d400f0', '#ffe600', '#00bf0b', '#00770d'
             , '#007a06', '#005406', '#003e08', '#002a04'
-            , '#46006a', '#1d002c', '#180027', '#000000'],];
+            , '#46006a', '#1d002c', '#180027', '#000000']}
+]}
+export function findTypeColor() {
+    let typeColor = getTypeColors().find((theme, i) => SettingsService.getSettings().color_style === theme.type);
+    if(typeColor)
+        return typeColor;
+    else
+        return getTypeColors()[0]
+}
+export function getColor(type) {
+    let color = '';
+    let ColorThemes = findTypeColor().colors;
     switch (type) {
         case 'Daily':
-            color = ColorThemes[index][0];
+            color = ColorThemes[0];
             break;
         case 'Weekly':
-            color = ColorThemes[index][1];
+            color = ColorThemes[1];
             break;
         case 'Biweekly':
-            color = ColorThemes[index][2];
+            color = ColorThemes[2];
             break;
         case 'Monthly':
-            color = ColorThemes[index][3];
+            color = ColorThemes[3];
             break;
         case 'Quarterly':
-            color = ColorThemes[index][4];
+            color = ColorThemes[4];
             break;
         case '6-Month':
-            color = ColorThemes[index][5];
+            color = ColorThemes[5];
             break;
         case '9-Month':
-            color = ColorThemes[index][6];
+            color = ColorThemes[6];
             break;
         case 'Yearly':
-            color = ColorThemes[index][7];
+            color = ColorThemes[7];
             break;
         case '2-Year':
-            color = ColorThemes[index][8];
+            color = ColorThemes[8];
             break;
         case '3-Year':
-            color = ColorThemes[index][9];
+            color = ColorThemes[9];
             break;
         case '4-Year':
-            color = ColorThemes[index][10];
+            color = ColorThemes[10];
             break;
         case '5-Year':
-            color = ColorThemes[index][11];
+            color = ColorThemes[11];
             break;
         case '10-Year':
-            color = ColorThemes[index][12];
+            color = ColorThemes[12];
             break;
         case '20-Year':
-            color = ColorThemes[index][13];
+            color = ColorThemes[13];
             break;
         case '30-Year':
-            color = ColorThemes[index][14];
+            color = ColorThemes[14];
             break;
         case 'Distant':
-            color = ColorThemes[index][15];
+            color = ColorThemes[15];
             break;
         default:
             color = '#888888';
@@ -194,7 +230,7 @@ export function Required({className, ...props}) {
 
 export function uuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-        let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        let r = Math.random() * 16 | 0, v = c === 'x' ? r : ((r && 0x3) || 0x8);
         return v.toString(16);
     });
 }
@@ -253,4 +289,10 @@ export function getTime(type) {
     }
     return tempDate;
 
+}
+
+export function validateEmail(email) {
+
+    let re = /^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
 }

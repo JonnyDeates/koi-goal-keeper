@@ -17,7 +17,6 @@
     display: flex;
     animation: 2s pop-in;
 }
-
 .goallist .add-button {
     position: relative;
     left: 180px;
@@ -26,6 +25,7 @@
     border: unset;
     padding: 0 16px 4px 16px;
     cursor: pointer;
+    animation: slide-in-up 2s forwards;
 }
 .goallist .add-button:hover {
     opacity: .7;
@@ -298,6 +298,7 @@
         top: -4px;
         width: min-content;
         border-radius: 10px 10px 0 0;
+        animation: slide-in-left 2s forwards
     }
     .goallist-push {
         filter: grayscale(1) brightness(1) opacity(1);
@@ -313,6 +314,7 @@
         background-color: aliceblue;
         top: -4px;
         border-radius: 10px 10px 0 0;
+        animation: slide-in-right 2s forwards
     }
     .goallist-title {
         position: absolute;
@@ -326,7 +328,7 @@
         z-index: 0;
         width: 82px;
         opacity: 0;
-        animation: 3s slide-in-down forwards;
+        animation: 3s slide-in-right forwards;
     }
     .goallist-title > p {
         margin: 0;

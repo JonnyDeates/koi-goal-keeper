@@ -1,7 +1,9 @@
 import * as React from "react";
 import UserService from "../services/local/user-api-service";
+import AuthApiService from "../services/database/auth-api-service";
+import TokenService from "../services/local/token-service";
 import SettingsService from "../services/local/settings-service";
-import {uuid} from "../Utils/Utils";
+import SettingsApiService from "../services/database/settings-api-service";
 
 export const SettingsContext = React.createContext({
     themes: [],
@@ -35,6 +37,8 @@ export class SettingsProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            username: '',
+            email: '',
             nickname: '',
             id: '',
             theme: 'Default',
@@ -43,6 +47,8 @@ export class SettingsProvider extends React.Component {
             typeListSelected: '',
             autoArchiving: true,
             showDelete: false,
+            notifications: false,
+            localStorage: false,
             paidAccount: false,
             colorStyle: '',
             compacted: 'No',
@@ -51,56 +57,31 @@ export class SettingsProvider extends React.Component {
     }
 
     componentDidMount() {
-        if (UserService.hasUserInfo()) {
-            this.setState({
-                nickname: UserService.getUser().nickname,
-                id: UserService.getUser().id
-            })
-        } else {
-            let user = {nickname: 'Koi Fry', id: uuid()};
-            this.setState({}, (UserService.saveUser(user)))
+        if (TokenService.getAuthToken()) {
+            if (UserService.hasUserInfo()) {
+                this.setState({
+                    username: UserService.getUser().username,
+                    nickname: UserService.getUser().nickname,
+                    id: UserService.getUser().id
+                })
+            }
+            if (SettingsService.hasSettings()) {
+                let {type_list, type_selected, auto_archiving, show_delete, local_storage, dark_mode, paid_account, color_style, compacted, theme, notifications} = SettingsService.getSettings()
+                this.setState({
+                    typeListSelected: type_list,
+                    currentType: type_selected,
+                    autoArchiving: auto_archiving || false,
+                    showDelete: show_delete || false,
+                    localStorage: local_storage || false,
+                    darkMode: dark_mode || false,
+                    paidAccount: paid_account || false,
+                    colorStyle: color_style,
+                    compacted,
+                    theme,
+                    notifications: notifications || false,
+                }, () => this.updateTypes());
+            }
         }
-        if (SettingsService.hasSettings()) {
-            let {type_list, type_selected, auto_archiving, show_delete, dark_mode, paid_account, color_style, compacted, theme, notifications} = SettingsService.getSettings();
-            this.setState({
-                typeListSelected: type_list,
-                currentType: type_selected,
-                autoArchiving: auto_archiving || false,
-                showDelete: show_delete || false,
-                darkMode: dark_mode || false,
-                paidAccount: paid_account || false,
-                colorStyle: color_style,
-                compacted,
-                theme,
-                notifications: notifications || false,
-            }, () => this.updateTypes())
-        } else {
-            let settings = {
-                id: 1,
-                type_list: 'Normal List',
-                theme: 'Default',
-                type_selected: 'All',
-                auto_archiving: false,
-                show_delete: false,
-                notifications: true,
-                compacted: 'No',
-                paid_account: false,
-                dark_mode: false,
-                color_style: 'standard'
-            };
-            this.setState({
-                typeListSelected: settings.type_list,
-                currentType: settings.type_selected,
-                autoArchiving: settings.auto_archiving,
-                showDelete: settings.show_delete,
-                darkMode: settings.dark_mode,
-                paidAccount: false,
-                colorStyle: settings.color_style,
-                compacted: settings.compacted,
-                theme: settings.theme
-            }, () => SettingsService.saveSettings(settings));
-        }
-
     }
 
     updateTypes() {
@@ -143,10 +124,17 @@ export class SettingsProvider extends React.Component {
             showDelete: this.state.showDelete,
             paidAccount: this.state.paidAccount,
             darkMode: this.state.darkMode,
+            localStorage: this.state.localStorage,
             compacted: this.state.compacted,
-            toggleArchiving: () => this.setState({autoArchiving: !this.state.autoArchiving}, () => {
-                SettingsService.saveSettings({auto_archiving: this.state.autoArchiving});
-            }),
+            colorStyle: this.state.colorStyle,
+            toggleArchiving: () => {
+                this.setState({autoArchiving: !this.state.autoArchiving}, ()=> {
+                    SettingsService.saveSettings({auto_archiving: this.state.autoArchiving});
+                });
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.toggleAutoArchiving(SettingsService.getSettings().id);
+                }
+            },
             toggleCompacted: () => {
                 let compactedTemp = '';
                 switch (this.state.compacted) {
@@ -168,6 +156,10 @@ export class SettingsProvider extends React.Component {
                 }
                 SettingsService.saveSettings({compacted: compactedTemp});
                 this.setState({compacted: compactedTemp});
+
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.toggleCompacted(SettingsService.getSettings().id);
+                }
             },
             toggleType: () => {
                 let newTypeSelected = '';
@@ -196,12 +188,79 @@ export class SettingsProvider extends React.Component {
                         this.updateTypes();
                     }
                 );
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.toggleTypeList(JSON.stringify(SettingsService.getSettings().id));
+                }
             },
-            toggleDarkMode: () => this.setState({darkMode: !this.state.darkMode}, () => SettingsService.saveSettings({dark_mode: !this.state.darkMode})),
-            toggleShowDelete: () => this.setState({showDelete: !this.state.showDelete}, () => SettingsService.saveSettings({show_delete: !this.state.showDelete})),
-            setTheme: (e) => this.setState({theme: e}, () => SettingsService.saveSettings({theme: e})),
-            setType: (e) => this.setState({currentType: e}, () => SettingsService.saveSettings({type_selected: e})),
-            updateNickname: (nickname) => this.setState({nickname}, () => UserService.saveUser({nickname})),
+
+            toggleDarkMode: () => {
+                SettingsApiService.toggleDarkMode(SettingsService.getSettings().id);
+                SettingsService.saveSettings({dark_mode: !this.state.darkMode});
+                this.setState({darkMode: !this.state.darkMode}, ()=> setTimeout(()=> this.forceUpdate(), 100));
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.toggleDarkMode(SettingsService.getSettings().id);
+                }
+            },
+            toggleShowDelete: () => {
+                SettingsService.saveSettings({show_delete: !this.state.showDelete});
+                this.setState({showDelete: !this.state.showDelete})
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.toggleDelete(SettingsService.getSettings().id);
+                }
+            },
+            toggleLocalStorage: (callback) => {
+                SettingsApiService.toggleLocalStorage(SettingsService.getSettings().id);
+                SettingsService.saveSettings({local_storage: !this.state.localStorage});
+                if (this.state.localStorage) {
+                    const {type_list, theme, type_selected, color_style, show_delete, notifications, auto_archiving, dark_mode, local_storage, compacted} = SettingsService.getSettings();
+                    SettingsApiService.patchAllSettings({
+                        type_list,
+                        theme,
+                        type_selected,
+                        color_style,
+                        show_delete,
+                        notifications,
+                        auto_archiving,
+                        dark_mode,
+                        local_storage,
+                        compacted
+                    }, SettingsService.getSettings().id).catch((e)=> console.log(e));
+
+
+                    callback();
+                }
+                this.setState({localStorage: !this.state.localStorage})
+            },
+            setTheme: (e) => {
+                SettingsService.saveSettings({theme: e});
+                this.setState({theme: e}, ()=> setTimeout(()=> this.forceUpdate(), 100)
+                );
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.patchSetting({theme: e}, SettingsService.getSettings().id);
+                }
+            },
+            setType: (e) => {
+                SettingsService.saveSettings({type_selected: e});
+                this.setState({currentType: e})
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.patchSetting({type_selected: e}, SettingsService.getSettings().id);
+                }
+            },
+            updateNickname: (nickname) => {
+                UserService.saveUser({nickname});
+                this.setState({nickname})
+                if(!SettingsService.isLocal()) {
+                    AuthApiService.patchUser({nickname: this.state.newNickname});
+                }
+            },
+            updateColorStyle: (color_style) => {
+                SettingsService.saveSettings({color_style});
+                this.setState({colorStyle: color_style})
+                if(!SettingsService.isLocal()) {
+                    SettingsApiService.patchSetting({color_style}, SettingsService.getSettings().id)
+                }
+
+            }
         };
         return (
             <SettingsContext.Provider value={value}>
