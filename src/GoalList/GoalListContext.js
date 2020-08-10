@@ -235,7 +235,7 @@ export class GoalListProvider extends React.Component {
         let AllGoals = this.state.currentGoals;
         let currentGoal = AllGoals.find((goallist) => goallist.id === Id);
 
-        currentGoal.goals.push(objective)
+        currentGoal.goals.push(objective);
 
         this.setState({currentGoals: AllGoals})
     }

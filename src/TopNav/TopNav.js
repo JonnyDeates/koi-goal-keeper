@@ -14,9 +14,9 @@ class TopNav extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            links: [{to: '/', name: 'Home', src: home}, {to: '/add', name: 'Add', src: document},
-                {to: '/past-goals', name: 'Past Goals', src: archive}, {
-                    to: '/settings',
+            links: [{to: '/koi', name: 'Home', src: home}, {to: '/koi/add', name: 'Add', src: document},
+                {to: '/koi/past-goals', name: 'Past Goals', src: archive}, {
+                    to: '/koi/settings',
                     name: 'Settings',
                     src: user
                 }],

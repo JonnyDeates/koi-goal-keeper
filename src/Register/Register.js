@@ -57,7 +57,7 @@ class Register extends React.Component {
                         nickname.value = '';
                         username.value = '';
                         password.value = '';
-                        window.location.replace('/login');
+                        window.location.replace('/');
                     })
                     .catch(res => {
                         this.setState({error: res.error})
@@ -147,7 +147,7 @@ class Register extends React.Component {
                     {(this.state.isSubmitable) ? <Button type='submit'>
                         Submit
                     </Button> : <Button type={'button'} className={'disabled noselect'}>Submit</Button>}
-                    <p><Link to={'/login'}>Already A User?</Link></p>
+                    <p><Link to={'/'}>Already A User?</Link></p>
                 </form>
                 {(this.state.isPrivacyModal) ?
                     <Modal header={'Privacy Policy'} closeModal={this.togglePrivacyModal}><PrivacyPolicy/></Modal> : ''}

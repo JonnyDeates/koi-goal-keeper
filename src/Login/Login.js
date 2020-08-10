@@ -30,7 +30,7 @@ class Login extends React.Component {
                     username.value = '';
                     password.value = '';
                     const {theme, type_list, type_selected, id: settingid, show_delete, notifications, auto_archiving, compacted, local_storage, dark_mode, color_style} = res.payload.settings;
-                    console.log(res.payload.settings)
+                    console.log(res.payload.settings, res.authToken,TokenService.hasAuthToken())
                     const {id, nickname, email} = res.payload.payload;
                     TokenService.saveAuthToken(res.authToken);
                     UserService.saveUser({id, nickname, email, username: res.payload.payload.username});
@@ -39,7 +39,7 @@ class Login extends React.Component {
                         types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', '6-Month', 'Yearly', '3-Year', '5-Year', 'Distant'],
                         show_delete, notifications, auto_archiving, compacted,  local_storage, dark_mode, color_style
                     });
-                    window.location.reload();
+                    window.location.replace('/koi/');
                 })
                 .catch(res => {
                     this.setState({error: res.error})
@@ -66,10 +66,10 @@ class Login extends React.Component {
                             types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', '6-Month', 'Yearly', '3-Year', '5-Year', 'Distant'],
                             show_delete, notifications, auto_archiving, compacted
                         });
-                        window.location.reload();
+                        // window.location.reload();
                     })
                     .catch(e => {
-                        window.location.reload();
+                        // window.location.reload();
                     })
                     .catch(res => {
                         this.setState({error: res.error})
