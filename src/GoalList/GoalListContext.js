@@ -140,7 +140,6 @@ export class GoalListProvider extends React.Component {
             ObjectivesApiService.getObjectiveList(data.id).then(res => x.goals = res)
                 .then(() => {
                         if (x.goals.length === 0) {
-                            // Figure it out here
                             GoalApiService.deleteGoal(x.id)
                         }
                         return this.forceUpdate()
@@ -280,9 +279,9 @@ export class GoalListProvider extends React.Component {
 
         this.setState({currentGoals: allGoals}, () => GoalService.saveGoals(this.state.currentGoals));
         if (!SettingsService.isLocal()) {
-            if(obj.newObj){
+            if (obj.newObj) {
                 let newObj = {obj: str, goalid: goalID};
-                ObjectivesApiService.postObjective(newObj).then((obj)=> {
+                ObjectivesApiService.postObjective(newObj).then((obj) => {
                     newObj.id = obj.id;
                     newObj.checked = obj.checked;
                     GoalList.goals.splice(GoalList.goals.findIndex((Obj) => Obj.id === obj.id), 1, newObj);
@@ -337,53 +336,69 @@ export class GoalListProvider extends React.Component {
                 newCurrentGoal.type = this.updateTypeTimeline(this.state.currentGoal);
                 this.setState({currentGoal: newCurrentGoal})
             }
+
+            const setState = () => { // Creates the State that wil lbe set
+                this.setState({
+                    currentGoals: [...this.state.currentGoals, newCurrentGoal]
+                        .sort((a, b) => new Date(a.date) - new Date(b.date)),
+                    currentGoal: {
+                        type: this.state.currentGoal.type,
+                        goals: [],
+                        date: this.state.currentGoal.date
+                    }
+                }, () => GoalService.saveGoals(this.state.currentGoals));
+                toast.success(`${this.state.currentGoal.type} Goal Added!`);
+            };
+
             // Checks to see if it is only local content
             if (!SettingsService.isLocal()) {
                 let goals = this.state.currentGoal.goals;
                 // Posting The Goal with a Fetch Call
                 GoalApiService.postGoal(newCurrentGoal)
-                    .then((res) => goals.forEach((obj) => // Posting Each Objective
+                    .then((res) => {
+                        goals.forEach((obj) => // Posting Each Objective
                             ObjectivesApiService.postObjective({
                                 obj: obj.obj,
                                 goalid: res.id
-                            }))
-                    );
+                            }));
+                        setState();
+                    })
+                    .catch((e) => toast.error(e.error))
+            } else {
+                setState();
             }
-            this.setState({
-                currentGoals: [...this.state.currentGoals, newCurrentGoal]
-                    .sort((a, b) => new Date(a.date) - new Date(b.date)),
-                currentGoal: {
-                    type: this.state.currentGoal.type,
-                    goals: [],
-                    date: this.state.currentGoal.date
-                }
-            }, () => GoalService.saveGoals(this.state.currentGoals));
-            toast.success(`${this.state.currentGoal.type} Goal Added!`);
         } else {
-            toast.error(`The ${this.state.currentGoal.type} Goal is Missing Objectives.`)
+            toast.error(`The ${this.state.currentGoal.type}Goal is Missing Objectives.`)
         }
     }
 
     pushGoal(id) { // Pushes a Current Goal to The Past Goal
         let newPastGoal = this.state.currentGoals.find(g => g.id === id);
-        this.setState({
-            currentGoals: this.state.currentGoals.filter((Goal) => Goal.id !== id),
-            pastGoals: [...this.state.pastGoals, newPastGoal]
-        }, () => {
-            GoalService.saveGoals(this.state.currentGoals);
-            PastGoalService.savePastGoals(this.state.pastGoals);
-        });
-        toast.success(`Archived ${newPastGoal.type} Goal`);
+        let setState = () => {
+            this.setState({
+                currentGoals: this.state.currentGoals.filter((Goal) => Goal.id !== id),
+                pastGoals: [...this.state.pastGoals, newPastGoal]
+            }, () => {
+                GoalService.saveGoals(this.state.currentGoals);
+                PastGoalService.savePastGoals(this.state.pastGoals);
+            });
+            toast.success(`Archived ${newPastGoal.type}Goal`);
+        }
         if (!SettingsService.isLocal()) {
             PastGoalApiService.postPastGoal(newPastGoal)
-                .then((res) =>
-                    newPastGoal.goals.map(pg => PastObjectivesApiService.postObjective({
+                .then((res) => {
+                        newPastGoal.goals.map(pg => PastObjectivesApiService.postObjective({
                             obj: pg.obj,
                             checked: pg.checked,
                             goalid: res.id
-                        })
-                    ));
-            GoalApiService.deleteGoal(id);
+                        }));
+                        GoalApiService.deleteGoal(id);
+                    setState()
+                    }
+                ).catch(e => toast.error(e.error));
+
+        } else {
+            setState();
         }
     }
 

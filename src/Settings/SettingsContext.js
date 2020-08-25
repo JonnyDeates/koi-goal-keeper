@@ -128,15 +128,16 @@ export class SettingsProvider extends React.Component {
             compacted: this.state.compacted,
             colorStyle: this.state.colorStyle,
             toggleArchiving: () => {
-                this.setState({autoArchiving: !this.state.autoArchiving}, ()=> {
+                this.setState({autoArchiving: !this.state.autoArchiving}, () => {
                     SettingsService.saveSettings({auto_archiving: this.state.autoArchiving});
                 });
-                if(!SettingsService.isLocal()) {
+                if (!SettingsService.isLocal()) {
                     SettingsApiService.toggleAutoArchiving(SettingsService.getSettings().id);
                 }
             },
             toggleCompacted: () => {
                 let compactedTemp = '';
+
                 switch (this.state.compacted) {
                     case 'No':
                         compactedTemp = 'Compacted';
@@ -157,54 +158,69 @@ export class SettingsProvider extends React.Component {
                 SettingsService.saveSettings({compacted: compactedTemp});
                 this.setState({compacted: compactedTemp});
 
-                if(!SettingsService.isLocal()) {
+                if (!SettingsService.isLocal()) {
                     SettingsApiService.toggleCompacted(SettingsService.getSettings().id);
                 }
             },
             toggleType: () => {
+                const currentType = this.state.typeListSelected;
                 let newTypeSelected = '';
-                switch (this.state.typeListSelected) {
-                    case 'Today List':
-                        newTypeSelected = 'Short List';
-                        break;
-                    case 'Short List':
-                        newTypeSelected = 'Normal List';
-                        break;
-                    case 'Normal List':
-                        newTypeSelected = 'Extended List';
-                        break;
-                    case 'Extended List':
-                        newTypeSelected = 'Full List';
-                        break;
-                    case 'Full List':
-                        newTypeSelected = 'Today List';
-                        break;
-                    default:
-                        newTypeSelected = 'Normal List';
-                        break;
+                if (!value.paidAccount) {
+                    switch (currentType) {
+                        case 'Short List':
+                            newTypeSelected = 'Normal List';
+                            break;
+                        case 'Normal List':
+                            newTypeSelected = 'Short List';
+                            break;
+                        default:
+                            newTypeSelected = 'Normal List';
+                            break;
+                    }
+                } else {
+                    switch (currentType) {
+                        case 'Today List':
+                            newTypeSelected = 'Short List';
+                            break;
+                        case 'Short List':
+                            newTypeSelected = 'Normal List';
+                            break;
+                        case 'Normal List':
+                            newTypeSelected = 'Extended List';
+                            break;
+                        case 'Extended List':
+                            newTypeSelected = 'Full List';
+                            break;
+                        case 'Full List':
+                            newTypeSelected = 'Today List';
+                            break;
+                        default:
+                            newTypeSelected = 'Normal List';
+                            break;
+                    }
                 }
                 this.setState({typeListSelected: newTypeSelected}, () => {
                         SettingsService.saveSettings({type_list: newTypeSelected});
                         this.updateTypes();
                     }
                 );
-                if(!SettingsService.isLocal()) {
-                    SettingsApiService.toggleTypeList(JSON.stringify(SettingsService.getSettings().id));
+                if (!SettingsService.isLocal()) {
+                    SettingsApiService.patchSetting({type_list: newTypeSelected},SettingsService.getSettings().id);
                 }
             },
 
             toggleDarkMode: () => {
                 SettingsApiService.toggleDarkMode(SettingsService.getSettings().id);
                 SettingsService.saveSettings({dark_mode: !this.state.darkMode});
-                this.setState({darkMode: !this.state.darkMode}, ()=> setTimeout(()=> this.forceUpdate(), 100));
-                if(!SettingsService.isLocal()) {
+                this.setState({darkMode: !this.state.darkMode}, () => setTimeout(() => this.forceUpdate(), 100));
+                if (!SettingsService.isLocal()) {
                     SettingsApiService.toggleDarkMode(SettingsService.getSettings().id);
                 }
             },
             toggleShowDelete: () => {
                 SettingsService.saveSettings({show_delete: !this.state.showDelete});
                 this.setState({showDelete: !this.state.showDelete})
-                if(!SettingsService.isLocal()) {
+                if (!SettingsService.isLocal()) {
                     SettingsApiService.toggleDelete(SettingsService.getSettings().id);
                 }
             },
@@ -224,7 +240,7 @@ export class SettingsProvider extends React.Component {
                         dark_mode,
                         local_storage,
                         compacted
-                    }, SettingsService.getSettings().id).catch((e)=> console.log(e));
+                    }, SettingsService.getSettings().id).catch((e) => console.log(e));
 
 
                     callback();
@@ -233,30 +249,30 @@ export class SettingsProvider extends React.Component {
             },
             setTheme: (e) => {
                 SettingsService.saveSettings({theme: e});
-                this.setState({theme: e}, ()=> setTimeout(()=> this.forceUpdate(), 100)
+                this.setState({theme: e}, () => setTimeout(() => this.forceUpdate(), 100)
                 );
-                if(!SettingsService.isLocal()) {
+                if (!SettingsService.isLocal()) {
                     SettingsApiService.patchSetting({theme: e}, SettingsService.getSettings().id);
                 }
             },
             setType: (e) => {
                 SettingsService.saveSettings({type_selected: e});
                 this.setState({currentType: e})
-                if(!SettingsService.isLocal()) {
+                if (!SettingsService.isLocal()) {
                     SettingsApiService.patchSetting({type_selected: e}, SettingsService.getSettings().id);
                 }
             },
             updateNickname: (nickname) => {
                 UserService.saveUser({nickname});
                 this.setState({nickname})
-                if(!SettingsService.isLocal()) {
+                if (!SettingsService.isLocal()) {
                     AuthApiService.patchUser({nickname: this.state.newNickname});
                 }
             },
             updateColorStyle: (color_style) => {
                 SettingsService.saveSettings({color_style});
                 this.setState({colorStyle: color_style})
-                if(!SettingsService.isLocal()) {
+                if (!SettingsService.isLocal()) {
                     SettingsApiService.patchSetting({color_style}, SettingsService.getSettings().id)
                 }
 

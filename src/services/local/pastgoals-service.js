@@ -1,6 +1,5 @@
 const PastGoalService = {
     serializePastGoals(goals){
-        console.log(goals);
         return JSON.stringify({goals})
     },
     getAllPastGoals() {

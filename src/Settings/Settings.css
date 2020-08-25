@@ -15,6 +15,11 @@
     display: flex;
     justify-content: space-evenly;
 }
+.color-style .disabled {
+    filter: grayscale(1) brightness(0);
+    opacity: 0.7;
+    cursor: default;
+}
 .color-style li {
      max-width: 320px;
     width: 300px;
@@ -77,8 +82,14 @@
 .dropdown-types-settings .dropdown-list {
     margin-left: 0;
 }
+.dropdown-list .disabled {
+     filter: grayscale(1) brightness(0);
+    cursor: default;
+    opacity: 0.7;
+ }
+
 .dropdown-types-settings .dropdown-list > li:hover {
-    opacity: 0.7 !important;
+    opacity: 0.7;
 }
 .settings h1, .settings h2{
     text-align: left;
@@ -175,5 +186,8 @@
         height: 0;
         width: 0;
         color: white;
+    }
+    .color-style .disabled {
+
     }
 }

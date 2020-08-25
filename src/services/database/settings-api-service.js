@@ -89,6 +89,14 @@ const SettingsApiService = {
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },
         })
+    },
+    togglePaidAccount(id) {
+        return fetch(`${config.API_ENDPOINT}/settings/toggle/paid_account/${id}`, {
+            method: 'GET',
+            headers: {
+                'authorization': `bearer ${TokenService.getAuthToken()}`,
+            },
+        })
     }
 };
 

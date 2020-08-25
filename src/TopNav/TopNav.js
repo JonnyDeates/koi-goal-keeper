@@ -7,10 +7,13 @@ import archive from '../assets/icons/archive.ico';
 import user from '../assets/icons/user.ico';
 import {getCurrentThemeColors} from "../Utils/Utils";
 import {SettingsContext} from "../Settings/SettingsContext";
+import SettingsApiService from "../services/database/settings-api-service";
+import SettingsService from "../services/local/settings-service";
 
 
 class TopNav extends Component {
     static contextType = SettingsContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -36,6 +39,9 @@ class TopNav extends Component {
                             backgroundColor: getCurrentThemeColors().sColor,
                         }}>
                     <img src={link.src} alt={link.name}/></Link></div>)}
+                <div
+                    onClick={() => SettingsApiService.togglePaidAccount(SettingsService.getSettings().id).then((res) => SettingsService.saveSettings({paid_account: typeof SettingsService.getSettings().paid_account === 'boolean' ? !SettingsService.getSettings().paid_account : true}))}>Toggle
+                    Account {SettingsService.getSettings().paid_account ? 'On' : 'Off'}</div>
             </nav>
         );
     }

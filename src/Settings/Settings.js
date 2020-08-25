@@ -18,6 +18,7 @@ import ObjectivesApiService from "../services/database/objectives-api-service";
 import PastGoalApiService from "../services/database/pastgoals-api-service";
 import PastObjectivesApiService from "../services/database/pastobjectives-api-service";
 import LocalStorageModel from "./LocalStorageModel/LocalStorageModel";
+import SettingsService from "../services/local/settings-service";
 
 class Settings extends React.Component {
     static contextType = SettingsContext;
@@ -219,7 +220,7 @@ class Settings extends React.Component {
                                 <span>{this.context.theme}</span>
                                 <ul className={'dropdown-list'}>
                                     {this.context.themes.map((theme, i) => <li key={i}
-                                                                               className={(this.context.currentTheme === theme) ? 'tinted' : ''}
+                                                                               className={((this.context.currentTheme === theme) ? 'tinted' : '') + (!SettingsService.isPaid() && (i >= 2) ? 'disabled' : '')}
                                                                                style={{
                                                                                    backgroundColor: getThemes().find((t) => t.name === theme).tColor,
                                                                                    color: getThemes().find((t) => t.name === theme).fontColor
@@ -278,7 +279,7 @@ class Settings extends React.Component {
                                 className={(getTypeColorsAvailable().includes(i)) ? '' : 'hidden'}>{getSpecificType(i)}</span>
                         </div>)} </li>
                         <div>
-                            {getTypeColors().map((theme, i) => <li key={i} onClick={() =>
+                            {getTypeColors().map((theme, i) => <li key={i} className={((!SettingsService.isPaid() && i!==0) ? 'disabled' : '')} onClick={() =>
                                 this.context.updateColorStyle(theme.type)}>
                                 {theme.colors.map((color, j) =>
                                     <div key={i + '' + j}
