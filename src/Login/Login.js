@@ -131,13 +131,13 @@ class Login extends React.Component {
                     Login
                 </Button>
                 <p><Link to={'/register'}>Sign Up?</Link></p>
-                <GoogleLogin
-                    clientId={'210398171394-4tvu2p5580kl3d959vidn4avuif5p53n.apps.googleusercontent.com'}
-                    buttonText={'Sign-in'}
-                    onFailure={this.onSignIn}
-                    onSuccess={this.onSignIn}
-                    isSignedIn={true}
-                />
+                {/*<GoogleLogin*/}
+                {/*    clientId={'210398171394-4tvu2p5580kl3d959vidn4avuif5p53n.apps.googleusercontent.com'}*/}
+                {/*    buttonText={'Sign-in'}*/}
+                {/*    onFailure={this.onSignIn}*/}
+                {/*    onSuccess={this.onSignIn}*/}
+                {/*    isSignedIn={true}*/}
+                {/*/>*/}
             </form>
         )
     }
