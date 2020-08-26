@@ -7,10 +7,10 @@ class Footer extends React.Component {
             <footer className={'footer-wrapper'}>
                 <div className='footer'>
                     <a href={'https://github.com/JonnyDeates/koi-goal-keeper'}>Github</a>
-                    <a href={'https://jonnydeates.com'}>Jonny Deates</a>
-                    <a href={'https://www.linkedin.com/in/jonnydeates/'}>Linked-in</a>
+                    <a href={'https://koifoundation.com/'}>The Koi Foundation</a>
+                    <a href={'https://koitimer.com'}>KoiTimer</a>
                 </div>
-                <p>© 2019 Jonny Deates. All rights reserved.</p>
+                <p>© 2020 The Koi Foundation LLC. All rights reserved.</p>
 
             </footer>
         );
