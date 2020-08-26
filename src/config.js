@@ -1,4 +1,4 @@
 export default {
-    API_ENDPOINT: 'https://koigoalkeeperapi.herokuapp.com', //'http://localhost:8000',//
+    API_ENDPOINT: 'http://localhost:8000',//'https://koigoalkeeperapi.herokuapp.com', //
     TOKEN_KEY: 'kingkoinetworkdeates',
 }
