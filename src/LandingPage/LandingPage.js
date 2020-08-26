@@ -78,16 +78,16 @@ class LandingPage extends Component {
                         <header>
                             <nav><Link to={'/register'}>Register</Link><Link to={'/login'}>LogIn</Link> </nav>
                             <ParallaxBanner layers={[
-                                {image: Yin, amount: 0.3},
-                                {image: Yang, amount: 1.2},
-                                {image: goalList1, amount: 0.8},
+                                {image: Yin, amount: 0.7},
+                                {image: Yang, amount: 1.4},
+                                {image: goalList1, amount: 0.3},
                                 {image: goalList2, amount: 0.6},
-                                {image: goalList3, amount: 0.4},
-                                {image: goalList4, amount: 0.2},
-                                {image: goalList5, amount: 0.9},
+                                {image: goalList3, amount: 0.3},
+                                {image: goalList4, amount: 0.3},
+                                {image: goalList5, amount: 0.6},
 
                             ]}
-                                            style={{minHeight: '60vh', maxHeight: '6l0vh'}}>
+                                            style={{minHeight: '60vh', maxHeight: '6l0vh', backgroundColor: '#7bc9ff'}}>
                                 <h1>{this.state.title}</h1>
                             </ParallaxBanner>
                         </header>
