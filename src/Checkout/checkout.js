@@ -1,10 +1,10 @@
 import {Elements, StripeProvider} from "react-stripe-elements";
-import STRIPE_PUBLIC from '../config'
+import config from '../config'
 import React from "react";
 import CheckoutForm from "./CheckoutForm";
 import './Checkout.css'
 const Checkout = ({isShown, toggleShown}) => {
-    const publicKey = STRIPE_PUBLIC;
+    const publicKey = config.STRIPE_PUBLIC;
     try {
         return (
             <>{isShown ? <>

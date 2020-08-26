@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import GOOGLE_TOKEN from './config.js'
+import config from './config.js'
 import Home from './Home/Home.js'
 import TopNav from './TopNav/TopNav.js'
 import AddGoal from './AddGoal/AddGoal.js'
@@ -21,7 +21,7 @@ class App extends React.Component {
         try {
             window.gapi.load('auth2', () => {
                 this.auth2 = window.gapi.auth2.init({
-                    client_id: GOOGLE_TOKEN,
+                    client_id: config.GOOGLE_TOKEN,
                 })
             })
         }
