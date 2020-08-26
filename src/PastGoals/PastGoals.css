@@ -5,6 +5,7 @@
     color: white;
     text-align: left;
     margin-left: 8px;
+    width: 100vw;
 }
 .pastgoal-links > a {
     display: inline-block;
