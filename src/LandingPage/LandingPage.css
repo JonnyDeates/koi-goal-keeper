@@ -4,6 +4,9 @@
 .landing-page-wrapper > .landing-page {
     width: 100vw;
 }
+.landing-page > section {
+    box-shadow: inset -5px 15px 15px rgba(0,0,0,.3);
+}
 .landing-page h1 {
     color: #fff;
     position: absolute;
