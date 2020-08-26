@@ -9,6 +9,7 @@ import {getCurrentThemeColors} from "../Utils/Utils";
 import {SettingsContext} from "../Settings/SettingsContext";
 import SettingsApiService from "../services/database/settings-api-service";
 import SettingsService from "../services/local/settings-service";
+import Checkout from "../Checkout/checkout";
 
 
 class TopNav extends Component {
@@ -23,6 +24,7 @@ class TopNav extends Component {
                     name: 'Settings',
                     src: user
                 }],
+            checkout: false
         };
     }
 
@@ -39,9 +41,11 @@ class TopNav extends Component {
                             backgroundColor: getCurrentThemeColors().sColor,
                         }}>
                     <img src={link.src} alt={link.name}/></Link></div>)}
-                <div
-                    onClick={() => SettingsApiService.togglePaidAccount(SettingsService.getSettings().id).then((res) => SettingsService.saveSettings({paid_account: typeof SettingsService.getSettings().paid_account === 'boolean' ? !SettingsService.getSettings().paid_account : true}))}>Toggle
+                <div onClick={() => SettingsApiService.togglePaidAccount(SettingsService.getSettings().id).then((res) => SettingsService.saveSettings({paid_account: typeof SettingsService.getSettings().paid_account === 'boolean' ? !SettingsService.getSettings().paid_account : true}))}>Toggle
                     Account {SettingsService.getSettings().paid_account ? 'On' : 'Off'}</div>
+                {!SettingsService.isPaid() ? <div className={'checkout'}>
+                    {<Checkout/>}
+                </div> : ''}
             </nav>
         );
     }
