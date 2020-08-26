@@ -10,6 +10,8 @@ import {SettingsContext} from "../Settings/SettingsContext";
 import SettingsApiService from "../services/database/settings-api-service";
 import SettingsService from "../services/local/settings-service";
 import Checkout from "../Checkout/checkout";
+import TokenService from "../services/local/token-service";
+import UserService from "../services/local/user-api-service";
 
 
 class TopNav extends Component {
@@ -30,6 +32,19 @@ class TopNav extends Component {
 
 
     render() {
+        const logout = () => {
+            try {
+                let auth2 = window.gapi.auth2.getAuthInstance();
+                if (auth2)
+                    auth2.signOut();
+            } catch (e) {
+                console.log('Not the main Domain is it my guy? Im watching you <.<'
+                )
+            }
+            TokenService.clearAuthToken();
+            UserService.clearUser();
+            window.location.reload();
+        };
         return (
             <nav className='nav' style={{backgroundColor: getCurrentThemeColors().sColor}}>
                 {this.state.links.map((link, index) => <div key={index} onClick={() => {
