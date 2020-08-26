@@ -74,7 +74,7 @@ class Register extends React.Component {
         const {error} = this.state
         return (
             <main className={'register-page'}>
-                <h1 onClick={() => window.location.replace('/')}>The Koi Goal Keeper</h1>
+                <h1 onClick={() => window.location.replace('/login')}>The Koi Goal Keeper</h1>
                 <h3>Register</h3>
                 <form
                     className='RegistrationForm'
@@ -147,7 +147,7 @@ class Register extends React.Component {
                     {(this.state.isSubmitable) ? <Button type='submit'>
                         Submit
                     </Button> : <Button type={'button'} className={'disabled noselect'}>Submit</Button>}
-                    <p><Link to={'/'}>Already A User?</Link></p>
+                    <p><Link to={'/login'}>Already A User?</Link></p>
                 </form>
                 {(this.state.isPrivacyModal) ?
                     <Modal header={'Privacy Policy'} closeModal={this.togglePrivacyModal}><PrivacyPolicy/></Modal> : ''}
