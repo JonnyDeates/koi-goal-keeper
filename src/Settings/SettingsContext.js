@@ -50,6 +50,7 @@ export class SettingsProvider extends React.Component {
             notifications: false,
             localStorage: false,
             paidAccount: false,
+            checkoutModal: false,
             colorStyle: '',
             compacted: 'No',
             types: []
@@ -127,6 +128,7 @@ export class SettingsProvider extends React.Component {
             localStorage: this.state.localStorage,
             compacted: this.state.compacted,
             colorStyle: this.state.colorStyle,
+            checkoutModal: this.state.checkoutModal,
             toggleArchiving: () => {
                 this.setState({autoArchiving: !this.state.autoArchiving}, () => {
                     SettingsService.saveSettings({auto_archiving: this.state.autoArchiving});
@@ -134,6 +136,9 @@ export class SettingsProvider extends React.Component {
                 if (!SettingsService.isLocal()) {
                     SettingsApiService.toggleAutoArchiving(SettingsService.getSettings().id);
                 }
+            },
+            toggleCheckoutModal: () => {
+                this.setState({checkoutModal: !this.state.checkoutModal})
             },
             toggleCompacted: () => {
                 let compactedTemp = '';

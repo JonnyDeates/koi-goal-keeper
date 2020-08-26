@@ -57,7 +57,7 @@ class Register extends React.Component {
                         nickname.value = '';
                         username.value = '';
                         password.value = '';
-                        window.location.replace('/');
+                        window.location.replace('/login');
                     })
                     .catch(res => {
                         this.setState({error: res.error})
@@ -141,7 +141,7 @@ class Register extends React.Component {
                         // disabled={!this.state.isRead}
                                        onChange={() => this.toggleSubmitable()}/>
                     </div>
-                    <Button type='button' onClick={() => window.location.replace('/')}>
+                    <Button type='button' onClick={() => window.location.replace('/login')}>
                         Back
                     </Button>
                     {(this.state.isSubmitable) ? <Button type='submit'>

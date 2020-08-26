@@ -8,8 +8,10 @@ import {
 } from 'react-stripe-elements'
 import SettingsApiService from "../services/database/settings-api-service";
 import SettingsService from "../services/local/settings-service";
+import {getCurrentThemeColors} from "../Utils/Utils";
 
-const CheckoutForm = ({stripe}) => {
+const CheckoutForm = ({stripe, toggleShown}) => {
+    const list = ['More Theme Options','Uncapped Max on Goals', 'Uncapped Max on Past Goals', 'More List Options', 'Other Day Colors']
     const [receiptUrl, setReceiptUrl] = useState('')
     const handleSubmit = async event => {
         event.preventDefault()
@@ -18,7 +20,10 @@ const CheckoutForm = ({stripe}) => {
         if (!!token) {
             const order = await SettingsApiService.togglePaidAccount(SettingsService.getSettings().id, {
                 source: token.id
-            }).then(() => SettingsService.saveSettings({paid_account: true}))
+            }).then((data) => {
+                SettingsService.saveSettings({paid_account: true})
+                window.location.reload();
+            });
             if (order && order.data)
                 setReceiptUrl(order.data.charge.receipt_url)
         }
@@ -34,7 +39,12 @@ const CheckoutForm = ({stripe}) => {
         }
     }
     return (
-        <div className="checkout-form">
+        <div className="checkout-form" style={{backgroundColor: getCurrentThemeColors().sColor}}>
+            <h2 >Purchase Koi Premium</h2>
+            <h3>Unlock the Following</h3>
+            <ol>
+                {list.map((txt,i)=> <li key={i}>{txt}</li>)}
+            </ol>
             <p>Amount: $5.00</p>
             <form onSubmit={handleSubmit}>
                 <label>
@@ -49,8 +59,11 @@ const CheckoutForm = ({stripe}) => {
                     CVC
                     <CardCVCElement/>
                 </label>
+                <button onClick={()=> toggleShown()} className='cancel-button'>
+                    Cancel Your Order
+                </button>
                 <button type="submit" className="order-button">
-                    Pay
+                    Get Your Premium
                 </button>
             </form>
         </div>

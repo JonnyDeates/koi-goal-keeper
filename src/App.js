@@ -30,8 +30,10 @@ class App extends React.Component {
     }
 
     render() {
+
         return (
             <div className="App">
+
                 <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} autoClose={5000} hideProgressBar={false}
                                 pauseOnHover={true} draggablePercent={60}/>
                 <PublicRoute exact path={'/'} component={LandingPage}/>

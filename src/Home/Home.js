@@ -4,6 +4,7 @@ import GoalList from '../GoalList/GoalList';
 import {SettingsContext} from "../Settings/SettingsContext";
 import SearchFilter from "../SearchFilter/SearchFilter";
 import {getColor, getCurrentThemeColors} from "../Utils/Utils";
+import TryPremium from "../Checkout/TryPremium";
 
 class Home extends React.Component {
     static contextType = SettingsContext;
@@ -60,7 +61,7 @@ class Home extends React.Component {
         const type = (this.context.currentType !== 'All') ? this.context.currentType : '';
         return (
             <main className="home">
-                <h1 style={{color: getCurrentThemeColors().headerColor}}>{this.context.nickname}'s {type} Goals </h1>
+                <h1 style={{color: getCurrentThemeColors().headerColor}}>{this.context.nickname}'s {type} Goals {<TryPremium/>}</h1>
                 <div className='bar-indicator-top' style={getColor(type)}/>
                 <p style={{color: getCurrentThemeColors().fontColor}} className='even-space noselect'
                    onClick={this.context.toggleShowDelete}>Show

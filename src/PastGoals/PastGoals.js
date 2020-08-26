@@ -4,6 +4,7 @@ import "./PastGoals.css"
 import {SettingsContext} from "../Settings/SettingsContext";
 import SearchFilter from "../SearchFilter/SearchFilter";
 import {getColor, getCurrentThemeColors} from "../Utils/Utils";
+import TryPremium from "../Checkout/TryPremium";
 
 class PastGoals extends React.Component {
     static contextType = SettingsContext;
@@ -59,7 +60,7 @@ class PastGoals extends React.Component {
         const type = (this.context.currentType !== 'All') ? this.context.currentType : '';
 
         return (<main className='past-goals'>
-            <h1 style={{color: getCurrentThemeColors().headerColor}}>Past {type} Goals </h1>
+            <h1 style={{color: getCurrentThemeColors().headerColor}}>Past {type} Goals {<TryPremium/>}</h1>
             <div className='bar-indicator-top' style={getColor(type)}/>
             <p style={{color: getCurrentThemeColors().fontColor}} className='even-space noselect' onClick={this.context.toggleShowDelete}>Show
                 Delete

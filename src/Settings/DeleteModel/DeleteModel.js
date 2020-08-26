@@ -24,10 +24,13 @@ export default class DeleteModel extends Component {
                 )
             }
             AuthApiService.deleteUser();
-            UserService.clearUser();
-            TokenService.clearAuthToken();
-            SettingsService.clearSettings();
-            window.location.reload()
+            setTimeout(()=>{
+                UserService.clearUser();
+                TokenService.clearAuthToken();
+                SettingsService.clearSettings();
+                window.location.reload()
+            },1000)
+
         } else if(this.state.username !== '' && this.state.username !== UserService.getUser().username){
             this.setState({error: 'Email Incorrect'})
         } else {

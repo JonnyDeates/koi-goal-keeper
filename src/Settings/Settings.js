@@ -19,6 +19,7 @@ import PastGoalApiService from "../services/database/pastgoals-api-service";
 import PastObjectivesApiService from "../services/database/pastobjectives-api-service";
 import LocalStorageModel from "./LocalStorageModel/LocalStorageModel";
 import SettingsService from "../services/local/settings-service";
+import TryPremium from "../Checkout/TryPremium";
 
 class Settings extends React.Component {
     static contextType = SettingsContext;
@@ -130,7 +131,7 @@ class Settings extends React.Component {
     render() {
         return (
             <main className="settings">
-                <h1 style={{color: getCurrentThemeColors().headerColor}}>Profile</h1>
+                <h1 style={{color: getCurrentThemeColors().headerColor}}>Profile {<TryPremium/>}</h1>
                 <div className='bar-indicator-top' style={getColor(this.context.currentType)}/>
                 <section>
                     <h2 title={'UserId'}
@@ -225,7 +226,7 @@ class Settings extends React.Component {
                                                                                    backgroundColor: getThemes().find((t) => t.name === theme).tColor,
                                                                                    color: getThemes().find((t) => t.name === theme).fontColor
                                                                                }}
-                                                                               onClick={() => this.setTheme(theme)}>{theme}</li>)}
+                                                                               onClick={() => (SettingsService.isPaid() || (i < 2) ? this.setTheme(theme) : this.context.toggleCheckoutModal())}>{theme}</li>)}
                                 </ul>
                             </div>
                         </div>
@@ -280,7 +281,7 @@ class Settings extends React.Component {
                         </div>)} </li>
                         <div>
                             {getTypeColors().map((theme, i) => <li key={i} className={((!SettingsService.isPaid() && i!==0) ? 'disabled' : '')} onClick={() =>
-                                this.context.updateColorStyle(theme.type)}>
+                                ((SettingsService.isPaid() || i===0) ? this.context.updateColorStyle(theme.type) : this.context.toggleCheckoutModal())}>
                                 {theme.colors.map((color, j) =>
                                     <div key={i + '' + j}
                                          style={{backgroundColor: (getTypeColorsAvailable().includes(j)) ? color : color + '11'}}/>)}</li>)}

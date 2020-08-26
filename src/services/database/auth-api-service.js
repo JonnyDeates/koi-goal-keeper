@@ -40,9 +40,12 @@ const AuthApiService = {
                         'content-type': 'application/json',
                         'authorization': `bearer ${TokenService.getAuthToken()}`
                     }
-                })
-        }
-        ,
+                }).then(res =>
+                    (!res.ok)
+                        ? res.json().then(e => Promise.reject(e))
+                        : res.json()
+                )
+        },
         patchUser(user) {
             return fetch(`${config.API_ENDPOINT}/users/${UserService.getUser().id}`, {
                 method: 'PATCH',

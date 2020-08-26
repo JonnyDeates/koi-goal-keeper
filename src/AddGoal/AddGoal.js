@@ -4,6 +4,7 @@ import GoalList from "../GoalList/GoalList";
 import {toast} from 'react-toastify';
 import {SettingsContext} from "../Settings/SettingsContext";
 import {formatDate, getColor, getCurrentThemeColors, getTime} from "../Utils/Utils";
+import TryPremium from "../Checkout/TryPremium";
 
 class AddGoal extends React.Component {
     static contextType = SettingsContext;
@@ -118,7 +119,7 @@ class AddGoal extends React.Component {
     render() {
         return (
             <form className='add-goal' onSubmit={this.state.handleSubmit}>
-                <h1 style={{color: getCurrentThemeColors().headerColor}}> Create {this.state.currentGoal.type} Goal </h1>
+                <h1 style={{color: getCurrentThemeColors().headerColor}}> Create {this.state.currentGoal.type} Goal {<TryPremium/>}</h1>
                 <div className='bar-indicator-top' style={getColor(this.context.currentType)}/>
                 <div className="addition-wrapper">
                     <div className='dropdown-types'>
