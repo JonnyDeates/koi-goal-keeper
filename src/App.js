@@ -12,6 +12,7 @@ import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import PublicRoute from "./PublicRoute/PublicRoute";
+import LandingPage from "./LandingPage/LandingPage";
 
 class App extends React.Component {
 
@@ -33,6 +34,7 @@ class App extends React.Component {
             <div className="App">
                 <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} autoClose={5000} hideProgressBar={false}
                                 pauseOnHover={true} draggablePercent={60}/>
+                <PublicRoute exact path={'/'} component={LandingPage}/>
                 <div className={'App-Pages'}>
                     <section className="min-Width">
                         <PrivateRoute path={'/koi'} component={TopNav}/>
@@ -43,7 +45,7 @@ class App extends React.Component {
                             <PrivateRoute path={'/koi/add'} component={AddGoal}/>
                             <PrivateRoute path={'/koi/past-goals'} component={PastGoals}/>
                             <PrivateRoute path={'/koi/settings'} component={Settings}/>
-                            <PublicRoute exact path={'/'} component={Login}/>
+                            <PublicRoute exact path={'/login'} component={Login}/>
                             <PublicRoute path={'/register'} component={Register}/>
                         </Switch>
                     </section>
