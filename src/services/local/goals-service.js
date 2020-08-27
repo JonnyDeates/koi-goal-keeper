@@ -18,6 +18,9 @@ const GoalService = {
     },
     hasGoals() {
         return !!GoalService.getAllGoals()
+    },
+    clearGoals(){
+        window.localStorage.removeItem('goals')
     }
 };
 

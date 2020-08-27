@@ -18,6 +18,9 @@ const PastGoalService = {
     },
     hasPastGoals() {
         return !!PastGoalService.getAllPastGoals()
+    },
+    clearPastGoals(){
+        window.localStorage.removeItem('goals')
     }
 };
 

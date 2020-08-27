@@ -11,6 +11,8 @@ import SettingsService from "../services/local/settings-service";
 import Checkout from "../Checkout/checkout";
 import TokenService from "../services/local/token-service";
 import UserService from "../services/local/user-api-service";
+import GoalService from "../services/local/goals-service";
+import PastGoalService from "../services/local/pastgoals-service";
 
 
 class TopNav extends Component {
@@ -40,6 +42,12 @@ class TopNav extends Component {
                 console.log('Not the main Domain is it my guy? Im watching you <.<'
                 )
             }
+
+            if(!SettingsService.isLocal()){
+                GoalService.clearGoals();
+                PastGoalService.clearPastGoals();
+            }
+            SettingsService.clearSettings();
             TokenService.clearAuthToken();
             UserService.clearUser();
             window.location.reload();
