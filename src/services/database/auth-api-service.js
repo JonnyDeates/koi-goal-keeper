@@ -17,6 +17,24 @@ const AuthApiService = {
                         : res.json()
                 )
         },
+        postForgotPassword({username}){
+            return fetch(`${config.API_ENDPOINT}/auth/forgot-password`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({username}),
+            })
+        },
+        postVerification({token, username, password}){
+            return fetch(`${config.API_ENDPOINT}/auth/verification`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({username, token, password}),
+            })
+        },
         postGoogleLogin({username, token, nickname}) {
             return fetch(`${config.API_ENDPOINT}/auth/google/login`, {
                 method: 'POST',

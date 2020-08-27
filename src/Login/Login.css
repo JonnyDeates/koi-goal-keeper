@@ -33,6 +33,10 @@
     -o-animation: 2s .25s slide-in-up forwards;
     -moz-animation: 2s .25s slide-in-up forwards;
 }
+.password > a {
+    display: block;
+    font-size: smaller;
+}
 .username > label, .password > label, .full_name > label, .nickname > label{
     margin-right: 16px;
     color: gray;

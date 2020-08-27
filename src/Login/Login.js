@@ -121,8 +121,10 @@ class Login extends React.Component {
                         required
                         name='password'
                         type='password'
-                        id='LoginForm__password'>
-                    </Input>
+                        id='LoginForm__password'/>
+                    <Link to={'/login/forgot-password'}>
+                        Forgot Password
+                    </Link>
                 </div>
                 <Button type='button' onClick={() => window.location.replace('/')}>
                     Back

@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import PublicRoute from "./PublicRoute/PublicRoute";
 import LandingPage from "./LandingPage/LandingPage";
+import ForgotPassword from "./Login/ForgotPassword/ForgotPassword";
 
 class App extends React.Component {
 
@@ -49,7 +50,9 @@ class App extends React.Component {
                             <PrivateRoute path={'/koi/past-goals'} component={PastGoals}/>
                             <PrivateRoute path={'/koi/settings'} component={Settings}/>
                             <PublicRoute exact path={'/login'} component={Login}/>
+                            <PublicRoute path={'/login/forgot-password'} component={ForgotPassword}/>
                             <PublicRoute path={'/register'} component={Register}/>
+
                         </Switch>
                     </section>
                     <section className="min-Width"/>
