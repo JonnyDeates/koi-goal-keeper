@@ -148,9 +148,6 @@ export class SettingsProvider extends React.Component {
                         compactedTemp = 'Compacted';
                         break;
                     case 'Compacted':
-                        compactedTemp = 'Extra-Compacted';
-                        break;
-                    case 'Extra-Compacted':
                         compactedTemp = 'Ultra-Compacted';
                         break;
                     case 'Ultra-Compacted':
