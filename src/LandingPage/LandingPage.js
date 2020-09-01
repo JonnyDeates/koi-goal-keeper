@@ -109,7 +109,7 @@ class LandingPage extends Component {
                                 key={i} header={sect.header}
                                 description={sect.description} image={sect.image} imageDesc={sect.imageDesc}
                                 animationRun={this.state[`animationSection${i + 1}`]}/></TrackVisibility>)}
-                                {/*<Feedback />*/}
+                                <Feedback />
                             <TrackVisibility onVisible={() => this.setState({meetTheDeveloperAnimation: true})}>
                                 <MeetTheDeveloper animation={this.state.meetTheDeveloperAnimation}/>
                             </TrackVisibility>
