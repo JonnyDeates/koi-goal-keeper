@@ -21,6 +21,7 @@ import ImageCoursel from "./ImageCarousel/ImageCoursel";
 import LandingPageSection from "./LandingPageSection/LandingPageSection";
 import MeetTheDeveloper from "./MeetTheDeveloper/MeetTheDeveloper";
 import TrackVisibility from "../Utils/TrackVisibility";
+import Feedback from "./Feedback/Feedback";
 
 class LandingPage extends Component {
 
@@ -42,12 +43,12 @@ class LandingPage extends Component {
             pageData: [{
                 header: 'How it Will Help',
                 description: ['The Koi Goal Keeper app is a tool derived for growth. Being able to plan out your day to \n ' +
-                    'day, is vastly important for maintaining consistent personal growth. Each day is an opportunity, \n' +
-                    'the best way to attain the most of that opportunity is to know the priorities for that day. \n' +
-                    'Deadlines will be met, and growth will prosper. The solution is simple but time-tested. Plan \n' +
-                    'Your Days. The Koi Goal Keeper app is the tool you need to do just that. The quick and easy \n' +
-                    'solution to planning each day, and following through to your eventual goals. It allows for easy \n' +
-                    'goal creation, tracking and archiving.']
+                'day, is vastly important for maintaining consistent personal growth. Each day is an opportunity, \n' +
+                'the best way to attain the most of that opportunity is to know the priorities for that day. \n' +
+                'Deadlines will be met, and growth will prosper. The solution is simple but time-tested. Plan \n' +
+                'Your Days. The Koi Goal Keeper app is the tool you need to do just that. The quick and easy \n' +
+                'solution to planning each day, and following through to your eventual goals. It allows for easy \n' +
+                'goal creation, tracking and archiving.']
             }, {
                 header: 'Plan of Success',
                 description: ['The idea of the app is for quick access to the priority checklist for your life, and \n' +
@@ -76,7 +77,7 @@ class LandingPage extends Component {
                 <div className={'landing-page'}>
                     <ParallaxProvider>
                         <header>
-                            <nav><Link to={'/register'}>Register</Link><Link to={'/login'}>LogIn</Link> </nav>
+                            <nav><Link to={'/register'}>Register</Link><Link to={'/login'}>LogIn</Link></nav>
                             <ParallaxBanner layers={[
                                 {image: Yin, amount: 0.7},
                                 {image: Yang, amount: 1.4},
@@ -93,14 +94,23 @@ class LandingPage extends Component {
                         </header>
 
                         <section>
-                            <TrackVisibility onVisible={()=> this.setState({animationRun: true})}>
-                            <LandingPageSection header={this.state.topSection.header} animationRun={this.state.animationRun}
-                                                description={this.state.topSection.description}/>
+                            <iframe src="https://www.youtube.com/embed/N_O9w0blhlw"
+                                    frameBorder="0" title={'The Koi Goal Keeper'}
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen/>
+                            <TrackVisibility onVisible={() => this.setState({animationRun: true})}>
+                                <LandingPageSection header={this.state.topSection.header}
+                                                    animationRun={this.state.animationRun}
+                                                    description={this.state.topSection.description}/>
                             </TrackVisibility>
                             <ImageCoursel imageUrls={this.state.imageCoursel}/>
-                            {this.state.pageData.map((sect, i) => <TrackVisibility onVisible={()=> this.setState({[`animationSection${i+1}`]: true})}><LandingPageSection key={i} header={sect.header}
-                                                                                      description={sect.description} image={sect.image} imageDesc={sect.imageDesc} animationRun={this.state[`animationSection${i+1}`]}/></TrackVisibility>)}
-                            <TrackVisibility onVisible={()=> this.setState({meetTheDeveloperAnimation: true})}>
+                            {this.state.pageData.map((sect, i) => <TrackVisibility
+                                onVisible={() => this.setState({[`animationSection${i + 1}`]: true})}><LandingPageSection
+                                key={i} header={sect.header}
+                                description={sect.description} image={sect.image} imageDesc={sect.imageDesc}
+                                animationRun={this.state[`animationSection${i + 1}`]}/></TrackVisibility>)}
+                                {/*<Feedback />*/}
+                            <TrackVisibility onVisible={() => this.setState({meetTheDeveloperAnimation: true})}>
                                 <MeetTheDeveloper animation={this.state.meetTheDeveloperAnimation}/>
                             </TrackVisibility>
                         </section>
