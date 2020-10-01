@@ -123,16 +123,17 @@ class AddGoal extends React.Component {
                 <div className='bar-indicator-top' style={getColor(this.context.currentType)}/>
                 <div className="addition-wrapper">
                     <div className='dropdown-types'>
-                        <li style={{
+                        <li tabIndex style={{
                             backgroundColor: getCurrentThemeColors().tColor,
                             color: getCurrentThemeColors().fontColor
                         }}>{this.state.currentGoal.type}
                             <div className='bar-indicator-left' style={getColor(this.state.currentGoal.type)}/>
                             <div className='bar-indicator-right' style={getColor(this.state.currentGoal.type)}/>
                         </li>
-                        <ul className='dropdown-list' style={{
+                        <ul className='dropdown-list'  style={{
                             backgroundColor: getCurrentThemeColors().tColor,
                             color: getCurrentThemeColors().fontColor
+
                         }}>
                             {['Other', ...this.context.types].map((type, i) => <li key={i}
                                                                                    className={(this.state.currentGoal.type === type) ? 'tinted' : ''}

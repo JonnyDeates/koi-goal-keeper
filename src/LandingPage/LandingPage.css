@@ -55,8 +55,17 @@
     margin-top: 0;
     padding: 4rem 0;
 }
+.landing-page section > iframe {
+    width: 300px;
+    height: 169px;
+    border-radius: 20px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.1), 3px 3px 6px rgba(0,0,0,0.1), inset 3px 3px 6px rgba(0,0,0,0.3);
+}
 @media (min-width: 480px) {
-
+    .landing-page section > iframe {
+        width: 400px;
+        height: 225px;
+    }
 }
 @media (min-width: 767px) {
     .landing-page nav {
@@ -86,9 +95,16 @@
         background-color: #ffffffff;
 
     }
+    .landing-page section > iframe {
+        width: 650px;
+        height: 366px;
+    }
 }
 @media (min-width: 867px) {
-
+    .landing-page section > iframe {
+        width: 800px;
+        height: 450px;
+    }
 }
 @media (min-width: 1024px) {
 

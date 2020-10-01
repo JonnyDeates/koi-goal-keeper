@@ -6,7 +6,7 @@
     margin-top: 0;
 }
 .min-Width-Two > section, .min-Width-Two main, .min-Width-Two > form {
-    margin-top: 4rem;
+    margin-bottom: 6rem;
 }
 .App-Pages {
     display: contents;
@@ -106,7 +106,7 @@ h1, h2 {
 }
 @media (min-width: 480px) {
     .min-Width-Two > section, .min-Width-Two main, .min-Width-Two > form {
-        margin-top: 6rem;
+        margin-bottom: 8rem;
     }
 }
 @media (min-width: 767px) {
@@ -114,9 +114,6 @@ h1, h2 {
         font-size: large;
     }
     .App {
-        margin-top: 0;
-    }
-    .min-Width-Two > section, .min-Width-Two main {
         margin-top: 0;
     }
     .min-Width {

@@ -45,8 +45,10 @@
 .bar-indicator-top {
     right: 0%;
     top: 0;
-    height: 75px;
-    width: 55vw;
+    border-radius: 10px 0 0 10px ;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    height: 15px;
+    width: 66vw;
     position: absolute;
     animation: 1s slide-in-down;
 }
@@ -62,7 +64,7 @@
     width: fit-content;
     animation: 2s fade-in forwards;
 }
-.dropdown-types:hover .dropdown-list {
+.dropdown-types:hover .dropdown-list{
     max-height: 800px;
     opacity: 1;
 }
@@ -88,12 +90,11 @@
     overflow: hidden;
     z-index: 1;
     width: 88px;
-
-    -webkit-transition: all 2s ease;
-    -moz-transition: all 2s ease ;
-    -ms-transition: all 2s ease ;
-    -o-transition: all 2s ease;
-    transition: all 2s ease;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease ;
+    -ms-transition: all 1s ease ;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
 }
 .dropdown-types > ul > li {
     padding: 16px 0;
@@ -116,8 +117,9 @@
 }
 .submit-goals {
     position: absolute;
-    right: 8%;
-    margin-top: 28px;
+    left: 10vw;
+    margin-left: 0;
+    margin-top: -3px;
     margin-right: 12px;
     z-index: 1;
     animation: 2s pop-in forwards;
@@ -126,7 +128,7 @@
     position: absolute;
     left: 16px;
     background-color: #c0c7ce55;
-    top: 330px;
+    top: 286px;
     height: 80px;
     width: 85vw;
     color: #ececec;
@@ -135,11 +137,11 @@
 }
 .submit-goals > button {
     border: none;
-    border-radius: 0 15px 0 0;
+    border-radius: 15px 15px 0 0;
     margin: 4px;
-    padding: 24px 4vw;
+    padding: 6px 0;
     font-size: medium;
-    width: min-content;
+    width: 40vw;
     cursor: pointer;
     background: #ffffff88;
 
@@ -151,8 +153,8 @@
     .bar-indicator-top {
         right: 0%;
         top: 0;
-        height: 90px;
-        width: 250px;
+        height: 21px;
+        width: 66vw;
         position: absolute;
     }
 
@@ -160,19 +162,18 @@
         position: absolute;
         left: 32px;
         background-color: #c0c7ce55;
-        /*top: 330px;*/
         width: 90vw;
-        top: 363px;
         border-radius: 0 0 15px 15px;
     }
     .submit-goals {
-        right: 3%
+        margin-left: 0;
+        margin-top: -3px;
+        margin-right: 12px;
     }
     .submit-goals > button {
-        margin: 4px;
-        padding: 20px 6vw;
+        margin-top: -12px;
+        padding: 12px 0;
         font-size: larger;
-        width: min-content;
         cursor: pointer;
         background: #ffffff88;
 
@@ -189,6 +190,7 @@
         width: 100px;
         height: 10px;
         position: absolute;
+        border-radius: 0 0 0 0
     }
     .example-add {
         width: 45%;
@@ -209,6 +211,7 @@
     .submit-goals {
         position: absolute;
         right: unset;
+        left: unset;
         margin: -21px 0 0 121px;
         z-index: 0;
         animation: 3s slide-in-left forwards;

@@ -1,0 +1,21 @@
+.feedback {
+    display: inline-flex;
+}
+.feedback p {
+    width: 200px
+}
+.feedback button {
+    border-radius: 20px;
+    border: unset;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    background-color: #ffffff77;
+    font-weight: bolder;
+    padding: 16px;
+    width: min-content;
+    height: min-content;
+    margin: auto 16px;
+}
+.feedback button:hover {
+    background-color: #ffffff;
+}

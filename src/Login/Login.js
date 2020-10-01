@@ -6,7 +6,7 @@ import './Login.css';
 import UserService from "../services/local/user-api-service";
 import {Link} from "react-router-dom";
 import SettingsService from "../services/local/settings-service";
-import {GoogleLogin} from "react-google-login";
+// import {GoogleLogin} from "react-google-login";
 
 class Login extends React.Component {
     state = {error: null};
@@ -23,7 +23,7 @@ class Login extends React.Component {
     handleSubmit = (username, password) => {
         if (validateEmail(username.value))
             AuthApiService.postLogin({
-                username: username.value,
+                username: username.value.toLowerCase(),
                 password: password.value,
             })
                 .then(res => {
@@ -34,11 +34,14 @@ class Login extends React.Component {
                     const {id, nickname, email} = res.payload.payload;
                     TokenService.saveAuthToken(res.authToken);
                     UserService.saveUser({id, nickname, email, username: res.payload.payload.username});
-                    SettingsService.saveSettings({
-                        theme, type_list, type_selected, id: settingid , paid_account,
-                        types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', '6-Month', 'Yearly', '3-Year', '5-Year', 'Distant'],
-                        show_delete, notifications, auto_archiving, compacted,  local_storage, dark_mode, color_style
-                    });
+                    if(!SettingsService.isLocal())
+                        SettingsService.saveSettings({
+                            theme, type_list, type_selected, id: settingid , paid_account,
+                            types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', '6-Month', 'Yearly', '3-Year', '5-Year', 'Distant'],
+                            show_delete, notifications, auto_archiving, compacted,  local_storage, dark_mode, color_style
+                        });
+                    else
+                        SettingsService.saveSettings({paid_account})
                     window.location.replace('/koi/');
                 })
                 .catch(res => {

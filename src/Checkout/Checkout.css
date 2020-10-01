@@ -7,16 +7,16 @@
 }
 .checkout-wrapper {
     position: absolute;
-    top: 0;
+    top: -100vh;
     width: 100vw;
-    height: 100vh;
+    height: 200vh;
     background-color: #11111177;
     z-index: 10;
 }
 .checkout-form {
     padding: 8px;
     width: 300px;
-    top: 15vh;
+    top: -85vh;
     left: 50vw;
     border-radius: 10px;
     margin-left: -150px;
@@ -83,8 +83,10 @@
 @media (min-width: 767px) {
     .checkout, .checkout-wrapper {
         left: -13vw;
+        top: 0;
     }
     .checkout-form {
         padding: 16px;
+        top: 15vh;
     }
 }

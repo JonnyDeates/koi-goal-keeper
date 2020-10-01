@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import config from './config.js'
 import Home from './Home/Home.js'
-import TopNav from './TopNav/TopNav.js'
 import AddGoal from './AddGoal/AddGoal.js'
 import {Switch} from "react-router-dom";
 import PastGoals from "./PastGoals/PastGoals";
@@ -15,6 +14,7 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import PublicRoute from "./PublicRoute/PublicRoute";
 import LandingPage from "./LandingPage/LandingPage";
 import ForgotPassword from "./Login/ForgotPassword/ForgotPassword";
+import BottomNav from "./BottomNav/BottomNav";
 
 class App extends React.Component {
 
@@ -41,7 +41,7 @@ class App extends React.Component {
                 <PublicRoute exact path={'/'} component={LandingPage}/>
                 <div className={'App-Pages'}>
                     <section className="min-Width">
-                        <PrivateRoute path={'/koi'} component={TopNav}/>
+                        <PrivateRoute path={'/koi'} component={BottomNav}/>
                         </section>
                     <section className="min-Width-Two">
                         <Switch>

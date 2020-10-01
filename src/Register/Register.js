@@ -49,7 +49,7 @@ class Register extends React.Component {
         if (validateEmail(username.value))
             if (password.value === confirmPassword.value) {
                 AuthApiService.postUser({
-                    username: username.value,
+                    username: username.value.toLowerCase(),
                     password: password.value,
                     nickname: nickname.value,
                 })
