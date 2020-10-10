@@ -25,3 +25,4 @@ yarn-error.log*
 .idea
 node_modules
 src/config.js
+.vs

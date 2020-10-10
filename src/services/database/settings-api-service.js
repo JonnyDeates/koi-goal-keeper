@@ -74,6 +74,14 @@ const SettingsApiService = {
             },
         })
     },
+    toggleAscending(id) {
+        return fetch(`${config.API_ENDPOINT}/settings/toggle/ascending/${id}`, {
+            method: 'GET',
+            headers: {
+                'authorization': `bearer ${TokenService.getAuthToken()}`,
+            },
+        })
+    },
     toggleAutoArchiving(id) {
         return fetch(`${config.API_ENDPOINT}/settings/toggle/auto_archiving/${id}`, {
             method: 'GET',
@@ -84,6 +92,14 @@ const SettingsApiService = {
     },
     toggleTypeList(id) {
         return fetch(`${config.API_ENDPOINT}/settings/toggle/type_list/${id}`, {
+            method: 'GET',
+            headers: {
+                'authorization': `bearer ${TokenService.getAuthToken()}`,
+            },
+        })
+    },
+    toggleSortStyle(id) {
+        return fetch(`${config.API_ENDPOINT}/settings/toggle/sort_style/${id}`, {
             method: 'GET',
             headers: {
                 'authorization': `bearer ${TokenService.getAuthToken()}`,

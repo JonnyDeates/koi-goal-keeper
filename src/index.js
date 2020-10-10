@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './App/App';
 import * as serviceWorker from './serviceWorker';
-import {SettingsProvider} from "./Settings/SettingsContext";
-import {GoalListProvider} from "./GoalList/GoalListContext";
+import {SettingsProvider} from "./Pages/Settings/SettingsContext";
+import {GoalListProvider} from "./Components/GoalList/GoalListContext";
 import {BrowserRouter as Router} from "react-router-dom";
 import './fonts/Cabin-Regular.ttf';
 ReactDOM.render(
