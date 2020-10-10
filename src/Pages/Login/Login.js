@@ -29,8 +29,7 @@ class Login extends React.Component {
                 .then(res => {
                     username.value = '';
                     password.value = '';
-                    const {theme, type_list, type_selected, id: settingid, show_delete, notifications, auto_archiving, compacted, local_storage, dark_mode, color_style, paid_account} = res.payload.settings;
-                    console.log(res.payload.settings, res.authToken,TokenService.hasAuthToken())
+                    const {theme, type_list, type_selected, id: settingid, show_delete, notifications, auto_archiving, compacted, local_storage, dark_mode, color_style, paid_account, ascending, sort_style} = res.payload.settings;
                     const {id, nickname, email} = res.payload.payload;
                     TokenService.saveAuthToken(res.authToken);
                     UserService.saveUser({id, nickname, email, username: res.payload.payload.username});
@@ -38,7 +37,7 @@ class Login extends React.Component {
                         SettingsService.saveSettings({
                             theme, type_list, type_selected, id: settingid , paid_account,
                             types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', '6-Month', 'Yearly', '3-Year', '5-Year', 'Distant'],
-                            show_delete, notifications, auto_archiving, compacted,  local_storage, dark_mode, color_style
+                            show_delete, notifications, auto_archiving, compacted,  local_storage, dark_mode, color_style, ascending, sort_style
                         });
                     else
                         SettingsService.saveSettings({paid_account})
@@ -60,14 +59,15 @@ class Login extends React.Component {
                     password: password.value,
                 })
                     .then(res => {
-                        const {theme, type_list, type_selected, id: settingid, show_delete, notifications, auto_archiving, compacted, paid_account} = res.payload.settings;
+                        const {theme, type_list, type_selected, id: settingid, show_delete, notifications, auto_archiving, compacted, paid_account, ascending, sort_style} = res.payload.settings;
                         const {id, nickname, email} = res.payload.payload;
+                        
                         TokenService.saveAuthToken(res.authToken);
                         UserService.saveUser({id, nickname, email, username: res.payload.payload.username});
                         SettingsService.saveSettings({
                             theme, type_list, type_selected, paid_account, id: settingid,
                             types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', '6-Month', 'Yearly', '3-Year', '5-Year', 'Distant'],
-                            show_delete, notifications, auto_archiving, compacted
+                            show_delete, notifications, auto_archiving, compacted, ascending, sort_style
                         });
                         // window.location.reload();
                     })

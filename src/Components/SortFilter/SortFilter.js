@@ -10,7 +10,6 @@ export default class SortFilter extends Component {
         ><div style={{display: 'inline-flex'}} onClick={()=> this.props.updateGoals(this.context.toggleSortStyle)}>Sort</div>
             <span onClick={()=> this.props.updateGoals(this.context.toggleSortStyle)}
                 style={{color: getCurrentThemeColors().headerColor}}>{this.context.sortStyle}
-
             </span>
             {this.context.sortStyle !== 'No' ? <div className={'ascending-btns'} onClick={()=> this.props.updateGoals(this.context.toggleAscending)}>
                 <button style={{backgroundColor: !this.context.ascending ? 'rgba(117, 232, 139, 0.67)' : '#ffb9baaa', filter: this.context.ascending ? 'opacity(0.5)' : ''}}>ASC</button>

@@ -71,7 +71,8 @@ export class SettingsProvider extends React.Component {
             }
             if (SettingsService.hasSettings()) {
                 let {type_list, type_selected, auto_archiving, show_delete, local_storage, dark_mode, paid_account,
-                    color_style, compacted, theme, notifications, sort_style, ascending} = SettingsService.getSettings()
+                    color_style, compacted, theme, notifications, sort_style, ascending} = SettingsService.getSettings();
+                  
                 this.setState({
                     typeListSelected: type_list,
                     currentType: type_selected,
