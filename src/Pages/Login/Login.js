@@ -7,9 +7,9 @@ import UserService from "../../services/local/user-api-service";
 import {Link} from "react-router-dom";
 import SettingsService from "../../services/local/settings-service";
 // import {GoogleLogin} from "react-google-login";
-
+import exposePassword from '../../assets/icons/eye.svg'
 class Login extends React.Component {
-    state = {error: null};
+    state = {error: null, showPassword: false};
 
     handleSubmitJwtAuth = ev => {
         ev.preventDefault();
@@ -123,8 +123,9 @@ class Login extends React.Component {
                     <Input
                         required
                         name='password'
-                        type='password'
+                        type={!this.state.showPassword ? 'password' : 'text'}
                         id='LoginForm__password'/>
+                    <img src={exposePassword} alt='show' title="Show Password" onMouseDown={()=> this.setState({showPassword: true})} onMouseUp={()=>this.setState({showPassword: false})}/>
                     <Link to={'/login/forgot-password'}>
                         Forgot Password
                     </Link>

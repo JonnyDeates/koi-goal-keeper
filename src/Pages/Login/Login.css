@@ -33,6 +33,15 @@
     -o-animation: 2s .25s slide-in-up forwards;
     -moz-animation: 2s .25s slide-in-up forwards;
 }
+.password > img {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    margin-left: -42px;
+    margin-top: 3px;
+    cursor: pointer;
+    opacity: .5;
+}
 .password > a {
     display: block;
     font-size: smaller;
