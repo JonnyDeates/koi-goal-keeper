@@ -252,7 +252,6 @@ export class SettingsProvider extends React.Component {
                 }
             },
             toggleDarkMode: () => {
-                SettingsApiService.toggleDarkMode(SettingsService.getSettings().id);
                 SettingsService.saveSettings({dark_mode: !this.state.darkMode});
                 this.setState({darkMode: !this.state.darkMode}, () => setTimeout(() => this.forceUpdate(), 100));
                 if (!SettingsService.isLocal()) {
