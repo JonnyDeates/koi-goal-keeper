@@ -77,7 +77,7 @@ class Home extends React.Component {
                 <SearchFilter changeFilter={this.changeFilter} searchGoals={this.changSearch} search={this.state.search} types={this.context.types}
                               currentType={this.context.currentType} clearSearch={()=> this.setState({search: '', goalChange: true})}/>
                 {this.state.currentGoals.length === 0 ? <h2>No Current {type} Goals</h2> : ''}
-                {this.state.currentGoals.map((Goal, i) => <GoalList key={i} showChecked={true}
+                {this.state.currentGoals.map((Goal, i) => <GoalList key={i} showChecked={true} showCloneGoalList={true}
                                                                     deleteGoal={this.props.goalListContext.deleteGoal}
                                                                     pushGoal={this.props.goalListContext.pushGoal}
                                                                     goalId={Goal.id} handleAddObjective={this.props.goalListContext.handleAddObjective}
@@ -86,7 +86,7 @@ class Home extends React.Component {
                                                                     goals={Goal.goals} type={Goal.type}
                                                                     handleEditGoal={this.props.goalListContext.handleEditGoal}
                                                                     date={Goal.date} checkedamt={Goal.checkedamt}
-                                                                    showDelete={this.context.showDelete}
+                                                                    showDelete={this.context.showDelete} handleGoalListClone={this.props.goalListContext.handleGoalListClone}
                                                                     compacted={this.context.compacted} showAdd={true}
                                                                     handleObjectiveClone={this.props.goalListContext.handleObjectiveClone}/>)}
             </main>

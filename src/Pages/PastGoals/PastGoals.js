@@ -67,14 +67,14 @@ class PastGoals extends React.Component {
             <SortFilter updateGoals={this.updateGoals}/>
             <SearchFilter changeFilter={this.changeFilter} searchGoals={this.searchGoals} currentType={this.context.currentType} types={this.context.types}/>
             {(this.context.currentType === 'All')
-                ? this.state.currentGoals.map((pg, i) => <GoalList key={i} goalId={pg.id}
+                ? this.state.currentGoals.map((pg, i) => <GoalList key={i} goalId={pg.id} showCloneGoalList={true}
                                                                    deleteGoal={this.props.goalListContext.deletePastGoal}
                                                                    showChecked={false} isEditable={false}
                                                                    showCompleted={true}
                                                                    date={pg.date} type={pg.type} goals={pg.goals}
                                                                    past={true}
                                                                    showDelete={this.context.showDelete}
-                                                                   checkedamt={pg.checkedamt}
+                                                                   checkedamt={pg.checkedamt} handleGoalListClone={this.props.goalListContext.handlePastGoalListClone}
                                                                    compacted={this.context.compacted}
                                                                    handleObjectiveClone={this.props.goalListContext.handlePastObjectiveClone}
                 />)

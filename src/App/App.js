@@ -19,16 +19,16 @@ import BottomNav from "../Components/BottomNav/BottomNav";
 class App extends React.Component {
 
     componentDidMount() {
-        try {
-            window.gapi.load('auth2', () => {
-                this.auth2 = window.gapi.auth2.init({
-                    client_id: config.GOOGLE_TOKEN,
-                })
-            })
-        }
-        catch(e) {
-            console.log('Hello There!')
-        }
+        // try {
+        //     window.gapi.load('auth2', () => {
+        //         this.auth2 = window.gapi.auth2.init({
+        //             client_id: config.GOOGLE_TOKEN,
+        //         })
+        //     })
+        // }
+        // catch(e) {
+        //     console.log('Hello There!')
+        // }
     }
 
     render() {

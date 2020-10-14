@@ -4,6 +4,7 @@ import GoalItem from "./GoalItem/GoalItem";
 import {getColor, getCurrentThemeColors} from '../../Utils/Utils';
 const pushIco = require("../../assets/icons/push.svg");
 const addIco = require("../../assets/icons/plus.svg");
+const copyIcon = require("../../assets/icons/copy.svg");
 
 class GoalList extends React.Component {
     state = {
@@ -13,6 +14,7 @@ class GoalList extends React.Component {
         goals: [],
         goalId: '',
         showCompleted: false,
+        showCloneGoalList: false,
         isEditable: false,
         showChecked: false,
         showDelete: false,
@@ -35,6 +37,7 @@ class GoalList extends React.Component {
                 date: this.props.date,
                 goals: this.props.goals,
                 goalId: this.props.goalId,
+                showCloneGoalList: this.props.showCloneGoalList,
                 showCompleted: this.props.showCompleted,
                 isEditable: this.props.isEditable,
                 showChecked: this.props.showChecked,
@@ -55,6 +58,7 @@ class GoalList extends React.Component {
                 date: this.props.date,
                 goals: this.props.goals,
                 goalId: this.props.goalId,
+                showCloneGoalList: this.props.showCloneGoalList,
                 showCompleted: this.props.showCompleted,
                 isEditable: this.props.isEditable,
                 showChecked: this.props.showChecked,
@@ -74,13 +78,15 @@ class GoalList extends React.Component {
     render() {
         return (
             <div className={this.state.compacted + " goallist"}>
-                <div className={'goallist-title'} style={{backgroundColor: getCurrentThemeColors().tColor+'aa',color: getCurrentThemeColors().fontColor}}>
+                <div className={'goallist-title'} style={{backgroundColor: getCurrentThemeColors().tColor,color: getCurrentThemeColors().fontColor}}>
                     <p>{this.state.type}</p>
-                    <p>{new Date(this.state.date).toLocaleDateString()}</p>
-
-
-                    <div className='circle-indicator' style={getColor(this.state.type)}/>
+                    <p style={{backgroundColor: getCurrentThemeColors().tColor}}>{new Date(this.state.date).toLocaleDateString()}</p>
+                    {this.state.showCloneGoalList && this.state.compacted === 'No'
+                        ? <img className="goallist-clone" src={copyIcon} alt='Clone Goal-list' title="Clone All Objectives"
+                         style={getColor(this.state.type)} onClick={()=>this.props.handleGoalListClone(this.state.goalId)}/> : ''}
+                    <div className="circle-indicator-wrapper"><div className='circle-indicator' style={getColor(this.state.type)}/></div>
                 </div>
+
                 {this.state.goals !== 0 && (this.state.checkedamt >= 1 && !this.state.past)
                     ? <img src={pushIco} alt="Push Goals" title={'Archive Goal'} className={'goallist-push'} style={{backgroundColor: getCurrentThemeColors().tColor+'66'}}
                            onClick={()=> this.props.pushGoal(this.state.goalId)}/>

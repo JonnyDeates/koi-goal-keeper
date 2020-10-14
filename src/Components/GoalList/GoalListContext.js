@@ -61,6 +61,8 @@ export class GoalListProvider extends React.Component {
         this.handleEditCurrentGoal = this.handleEditCurrentGoal.bind(this);
         this.handleEditGoal = this.handleEditGoal.bind(this);
         this.handleGoalAdd = this.handleGoalAdd.bind(this);
+        this.handleGoalListClone = this.handleGoalListClone.bind(this);
+        this.handlePastGoalListClone = this.handlePastGoalListClone.bind(this);
         this.handleObjectiveClone = this.handleObjectiveClone.bind(this);
         this.handlePastObjectiveClone = this.handlePastObjectiveClone.bind(this);
         this.handleSelectedType = this.handleSelectedType.bind(this);
@@ -72,13 +74,13 @@ export class GoalListProvider extends React.Component {
 
     componentDidMount() {
         this.fetchData();
-        if (window.gapi) {
-            window.gapi.load('auth2', () => {
-                this.auth2 = window.gapi.auth2.init({
-                    client_id: '210398171394-4tvu2p5580kl3d959vidn4avuif5p53n.apps.googleusercontent.com',
-                })
-            })
-        }
+        // if (window.gapi) {
+        //     window.gapi.load('auth2', () => {
+        //         this.auth2 = window.gapi.auth2.init({
+        //             client_id: '210398171394-4tvu2p5580kl3d959vidn4avuif5p53n.apps.googleusercontent.com',
+        //         })
+        //     })
+        // }
     }
 
     fetchData() {
@@ -176,6 +178,34 @@ export class GoalListProvider extends React.Component {
         }
     }
 
+    handleGoalListClone(goalID){
+        let goals = this.state.currentGoals.find(goalList => goalList.id === goalID).goals;
+        let startingId = this.state.currentGoal.goals.length || 0;
+        let newGoals = [];
+        for (let x = 0; x<goals.length; x++) {
+            newGoals.push({obj: goals[x].obj, id: startingId + x})
+        }
+        toast.success('Goal List Copied', {autoClose: 1500});
+        this.setState({
+            currentGoal:
+                {
+                    date: this.state.currentGoal.date, type: this.state.currentGoal.type,
+                    goals: [...this.state.currentGoal.goals, ...newGoals]
+                }
+        });
+    }
+    handlePastGoalListClone(goalID){
+        let goals = this.state.pastGoals.find(goalList => goalList.id === goalID).goals;
+        toast.success('Past Goal List Copied', {autoClose: 1500});
+        console.log(goals)
+        this.setState({
+            currentGoal:
+                {
+                    date: this.state.currentGoal.date, type: this.state.currentGoal.type,
+                    goals: [...goals, ...this.state.pastGoals]
+                }
+        });
+    }
     deleteGoal(goalID, ID) {
         let Goal = this.state.currentGoals.find(g => g.id === goalID);
         let {checked} = Goal.goals.find(g => g.id === ID);
@@ -436,6 +466,8 @@ export class GoalListProvider extends React.Component {
             handleEditCurrentGoal: this.handleEditCurrentGoal,
             handleEditGoal: this.handleEditGoal,
             handleGoalAdd: this.handleGoalAdd,
+            handleGoalListClone: this.handleGoalListClone,
+            handlePastGoalListClone: this.handlePastGoalListClone,
             handleObjectiveClone: this.handleObjectiveClone,
             handlePastObjectiveClone: this.handlePastObjectiveClone,
             handleSelectedType: this.handleSelectedType,
