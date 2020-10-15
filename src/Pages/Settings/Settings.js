@@ -241,15 +241,7 @@ class Settings extends React.Component {
                             style={{color: getCurrentThemeColors().headerColor}}>{(this.context.autoArchiving) ? 'On' : 'Off'}</span>
                     </p>
                 </section>
-                <section>
-                    <p className='even-space' onClick={() => this.setState({localStorageModel: true})}
-                       title={'Click To Toggle The Local Storage'}
-                       style={{color: getCurrentThemeColors().fontColor}}>
-                        Local Storage
-                        <span
-                            style={{color: getCurrentThemeColors().headerColor}}>{(this.context.localStorage) ? 'On' : 'Off'}</span>
-                    </p>
-                </section>
+
                 <section>
                     <p className='even-space' onClick={() => {
                         this.context.toggleDarkMode();
@@ -260,6 +252,23 @@ class Settings extends React.Component {
                         Dark Mode
                         <span
                             style={{color: getCurrentThemeColors().headerColor}}>{(this.context.darkMode) ? 'On' : 'Off'}</span>
+                    </p>
+                </section>
+                <section>
+                    <p className='even-space noselect' onClick={() => this.props.goalListContext.downloadGoals()}
+                       title={'Click To Download All Goals'}
+                       style={{color: getCurrentThemeColors().fontColor}}>
+                        Download
+                        <span style={{color: getCurrentThemeColors().headerColor}}>All Goals</span>
+                    </p>
+                </section>
+                <section>
+                    <p className='even-space' onClick={() => this.setState({localStorageModel: true})}
+                       title={'Click To Toggle The Local Storage'}
+                       style={{color: getCurrentThemeColors().fontColor}}>
+                        Local Storage
+                        <span
+                            style={{color: getCurrentThemeColors().headerColor}}>{(this.context.localStorage) ? 'On' : 'Off'}</span>
                     </p>
                 </section>
                 <section>

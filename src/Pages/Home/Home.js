@@ -79,11 +79,11 @@ class Home extends React.Component {
                 {this.state.currentGoals.length === 0 ? <h2>No Current {type} Goals</h2> : ''}
                 {this.state.currentGoals.map((Goal, i) => <GoalList key={i} showChecked={true} showCloneGoalList={true}
                                                                     deleteGoal={this.props.goalListContext.deleteGoal}
-                                                                    pushGoal={this.props.goalListContext.pushGoal}
+                                                                    pushGoal={this.props.goalListContext.pushGoal} showDeleteGoalList={true}
                                                                     goalId={Goal.id} handleAddObjective={this.props.goalListContext.handleAddObjective}
                                                                     handleChecked={this.props.goalListContext.handleChecked}
                                                                     isEditable={true} showCompleted={true}
-                                                                    goals={Goal.goals} type={Goal.type}
+                                                                    goals={Goal.goals} type={Goal.type} deleteGoalList={this.props.goalListContext.deleteGoalList}
                                                                     handleEditGoal={this.props.goalListContext.handleEditGoal}
                                                                     date={Goal.date} checkedamt={Goal.checkedamt}
                                                                     showDelete={this.context.showDelete} handleGoalListClone={this.props.goalListContext.handleGoalListClone}

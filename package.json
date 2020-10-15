@@ -1,6 +1,6 @@
 {
   "name": "koi-goal-keeper",
-  "version": "4.9.0",
+  "version": "4.9.5",
   "private": true,
   "dependencies": {
     "cuid": "^2.1.6",
@@ -34,7 +34,7 @@
       "last 1 safari version"
     ]
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "description": "This is the Koi Goal Keeper, a webservice created for the betterment of any consumers who want it.",
   "main": "index.js",
   "devDependencies": {
     "enzyme": "^3.11.0",

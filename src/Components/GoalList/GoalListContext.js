@@ -6,7 +6,7 @@ import PastObjectivesApiService from "../../services/database/pastobjectives-api
 import ObjectivesApiService from "../../services/database/objectives-api-service";
 import {toast} from "react-toastify";
 import SettingsService from "../../services/local/settings-service";
-import {getTime, uuid} from "../../Utils/Utils";
+import {formatDate, getTime, uuid} from "../../Utils/Utils";
 import GoalService from "../../services/local/goals-service";
 import PastGoalService from "../../services/local/pastgoals-service";
 
@@ -55,7 +55,10 @@ export class GoalListProvider extends React.Component {
         this.breakApartGoalData = this.breakApartGoalData.bind(this);
         this.checkCurrentGoals = this.checkCurrentGoals.bind(this);
         this.deleteGoal = this.deleteGoal.bind(this);
+        this.deleteGoalList = this.deleteGoalList.bind(this);
         this.deletePastGoal = this.deletePastGoal.bind(this);
+        this.deletePastGoalList = this.deletePastGoalList.bind(this);
+        this.downloadGoals = this.downloadGoals.bind(this);
         this.handleAddObjective = this.handleAddObjective.bind(this);
         this.handleChecked = this.handleChecked.bind(this);
         this.handleEditCurrentGoal = this.handleEditCurrentGoal.bind(this);
@@ -178,11 +181,11 @@ export class GoalListProvider extends React.Component {
         }
     }
 
-    handleGoalListClone(goalID){
+    handleGoalListClone(goalID) {
         let goals = this.state.currentGoals.find(goalList => goalList.id === goalID).goals;
         let startingId = this.state.currentGoal.goals.length || 0;
         let newGoals = [];
-        for (let x = 0; x<goals.length; x++) {
+        for (let x = 0; x < goals.length; x++) {
             newGoals.push({obj: goals[x].obj, id: startingId + x})
         }
         toast.success('Goal List Copied', {autoClose: 1500});
@@ -194,7 +197,8 @@ export class GoalListProvider extends React.Component {
                 }
         });
     }
-    handlePastGoalListClone(goalID){
+
+    handlePastGoalListClone(goalID) {
         let goals = this.state.pastGoals.find(goalList => goalList.id === goalID).goals;
         toast.success('Past Goal List Copied', {autoClose: 1500});
         console.log(goals)
@@ -206,6 +210,7 @@ export class GoalListProvider extends React.Component {
                 }
         });
     }
+
     deleteGoal(goalID, ID) {
         let Goal = this.state.currentGoals.find(g => g.id === goalID);
         let {checked} = Goal.goals.find(g => g.id === ID);
@@ -228,6 +233,24 @@ export class GoalListProvider extends React.Component {
                 GoalApiService.patchGoal(Goal, Goal.id)
             }
             ObjectivesApiService.deleteObjective(ID);  // Deletes Objective
+        }
+    }
+
+    deleteGoalList(goalID) {
+        let Goal = this.state.currentGoals.find(g => g.id === goalID);
+        toast.warn(`${Goal.type} Goal List Deleted`, {autoClose: 2000});
+        this.setState({currentGoals: this.state.currentGoals.filter(g => g.id !== goalID)}, () => GoalService.saveGoals(this.state.currentGoals));
+        if (!SettingsService.isLocal()) { // Handles Local Check
+            GoalApiService.deleteGoal(Goal.id) // Deletes Goal List
+        }
+    }
+
+    deletePastGoalList(goalID) {
+        let Goal = this.state.pastGoals.find(g => g.id === goalID);
+        toast.warn(`${Goal.type} Goal List Deleted`, {autoClose: 2000});
+        this.setState({pastGoals: this.state.pastGoals.filter(g => g.id !== goalID)}, () => PastGoalService.savePastGoals(this.state.pastGoals));
+        if (!SettingsService.isLocal()) { // Handles Local Check
+            PastGoalApiService.deletePastGoal(Goal.id) // Deletes Goal List
         }
     }
 
@@ -257,6 +280,37 @@ export class GoalListProvider extends React.Component {
             }
             PastObjectivesApiService.deleteObjective(ID);
         }
+    }
+
+    downloadGoals() {
+        let element = document.createElement('a');
+        let text = '';
+        if (this.state.currentGoals.length > 0) {
+            text += 'Current Goals \r\n';
+            this.state.currentGoals.forEach((goallist) => {
+                text += `${goallist.type} Goal  -  ${formatDate(new Date(goallist.date))} \r\n`;
+                goallist.goals.forEach((goal) => text += `${goal.checked ? 'Completed' : 'Unchecked'}: ${goal.obj} \r\n`)
+                text += '\r\n'
+            });
+            text += '\r\n'
+        }
+        if (this.state.pastGoals.length > 0) {
+            text += 'Past Goals \r\n';
+            this.state.pastGoals.forEach((goallist) => {
+                text += `${goallist.type} Goal  -  ${formatDate(new Date(goallist.date))} \r\n`;
+                goallist.goals.forEach((goal) => text += `${goal.checked ? 'Completed' : 'Unchecked'}: ${goal.obj} \r\n`)
+                text += '\r\n'
+            });
+        }
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', 'Goals.txt');
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
     }
 
     handleAddObjective(Id) {
@@ -422,7 +476,7 @@ export class GoalListProvider extends React.Component {
                             goalid: res.id
                         }));
                         GoalApiService.deleteGoal(id);
-                    setState()
+                        setState()
                     }
                 ).catch(e => toast.error(e.error));
 
@@ -460,7 +514,10 @@ export class GoalListProvider extends React.Component {
             breakApartGoalData: this.breakApartGoalData,
             checkCurrentGoals: this.checkCurrentGoals,
             deleteGoal: this.deleteGoal,
+            deleteGoalList: this.deleteGoalList,
             deletePastGoal: this.deletePastGoal,
+            deletePastGoalList: this.deletePastGoalList,
+            downloadGoals: this.downloadGoals,
             handleAddObjective: this.handleAddObjective,
             handleChecked: this.handleChecked,
             handleEditCurrentGoal: this.handleEditCurrentGoal,
