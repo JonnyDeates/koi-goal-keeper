@@ -3,7 +3,7 @@ import './Utils.css'
 import SettingsService from "../services/local/settings-service";
 
 export function getSpecificType(i) {
-    return ['Daily', 'Weekly', 'Biweekly', 'Monthly', 'Quarterly', '6-Month', '9-Month', 'Yearly', '2-Year', '3-Year', '4-Year', '5-Year', '10-Year', '20-Year', '30-Year', 'Distant'][i];
+    return ['Daily', 'Weekly', 'BiWeekly', 'Monthly', 'Quarterly', '6-Month', '9-Month', 'Yearly', '2-Year', '3-Year', '4-Year', '5-Year', '10-Year', '20-Year', '30-Year', 'Distant'][i];
 }
 
 export function getTypeColorsAvailable() {
@@ -61,7 +61,7 @@ export function getColor(type) {
         case 'Weekly':
             color = ColorThemes[1];
             break;
-        case 'Biweekly':
+        case 'BiWeekly':
             color = ColorThemes[2];
             break;
         case 'Monthly':

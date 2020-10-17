@@ -201,7 +201,6 @@ export class GoalListProvider extends React.Component {
     handlePastGoalListClone(goalID) {
         let goals = this.state.pastGoals.find(goalList => goalList.id === goalID).goals;
         toast.success('Past Goal List Copied', {autoClose: 1500});
-        console.log(goals)
         this.setState({
             currentGoal:
                 {

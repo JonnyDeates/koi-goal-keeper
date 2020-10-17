@@ -81,6 +81,8 @@ class GoalList extends React.Component {
 
 
     render() {
+        let completed = this.state.checkedamt === this.state.goals.length;
+        let checked = this.state.checkedamt >= 1;
         return (
             <div className={this.state.compacted + " goallist"}>
                 <div className={'goallist-title'} style={{backgroundColor: getCurrentThemeColors().tColor,color: getCurrentThemeColors().fontColor}}>
@@ -95,11 +97,18 @@ class GoalList extends React.Component {
                     <div className="circle-indicator-wrapper"><div className='circle-indicator' style={getColor(this.state.type)}/></div>
                 </div>
 
-                {this.state.goals !== 0 && (this.state.checkedamt >= 1 && !this.state.past)
-                    ? <img src={pushIco} alt="Push Goals" title={'Archive Goal'} className={'goallist-push'} style={{backgroundColor: getCurrentThemeColors().tColor+'66'}}
+                {this.state.goals !== 0 && (checked && !this.state.past)
+                    ? <img src={pushIco} alt="Push Goals" title={'Archive Goal'} className={'goallist-push'}
+                           style={{backgroundColor: completed ? getColor(this.state.type).backgroundColor : getCurrentThemeColors().tColor+'66',
+                               animation: completed ? '1s ease infinite pulse' : '',
+
+                           }}
                            onClick={()=> this.props.pushGoal(this.state.goalId)}/>
                     : ''}
-                {(this.state.showCompleted && this.state.goals.length > 1  && this.state.checkedamt >= 1) ? <p className={'goallist-count'}  style={{backgroundColor: getColor(this.state.type).backgroundColor, color: getCurrentThemeColors().headerColor}}>{this.state.checkedamt}{(this.state.compacted === 'Ultra-Compacted') ? ('/' + this.state.goals.length) : ''}</p> : ''}
+                {(this.state.showCompleted && (this.state.goals.length > 1 || this.state.compacted !== 'Ultra Compacted')  && checked)
+                    ? <p className={'goallist-count'} style={{backgroundColor: getColor(this.state.type).backgroundColor,
+                        color: getCurrentThemeColors().headerColor}}>{this.state.checkedamt}
+                        {(this.state.compacted === 'Ultra-Compacted') ? ('/' + this.state.goals.length) : ''}</p> : ''}
                 <ul >
                     {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.obj} checked={goal.checked} newObj={ (typeof goal.newObj === 'boolean' ? goal.newObj : false)}
                                                                  handleChecked={this.props.handleChecked} id={goal.id}
