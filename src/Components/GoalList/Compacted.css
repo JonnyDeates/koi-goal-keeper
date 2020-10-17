@@ -1,0 +1,160 @@
+.Compacted > ul > * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.Compacted li > *{
+    margin-top: 0;
+    margin-bottom: 0;}
+.Compacted img {
+    width: 20px;
+    max-width: 20px;
+    height: 20px;
+    max-height: 20px;
+}
+.Extra-Compacted  {
+    margin-bottom: -50px;;
+}
+.Extra-Compacted ul > * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.Extra-Compacted li > *{
+    margin-top: 0;
+    margin-bottom: 0}
+.Extra-Compacted img {
+    width: 20px;
+    max-width: 20px;
+    height: 20px;
+    max-height: 20px;
+}
+.Ultra-Compacted  {
+    margin-bottom: -30px;
+}
+.Ultra-Compacted ul > li {
+    display: none;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.Ultra-Compacted .goallist-title {
+    border-radius: 10px !important;
+    margin: 0;
+}
+.Ultra-Compacted .goallist-title > p:nth-child(3)  {
+    display: unset;
+}
+.Ultra-Compacted li > *{
+    margin-top: 0;
+    margin-bottom: 0}
+.Ultra-Compacted img {
+    width: 20px;
+    max-width: 20px;
+    height: 20px;
+    max-height: 20px;
+}
+.Ultra-Compacted button {
+    display: none;
+}
+@media (min-width: 767px) {
+    .Compacted > ul > * {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .Compacted li > * {
+        margin-top: 4px;
+        margin-bottom: 0;
+    }
+
+    .Compacted img {
+        width: 20px;
+        max-width: 20px;
+        height: 20px;
+        max-height: 20px;
+    }
+
+    .Compacted .goallist-item input[type=text] {
+        width: 25vw;
+        margin: 0 16px;
+        padding: 0;
+        font-size: medium;
+    }
+
+    .Extra-Compacted {
+        margin-bottom: -20px;;
+    }
+
+    .Extra-Compacted ul > * {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .Extra-Compacted li > * {
+        margin-top: 4px;
+        margin-bottom: 0
+    }
+
+    .Extra-Compacted img {
+        width: 20px;
+        max-width: 20px;
+        height: 20px;
+        max-height: 20px;
+    }
+
+    .Compacted .goallist-push, .Extra-Compacted .goallist-push {
+        margin-top: -32px;
+    }
+
+    .Ultra-Compacted {
+        margin-bottom: 24px;
+    }
+
+    .Ultra-Compacted ul {
+        background-color: #e6eef599;
+        width: 45vw;
+        height: 74px;
+        position: absolute;
+        margin-left: 92px;
+        margin-top: -4px;
+        border-radius: 0 15px 15px 15px;
+    }
+
+    .Ultra-Compacted ul > li {
+        display: none;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .Ultra-Compacted .goallist-push {
+        top: 6px !important;
+
+    }
+
+    .Ultra-Compacted .goallist-title {
+        border-radius: 10px 0 0 10px !important;
+    }
+
+    .Ultra-Compacted .goallist-title > p:nth-child(3) {
+        display: none;
+    }
+
+    .Ultra-Compacted .goallist-count {
+        top: 16px !important;
+        left: 90px !important;
+        padding: 0 7px !important;
+        z-index: 1;
+        border-radius: 0 0 100% 100%;
+        margin-top: -11px !important;
+    }
+
+    .Ultra-Compacted li > * {
+        margin-top: 0;
+        margin-bottom: 0
+    }
+
+    .Ultra-Compacted img {
+        width: 20px;
+        max-width: 20px;
+        height: 20px;
+        max-height: 20px;
+    }
+}

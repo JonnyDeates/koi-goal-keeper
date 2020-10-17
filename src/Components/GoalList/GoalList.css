@@ -12,6 +12,32 @@
     border-radius: 10px;
     width: 85vw;
 }
+.goallist-clone {
+    position: absolute;
+    width: 30px;
+    margin-top: -10px;
+    cursor: pointer;
+    left: 0;
+    border-radius: 100%;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.4), 4px 4px 9px rgba(0,0,0,0.1), inset 1px 1px 2px rgba(0,0,0,0.4);
+    margin-left: 5px;
+}
+.goallist-clone:hover {
+    background-color: rgba(230, 232, 139, 0.67) !important;
+}
+.goallist-trash {
+    position: absolute;
+    width: 30px;
+    margin-top: -10px;
+    cursor: pointer;
+    right: 0;
+    border-radius: 100%;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.4), 4px 4px 9px rgba(0,0,0,0.1), inset 1px 1px 2px rgba(0,0,0,0.4);
+    margin-right: 5px;
+}
+.goallist-trash:hover {
+    background-color: rgba(255, 155, 158, 0.67) !important;
+}
 .goallist-count {
     border-radius: 0 16px 16px 0;
     padding: 0 16px;
@@ -105,13 +131,18 @@
 }
 
 .goallist-push {
-    filter: grayscale(1) brightness(1.25) opacity(0.5);
+    filter: brightness(1.2);
     cursor: pointer;
     width: 50px;
     height: 50px;
     position: absolute;
     right: 10vw;
     margin-top: -50px;
+    border-radius: 10px;
+    transition: background-color 2s;
+}
+.goallist-push:hover {
+    filter: brightness(1.5);
 }
 .checkboxinput {
     margin: auto 0 auto 0;
@@ -126,62 +157,6 @@
     margin: 16px 16px;
     padding: 0;
     animation: .25s fade-in forwards;
-}
-.Compacted > ul > * {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-.Compacted li > *{
-    margin-top: 0;
-    margin-bottom: 0;}
-.Compacted img {
-    width: 20px;
-    max-width: 20px;
-    height: 20px;
-    max-height: 20px;
-}
-.Extra-Compacted  {
-    margin-bottom: -50px;;
-}
-.Extra-Compacted ul > * {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-.Extra-Compacted li > *{
-    margin-top: 0;
-    margin-bottom: 0}
-.Extra-Compacted img {
-    width: 20px;
-    max-width: 20px;
-    height: 20px;
-    max-height: 20px;
-}
-.Ultra-Compacted  {
-    margin-bottom: -30px;
-}
-.Ultra-Compacted ul > li {
-    display: none;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-.Ultra-Compacted .goallist-title {
-    border-radius: 10px !important;
-    margin: 0;
-}
-.Ultra-Compacted .goallist-title > p:nth-child(3)  {
-    display: unset;
-}
-.Ultra-Compacted li > *{
-    margin-top: 0;
-    margin-bottom: 0}
-.Ultra-Compacted img {
-    width: 20px;
-    max-width: 20px;
-    height: 20px;
-    max-height: 20px;
-}
-.Ultra-Compacted button {
-    display: none;
 }
 .row-buttons .close-button{
     padding: 0 5px;
@@ -213,97 +188,23 @@
     }
 }
 @media (min-width: 767px) {
-    .Compacted > ul > * {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    .Compacted li > *{
-        margin-top: 4px;
-        margin-bottom: 0;}
-    .Compacted img {
-        width: 20px;
-        max-width: 20px;
-        height: 20px;
-        max-height: 20px;
-    }
-    .Compacted .goallist-item input[type=text] {
-        width: 25vw;
-        margin: 0 16px;
-        padding: 0;
-        font-size: medium;
-    }
-    .Extra-Compacted  {
-        margin-bottom: -20px;;
-    }
-    .Extra-Compacted ul > * {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    .Extra-Compacted li > *{
-        margin-top: 4px;
-        margin-bottom: 0}
-    .Extra-Compacted img {
-        width: 20px;
-        max-width: 20px;
-        height: 20px;
-        max-height: 20px;
-    }
-    .Compacted .goallist-push, .Extra-Compacted .goallist-push {
-        margin-top: -32px;
-    }
-    .Ultra-Compacted  {
-        margin-bottom: 24px;
-    }
-    .Ultra-Compacted ul {
-        background-color: #e6eef599;
-        width: 45vw;
-        height: 74px;
-        position: absolute;
-        margin-left: 92px;
-        margin-top: -4px;
-        border-radius: 0 15px 15px 15px;
-    }
-    .Ultra-Compacted ul > li {
-        display: none;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    .Ultra-Compacted .goallist-push {
-        top: 6px !important;
-
-    }
-    .Ultra-Compacted .goallist-title {
-        border-radius: 10px 0 0 10px !important;
-    }
-    .Ultra-Compacted .goallist-title > p:nth-child(3)  {
-        display: none;
-    }
-    .Ultra-Compacted .goallist-count {
-        top: 16px !important;
-        left: 90px !important;
-        padding: 0 7px !important;
-        z-index: 1;
-        border-radius: 0 0 100% 100%;
-        margin-top: -11px !important;
-    }
-    .Ultra-Compacted li > *{
-        margin-top: 0;
-        margin-bottom: 0}
-    .Ultra-Compacted img {
-        width: 20px;
-        max-width: 20px;
-        height: 20px;
-        max-height: 20px;
-    }
-
     .checkboxinput {
         margin: auto 0 auto 0;
         position: relative;
     }
+    .circle-indicator-wrapper {
+        position: absolute;
+        display: block;
+        margin: 0 !important;
+        overflow: hidden;
+        padding: 0 0 8px 4px !important;
+        border-radius: 0 0 0 15px !important;
+        width: 80px;
+    }
     .circle-indicator {
         width: 100%;
         height: 25px;
-        border-radius: 0 20px 0 0;
+        border-radius: 5px 20px 0 0;
         margin-left: -2px;
         margin-top: 0;
         position: absolute;
@@ -339,8 +240,6 @@
         animation: slide-in-left 2s forwards
     }
     .goallist-push {
-        filter: grayscale(1) brightness(1) opacity(1);
-        cursor: pointer;
         width: 30px;
         height: 30px;
         position: relative;
@@ -349,7 +248,6 @@
         left: 94%;
         right: -123%;
         padding: 6px 12px;
-        background-color: aliceblue;
         top: -4px;
         border-radius: 10px 10px 0 0;
         animation: slide-in-right 2s forwards
@@ -359,7 +257,8 @@
         display: block;
         text-align: right;
         margin: -4px 0 0 6px !important;
-        overflow-x: hidden;
+        overflow-x: unset;
+        overflow-y: unset !important;
         padding: 0 0 8px 4px !important;
         border-radius: 15px 0 0 15px !important;
         background-color: #e6eef5;
@@ -367,6 +266,28 @@
         width: 82px;
         opacity: 0;
         animation: 3s slide-in-right forwards;
+    }
+    .goallist-clone {
+        border-radius: 0 0 5px 10px;
+        margin: -9px 0 0 11px;
+        z-index: -1;
+        transition: margin 1s;
+        left: unset;
+        box-shadow: none;
+    }
+    .goallist-clone:hover {
+        margin: 8px 0 0 11px;
+    }
+    .goallist-trash {
+        border-radius: 0 0 5px 5px;
+        margin: -15px 0 0 -20px;
+        z-index: -1;
+        transition: margin 1s;
+        right: unset;
+        box-shadow: none;
+    }
+    .goallist-trash:hover {
+        margin: 8px 0 0 -20px;
     }
     .goallist-title > p {
         margin: 0;

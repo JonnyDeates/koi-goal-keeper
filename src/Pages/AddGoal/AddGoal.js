@@ -123,7 +123,7 @@ class AddGoal extends React.Component {
                 <div className='bar-indicator-top' style={getColor(this.context.currentType)}/>
                 <div className="addition-wrapper">
                     <div className='dropdown-types'>
-                        <li tabIndex style={{
+                        <li style={{
                             backgroundColor: getCurrentThemeColors().tColor,
                             color: getCurrentThemeColors().fontColor
                         }}>{this.state.currentGoal.type}
@@ -193,8 +193,8 @@ class AddGoal extends React.Component {
                 }}>Growth Worthy Goal</div> : ''}
                 <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false}
                           date={this.state.currentGoal.date} type={this.state.currentGoal.type}
-                          showChecked={false} handleChecked={this.state.handleChecked}
-                          handleEditGoal={this.state.handleEditGoal} compacted={'No'}
+                          showChecked={false} handleChecked={this.state.handleChecked} showCloneGoalList={false}
+                          handleEditGoal={this.state.handleEditGoal} compacted={'No'} showDeleteGoalList={false}
                           showDelete={true} handleObjectiveClone={this.handleObjectiveClone}
                           deleteGoal={this.deleteObjective} goals={this.state.currentGoal.goals}/>
 

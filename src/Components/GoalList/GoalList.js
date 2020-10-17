@@ -1,9 +1,12 @@
 import React from 'react';
 import './GoalList.css'
+import './Compacted.css'
 import GoalItem from "./GoalItem/GoalItem";
 import {getColor, getCurrentThemeColors} from '../../Utils/Utils';
 const pushIco = require("../../assets/icons/push.svg");
 const addIco = require("../../assets/icons/plus.svg");
+const copyIcon = require("../../assets/icons/copy.svg");
+const trashIco = require("../../assets/icons/trash.svg");
 
 class GoalList extends React.Component {
     state = {
@@ -13,9 +16,11 @@ class GoalList extends React.Component {
         goals: [],
         goalId: '',
         showCompleted: false,
+        showCloneGoalList: false,
         isEditable: false,
         showChecked: false,
         showDelete: false,
+        showDeleteGoalList: true,
         showAdd: false,
         compacted: '',
         deleteGoal: '',
@@ -35,10 +40,12 @@ class GoalList extends React.Component {
                 date: this.props.date,
                 goals: this.props.goals,
                 goalId: this.props.goalId,
+                showCloneGoalList: this.props.showCloneGoalList,
                 showCompleted: this.props.showCompleted,
                 isEditable: this.props.isEditable,
                 showChecked: this.props.showChecked,
                 showDelete: this.props.showDelete,
+                showDeleteGoalList: this.props.showDeleteGoalList,
                 compacted: this.props.compacted,
                 deleteGoal: this.props.deleteGoal,
                 past: this.props.past,
@@ -55,10 +62,12 @@ class GoalList extends React.Component {
                 date: this.props.date,
                 goals: this.props.goals,
                 goalId: this.props.goalId,
+                showCloneGoalList: this.props.showCloneGoalList,
                 showCompleted: this.props.showCompleted,
                 isEditable: this.props.isEditable,
                 showChecked: this.props.showChecked,
                 showDelete: this.props.showDelete,
+                showDeleteGoalList: this.props.showDeleteGoalList,
                 compacted: this.props.compacted,
                 deleteGoal: this.props.deleteGoal,
                 past: this.props.past,
@@ -72,20 +81,34 @@ class GoalList extends React.Component {
 
 
     render() {
+        let completed = this.state.checkedamt === this.state.goals.length;
+        let checked = this.state.checkedamt >= 1;
         return (
             <div className={this.state.compacted + " goallist"}>
-                <div className={'goallist-title'} style={{backgroundColor: getCurrentThemeColors().tColor+'aa',color: getCurrentThemeColors().fontColor}}>
+                <div className={'goallist-title'} style={{backgroundColor: getCurrentThemeColors().tColor,color: getCurrentThemeColors().fontColor}}>
                     <p>{this.state.type}</p>
-                    <p>{new Date(this.state.date).toLocaleDateString()}</p>
-
-
-                    <div className='circle-indicator' style={getColor(this.state.type)}/>
+                    <p style={{backgroundColor: getCurrentThemeColors().tColor}}>{new Date(this.state.date).toLocaleDateString()}</p>
+                    {this.state.showDelete && this.state.compacted === 'No' && this.state.showDeleteGoalList
+                        ? <img className="goallist-trash" src={trashIco} alt='Delete Goal-list' title="Delete All Objectives"
+                               style={getColor(this.state.type)} onClick={()=>this.props.deleteGoalList(this.state.goalId)}/> : ''}
+                    {this.state.showCloneGoalList && this.state.compacted === 'No'
+                        ? <img className="goallist-clone" src={copyIcon} alt='Clone Goal-list' title="Clone All Objectives"
+                         style={getColor(this.state.type)} onClick={()=>this.props.handleGoalListClone(this.state.goalId)}/> : ''}
+                    <div className="circle-indicator-wrapper"><div className='circle-indicator' style={getColor(this.state.type)}/></div>
                 </div>
-                {this.state.goals !== 0 && (this.state.checkedamt >= 1 && !this.state.past)
-                    ? <img src={pushIco} alt="Push Goals" title={'Archive Goal'} className={'goallist-push'} style={{backgroundColor: getCurrentThemeColors().tColor+'66'}}
+
+                {this.state.goals !== 0 && (checked && !this.state.past)
+                    ? <img src={pushIco} alt="Push Goals" title={'Archive Goal'} className={'goallist-push'}
+                           style={{backgroundColor: completed ? getColor(this.state.type).backgroundColor : getCurrentThemeColors().tColor+'66',
+                               animation: completed ? '1s ease infinite pulse' : '',
+
+                           }}
                            onClick={()=> this.props.pushGoal(this.state.goalId)}/>
                     : ''}
-                {(this.state.showCompleted && this.state.goals.length > 1  && this.state.checkedamt >= 1) ? <p className={'goallist-count'}  style={{backgroundColor: getColor(this.state.type).backgroundColor, color: getCurrentThemeColors().headerColor}}>{this.state.checkedamt}{(this.state.compacted === 'Ultra-Compacted') ? ('/' + this.state.goals.length) : ''}</p> : ''}
+                {(this.state.showCompleted && (this.state.goals.length > 1 || this.state.compacted !== 'Ultra Compacted')  && checked)
+                    ? <p className={'goallist-count'} style={{backgroundColor: getColor(this.state.type).backgroundColor,
+                        color: getCurrentThemeColors().headerColor}}>{this.state.checkedamt}
+                        {(this.state.compacted === 'Ultra-Compacted') ? ('/' + this.state.goals.length) : ''}</p> : ''}
                 <ul >
                     {this.state.goals.map((goal, i) => <GoalItem key={i} goalId={this.state.goalId} goal={goal.obj} checked={goal.checked} newObj={ (typeof goal.newObj === 'boolean' ? goal.newObj : false)}
                                                                  handleChecked={this.props.handleChecked} id={goal.id}
