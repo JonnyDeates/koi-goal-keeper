@@ -13,14 +13,21 @@ class MeetTheDeveloper extends Component {
                 ' and Lua. Programming is a tool to create tools for the world and the future, it allows for infinite \n' +
                 'creativity, and I am fortunate to have learned the skill! I hope to leave my impact on the future and \n' +
                 'if you’d like to check out my other projects, head over to my ',
-            link: {to:'https://jonnydeates.com', name: 'personal site.' }
+            link: {to:'https://jonnydeates.com', name: 'personal site.' },
+            style: {display: 'block'}
         }
     }
 
+    componentDidMount(){
+        if (this.props.style){
+            this.setState({style: this.props.style})
+        }
+    }
 
     render() {
         return (
-            <section className={`meet-the-developer-page-wrapper ${this.props.animation ? 'section-animation' : ''}`}>
+            <section style={this.state.style}
+                     className={`meet-the-developer-page-wrapper ${this.props.animation ? 'section-animation' : ''}`}>
                 <h2>{this.state.header}</h2>
                 <div className={'meet-the-developer-body'}>
                     <Chibi/>

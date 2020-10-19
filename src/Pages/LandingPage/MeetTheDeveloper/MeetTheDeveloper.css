@@ -1,9 +1,14 @@
+.meet-the-developer-body-wrapper {
+    opacity: 0;
+    transition: opacity 2s;
+}
 .meet-the-developer-body {
     display: block;
+
     justify-content: space-evenly;
-    width: 80vw;
     margin: 2em auto;
 }
+
 .meet-the-developer-body span{
     color: dodgerblue;
     text-decoration: underline;
@@ -13,18 +18,21 @@
     margin: 4px auto;
 
 }
-.section-animation > .meet-the-developer-body{
+.section-animation {
     animation: 2s slide-in-up forwards;
 }
 .section-animation > .meet-the-developer-body > .chibi-frame{
-    animation: 2s slide-in-right forwards;
+    opacity: 0;
+    animation: 2s 1s slide-in-right forwards;
 }
 @media (min-width: 480px) {
     .meet-the-developer-body {
         display: inline-flex;
         justify-content: space-evenly;
-        width: 80vw;
         margin: 1em 0;
+    }
+    .meet-the-developer-body p {
+        width: 42vw;
     }
     .meet-the-developer-body .chibi-frame {
         margin: auto 2em !important;
@@ -34,5 +42,7 @@
     }
 }
 @media (min-width: 767px) {
-
+    .meet-the-developer-body p {
+        width: 48vw;
+    }
 }

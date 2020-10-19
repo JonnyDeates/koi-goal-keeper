@@ -12,9 +12,9 @@
 }
 .landing-page h2 {
     color: #fff;
-    width: 100vw;
+    position: relative;
+    margin: 0 auto;
     text-shadow: 1px 1px 2px #00000044;
-    margin: 4rem 0 0 0 ;
 }
 .landing-page p {
     width: 80vw;
@@ -31,6 +31,8 @@
 }
 .landing-page-section{
     opacity: 0;
+    overflow: hidden;
+    transition: opacity 2s;
 }
 .section-animation {
     opacity: 1;
@@ -45,11 +47,12 @@
     width: 70vw;
     margin: 1rem auto;
     text-align: justify;
-    color: #777777cc;
+    color: #777777;
+    text-shadow: 1px 2px rgba(0,0,0,0.2);
     font-size: small;
 }
-.landing-page-section img{
-    width: 80vw;
+.landing-page-body > figure > img{
+    width: 69vw;
     margin: 1rem 0;
     -webkit-box-shadow: 0 2px 7px 4px rgba(0,0,0,0.19);
     box-shadow: 0 2px 7px 4px rgba(0,0,0,0.19);
@@ -65,45 +68,34 @@
     .landing-page-section figcaption{
         width: 60vw;
     }
-    .landing-page-section img{
-        width: 70vw;
+    .landing-page-body > figure > img{
+        width: 60vw;
         margin: 1rem 0;
         border-radius: 25px;
     }
 
 }
 @media (min-width: 767px) {
-
-
     .landing-page-text {
         width: 60vw;
     }
 
 }
 @media (min-width: 867px) {
-    .landing-page-body {
-        display: inline-flex;
-    }
     .landing-page-full-section .landing-page-text {
-        width: 30vw;
+        width: 60vw;
     }
     .landing-page-section figcaption{
         width: 50vw;
-        max-width: 480px;
+        max-width: 360px;
         font-size: medium;
     }
     .landing-page p {
-        width: 50vw;
+        width: 60vw;
     }
-    .landing-page-section img{
+    .landing-page-body > figure > img{
         width: 480px;
         margin: 1rem 0;
         border-radius: 30px;
-    }
-}
-@media (min-width: 1024px) {
-
-    .landing-page-full-section .landing-page-text {
-        width: 40vw;
     }
 }

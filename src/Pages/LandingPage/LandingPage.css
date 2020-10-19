@@ -4,20 +4,15 @@
 .landing-page-wrapper > .landing-page {
     width: 100vw;
 }
-.landing-page > section {
-    box-shadow: inset -5px 15px 15px rgba(0,0,0,.3);
+.parallax-banner {
+    min-height: 3120px;
+    max-height: 3120px;
 }
 .landing-page h1 {
     color: #fff;
     position: absolute;
     width: 100vw;
     text-shadow: 2px 2px 3px #00000044;
-}
-.landing-page h2 {
-    color: #fff;
-    width: 100vw;
-    text-shadow: 1px 1px 2px #00000044;
-    margin: 10rem 0 0 0 ;
 }
 .landing-page nav {
     position: relative;
@@ -45,29 +40,46 @@
     background-color: #ffffffff;
 
 }
-.landing-page p {
-    width: 80vw;
-    text-align: justify;
-    margin: 1rem auto 4rem auto ;
-}
 .landing-page section {
-    background-color: #cee1f1;
-    margin-top: 0;
-    padding: 4rem 0;
+    background-color: #7bc9ff99;
+    padding: 2rem 0;
+    margin: 2rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.1), 3px 3px 6px rgba(0,0,0,0.1), inset 1px 1px 6px rgba(0,0,0,0.2);
+    z-index: 2;
+    position: relative;
 }
-.landing-page section > iframe {
+.landing-page .page-wrapper {
+    top: 15rem;
+    position: relative;
+}
+.landing-page iframe {
     width: 300px;
     height: 169px;
     border-radius: 20px;
     box-shadow: 2px 2px 4px rgba(0,0,0,0.1), 3px 3px 6px rgba(0,0,0,0.1), inset 3px 3px 6px rgba(0,0,0,0.3);
+    position: relative;
+    top: 12rem;
+    margin: 0 auto;
 }
 @media (min-width: 480px) {
-    .landing-page section > iframe {
+
+    .landing-page iframe {
         width: 400px;
         height: 225px;
     }
+    .landing-page section {
+        margin: 2rem 9vw;
+    }
 }
 @media (min-width: 767px) {
+    .parallax-banner {
+        min-height: 2910px;
+        max-height: 2910px;
+    }
+    .landing-page section {
+        margin: 2rem 15vw;
+    }
     .landing-page nav {
         right: 0;
         top: -0.5rem;
@@ -95,13 +107,13 @@
         background-color: #ffffffff;
 
     }
-    .landing-page section > iframe {
+    .landing-page iframe {
         width: 650px;
         height: 366px;
     }
 }
 @media (min-width: 867px) {
-    .landing-page section > iframe {
+    .landing-page iframe {
         width: 800px;
         height: 450px;
     }

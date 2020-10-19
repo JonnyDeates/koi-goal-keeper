@@ -1,6 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
-import {GoalListContext} from "../../Components/GoalList/GoalListContext";
+import { Route } from 'react-router-dom';
 
 export default function PublicRoute({ component, ...props }) {
   const Component = component;
@@ -8,12 +7,7 @@ export default function PublicRoute({ component, ...props }) {
     <Route
       {...props}
       render={componentProps => (
-          <GoalListContext.Consumer>{(goalListContext) =>
-              <Component goalListContext={goalListContext}
-                         currentActive={componentProps.location} {...componentProps} />
-          }
-          </GoalListContext.Consumer>
-
+              <Component currentActive={componentProps.location} {...componentProps} />
       )}
     />
   )
