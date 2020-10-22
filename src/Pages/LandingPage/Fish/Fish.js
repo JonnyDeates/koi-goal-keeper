@@ -85,8 +85,8 @@ export default class Fish extends Component {
 
                             // 1% chance of new Movement (Recalculates Vectors)
                             if (rand(101) < 1) {
-                                vector.x = rand(2) === 1 ? (rand(4) + 1) : -(rand(4) + 1); // 50% Chance to move up to 3 in either direction horizontally & Never stand still
-                                vector.y = rand(2) === 1 ? (rand(4) - 2) : 0; //50% chance to move horizontally -- 50% to move vertically between speeds [-2, 1]
+                                vector.x = rand(2) === 1 ? (rand(2) + 1) : -(rand(2) + 1); // 50% Chance to move up to 3 in either direction horizontally & Never stand still
+                                vector.y = rand(2) === 1 ? (rand(3) - 2) : 0; //50% chance to move horizontally -- 50% to move vertically between speeds [-2, 1]
                             }
                             return {x, y, name: fish.name, src: fish.src, size: fish.size, vector, animation}
                         })

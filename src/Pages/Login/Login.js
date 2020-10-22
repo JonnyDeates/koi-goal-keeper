@@ -95,6 +95,9 @@ class Login extends React.Component {
         ;
     }
 
+    showPass =() => this.setState({showPassword: true});
+    hidePass = () => this.setState({showPassword: false});
+
     render() {
         const {error} = this.state;
         return (
@@ -125,7 +128,10 @@ class Login extends React.Component {
                         name='password'
                         type={!this.state.showPassword ? 'password' : 'text'}
                         id='LoginForm__password'/>
-                    <img src={exposePassword} alt='show' title="Show Password" onMouseDown={()=> this.setState({showPassword: true})} onMouseUp={()=>this.setState({showPassword: false})}/>
+                    <img src={exposePassword} alt='show' title="Show Password"
+                         onMouseDown={this.showPass} onMouseUp={this.hidePass}
+                         onTouchStart={this.showPass} onTouchEnd={this.hidePass}
+                    />
                     <Link to={'/login/forgot-password'}>
                         Forgot Password
                     </Link>

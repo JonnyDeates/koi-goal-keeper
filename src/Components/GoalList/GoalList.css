@@ -41,7 +41,7 @@
 .goallist-count {
     border-radius: 0 16px 16px 0;
     padding: 0 16px;
-    margin-top: -36px !important;
+    margin-top: -30px;
     animation: 2s pop-in forwards;
 }
 .goallist-title {
@@ -133,10 +133,10 @@
 .goallist-push {
     filter: brightness(1.2);
     cursor: pointer;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     position: absolute;
-    right: 10vw;
+    right: 20vw;
     margin-top: -50px;
     border-radius: 10px;
     transition: background-color 2s;
@@ -184,7 +184,9 @@
         left: 32px;
     }
     .goallist-push {
-        right: 5vw;
+        right: 15vw;
+        height: 50px;
+        width: 50px;
     }
 }
 @media (min-width: 767px) {
