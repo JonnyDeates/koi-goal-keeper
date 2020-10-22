@@ -128,7 +128,8 @@
     position: absolute;
     left: 16px;
     background-color: #c0c7ce55;
-    top: 286px;
+    top: 270px;
+    padding-top: 16px;
     height: 80px;
     width: 85vw;
     color: #ececec;
@@ -202,7 +203,6 @@
         margin-left: 124px;
         border-radius: 0 10px 10px 10px;
         text-align: center;
-        padding: 16px 0 0 0;
         animation: 3s pop-in forwards;
     }
     .add-goal .goallist-item {
