@@ -2,6 +2,9 @@ import React from 'react';
 import "./CircleButton.css"
 class CircleButton extends React.Component {
     render() {
+        const edit = this.props.isEditing ? require('../../../../assets/icons/plus.svg') : require('../../../../assets/icons/pencil.svg')
+        const trash = require('../../../../assets/icons/trash.svg');
+        const copy = require('../../../../assets/icons/copy.svg');
         return (
             (!this.props.past) ?
             (this.props.showDelete) ?
@@ -12,7 +15,7 @@ class CircleButton extends React.Component {
                                             <div className="icon">
                                             </div>
                                             {(this.props.isEditable) ? <img onClick={()=>this.props.toggleEdit()} alt={'edit'}
-                                                                            src={(this.props.isEditing) ? require('../../../../assets/icons/plus.svg') : require('../../../../assets/icons/pencil.svg')}/> : ''}
+                                                                            src={edit}/> : ''}
                                         </div>
                                         <div className="background"/>
                                     </li>
@@ -22,7 +25,7 @@ class CircleButton extends React.Component {
                                             </div>
                                             <img
                                                 onClick={() => this.props.handleObjectiveClone(this.props.goalId, this.props.id)}
-                                                alt={'copy'} src={require('../../../../assets/icons/copy.svg')}/>
+                                                alt={'copy'} src={copy}/>
 
                                         </div>
                                         <div className="background"/>
@@ -33,7 +36,7 @@ class CircleButton extends React.Component {
                                             </div>
                                             <img
                                                 onClick={() => this.props.deleteGoal(this.props.goalId, this.props.id)}
-                                                alt={'copy'} src={require('../../../../assets/icons/trash.svg')}/>
+                                                alt={'copy'} src={trash}/>
                                         </div>
                                         <div className="background"/>
                                     </li>
@@ -46,7 +49,7 @@ class CircleButton extends React.Component {
                                             <div className="icon">
                                             </div>
                                             {(this.props.isEditable) ? <img onClick={this.props.toggleEdit} alt={'edit'}
-                                                                            src={(this.props.isEditing) ? require('../../../../assets/icons/plus.svg') : require('../../../../assets/icons/pencil.svg')}/> : ''}
+                                                                            src={edit}/> : ''}
                                         </div>
                                         <div className="background"/>
                                     </li>
@@ -56,7 +59,7 @@ class CircleButton extends React.Component {
                                             </div>
                                             <img
                                                 onClick={() => this.props.handleObjectiveClone(this.props.goalId, this.props.id)}
-                                                alt={'copy'} src={require('../../../../assets/icons/copy.svg')}/>
+                                                alt={'copy'} src={copy}/>
                                         </div>
                                         <div className="background"/>
                                     </li>
@@ -70,7 +73,7 @@ class CircleButton extends React.Component {
                                 </div>
                                 <img
                                     onClick={() => this.props.handleObjectiveClone(this.props.goalId, this.props.id)}
-                                    alt={'copy'} src={require('../../../../assets/icons/copy.svg')}/>
+                                    alt={'copy'} src={copy}/>
                             </div>
                             <div className="background"/>
                         </li>
@@ -80,7 +83,7 @@ class CircleButton extends React.Component {
                                 </div>
                                 <img
                                     onClick={() => this.props.deleteGoal(this.props.goalId, this.props.id)}
-                                    alt={'copy'} src={require('../../../../assets/icons/trash.svg')}/>
+                                    alt={'copy'} src={trash}/>
 
                             </div>
                             <div className="background"/>
@@ -90,7 +93,7 @@ class CircleButton extends React.Component {
                 <div className="circle-outer">
                     <div className="circle">
                         <img onClick={() => this.props.handleObjectiveClone(this.props.goalId, this.props.id)}
-                             alt={'copy'} src={require('../../../../assets/icons/copy.svg')}/>
+                             alt={'copy'} src={copy}/>
                             <div className="background"/>
                     </div>
                 </div>
