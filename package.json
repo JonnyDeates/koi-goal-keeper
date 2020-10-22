@@ -1,6 +1,6 @@
 {
   "name": "koi-goal-keeper",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "private": true,
   "dependencies": {
     "cuid": "^2.1.6",
