@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import config from '../config.js'
 import Home from '../Pages/Home/Home.js'
 import AddGoal from '../Pages/AddGoal/AddGoal.js'
 import {Switch} from "react-router-dom";
