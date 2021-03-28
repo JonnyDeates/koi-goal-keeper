@@ -106,7 +106,6 @@ export default class Fish extends Component {
         const rand = (i) => this.rand(i);
 
         const size = sizes[rand(sizes.length)];
-        console.log(this.state.fishSrcs, this.state.indexes, 'hereeee')
         const src = this.state.fishSrcs[this.state.indexes[rand(this.state.indexes.length)]]; // Gets the Fishes Image
         return {
             x: rand(this.state.bounds.x), y: rand(this.state.bounds.y), // Positioning
