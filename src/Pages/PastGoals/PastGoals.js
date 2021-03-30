@@ -34,7 +34,7 @@ class PastGoals extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.goalListContext !== this.props.goalListContext  || prevState.goalChange !== this.state.goalChange) {
-            this.setState({currentGoals: this.context.sortGoals(this.filterGoals(this.searchGoals(this.props.goalListContext.pastGoals))), goalChange: false}, ()=> console.log(this.state.currentGoals));
+            this.setState({currentGoals: this.context.sortGoals(this.filterGoals(this.searchGoals(this.props.goalListContext.pastGoals))), goalChange: false});
         }
     }
 

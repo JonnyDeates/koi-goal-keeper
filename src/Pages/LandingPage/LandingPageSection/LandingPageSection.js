@@ -77,9 +77,10 @@ class LandingPageSection extends Component {
         if(this.state.section && !this.state.isToggled)
             this.setState({isToggled: true});
         return (
+            // eslint-disable-next-line
             <section style={this.state.style} ref={section => this.state.section = section}
-                     className={`landing-page-section ${(this.state.image) ? 'landing-page-full-section' : ''}
-                     ${(this.state.runAnimation) ? 'section-animation' : ''}`}>
+                    className={`landing-page-section ${(this.state.image) ? 'landing-page-full-section' : ''}
+                    ${(this.state.runAnimation) ? 'section-animation' : ''}`}>
                 {this.state.indexes.length > 0 ?
                     <Fish bounds={this.state.bounds} indexes={this.state.indexes} fishCount={this.state.fishCount}/>
                     : ''}
