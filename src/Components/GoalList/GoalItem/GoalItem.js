@@ -39,37 +39,43 @@ class GoalItem extends React.Component {
     }
 
     render() {
+        const isChecked = () => {
+            if(typeof this.props.checked === "boolean")
+                return (this.props.checked) ? <h6>Completed</h6> : <h6>Unchecked</h6>
+            else
+                return (this.props.checked === 'true') ? <h6>Completed</h6> : <h6>Unchecked</h6>
+        }
         return (
             <li className={'goallist-item ' + this.state.className} style={{backgroundColor: this.props.bgColor, color: this.props.fontColor}}>
-                {(this.props.past) ? (this.props.checked) ? <h6>Completed</h6> : <h6>Unchecked</h6> : ''}
+                {(this.props.past) ? isChecked() : ''}
                 {(this.props.showChecked) ? <input className="checkboxinput" type='checkbox'
-                                                   onChange={() => this.props.handleChecked(this.props.goalId, this.props.id)}
-                                                   checked={(typeof this.props.checked === 'boolean' ? this.props.checked : false)}/> : ''}
+                                                onChange={() => this.props.handleChecked(this.props.goalId, this.props.id)}
+                                                checked={(typeof this.props.checked === 'boolean' ? this.props.checked : false)}/> : ''}
                 {(typeof this.props.past === 'boolean'? this.props.past : false) ? <p>{this.props.goal}</p> : (this.state.isEditing) ? <input type="text" className="textinput"
-                                                 onChange={(e) => this.setState({value: e.target.value})}
-                                                 value={this.state.value}
-                                                 onKeyPress={e => {
-                                                     if (e.key === 'Enter') {
-                                                         e.preventDefault();
-                                                         this.toggleEdit();
+                                                onChange={(e) => this.setState({value: e.target.value})}
+                                                value={this.state.value}
+                                                onKeyPress={e => {
+                                                    if (e.key === 'Enter') {
+                                                        e.preventDefault();
+                                                        this.toggleEdit();
 
-                                                     }
-                                                 }}
+                                                    }
+                                                }}
                 /> : <p onDoubleClick={this.toggleEdit}>{this.props.goal}</p>}
                 <div>
                     {(this.props.compacted === 'No') ? <CircleButton past={this.props.past} toggleEdit={this.toggleEdit}
-                                                                     isEditing={this.state.isEditing} id={this.props.id}
-                                                                     handleObjectiveClone={this.props.handleObjectiveClone}
-                                                                     goalId={this.props.goalId}
-                                                                     showDelete={this.props.showDelete}
-                                                                     deleteGoal={this.state.deleteGoal}
-                                                                     isEditable={this.props.isEditable}/> :
+                                                                    isEditing={this.state.isEditing} id={this.props.id}
+                                                                    handleObjectiveClone={this.props.handleObjectiveClone}
+                                                                    goalId={this.props.goalId}
+                                                                    showDelete={this.props.showDelete}
+                                                                    deleteGoal={this.state.deleteGoal}
+                                                                    isEditable={this.props.isEditable}/> :
                         <div className={'row-buttons'}>
                             {(this.state.isEditable) ? <img onClick={this.toggleEdit} alt={'edit'}
                                                             src={(this.state.isEditing) ? require('../../../assets/icons/plus.svg') : require('../../../assets/icons/pencil.svg')}/> : ''}
                             <img onClick={() => this.props.handleObjectiveClone(this.props.goalId, this.props.id)}
-                                 alt={'copy'}
-                                 src={require('../../../assets/icons/copy.svg')}/>
+                                alt={'copy'}
+                                src={require('../../../assets/icons/copy.svg')}/>
                             {(this.props.showDelete) ? <img
                                 onClick={() => this.props.deleteGoal(this.props.goalId, this.props.id)}
                                 alt={'copy'} src={require('../../../assets/icons/trash.svg')}/> : ''}
