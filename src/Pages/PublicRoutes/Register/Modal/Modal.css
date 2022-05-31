@@ -1,0 +1,41 @@
+.modal-wrapper {
+    position: fixed;
+    z-index: 9;
+    background-color: #00000088;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+
+
+}
+.modal-front {
+    position: fixed;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-60%);
+}
+.modal-front .privacy-policy, .modal-front .terms-conditions {
+    max-height: 70vh;
+    max-width: 85vw;
+    margin: 1rem auto;
+    z-index: 9;
+}
+.modal-front button{
+    position: absolute;
+    background-color: rgba(255,169,169,.4666666666666667);
+    border-radius: 4px;
+    padding: 8px 12px;
+    top: 4px;
+    right: 20px;
+    font-weight: 700;
+    border: unset;
+    font-size: x-large;
+    margin-top: 16px;
+    cursor: pointer;
+}
+.modal-front button:hover {
+    background-color: #ffa9a9;
+}

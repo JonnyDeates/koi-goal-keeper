@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {SettingsContext} from "../../Pages/Settings/SettingsContext";
+import {SettingsContext} from "../../Pages/PrivateRoutes/Settings/SettingsContext";
 import {getCurrentThemeColors} from "../../Utils/Utils";
 import './SortFilter.css'
 export default class SortFilter extends Component {

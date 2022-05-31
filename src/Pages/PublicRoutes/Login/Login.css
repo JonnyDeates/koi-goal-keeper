@@ -1,0 +1,105 @@
+.login-page {
+    margin-top: -50px;
+    height: 105vh;
+}
+.login-page .title img {
+    height: 50px;
+    width: 50px;
+    background-color: #ffffffee;
+    padding: 8px;
+    border-radius: 100%;
+    margin: 0 3rem 0 0;
+    box-shadow: 6px 6px 0 #ffffff77, 7px 7px 1px rgba(0,0,0,0.2), 8px 8px 4px rgba(0,0,0,0.1);
+}
+.login-inputs .title {
+    color: #fff;
+    text-shadow: 2px 2px 3px rgba(0,0,0,.26666666666666666);
+    cursor: pointer;
+    text-decoration: unset;
+    font-size: large;
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+
+}
+.login-inputs .title h1 {
+    margin: 0;
+    line-height: 4rem;
+}
+.login-inputs {
+    height: 320px;
+    width: 320px;
+    margin: 0 auto;
+    top: 20vh;
+    position: relative;
+
+}
+.login-inputs label {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem 4px;
+    color: white;
+    font-size: larger;
+}
+.login-inputs .loginButtons {
+    padding: 2rem 0 0 0;
+    display: flex;
+    justify-content: center;
+}
+.login-inputs .forgot-password {
+    position: absolute;
+    font-size: medium;
+    right: 0;
+    margin: 2rem .5rem 0 0;
+}
+.login-inputs .password img {
+    width: 27px;
+    height: 27px;
+    position: absolute;
+    margin-left: 279px;
+    cursor: pointer;
+    opacity: .5;
+}
+.login-inputs .accept-terms > input{
+    cursor: pointer;
+}
+.login-inputs button {
+    padding: 16px;
+    margin: 8px 16px;
+    width: 120px;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 2px 4px 4px rgba(0,0,0,.09);
+    border-radius: 4px;
+    border: 0;
+    color: #000;
+    font-weight: 700;
+    transition: background-color .12s;
+    text-transform: uppercase;
+}
+.login-inputs .error {
+    color: red;
+    background-color: #ffffffcc;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 10px;
+    text-align: center;
+    width: fit-content;
+    margin: 2rem auto 1rem auto;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.2), 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.login-inputs button:hover {
+    background-color: rgb(162, 239, 177);
+    box-shadow: 3px 4px 5px 2px hsla(0,0%,100%,.1),1px 2px 2px 1px hsla(0,0%,78.4%,.3);
+}
+.login-inputs .disabled {
+    background-color: #cccccc;
+    color: white;
+    box-shadow: unset;
+    cursor: unset;
+}
+.login-inputs .disabled:hover {
+    background-color: #cccccc;
+    box-shadow: unset;
+}

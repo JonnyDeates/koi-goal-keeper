@@ -1,23 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import './index.css';
-import App from './App/App';
-import * as serviceWorker from './serviceWorker';
-import {SettingsProvider} from "./Pages/Settings/SettingsContext";
+import {SettingsProvider} from "./Pages/PrivateRoutes/Settings/SettingsContext";
 import {GoalListProvider} from "./Components/GoalList/GoalListContext";
 import {BrowserRouter as Router} from "react-router-dom";
 import './fonts/Cabin-Regular.ttf';
-ReactDOM.render(
-    <Router>
+import KoiApp from "./KoiApp/KoiApp";
+
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<Router>
         <SettingsProvider>
         <GoalListProvider>
-            <App/>
+            <KoiApp/>
         </GoalListProvider>
         </SettingsProvider>
-    </Router>
-    , document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+    </Router>);
