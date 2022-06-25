@@ -1,0 +1,83 @@
+.advanced-settings-container > button {
+    font-size: medium;
+    margin-bottom: 1rem;
+    color: black;
+    font-weight: 700;
+    text-align: center;
+    padding: 8px;
+    cursor: pointer;
+    background-color: #ffffff99;
+    border: unset;
+    border-radius: 10px;
+transition: color 1.2s, background-color 1.2s;
+}
+.advanced-settings-container > .active {
+    background-color: #00000099;
+    color: white;
+
+}
+.advanced-settings-container .arrow-up, .advanced-settings-container .arrow-down {
+    display: inline-block;
+    margin-left: 1rem;
+    transition: transform 1.2s, rotate 1.2s;
+}
+.advanced-settings-container .arrow-up {
+    transform: rotate(90deg);
+}
+.advanced-settings-container .arrow-down {
+    transform: rotate(-90deg);
+}
+.advanced-settings {
+    height: 0;
+    animation: accordion_animation 1.2s forwards;
+    overflow: hidden;
+}
+.delete-account-button {
+    color: black;
+    margin-top: 10vh;
+    justify-content: center;
+}
+.delete-account-button > button {
+    color: #ffffff;
+    background-color: #ffd0d1;
+    transition: background-color .3s, opacity .3s;
+    text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black;
+}
+.delete-account-button > button:hover{
+    background-color: darkred;
+}
+@media (min-width: 768px) {
+    .advanced-settings-container > button {
+        border: 1px gray solid;
+        border-radius: 10px;
+        font-size: x-large;
+        width: 80%;
+        margin: 0 auto 1rem auto;
+    }
+}
+@keyframes accordion_animation {
+    0% {
+        height: 0;
+    }
+
+    100% {
+        height: 30vh;
+    }
+
+}
+@keyframes arrow_up {
+    0% {
+        transform: rotate(-90deg);
+    }
+    100% {
+        transform: rotate(90deg);
+    }
+}
+@keyframes arrow_down {
+    0% {
+        transform: rotate(90deg);
+    }
+    100% {
+        transform: rotate(-90deg);
+    }
+}

@@ -76,6 +76,7 @@ export class GoalListProvider extends React.Component {
     }
 
     componentDidMount() {
+        console.log('called')
         this.fetchData();
         // if (window.gapi) {
         //     window.gapi.load('auth2', () => {

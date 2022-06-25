@@ -38,7 +38,7 @@ const SignUp = () => {
                 if(acceptTerms) {
 
                 AuthApiService.postUser({
-                    username: email.toLowerCase(),
+                    email: email.toLowerCase(),
                     password: password,
                     nickname: nickname,
                 })

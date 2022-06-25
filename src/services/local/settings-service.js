@@ -17,7 +17,6 @@ const SettingsService = {
                 notifications:  typeof setting.notifications !== 'boolean' ? settingTemp.notifications : setting.notifications,
                 auto_archiving: typeof setting.auto_archiving !== 'boolean' ? settingTemp.auto_archiving : setting.auto_archiving,
                 dark_mode: typeof setting.dark_mode !== 'boolean' ? settingTemp.dark_mode : setting.dark_mode,
-                local_storage: typeof setting.local_storage !== 'boolean' ? settingTemp.local_storage : setting.local_storage,
                 ascending: typeof setting.ascending !== 'boolean' ? settingTemp.ascending : setting.ascending,
                 paid_account: paidAccount,
                 compacted: (!!setting.compacted) ? setting.compacted : settingTemp.compacted,

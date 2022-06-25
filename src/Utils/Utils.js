@@ -296,3 +296,17 @@ export function validateEmail(email) {
     let re = /^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
+export const handleEnter = (e, callback) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        callback(e);
+    }
+}
+export const handleNextFocusEnter = (event) => {
+    if (event.key === "Enter") {
+        const form = event.target.form;
+        const index = [...form].indexOf(event.target);
+        form.elements[index + 1].focus();
+        event.preventDefault();
+    }
+}

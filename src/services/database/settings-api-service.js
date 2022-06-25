@@ -2,8 +2,8 @@ import config from '../../config'
 import TokenService from "../local/token-service";
 
 const SettingsApiService = {
-    getSettings(settingId) {
-        return fetch(`${config.API_ENDPOINT}/settings/${settingId}`, {
+    getSettings() {
+        return fetch(`${config.API_ENDPOINT}/settings/`, {
             headers: {
                 'authorization': `bearer ${TokenService.getAuthToken()}`,
             },

@@ -3,13 +3,13 @@ import TokenService from "../local/token-service";
 import UserService from "../local/user-api-service";
 
 const AuthApiService = {
-        postLogin({username, password}) {
+        postLogin({email, password}) {
             return fetch(`${config.API_ENDPOINT}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
                 },
-                body: JSON.stringify({username, password}),
+                body: JSON.stringify({email, password}),
             })
                 .then(res =>
                     (!res.ok)
@@ -17,7 +17,7 @@ const AuthApiService = {
                         : res.json()
                 )
         },
-        postForgotPassword({username}){
+        postForgotPassword({username}) {
             return fetch(`${config.API_ENDPOINT}/auth/forgot-password`, {
                 method: 'POST',
                 headers: {
@@ -26,7 +26,7 @@ const AuthApiService = {
                 body: JSON.stringify({username}),
             })
         },
-        postVerification({token, username, password}){
+        postVerification({token, username, password}) {
             return fetch(`${config.API_ENDPOINT}/auth/verification`, {
                 method: 'POST',
                 headers: {
@@ -99,6 +99,16 @@ const AuthApiService = {
                         ? res.json().then(e => Promise.reject(e))
                         : res.json()
                 )
+        },
+        tokenCheck() {
+            return fetch(`${config.API_ENDPOINT}/auth/token-check`, {
+                method: 'GET',
+                headers: {
+                    'content-type': 'application/json',
+                    'authorization': `bearer ${TokenService.getAuthToken()}`
+                },
+            })
+                .then(res => res.ok)
         }
     }
 ;

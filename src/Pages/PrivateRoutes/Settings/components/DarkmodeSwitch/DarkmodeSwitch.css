@@ -1,0 +1,94 @@
+.darkmode-wrapper {
+    position: absolute;
+    right: 6vw;
+    top: 16px;
+z-index: 2;
+}
+
+.darkmode-input {
+    display: none;
+}
+
+.darkmode-input:checked ~ .darkmode-container .darkmode-switch-bg {
+    left: 60px;
+    width: 5px;
+}
+.darkmode-input:checked ~ .darkmode-container .darkmode-switch-bg:before {
+    width: 5px;
+    height: 5px;
+    top: -25px;
+}
+.darkmode-input:checked ~ .darkmode-container .darkmode-switch-bg:after {
+    width: 5px;
+    height: 5px;
+    left: -30px;
+    top: 20px;
+}
+.darkmode-input:checked ~ .darkmode-container:before {
+    background: #ffffff;
+    border-color: #e8e8ea;
+    animation: darkmode_switch .3s forwards;
+}
+.darkmode-input:checked ~ .darkmode-container:after {
+    transition-delay: .3s;
+    opacity: 1;
+}
+.darkmode-container {
+    box-shadow: 0 1px 1px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.3);
+    width: 100px;
+    height: 50px;
+    border-radius: 100px;
+    display: flex;
+    position: relative;
+    transition: all .3s ease-in;
+    cursor: pointer;
+}
+.darkmode-container:before {
+    animation: darkmode_reverse .3s forwards;
+    transition: all .3s ease-in;
+    content: "";
+    width: 35px;
+    height: 35px;
+    border: 5px solid #f5eb72;
+    top: 3px;
+    left: 3px;
+    position: absolute;
+    border-radius: 35px;
+    background: #fffaa9;
+
+}
+
+@keyframes darkmode_switch {
+    0% {
+        left: 4px;
+    }
+    60% {
+        left: 4px;
+        width: 80px;
+    }
+    100% {
+        left: 52px;
+        width: 35px;
+    }
+}
+@keyframes darkmode_reverse {
+    0% {
+        left: 52px;
+        width: 35px;
+    }
+    60% {
+        left: 4px;
+        width: 80px;
+    }
+    100% {
+        left: 4px;
+    }
+}
+@media (min-width: 480px) {
+
+}
+@media (min-width: 1500px) {
+    .darkmode-wrapper {
+        right: 15vw;
+    }
+}

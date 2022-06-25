@@ -28,7 +28,7 @@ const LandingPageSection = ({image, imageDesc = '', isFlipped = false, header = 
             <section style={style} ref={ref}
                     className={`landing-page-section ${image ? 'landing-page-full-section' : ''}
                     ${animationRun ? 'section-animation' : ''}`}>
-                {indexes.length > 0 && <Fish bounds={bounds} indexes={indexes} fishCount={fishCount}/>}
+                {indexes.length > 0 && <Fish bounds={bounds} fishIndexes={indexes} fishCount={fishCount}/>}
                 <h2>{header}</h2>
                 <div className={`landing-page-body`}>
                     {flipped}
