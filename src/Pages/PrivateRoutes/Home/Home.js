@@ -1,25 +1,32 @@
 import React, {useEffect} from 'react';
 import './Home.css';
-import GoalList from '../../../Components/GoalList/GoalList';
-import SearchFilter from "../../../Components/SearchFilter/SearchFilter";
-import SortFilter from "../../../Components/SortFilter/SortFilter";
 import {getColor, getCurrentThemeColors} from "../../../Utils/Utils";
-import TryPremium from "../../../Components/Checkout/TryPremium";
-import {SettingsConsumer} from "../Settings/SettingsContext";
+// import TryPremium from "../../../Components/Checkout/TryPremium";
+import {useSetting, useTextColor} from "../Settings/SettingsContext";
+import {getBgColor} from "../../../Utils/Theming";
 
 
-function Home({currentGoals}){
+function Home(){
 
+    const theme = useSetting('theme')
+    const darkmode = useSetting('dark_mode') === 1
+    const nickname = useSetting('nickname')
+
+
+    const bgColor = getBgColor({theme, darkmode})
+    const textColor = useTextColor();
     useEffect(()=>{
         document.body.style.backgroundColor = getCurrentThemeColors().pColor;
 
     },[])
 
 
-    return         <SettingsConsumer>{({state, dispatch}) => (
-        <main className="home">
+    return <main className="home">
+            <h1 style={{...bgColor, ...textColor}} className='title tab'>{nickname}'s Goals</h1>
+            <form>
 
-        {/*                 <h1 style={{color: getCurrentThemeColors().headerColor}}>{this.context.nickname}'s {type} Goals {<TryPremium/>}</h1>*/}
+            </form>
+            {/*<h1 style={{color: getCurrentThemeColors().headerColor}}>{this.context.nickname}'s {type} Goals {<TryPremium/>}</h1>*/}
         {/*                 <div className='bar-indicator-top' style={getColor(type)}/>*/}
         {/*                 <p style={{color: getCurrentThemeColors().fontColor}} className='even-space noselect'*/}
         {/*                    onClick={this.context.toggleShowDelete}>Show*/}
@@ -46,8 +53,7 @@ function Home({currentGoals}){
         {/*                                                                     showDelete={this.context.showDelete} handleGoalListClone={this.props.goalListContext.handleGoalListClone}*/}
         {/*                                                                     compacted={this.context.compacted} showAdd={true}*/}
         {/*                                                                     handleObjectiveClone={this.props.goalListContext.handleObjectiveClone}/>)}*/}
-                     </main>)}
-    </SettingsConsumer>
+                     </main>
 }
 
 // class Home extends React.Component {

@@ -5,6 +5,7 @@ import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {getBgColor} from "../../Utils/Theming";
 import {useTheme} from "./Settings/SettingsContext";
+import Home from "./Home/Home";
 
 const PrivateRoutes = () => {
     const isMobile = window.innerWidth < 768
@@ -16,7 +17,7 @@ const PrivateRoutes = () => {
         <ToastContainer position={toast.POSITION.BOTTOM_RIGHT} autoClose={5000} hideProgressBar={false}
                         pauseOnHover={true} draggablePercent={60}/>
         <Routes>
-            {/*<Route path={'/'} element={<Home/>}/>*/}
+            <Route path={'/'} element={<Home/>}/>
             {/*<Route path={'/add'} element={<AddGoal/>}/>*/}
             {/*<Route path={'/past-goals'} element={<PastGoals/>}/>*/}
             <Route path={'/settings'} element={<Settings bgColor={bgColor}/>}/>

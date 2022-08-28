@@ -111,6 +111,16 @@ function useTheme() {
     }
     return {theme: context.state.theme, darkmode: context.state.darkmode}
 }
+function useTextColor() {
+    const context = React.useContext(SettingsContext)
+
+    if (context === undefined) {
+        throw new Error('useOAuth must be used within a SettingProvider')
+    }
+
+    const color = context.state.darkmode ? '#ffffffcc' : '#000000cc';
+    return {color , textDecorationColor: color};
+}
 function useSetting(key) {
     const context = React.useContext(SettingsContext)
 
@@ -119,7 +129,7 @@ function useSetting(key) {
     }
     return context.state[key]
 }
-export {SettingsProvider, SettingsConsumer, useTheme,useSetting}
+export {SettingsProvider, SettingsConsumer, useTheme, useTextColor, useSetting}
 // export const SettingsContext = React.createContext({
 //     themes: [],
 //     typeList: ['Today List', 'Short List', "Normal List", "Extended List", "Full List"],
