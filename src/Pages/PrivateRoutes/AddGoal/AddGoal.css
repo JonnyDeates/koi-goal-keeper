@@ -205,7 +205,7 @@
         text-align: center;
         animation: 3s pop-in forwards;
     }
-    .add-goal .goallist-item {
+    .add-goal .goal-list-item {
         left: 92px;
     }
     .submit-goals {

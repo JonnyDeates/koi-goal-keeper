@@ -47,7 +47,7 @@
     height: 20px;
 
 }
-.content {
+.circle-button-content {
     position: absolute;
     z-index: 30;
     text-align: center;
@@ -57,26 +57,26 @@
     opacity: 0;
     animation: 1s pop-in forwards;
 }
-.content.first {
+.circle-button-content.first {
     left: 25%;
     top: 33%;
     transform: rotate3d(0, 0, 1,-21deg);
 }
-.content.first:hover ~ .background{
+.circle-button-content.first:hover ~ .background{
     background-color: rgba(117, 232, 139, 0.67) !important;
 }
-.content.second {
+.circle-button-content.second {
     left: 50%;
     top: 31%;
 }
-.content.second:hover ~ .background{
+.circle-button-content.second:hover ~ .background{
     background-color: rgba(230, 232, 139, 0.67) !important;
 }
-.content.third {
+.circle-button-content.third {
     bottom: 22%;
     left: 38%;
 }
-.content.third:hover ~ .background{
+.circle-button-content.third:hover ~ .background{
     background-color: rgba(255, 155, 158, 0.67) !important;
 }
 .circle li:first-child .background {
@@ -110,12 +110,12 @@
     top: 26px;
     background: #00000011;
 }
-.circle-split .content.first {
+.circle-split .circle-button-content.first {
     left: 26%;
     top: 40%;
     transform: rotate3d(0, 0, 0,180deg);
 }
-.circle-split .content.second {
+.circle-split .circle-button-content.second {
     left: 50%;
     top: 40%;
 }

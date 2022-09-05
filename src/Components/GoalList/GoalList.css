@@ -6,13 +6,13 @@
     bottom: 0;
     border-radius: 0 10px 10px 0;
 }
-.goallist{
+.goal-list{
     padding: 1rem 0;
     margin: 1rem;
     border-radius: 10px;
     width: 85vw;
 }
-.goallist-clone {
+.goal-list-clone {
     position: absolute;
     width: 30px;
     margin-top: -10px;
@@ -22,10 +22,10 @@
     box-shadow: 1px 1px 3px rgba(0,0,0,0.4), 4px 4px 9px rgba(0,0,0,0.1), inset 1px 1px 2px rgba(0,0,0,0.4);
     margin-left: 5px;
 }
-.goallist-clone:hover {
+.goal-list-clone:hover {
     background-color: rgba(230, 232, 139, 0.67) !important;
 }
-.goallist-trash {
+.goal-list-trash {
     position: absolute;
     width: 30px;
     margin-top: -10px;
@@ -35,22 +35,22 @@
     box-shadow: 1px 1px 3px rgba(0,0,0,0.4), 4px 4px 9px rgba(0,0,0,0.1), inset 1px 1px 2px rgba(0,0,0,0.4);
     margin-right: 5px;
 }
-.goallist-trash:hover {
+.goal-list-trash:hover {
     background-color: rgba(255, 155, 158, 0.67) !important;
 }
-.goallist-count {
+.goal-list-count {
     border-radius: 0 16px 16px 0;
     padding: 0 16px;
     margin-top: -30px;
     animation: 2s pop-in forwards;
 }
-.goallist-title {
+.goal-list-title {
     justify-content: space-evenly;
     position: relative;
     display: flex;
     animation: 2s pop-in forwards;
 }
-.goallist .add-button {
+.goal-list .add-button {
     position: relative;
     left: 80px;
     top: 0;
@@ -60,20 +60,20 @@
     cursor: pointer;
     animation: slide-in-up 2s forwards;
 }
-.goallist .add-button:hover {
+.goal-list .add-button:hover {
     opacity: .7;
 }
-.goallist .last-goal {
+.goal-list .goal-list-item:last-child {
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
 }
-.goallist > p {
+.goal-list > p {
     position: absolute;
     left: 16px;
     margin: -22px 0px 0px 0px;
     color: gray;
 }
-.goallist > div{
+.goal-list > div{
     max-height: 100vh;
     overflow-y: hidden;
     text-align: center;
@@ -81,21 +81,21 @@
     padding: 16px 0;
     margin: 0px 0 -16px 0;
 }
-.goallist > div::-webkit-scrollbar-thumb {
+.goal-list > div::-webkit-scrollbar-thumb {
     border: unset;
     background: lightgray;
     border-radius: 25px;
 
 }
-.goallist >div::-webkit-scrollbar {
+.goal-list >div::-webkit-scrollbar {
     border: unset;
     background: transparent;
     max-height: 85%;
 }
-.goallist > ul {
+.goal-list > ul {
     padding-inline-start: 0;
 }
-.goallist-item {
+.goal-list-item {
     display: flex;
     justify-content: space-evenly;
     position: relative;
@@ -103,7 +103,7 @@
     opacity: 0;
     animation: 2s pop-in forwards;
 }
-.goallist-item > p{
+.goal-list-item > p{
     overflow-wrap: break-word;
     word-wrap: break-word;
     hyphens: auto;
@@ -111,11 +111,11 @@
     margin: 16px 16px;
     animation: .25s fade-in forwards;
  }
-.goallist-item > div {
+.goal-list-item > div {
     display: flex;
     margin: auto 0;
 }
-.goallist-item > div > img {
+.goal-list-item > div > img {
     width: 30px;
     height: 30px;
     cursor: pointer;
@@ -126,11 +126,11 @@
     border-radius: 10px;
 
 }
-.goallist-item > div > img:hover {
+.goal-list-item > div > img:hover {
     background-color: #ffffffaa;
 }
 
-.goallist-push {
+.goal-list-push {
     filter: brightness(1.2);
     cursor: pointer;
     width: 40px;
@@ -141,7 +141,7 @@
     border-radius: 10px;
     transition: background-color 2s;
 }
-.goallist-push:hover {
+.goal-list-push:hover {
     filter: brightness(1.5);
 }
 .checkboxinput {
@@ -150,7 +150,7 @@
     height: 20px;
     cursor: pointer;
 }
-.goallist-item > .textinput {
+.goal-list-item > .textinput {
     font-size: large;
     width: 70%;
     height: fit-content;
@@ -175,15 +175,15 @@
     background-color: #ffffffaa;
 }
 @media (min-width: 481px) and (max-width:766px){
-    .goallist {
+    .goal-list {
         padding: 1em 16px;
         background-color: unset;
         width: 90vw;
     }
-    .goallist > p {
+    .goal-list > p {
         left: 32px;
     }
-    .goallist-push {
+    .goal-list-push {
         right: 15vw;
         height: 50px;
         width: 50px;
@@ -215,12 +215,12 @@
         bottom: unset;
     }
 
-    .goallist {
+    .goal-list {
         padding: 1em 16px;
         background-color: unset;
         width: unset;
     }
-    .goallist .add-button {
+    .goal-list .add-button {
         position: relative;
         left: 180px;
         top: -20px;
@@ -230,7 +230,7 @@
         cursor: pointer;
         animation: slide-in-up 2s forwards;
     }
-    .goallist-count {
+    .goal-list-count {
         position: relative !important;
         left: 51px !important;
         margin: -29px 0px 0px 0px !important;
@@ -241,7 +241,7 @@
         border-radius: 10px 10px 0 0;
         animation: slide-in-left 2s forwards
     }
-    .goallist-push {
+    .goal-list-push {
         width: 30px;
         height: 30px;
         position: relative;
@@ -254,7 +254,7 @@
         border-radius: 10px 10px 0 0;
         animation: slide-in-right 2s forwards
     }
-    .goallist-title {
+    .goal-list-title {
         position: absolute;
         display: block;
         text-align: right;
@@ -269,7 +269,7 @@
         opacity: 0;
         animation: 3s slide-in-right forwards;
     }
-    .goallist-clone {
+    .goal-list-clone {
         border-radius: 0 0 5px 10px;
         margin: -9px 0 0 11px;
         z-index: -1;
@@ -277,10 +277,10 @@
         left: unset;
         box-shadow: none;
     }
-    .goallist-clone:hover {
+    .goal-list-clone:hover {
         margin: 8px 0 0 11px;
     }
-    .goallist-trash {
+    .goal-list-trash {
         border-radius: 0 0 5px 5px;
         margin: -15px 0 0 -20px;
         z-index: -1;
@@ -288,14 +288,14 @@
         right: unset;
         box-shadow: none;
     }
-    .goallist-trash:hover {
+    .goal-list-trash:hover {
         margin: 8px 0 0 -20px;
     }
-    .goallist-title > p {
+    .goal-list-title > p {
         margin: 0;
         z-index: 1;
     }
-    .goallist-item {
+    .goal-list-item {
         background-color: #e6eef5;
         left: 92px;
         top: -20px;
@@ -304,17 +304,17 @@
         display: inline-flex;
         justify-content: center;
     }
-    .goallist-item:nth-child(odd) {
+    .goal-list-item:nth-child(odd) {
         background-color: #e6eef599;
     }
-    .goallist-item:first-child {
+    .goal-list-item:first-child {
         border-top-right-radius: 15px;
     }
-    .goallist-item > div {
+    .goal-list-item > div {
         display: inline-flex;
         margin: auto 0;
     }
-    .goallist-item > div > button {
+    .goal-list-item > div > button {
         padding: 0;
         width: 34px;
         height: 34px;

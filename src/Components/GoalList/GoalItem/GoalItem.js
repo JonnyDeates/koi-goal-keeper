@@ -1,92 +1,80 @@
-import React from 'react';
+import React, {useState} from 'react';
 import CircleButton from "./CircleButton/CircleButton";
+import plus from '../../../assets/icons/plus.svg'
+import trash from '../../../assets/icons/trash.svg'
+import edit from '../../../assets/icons/pencil.svg'
+import copy from '../../../assets/icons/copy.svg'
 
-class GoalItem extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isEditing: false,
-            isEditable: this.props.isEditable,
-            deleteGoal: this.props.deleteGoal,
-            className: this.props.className,
-            value: this.props.goal
-        };
-        this.toggleEdit = this.toggleEdit.bind(this);
+const GoalItem = ({goal, compacted, isDeletable, isPast}) => {
+    const {checked, value} = goal;
+
+    const [isEditing, setIsEditing] = useState(false)
+    const toggleEdit = () => setIsEditing(!isEditing)
+
+    const [newValue, setNewValue] = useState()
+    const handleNewValue = (e) => setNewValue(e.target.value)
+    const submitEdit = () => {
+        toggleEdit()
     }
 
-    componentDidMount() {
-        if(this.props.newObj){
-            this.setState({isEditing: true})
+    const handleChecked = () => {
+
+    }
+
+    const CheckBox = () => {
+        if (isPast) {
+            return (checked) ? <h6>Completed</h6> : <h6>Unchecked</h6>
         }
+        return <input className="checkboxinput" type='checkbox'
+                      onChange={handleChecked}
+                      checked={checked}/>
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps !== this.props) {
-            this.setState({
-                isEditable: this.props.isEditable,
-                deleteGoal: this.props.deleteGoal,
-                value: this.props.goal
-            })
+    const GoalText = () => {
+        if (isPast)
+            return <p>{value}</p>
+
+        if (isEditing)
+            return <input type="text" className="textinput" onChange={handleNewValue} value={newValue}
+                          onKeyPress={e => {
+                              if (e.key === 'Enter') {
+                                  e.preventDefault();
+                                  toggleEdit();
+                              }
+                          }}
+            />
+        return <p onDoubleClick={toggleEdit}>{value}</p>
+    }
+
+    const handleObjectiveClone = () => {
+
+    }
+    const handleObjectiveDelete = () => {
+
+    }
+
+    const GoalControls = () => {
+        if (compacted === 'No') {
+            return <CircleButton isEditing={isEditing} isDeleting={isDeletable} handleClone={handleObjectiveClone} handleRemove={handleObjectiveDelete} toggleEdit={toggleEdit}/>
         }
-        if(prevProps.className !== this.props.className){
-            this.setState({className: this.props.className})
-        }
+        return <div className={'row-buttons'}>
+            {(!isPast) && <img onClick={toggleEdit} alt={'edit'} src={(isEditing) ? plus : edit}/>}
+            <img onClick={handleObjectiveClone} alt={'copy'}
+                 src={copy}/>
+            {(isDeletable) && <img
+                onClick={handleObjectiveDelete}
+                alt={'copy'} src={trash}/>}
+        </div>
     }
 
-    toggleEdit() {
-        this.props.handleEditGoal(this.state.value, this.props.goalId, this.props.id);
-        this.setState({isEditing: !this.state.isEditing})
-    }
-
-    render() {
-        const isChecked = () => {
-            if(typeof this.props.checked === "boolean")
-                return (this.props.checked) ? <h6>Completed</h6> : <h6>Unchecked</h6>
-            else
-                return (this.props.checked === 'true') ? <h6>Completed</h6> : <h6>Unchecked</h6>
-        }
-        return (
-            <li className={'goallist-item ' + this.state.className} style={{backgroundColor: this.props.bgColor, color: this.props.fontColor}}>
-                {(this.props.past) ? isChecked() : ''}
-                {(this.props.showChecked) ? <input className="checkboxinput" type='checkbox'
-                                                onChange={() => this.props.handleChecked(this.props.goalId, this.props.id)}
-                                                checked={(typeof this.props.checked === 'boolean' ? this.props.checked : false)}/> : ''}
-                {(typeof this.props.past === 'boolean'? this.props.past : false) ? <p>{this.props.goal}</p> : (this.state.isEditing) ? <input type="text" className="textinput"
-                                                onChange={(e) => this.setState({value: e.target.value})}
-                                                value={this.state.value}
-                                                onKeyPress={e => {
-                                                    if (e.key === 'Enter') {
-                                                        e.preventDefault();
-                                                        this.toggleEdit();
-
-                                                    }
-                                                }}
-                /> : <p onDoubleClick={this.toggleEdit}>{this.props.goal}</p>}
-                <div>
-                    {(this.props.compacted === 'No') ? <CircleButton past={this.props.past} toggleEdit={this.toggleEdit}
-                                                                    isEditing={this.state.isEditing} id={this.props.id}
-                                                                    handleObjectiveClone={this.props.handleObjectiveClone}
-                                                                    goalId={this.props.goalId}
-                                                                    showDelete={this.props.showDelete}
-                                                                    deleteGoal={this.state.deleteGoal}
-                                                                    isEditable={this.props.isEditable}/> :
-                        <div className={'row-buttons'}>
-                            {(this.state.isEditable) ? <img onClick={this.toggleEdit} alt={'edit'}
-                                                            src={(this.state.isEditing) ? require('../../../assets/icons/plus.svg') : require('../../../assets/icons/pencil.svg')}/> : ''}
-                            <img onClick={() => this.props.handleObjectiveClone(this.props.goalId, this.props.id)}
-                                alt={'copy'}
-                                src={require('../../../assets/icons/copy.svg')}/>
-                            {(this.props.showDelete) ? <img
-                                onClick={() => this.props.deleteGoal(this.props.goalId, this.props.id)}
-                                alt={'copy'} src={require('../../../assets/icons/trash.svg')}/> : ''}
-                        </div>}
-                </div>
-            </li>
-        );
-    }
-
+    return (
+        <li className='goal-list-item'>
+            <CheckBox/>
+            <GoalText/>
+            <GoalControls/>
+        </li>
+    );
 }
-
 
 export default GoalItem;
 

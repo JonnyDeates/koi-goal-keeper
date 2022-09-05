@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {getBgColor} from "../../Utils/Theming";
 import {useTheme} from "./Settings/SettingsContext";
 import Home from "./Home/Home";
+import {Navigation} from "../../Components/Navigation/Navigation";
 
 const PrivateRoutes = () => {
     const isMobile = window.innerWidth < 768
@@ -18,12 +19,11 @@ const PrivateRoutes = () => {
                         pauseOnHover={true} draggablePercent={60}/>
         <Routes>
             <Route path={'/'} element={<Home/>}/>
-            {/*<Route path={'/add'} element={<AddGoal/>}/>*/}
-            {/*<Route path={'/past-goals'} element={<PastGoals/>}/>*/}
+            <Route path={'/past-goals'} element={<div/>}/>
             <Route path={'/settings'} element={<Settings bgColor={bgColor}/>}/>
 
         </Routes>
-        {/*<BottomNav/>*/}
+        <Navigation/>
         </>
 }
 
