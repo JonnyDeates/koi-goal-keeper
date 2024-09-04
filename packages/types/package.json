@@ -1,0 +1,20 @@
+{
+  "name": "@repo/types",
+  "scripts": {
+    "build": "tsc"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["./src/index.ts"]
+    }
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "@types/react": "^18.3.5",
+    "@repo/tsconfig": "workspace:*"
+  }
+}

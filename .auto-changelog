@@ -1,0 +1,12 @@
+{
+  "output": "./CHANGELOG.md",
+  "commitLimit": false,
+  "startingVersion": "v0.0.1",
+  "hideCredit": true,
+  "sortCommits": "date",
+  "template": "auto.changelog.template.hbs",
+  "replaceText": {
+    "chore:\\s|feature:\\s|fix:\\s": "",
+    "(.*[0]{1}.*)": ""
+  }
+}

@@ -1,0 +1,37 @@
+.feedback {
+    display: block;
+    position: fixed;
+    bottom: 8px;
+    right: 8px;
+    z-index: 4;
+
+}
+.feedback button {
+    border-radius: 100%;
+    border: unset;
+    cursor: pointer;
+    background-color: #ffffff99;
+    font-weight: bolder;
+    width: 60px;
+    height: 60px;
+    font-size: xx-small;
+    margin: auto 0;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.3), 3px 3px 6px rgba(0,0,0,0.1);
+}
+.feedback button:hover {
+    background-color: #4bff0099;
+}
+@media (min-width: 480px) {
+    .feedback {
+        bottom: 0;
+        right: 10px;
+    }
+    .feedback button {
+        border-radius: 20px 20px 0 0;
+        width: 75px;
+        height: 66px;
+        font-size: small;
+    }
+}
+@media (min-width: 767px) {
+}

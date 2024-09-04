@@ -1,0 +1,123 @@
+.landing-page-wrapper {
+
+}
+.landing-page-wrapper > .LandingPage {
+    width: 100vw;
+}
+.parallax-banner {
+    min-height: 3120px;
+    max-height: 3120px;
+}
+.LandingPage h1 {
+    color: #fff;
+    position: absolute;
+    width: 100vw;
+    text-shadow: 2px 2px 3px #00000044;
+}
+.LandingPage nav {
+    position: relative;
+    background-color: #ffffffcc;
+    z-index: 10;
+    padding: 1rem 1rem;
+    margin: 0;
+    opacity: 0;
+    animation: 1s slide-in-down forwards;
+    -o-animation: 1s slide-in-down forwards;
+    -moz-animation: 1s slide-in-down forwards;
+}
+.LandingPage nav > a {
+    color: black;
+    margin-right: 4rem;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #00000044;
+    cursor: pointer;
+    z-index: 11;
+    padding: 1rem;
+
+}
+.LandingPage nav > a:hover {
+    background-color: #ffffffff;
+
+}
+.LandingPage section {
+    background-color: #7bc9ff99;
+    padding: 2rem 0;
+    margin: 2rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.1), 3px 3px 6px rgba(0,0,0,0.1), inset 1px 1px 6px rgba(0,0,0,0.2);
+    z-index: 2;
+    position: relative;
+}
+.LandingPage .page-wrapper {
+    top: 15rem;
+    position: relative;
+}
+.LandingPage iframe {
+    width: 300px;
+    height: 169px;
+    border-radius: 20px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.1), 3px 3px 6px rgba(0,0,0,0.1), inset 3px 3px 6px rgba(0,0,0,0.3);
+    position: relative;
+    top: 12rem;
+    margin: 0 auto;
+}
+@media (min-width: 480px) {
+
+    .LandingPage iframe {
+        width: 400px;
+        height: 225px;
+    }
+    .LandingPage section {
+        margin: 2rem 9vw;
+    }
+}
+@media (min-width: 767px) {
+    .parallax-banner {
+        min-height: 2910px;
+        max-height: 2910px;
+    }
+    .LandingPage section {
+        margin: 2rem 15vw;
+    }
+    .LandingPage nav {
+        right: 0;
+        top: -0.5rem;
+        position: fixed;
+        background-color: #00000000;
+        z-index: 10;
+    }
+    .LandingPage nav > a {
+        color: black;
+        margin-bottom: 10vh;
+        margin-left: 0;
+        margin-right: 4rem;
+        text-decoration: none;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px #00000044;
+        cursor: pointer;
+        z-index: 11;
+        padding: 1rem;
+        background-color: #ffffffcc;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 2px 2px 2px rgba(0,0,0,0.09);
+
+    }
+    .LandingPage nav > a:hover {
+        background-color: #ffffffff;
+
+    }
+    .LandingPage iframe {
+        width: 650px;
+        height: 366px;
+    }
+}
+@media (min-width: 867px) {
+    .LandingPage iframe {
+        width: 800px;
+        height: 450px;
+    }
+}
+@media (min-width: 1024px) {
+
+}

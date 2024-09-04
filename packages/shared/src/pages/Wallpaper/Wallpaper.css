@@ -1,0 +1,19 @@
+.Wallpaper {
+    width: unset;
+    position: relative;
+    margin: 0 auto 0 auto;
+    background: linear-gradient(-45deg, #7bc9ff, #000000, #7bc9ff, #ffffff);
+    animation: gradient 60s infinite;
+    background-size: 400% 400%;
+    min-height: 100vh;
+    height: max-content;
+    z-index: 0;
+}
+@keyframes gradient {
+    0%, 100% {
+        background-position: 50%;
+    }
+    50% {
+        background-position: 0;
+    }
+}

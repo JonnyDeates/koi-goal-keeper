@@ -1,0 +1,11 @@
+.additional-wrapper .even-space:first-child button:hover{
+    background-color: #ffb9ba;
+}
+.add-input > input{
+    background-color: #ffffffaa;
+    border-color: #ffffff55;
+}
+.dropdown-list > li:hover {
+    background-color: #ffffff44 !important;
+}
+

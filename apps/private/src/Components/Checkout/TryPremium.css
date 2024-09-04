@@ -1,0 +1,14 @@
+.try-premium{
+    position: absolute;
+    right: 4px;
+    cursor: pointer;
+    margin-top: 1.5rem;
+}
+@media (min-width: 767px) {
+    .try-premium{
+        position: absolute;
+        right: 20vw;
+        margin-top: 0rem;
+    }
+
+}

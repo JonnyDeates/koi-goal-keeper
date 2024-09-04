@@ -1,0 +1,35 @@
+{
+  "name": "koi-goal-keeper-frontend",
+  "version": "6.0.0",
+  "description": "This is the Koi Goal Keeper, a webservice created for the betterment of any consumers who want it.",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@paralleldrive/cuid2": "^2.2.2",
+    "axios": "^1.7.7",
+    "koi-pool": "^0.0.30",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1",
+    "react-scroll-parallax": "^3.4.5",
+    "vite": "^5.4.2"
+
+  },
+  "scripts": {
+    "dev": "vite dev --port 5002",
+    "build": "vite build",
+    "start": "vite preview",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "typescript": "^5.5.4",
+    "@repo/tsconfig": "workspace:*",
+    "@repo/shared": "workspace:*",
+    "@repo/utils": "workspace:*"
+  },
+  "homepage": ""
+}

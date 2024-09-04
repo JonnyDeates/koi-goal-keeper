@@ -1,0 +1,231 @@
+.addition-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+.add-goal h1{
+    color: white;
+    text-align: left;
+    margin-left: 8px;
+}
+
+.add-input {
+    font-size: large;
+    margin: 16px 0;
+}
+.add-input > input {
+    font-size: medium;
+    margin: 0 10px;
+}
+.add-input > button {
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    font-size: larger;
+    background-color: #ffffff88;
+    border-radius: 10px;
+}
+.add-input > button:hover {
+    background-color: #ffffffbb
+}
+.bar-indicator-left {
+    width: 12px;
+    height: 10px;
+    position: absolute;
+    margin-top: -14px;
+    border-radius: 0 10px 10px 0;
+}
+.bar-indicator-right {
+    width: 12px;
+    height: 10px;
+    position: absolute;
+    margin-top: -14px;
+    margin-left: 76px;
+    border-radius: 10px 0 0 10px;
+}
+.bar-indicator-top {
+    right: 0%;
+    top: 0;
+    border-radius: 10px 0 0 10px ;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    height: 15px;
+    width: 66vw;
+    position: absolute;
+    animation: 1s slide-in-down;
+}
+.date-input{
+    width: 88px;
+    height: fit-content;
+    position: absolute;
+    margin-left: -42px;
+    z-index: 4;
+    margin-top: -21px;
+}
+.dropdown-types {
+    width: fit-content;
+    animation: 2s fade-in forwards;
+}
+.dropdown-types:hover .dropdown-list{
+    max-height: 800px;
+    opacity: 1;
+}
+.dropdown-types > li {
+    position: relative;
+    width: 88px;
+    border-radius: 10px;
+    cursor: pointer;
+    left: 5%;
+    margin: 0;
+    display: block;
+    padding: 16px 0;
+    background-color: white;
+    border: 1px lightgray solid;
+}
+.dropdown-list{
+    position: absolute;
+    margin-top: -0.75em;
+    list-style: none;
+    margin-left:  5px;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    z-index: 1;
+    width: 88px;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease ;
+    -ms-transition: all 1s ease ;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
+.dropdown-types > ul > li {
+    padding: 16px 0;
+    background-color: white;
+    cursor: pointer;
+}
+.dropdown-types > ul > li:hover {
+    background-color: lightgray;
+}
+.dropdown-types > ul > li:first-child {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.dropdown-types > ul > li:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.dropdown-types > ul > .tinted {
+    background-color: lightgray;
+}
+.submit-goals {
+    position: absolute;
+    left: 10vw;
+    margin-left: 0;
+    margin-top: -3px;
+    margin-right: 12px;
+    z-index: 1;
+    animation: 2s pop-in forwards;
+}
+.example-add {
+    position: absolute;
+    left: 16px;
+    background-color: #c0c7ce55;
+    top: 270px;
+    padding-top: 16px;
+    height: 80px;
+    width: 85vw;
+    color: #ececec;
+    border-radius: 0 0 10px 10px;
+    animation: 2s pop-in forwards;
+}
+.submit-goals > button {
+    border: none;
+    border-radius: 15px 15px 0 0;
+    margin: 4px;
+    padding: 6px 0;
+    font-size: medium;
+    width: 40vw;
+    cursor: pointer;
+    background: #ffffff88;
+
+}
+.submit-goals:hover > button {
+    background-color: rgba(117, 232, 139, 0.67) !important;
+}
+@media (min-width: 481px) and (max-width: 767px) {
+    .bar-indicator-top {
+        right: 0%;
+        top: 0;
+        height: 21px;
+        width: 66vw;
+        position: absolute;
+    }
+
+    .example-add {
+        position: absolute;
+        left: 32px;
+        background-color: #c0c7ce55;
+        width: 90vw;
+        border-radius: 0 0 15px 15px;
+    }
+    .submit-goals {
+        margin-left: 0;
+        margin-top: -3px;
+        margin-right: 12px;
+    }
+    .submit-goals > button {
+        margin-top: -12px;
+        padding: 12px 0;
+        font-size: larger;
+        cursor: pointer;
+        background: #ffffff88;
+
+    }
+}
+@media (min-width: 767px) {
+    .addition-wrapper {
+        justify-content: space-between;
+        display: flex;
+    }
+    .bar-indicator-top {
+        right: 20%;
+        top: 0;
+        width: 100px;
+        height: 10px;
+        position: absolute;
+        border-radius: 0 0 0 0
+    }
+    .example-add {
+        width: 45%;
+        margin-top: 28px;
+        height: 78px;
+        left: unset;
+        top: unset;
+        position: absolute;
+        margin-left: 124px;
+        border-radius: 0 10px 10px 10px;
+        text-align: center;
+        animation: 3s pop-in forwards;
+    }
+    .add-goal .goallist-item {
+        left: 92px;
+    }
+    .submit-goals {
+        position: absolute;
+        right: unset;
+        left: unset;
+        margin: -21px 0 0 121px;
+        z-index: 0;
+        animation: 3s slide-in-left forwards;
+    }
+    .submit-goals > button {
+        margin: 4px;
+        padding: 12px 16px;
+        width: unset;
+        font-size: large;
+        cursor: pointer;
+        border-radius: 15px 15px 0 0;
+        background: #e6eef5;
+
+    }
+}
+
+

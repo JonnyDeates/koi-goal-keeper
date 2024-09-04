@@ -1,0 +1,10 @@
+{
+  "extends": "@repo/tsconfig/vite.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "moduleResolution": "node"
+  },
+
+  "include": ["./src"]
+}

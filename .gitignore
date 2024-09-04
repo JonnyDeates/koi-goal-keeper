@@ -24,5 +24,9 @@ yarn-debug.log*
 yarn-error.log*
 .idea
 node_modules
-src/config.js
+apps/public/src/config.js
 .vs
+apps/public/dist
+apps/private/dist
+apps/backend/dist
+apps/backend/build/*

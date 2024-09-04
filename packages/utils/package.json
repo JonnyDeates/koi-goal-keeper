@@ -1,0 +1,21 @@
+{
+  "name": "@repo/utils",
+  "dependencies": {
+    "@paralleldrive/cuid2": "^2.2.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "@repo/tsconfig": "workspace:*"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["./src/index.ts"]
+    }
+  },
+  "scripts": {
+    "build": "tsc"
+  }
+}

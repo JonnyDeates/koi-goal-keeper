@@ -1,0 +1,28 @@
+.past-goals {
+
+}
+.past-goals h1, .past-goals h2 {
+    color: white;
+    text-align: left;
+    margin-left: 8px;
+    width: 100vw;
+}
+.pastgoal-links > a {
+    display: inline-block;
+    width: 46vw;
+    height: 26vh;
+    font-size: xx-large;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.pastgoal-links > a:hover {
+background-color: #ffffff55;
+    border-radius: 25px;
+}
+.pastgoal-links > a > span {
+    position: relative;
+    top: 40%;
+    color: #222222cc;
+}

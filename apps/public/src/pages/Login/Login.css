@@ -1,0 +1,67 @@
+.Login {
+    margin-top: -50px;
+    min-height: 105vh;
+}
+.LoginContent {
+    width: 350px;
+    margin: 0 auto;
+    top: 10vh;
+    position: relative;
+
+}
+.Login .Title img {
+    height: 50px;
+    width: 50px;
+    background-color: #ffffffee;
+    padding: 8px;
+    border-radius: 100%;
+    margin: 0 3rem 0 0;
+    box-shadow: 6px 6px 0 #ffffff77, 7px 7px 1px rgba(0,0,0,0.2), 8px 8px 4px rgba(0,0,0,0.1);
+}
+.LoginContent label {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+.LoginContent .LoginButtons {
+    padding: 2rem 0 0 0;
+    display: flex;
+    justify-content: center;
+}
+.LoginContent .forgot-password {
+    font-size: medium;
+}
+.LoginContent .password img {
+    width: 27px;
+    height: 27px;
+    position: absolute;
+    margin-left: 279px;
+    cursor: pointer;
+    opacity: .5;
+}
+.LoginContent .AcceptTerms > input{
+    cursor: pointer;
+}
+.LoginContent .Error {
+    color: red;
+    background-color: #ffffffcc;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 10px;
+    text-align: center;
+    width: fit-content;
+    margin: 2rem auto 1rem auto;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.2), 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+@media (min-width: 480px ) {
+    .LoginContent {
+        width: 420px;
+    }
+}
+@media (min-width: 720px ) {
+    .LoginContent {
+        width: 500px;
+    }
+}
+
