@@ -69,6 +69,7 @@ export const Login = () => {
                               value={email}
                               width={"200px"}
                               type={'text'}
+                              autoComplete={"email"}
                               error={error['email']}
             />
             <SpacedLabelInput label={'Password'}
@@ -77,6 +78,7 @@ export const Login = () => {
                               width={"200px"}
                               value={password}
                               type={passwordType}
+                              autoComplete={"current-password"}
                               error={error['password']}
             />
             {/*<img src={eye} alt="Check Password" onClick={() => setIsShown(!isShown)} />*/}

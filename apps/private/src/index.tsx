@@ -4,13 +4,19 @@ import {RouterProvider} from "react-router-dom";
 import {ParallaxProvider} from "react-scroll-parallax";
 import router from "./pages/router";
 import './index.css';
+import AuthProvider from "./contexts/AuthProvider/AuthProvider";
+import ToastProvider from "./contexts/ToastProvider/ToastProvider";
 
 const container = document.getElementById("root") as HTMLElement;
 const root = ReactDOM.createRoot(container);
 
 root.render(
-    <ParallaxProvider>
+  <ParallaxProvider>
+    <ToastProvider>
+      <AuthProvider>
         <RouterProvider router={router}/>
-    </ParallaxProvider>
+      </AuthProvider>
+    </ToastProvider>
+  </ParallaxProvider>
 );
 

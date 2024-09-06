@@ -9,7 +9,7 @@ const postgresSession = () => {
 
   const pool = new Pool({
     connectionString: config.DATABASE_URL
-  })
+  });
 
     return session({ 
         store: new pgStore({ 
@@ -25,6 +25,6 @@ const postgresSession = () => {
           sameSite: "strict"
         }
       });
-}
+};
 
 export default postgresSession;

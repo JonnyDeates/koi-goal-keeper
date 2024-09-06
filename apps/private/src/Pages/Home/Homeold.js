@@ -7,7 +7,7 @@ import SortFilter from "../../Components/SortFilter/SortFilter";
 import {getColor, getCurrentThemeColors} from "../../Utils/Utils";
 import TryPremium from "../../Components/Checkout/TryPremium";
 
-class Home extends React.Component {
+class Homeold extends React.Component {
     static contextType = SettingsContext;
 
     constructor(props) {

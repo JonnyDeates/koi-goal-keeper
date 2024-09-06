@@ -41,8 +41,6 @@ const createServer = async () => {
     app.use("/auth", authController);
     app.use("/user", usersController);
 
-
-
     // Page Routing
     ALL_ROUTES.forEach(route => {
         app.get(route, cacheControl({ noStore: true }), routesConfig);

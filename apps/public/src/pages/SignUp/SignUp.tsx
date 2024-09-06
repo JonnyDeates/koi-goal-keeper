@@ -109,15 +109,20 @@ const SignUp = () => {
                               value={name}
                               width={"200px"}
                               error={error['name']}
+                              autoComplete={"name"}
+
             />
             <SpacedLabelInput label={'Email:'} onChange={handleEmail} value={email} width={"200px"}
                               error={error['email']}
+                              autoComplete={"email"}
+
             />
             <SpacedLabelInput label={'Password:'}
                               onChange={handlePassword}
                               value={password}
                               width={"200px"}
                               error={error['password']}
+                              autoComplete={"new-password"}
                               type={'password'}
 
             />
@@ -125,6 +130,7 @@ const SignUp = () => {
                               value={confirmPassword}
                               type={'password'}
                               width={"200px"}
+                              autoComplete={"new-password"}
                               error={error['confirm-password']}
             />
             <label className={"AcceptTerms"}>Accept Terms & Conditions & Privacy Policy

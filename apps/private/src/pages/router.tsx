@@ -5,10 +5,13 @@ import {Wallpaper, Page404} from "@repo/shared";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path='/' element={<Wallpaper />}
-               errorElement={<Wallpaper>
+        <Route path='/' element={
+          <Wallpaper />
+        }
+               errorElement={
+          <Wallpaper>
                    <Page404/>
-               </Wallpaper>
+          </Wallpaper>
                }>
             <Route path='' element={<Home/>}/>
         </Route>

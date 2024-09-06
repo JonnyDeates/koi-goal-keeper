@@ -1,0 +1,16 @@
+.ToastList {
+    position: fixed;
+    max-height: 600px;
+    scroll-behavior: unset;
+    overflow-y: hidden;
+}
+.ToastComponent {
+    position: relative;
+    display: block;
+    padding: 8px 16px;
+    width: 300px;
+    text-align: center;
+    background-color: white;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}

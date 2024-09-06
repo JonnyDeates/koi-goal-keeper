@@ -5,7 +5,7 @@ import buildPasswordResetToken from "../utils/builders/buildPasswordResetToken";
 import sendMail from "../utils/mailer/sendMail/sendMail";
 import passwordResetEmail from "../utils/mailer/emails/passwordResetEmail";
 import validKeysInRequest from "../utils/validKeysInRequest/validKeysInRequest";
-import {AuthFailureTypes, AuthSuccessTypes, AuthErrorMappings, AuthSuccessMappings} from "./AuthResponse";
+import {AuthErrorMappings, AuthFailureTypes, AuthSuccessMappings, AuthSuccessTypes} from "./AuthResponse";
 import {GenericResponse} from "../utils/GenericResponse/GenericResponse";
 import Bcrypt from "../utils/bcrypt/Bcrypt";
 
@@ -133,5 +133,15 @@ authController
         return req.session.destroy(() => {
             return res.redirect("/");
         })
-    })
+    });
+
+authController
+  .route("/revalidate")
+  .get((req, res) => {
+    if(req.session && req.session.user) {
+      return authResponse.succeeded(res, AuthSuccessTypes.SESSION_IS_VALID)
+    }
+
+    return authResponse.failed(res, AuthFailureTypes.SESSION_IS_INVALID)
+  });
 export default authController;
