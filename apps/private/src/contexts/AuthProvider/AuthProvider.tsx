@@ -2,35 +2,35 @@ import {ReactNode, useEffect, useState} from "react";
 import AuthenticationClient from "../../clients/AuthenticationClient";
 import {useToastContext} from "../ToastProvider/ToastProvider";
 
-type AuthProviderProps = {children: ReactNode}
+type AuthProviderProps = { children: ReactNode }
 
-const AuthProvider = ({children}:AuthProviderProps) => {
+const AuthProvider = ({children}: AuthProviderProps) => {
 
-  const {createToast} = useToastContext();
+    const {createToast} = useToastContext();
 
-  const checkUserHasValidSession = () => {
-    AuthenticationClient.handleRevalidate()
-      .then(()=> {
-        createToast({message: "Fire"})
-      })
-      .catch(({response})=> {
-        if(response.status === 401) {
-          window.location.reload();
-        }
-      })
-  };
+    const checkUserHasValidSession = () => {
+        AuthenticationClient.handleRevalidate()
+            .then((response) => {
+                if(response.data && response.data.timeRemaining	) {
+                    createToast({message: `You will be logged out in ${response.data.timeRemaining}, due to inactivity.`})
+                }
+            })
+            .catch(({response}) => {
+                if (response.status === 401) {
+                    window.location.reload();
+                }
+            })
+    };
 
-  useEffect(()=> {
-    const interval = setInterval(()=> {
-      // checkUserHasValidSession()
-      createToast({message: "Fire"})
+    useEffect(() => {
+        const interval = setInterval(() => {
+            checkUserHasValidSession()
+        }, 30000);
+        return () => clearInterval(interval)
+    }, []);
 
-    }, 3000);
-    return () => clearInterval(interval)
-  }, []);
-
-  return <>
-    {children}
-  </>
+    return <>
+        {children}
+    </>
 }
 export default AuthProvider

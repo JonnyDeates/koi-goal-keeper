@@ -3,14 +3,54 @@
     max-height: 600px;
     scroll-behavior: unset;
     overflow-y: hidden;
+    padding: 4px 8px;
+    overflow-x: visible;
 }
+
 .ToastComponent {
     position: relative;
     display: block;
-    padding: 8px 16px;
-    width: 300px;
+    padding: 4px 16px 0;
+    min-width: 300px;
     text-align: center;
-    background-color: white;
     border-radius: 1rem;
     margin-bottom: 1rem;
+    box-shadow: 0 2px 4px 4px #00000017;
+    animation: fade-in 1s;
+    color: #707070;
+
+}
+.ToastComponent .CloseButton {
+    right: 4px;
+    top: 4px;
+}
+.ToastComponent .TimeRemainingBar {
+    height: 4px;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+.ToastComponent.standard {
+    background-color: #F3F3F3;
+}
+.ToastComponent.success {
+    background-color: #A2EFB1;
+}
+
+.ToastComponent.warning {
+    background-color: #EFD7A2;
+}
+
+.ToastComponent.error {
+    background-color: #EFB1A2;
+    font-weight: bold;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
 }

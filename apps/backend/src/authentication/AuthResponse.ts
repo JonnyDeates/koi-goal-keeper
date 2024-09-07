@@ -1,6 +1,6 @@
 import {StatusCodes} from "http-status-codes";
 import {buildError, buildErrorDTO} from "../utils/builders/buildErrorResponseDTO";
-import {ErrorMappingType, SuccessMappingType} from "../utils/GenericResponse/GenericResponse";
+import {ErrorMappingType, GenericResponse, SuccessMappingType} from "../utils/GenericResponse/GenericResponse";
 
 export enum AuthFailureTypes {
     USER_ALREADY_EXISTS = "User already exists! Login or choose another email.",
@@ -61,3 +61,4 @@ export const AuthSuccessMappings: SuccessMappingType<AuthSuccessTypes> = {
     [AuthSuccessTypes.SESSION_IS_VALID]: StatusCodes.OK,
 };
 
+export const AuthResponse = new GenericResponse(AuthErrorMappings, AuthSuccessMappings);

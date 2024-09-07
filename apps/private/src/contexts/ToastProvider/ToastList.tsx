@@ -17,7 +17,10 @@ const createPositionStyles = (
   // Handle vertical positioning
   if (vertical === 'top') styles.top = distanceFromBorder;
   else if (vertical === 'bottom') styles.bottom = distanceFromBorder;
-  else styles.top = '50%', styles.transform = 'translateY(-50%)';  // center
+  else {
+    styles.top = '50%'
+    styles.transform = 'translateY(-50%)';
+  }
 
   // Handle horizontal positioning
   if (horizontal === 'left') styles.left = distanceFromBorder;

@@ -1,7 +1,7 @@
 import {createContext, ReactNode, useContext, useState} from "react";
 import {ToastStateType} from "./ToastComponent";
 import cuid2 from "@paralleldrive/cuid2";
-import ToastList from "./ToastList";
+import ToastList, {ToastPosition} from "./ToastList";
 
 
 type handleOpenToastType = (newToast: (Omit<Partial<ToastStateType>, "message"> & Pick<ToastStateType, "message">)) => void
@@ -14,18 +14,18 @@ type ToastContextType = {
 
 const ToastContext = createContext<ToastContextType>({} as ToastContextType);
 
-type ToastProviderProps = { children: ReactNode }
 
 const buildToast = (partialToast: Partial<ToastStateType> = {}): ToastStateType => ({
   displayTime: 5000,
   message: '',
-  variant: "default",
+  variant: "standard",
   ...partialToast,
   id: cuid2.createId()
 });
 
+type ToastProviderProps = { children: ReactNode, position?: ToastPosition }
 
-const ToastProvider = ({children, position = 'center'}: ToastProviderProps) => {
+const ToastProvider = ({children, position = 'top-center'}: ToastProviderProps) => {
   const [toastList, setToastList] = useState<ToastStateType[]>([]);
 
   const handleClose = (id: string) => {

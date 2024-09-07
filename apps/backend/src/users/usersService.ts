@@ -45,8 +45,6 @@ const usersService = {
     const database = Database.get(req);
 
     const hashedPassword = await Bcrypt.hash(password);
-    const forceTokenToExpire = new Date();
-    forceTokenToExpire.setMinutes(forceTokenToExpire.getMinutes() - 100)
 
     return await usersRepo.updateUser(database, id, { password: hashedPassword, token_expires: null, token: null});
   },

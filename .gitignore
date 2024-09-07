@@ -30,3 +30,4 @@ apps/public/dist
 apps/private/dist
 apps/backend/dist
 apps/backend/build/*
+.turbo

@@ -22,8 +22,8 @@ export class GenericResponse<T extends string | number | symbol, K extends strin
         const { statusCode, body } = this.errorMappings[typeOfResponse];
         return sendResponse(res, statusCode, body);
     }
-    succeeded(res: Response, typeOfResponse: K, redirectURL: string = '/') {
+    succeeded(res: Response, typeOfResponse: K, body: Record<string, any> = {}) {
         const statusCode = this.successMappings[typeOfResponse] || StatusCodes.OK;
-        return sendResponse(res, statusCode, { success: true, redirectURL });
+        return sendResponse(res, statusCode, { ...body, success: true, });
     }
 }
