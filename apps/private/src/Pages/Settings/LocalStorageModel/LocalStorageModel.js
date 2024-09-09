@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import SettingsService from "../../../services/local/settings-service";
-import {getCurrentThemeColors} from "../../../Utils/Utils";
+import {getCurrentThemeColors} from "../../../utils/Utils";
 
 export default class LocalStorageModel extends Component {
     render() {

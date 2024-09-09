@@ -8,7 +8,7 @@ import {
 } from 'react-stripe-elements'
 import SettingsApiService from "../../services/database/settings-api-service";
 import SettingsService from "../../services/local/settings-service";
-import {getCurrentThemeColors} from "../../Utils/Utils";
+import {getCurrentThemeColors} from "../../utils/Utils";
 
 const CheckoutForm = ({stripe, toggleShown}) => {
     const list = ['More Theme Options','Uncapped Max on Goals', 'Uncapped Max on Past Goals', 'More List Options', 'Other Day Colors']

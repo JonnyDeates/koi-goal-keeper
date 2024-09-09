@@ -1,10 +1,10 @@
 import React from 'react';
 import "./AddGoal.css";
-import GoalList from "../../Components/GoalList/GoalList";
+import GoalListold from "../../components/GoalList/GoalListold.js";
 import {toast} from 'react-toastify';
 import {SettingsContext} from "../Settings/SettingsContext";
-import {formatDate, getColor, getCurrentThemeColors, getTime} from "../../Utils/Utils";
-import TryPremium from "../../Components/Checkout/TryPremium";
+import {formatDate, getColor, getCurrentThemeColors, getTime} from "../../utils/Utils";
+import TryPremium from "../../components/Checkout/TryPremium";
 
 class AddGoal extends React.Component {
     static contextType = SettingsContext;
@@ -191,12 +191,12 @@ class AddGoal extends React.Component {
                 {this.state.currentGoal.goals.length === 0 ? <div className='example-add' style={{
                     color: getCurrentThemeColors().fontColor
                 }}>Growth Worthy Goal</div> : ''}
-                <GoalList goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false}
-                          date={this.state.currentGoal.date} type={this.state.currentGoal.type}
-                          showChecked={false} handleChecked={this.state.handleChecked} showCloneGoalList={false}
-                          handleEditGoal={this.state.handleEditGoal} compacted={'No'} showDeleteGoalList={false}
-                          showDelete={true} handleObjectiveClone={this.handleObjectiveClone}
-                          deleteGoal={this.deleteObjective} goals={this.state.currentGoal.goals}/>
+                <GoalListold goalId={this.state.currentGoal.id} isEditable={true} showCompleted={false}
+                             date={this.state.currentGoal.date} type={this.state.currentGoal.type}
+                             showChecked={false} handleChecked={this.state.handleChecked} showCloneGoalList={false}
+                             handleEditGoal={this.state.handleEditGoal} compacted={'No'} showDeleteGoalList={false}
+                             showDelete={true} handleObjectiveClone={this.handleObjectiveClone}
+                             deleteGoal={this.deleteObjective} goals={this.state.currentGoal.goals}/>
 
             </form>
         )

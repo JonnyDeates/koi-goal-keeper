@@ -1,5 +1,5 @@
 import React from 'react';
-import {getColor, getCurrentThemeColors} from "../../Utils/Utils";
+import {getColor, getCurrentThemeColors} from "../../utils/Utils";
 
 class SearchFilter extends React.Component {
 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {SettingsContext} from "../../Pages/Settings/SettingsContext";
-import {getCurrentThemeColors} from "../../Utils/Utils";
+import {getCurrentThemeColors} from "../../utils/Utils";
 import './SortFilter.css'
 export default class SortFilter extends Component {
     static contextType = SettingsContext;

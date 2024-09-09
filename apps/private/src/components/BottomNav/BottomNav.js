@@ -5,7 +5,7 @@ import home from '../../assets/icons/home.ico';
 import document from '../../assets/icons/document.ico';
 import archive from '../../assets/icons/archive.ico';
 import user from '../../assets/icons/user.ico';
-import {getCurrentThemeColors} from "../../Utils/Utils";
+import {getCurrentThemeColors} from "../../utils/Utils";
 import {SettingsContext} from "../../Pages/Settings/SettingsContext";
 import SettingsService from "../../services/local/settings-service";
 import Checkout from "../Checkout/checkout";

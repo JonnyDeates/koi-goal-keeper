@@ -1,11 +1,11 @@
 import React from 'react';
 import './Home.css';
-import GoalList from '../../Components/GoalList/GoalList';
+import GoalListold from '../../components/GoalList/GoalListold.js';
 import {SettingsContext} from "../Settings/SettingsContext";
-import SearchFilter from "../../Components/SearchFilter/SearchFilter";
-import SortFilter from "../../Components/SortFilter/SortFilter";
-import {getColor, getCurrentThemeColors} from "../../Utils/Utils";
-import TryPremium from "../../Components/Checkout/TryPremium";
+import SearchFilter from "../../components/SearchFilter/SearchFilter";
+import SortFilter from "../../components/SortFilter/SortFilter";
+import {getColor, getCurrentThemeColors} from "../../utils/Utils";
+import TryPremium from "../../components/Checkout/TryPremium";
 
 class Homeold extends React.Component {
     static contextType = SettingsContext;
@@ -77,18 +77,18 @@ class Homeold extends React.Component {
                 <SearchFilter changeFilter={this.changeFilter} searchGoals={this.changSearch} search={this.state.search} types={this.context.types}
                               currentType={this.context.currentType} clearSearch={()=> this.setState({search: '', goalChange: true})}/>
                 {this.state.currentGoals.length === 0 ? <h2>No Current {type} Goals</h2> : ''}
-                {this.state.currentGoals.map((Goal, i) => <GoalList key={i} showChecked={true} showCloneGoalList={true}
-                                                                    deleteGoal={this.props.goalListContext.deleteGoal}
-                                                                    pushGoal={this.props.goalListContext.pushGoal} showDeleteGoalList={true}
-                                                                    goalId={Goal.id} handleAddObjective={this.props.goalListContext.handleAddObjective}
-                                                                    handleChecked={this.props.goalListContext.handleChecked}
-                                                                    isEditable={true} showCompleted={true}
-                                                                    goals={Goal.goals} type={Goal.type} deleteGoalList={this.props.goalListContext.deleteGoalList}
-                                                                    handleEditGoal={this.props.goalListContext.handleEditGoal}
-                                                                    date={Goal.date} checkedamt={Goal.checkedamt}
-                                                                    showDelete={this.context.showDelete} handleGoalListClone={this.props.goalListContext.handleGoalListClone}
-                                                                    compacted={this.context.compacted} showAdd={true}
-                                                                    handleObjectiveClone={this.props.goalListContext.handleObjectiveClone}/>)}
+                {this.state.currentGoals.map((Goal, i) => <GoalListold key={i} showChecked={true} showCloneGoalList={true}
+                                                                       deleteGoal={this.props.goalListContext.deleteGoal}
+                                                                       pushGoal={this.props.goalListContext.pushGoal} showDeleteGoalList={true}
+                                                                       goalId={Goal.id} handleAddObjective={this.props.goalListContext.handleAddObjective}
+                                                                       handleChecked={this.props.goalListContext.handleChecked}
+                                                                       isEditable={true} showCompleted={true}
+                                                                       goals={Goal.goals} type={Goal.type} deleteGoalList={this.props.goalListContext.deleteGoalList}
+                                                                       handleEditGoal={this.props.goalListContext.handleEditGoal}
+                                                                       date={Goal.date} checkedamt={Goal.checkedamt}
+                                                                       showDelete={this.context.showDelete} handleGoalListClone={this.props.goalListContext.handleGoalListClone}
+                                                                       compacted={this.context.compacted} showAdd={true}
+                                                                       handleObjectiveClone={this.props.goalListContext.handleObjectiveClone}/>)}
             </main>
         )
     }

@@ -6,7 +6,7 @@ import PastObjectivesApiService from "../../services/database/pastobjectives-api
 import ObjectivesApiService from "../../services/database/objectives-api-service";
 import {toast} from "react-toastify";
 import SettingsService from "../../services/local/settings-service";
-import {formatDate, getTime, uuid} from "../../Utils/Utils";
+import {formatDate, getTime, uuid} from "../../utils/Utils";
 import GoalService from "../../services/local/goals-service";
 import PastGoalService from "../../services/local/pastgoals-service";
 

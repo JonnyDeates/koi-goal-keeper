@@ -35,12 +35,6 @@
     vertical-align: center;
 }
 
-.LandingPage > div {
-    justify-content: space-evenly;
-    margin: 0 auto 0 auto;
-    width: 100%;
-    display: flex;
-}
 .LandingPage .links {
     margin: 6rem auto 0 auto;
 }

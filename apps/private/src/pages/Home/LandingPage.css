@@ -16,15 +16,7 @@
     display: inline-block;
     font-size: medium;
 }
-.LandingPage img {
-    height: 75px;
-    width: 75px;
-    background-color: #ffffffee;
-    padding: 16px;
-    border-radius: 100px;
-    margin: 0 3rem 0 0;
-    box-shadow: 8px 8px 0 #ffffff77, 9px 9px 1px rgba(0,0,0,0.2), 10px 10px 4px rgba(0,0,0,0.1);
-}
+
 .LandingPage h1 {
     color: #fff;
     text-shadow: 2px 2px 3px rgba(0,0,0,.26666666666666666);
@@ -35,12 +27,6 @@
     vertical-align: center;
 }
 
-.LandingPage > div {
-    justify-content: space-evenly;
-    margin: 0 auto 0 auto;
-    width: 100%;
-    display: flex;
-}
 .LandingPage .links {
     margin: 6rem auto 0 auto;
 }

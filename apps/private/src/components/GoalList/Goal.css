@@ -1,0 +1,27 @@
+.Goal {
+    background-color: white;
+    display: block;
+    margin: 1rem auto;
+    width: 600px;
+    padding: 1rem;
+    border-radius: 16px;
+    position: relative;
+}
+.GoalActions {
+    justify-content: right;
+    display: flex;
+}
+.Objective {
+    display: block;
+}
+.Objective:not(:last-child) {
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+.Objective input {
+    padding: 1rem .5rem;
+}
+.ObjectiveInput {
+    margin: 16px auto;
+    display: block;
+    width: calc(100% - 1rem);
+}

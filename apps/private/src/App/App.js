@@ -13,7 +13,7 @@ import PrivateRoute from "../Routes/PrivateRoute/PrivateRoute";
 import PublicRoute from "../Routes/PublicRoute/PublicRoute";
 import LandingPage from "../Pages/LandingPage/LandingPage";
 import ForgotPassword from "../Pages/Login/ForgotPassword/ForgotPassword";
-import BottomNav from "../Components/BottomNav/BottomNav";
+import BottomNav from "../components/BottomNav/BottomNav";
 
 class App extends React.Component {
 

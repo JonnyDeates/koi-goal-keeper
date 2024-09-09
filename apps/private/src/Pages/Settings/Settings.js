@@ -10,7 +10,7 @@ import {
     getThemes,
     getTypeColors,
     getTypeColorsAvailable
-} from "../../Utils/Utils";
+} from "../../utils/Utils";
 import DeleteModel from "./DeleteModel/DeleteModel";
 import GoalService from "../../services/local/goals-service";
 import GoalApiService from "../../services/database/goals-api-service";
@@ -19,7 +19,7 @@ import PastGoalApiService from "../../services/database/pastgoals-api-service";
 import PastObjectivesApiService from "../../services/database/pastobjectives-api-service";
 import LocalStorageModel from "./LocalStorageModel/LocalStorageModel";
 import SettingsService from "../../services/local/settings-service";
-import TryPremium from "../../Components/Checkout/TryPremium";
+import TryPremium from "../../components/Checkout/TryPremium";
 
 class Settings extends React.Component {
     static contextType = SettingsContext;

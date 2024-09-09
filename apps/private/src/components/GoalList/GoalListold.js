@@ -2,13 +2,13 @@ import React from 'react';
 import './GoalList.css'
 import './Compacted.css'
 import GoalItem from "./GoalItem/GoalItem";
-import {getColor, getCurrentThemeColors} from '../../Utils/Utils';
+import {getColor, getCurrentThemeColors} from '../../utils/Utils';
 const pushIco = require("../../assets/icons/push.svg");
 const addIco = require("../../assets/icons/plus.svg");
 const copyIcon = require("../../assets/icons/copy.svg");
 const trashIco = require("../../assets/icons/trash.svg");
 
-class GoalList extends React.Component {
+class GoalListold extends React.Component {
     state = {
         value: '',
         type: '',
@@ -136,5 +136,5 @@ class GoalList extends React.Component {
 }
 
 
-export default GoalList;
+export default GoalListold;
 

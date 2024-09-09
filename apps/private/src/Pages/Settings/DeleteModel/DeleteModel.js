@@ -3,7 +3,7 @@ import UserService from "../../../services/local/user-api-service.js";
 import AuthApiService from "../../../services/database/auth-api-service.js"
 import TokenService from "../../../services/local/token-service";
 import SettingsService from "../../../services/local/settings-service";
-import {getCurrentThemeColors} from "../../../Utils/Utils";
+import {getCurrentThemeColors} from "../../../utils/Utils";
 
 export default class DeleteModel extends Component {
     constructor(props){

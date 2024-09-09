@@ -9,7 +9,8 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.1",
     "react-scroll-parallax": "^3.4.5",
-    "vite": "^5.4.2"
+    "dayjs": "^1.11.13",
+    "vite": "^5.4.3"
 
   },
   "scripts": {
@@ -26,7 +27,8 @@
     "typescript": "^5.5.4",
     "@repo/tsconfig": "workspace:*",
     "@repo/shared": "workspace:*",
-    "@repo/utils": "workspace:*"
+    "@repo/utils": "workspace:*",
+    "@repo/types": "workspace:*"
   },
   "homepage": ""
 }

@@ -28,7 +28,7 @@ authController
             if (err) {
                 return AuthResponse.failed(res, AuthFailureTypes.SESSION_FAILED_TO_SAVE);
             }
-            return AuthResponse.succeeded(res, AuthSuccessTypes.USER_LOGS_IN, {redirectUrl: '/'});
+            return AuthResponse.succeeded(res, AuthSuccessTypes.USER_LOGS_IN, {redirectURL: '/'});
         })
     });
 authController
@@ -59,7 +59,7 @@ authController
             if (err) {
                 return AuthResponse.failed(res, AuthFailureTypes.SESSION_FAILED_TO_SAVE)
             }
-            return AuthResponse.succeeded(res, AuthSuccessTypes.USER_LOGS_IN, {redirectUrl: '/'})
+            return AuthResponse.succeeded(res, AuthSuccessTypes.USER_LOGS_IN, {redirectURL: '/'})
         })
     })
 authController
@@ -84,7 +84,7 @@ authController
                 const hashedToken = await Bcrypt.hash(token)
 
                 await usersService.setTokenOnUser(req, foundUser.id, hashedToken);
-                return AuthResponse.succeeded(res, AuthSuccessTypes.TOKEN_GENERATED_AND_EMAIL_SENT, {redirectUrl: `/forgot-password/token?email=${email}`})
+                return AuthResponse.succeeded(res, AuthSuccessTypes.TOKEN_GENERATED_AND_EMAIL_SENT, {redirectURL: `/forgot-password/token?email=${email}`})
             }
         });
 
@@ -122,7 +122,7 @@ authController.route("/verification")
 
         await usersService.setPasswordOnUser(req, foundUser.id, decryptedPassword)
 
-        return AuthResponse.succeeded(res, AuthSuccessTypes.USER_LOGS_IN, {redirectUrl: '/'})
+        return AuthResponse.succeeded(res, AuthSuccessTypes.USER_LOGS_IN, {redirectURL: '/'})
     });
 authController
     .route("/logout")

@@ -1,4 +1,4 @@
-import PaidRestrictions from "../../Utils/PaidAccountRestrictionsUtils";
+import PaidRestrictions from "../../utils/PaidAccountRestrictionsUtils";
 
 const SettingsService = {
     serializeSettings(setting){
