@@ -17,10 +17,10 @@ const ObjectiveActions = {
 
         return {...prevState}
     },
-    toggleEditingObjective: (goalId: string, objectiveId: string) => (prevState: GoalListType): GoalListType => {
+    toggleEditingObjective: (goalId: string, objectiveId: string, key: 'isEditing' | 'isCompleted') => (prevState: GoalListType): GoalListType => {
         const goalBeingModified = prevState[goalId] as GoalType
         const objectiveToModify = goalBeingModified.objectives[objectiveId] as ObjectiveType
-        objectiveToModify.isEditing = !objectiveToModify.isEditing;
+        objectiveToModify[key] = !objectiveToModify[key];
 
         return {...prevState}
     },

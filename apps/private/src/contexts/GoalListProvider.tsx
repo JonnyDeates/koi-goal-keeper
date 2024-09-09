@@ -13,7 +13,7 @@ const GoalListProvider = ({children}: {children: ReactNode}) => {
     return <GoalListContext.Provider value={{allGoals, applyActionToGoalList}}>
         {children}
     </GoalListContext.Provider>;
-}
+};
 
 export default GoalListProvider
 

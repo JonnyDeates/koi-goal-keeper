@@ -3,13 +3,13 @@ import '../shared/src/Utils/Utils.css'
 import SettingsService from "../services/local/settings-service.js";
 
 export function getSpecificType(i) {
-    return ['Daily', 'Weekly', 'BiWeekly', 'Monthly', 'Quarterly', '6-Month', '9-Month', 'Yearly', '2-Year', '3-Year', '4-Year', '5-Year', '10-Year', '20-Year', '30-Year', 'Distant'][i];
+    return ['Daily', 'Weekly', 'BiWeekly', 'Monthly', 'Quarterly', '6-Month', '9-MONTH', 'Yearly', '2-Year', '3-Year', '4-Year', '5-Year', '10-Year', '20-Year', '30-Year', 'Distant'][i];
 }
 
 export function getTypeColorsAvailable() {
     let newType = [];
     switch (SettingsService.getSettings().type_list) {
-        case 'Today List':
+        case 'TODAY List':
             newType = [0, 15];
             break;
         case 'Short List':
@@ -73,7 +73,7 @@ export function getColor(type) {
         case '6-Month':
             color = ColorThemes[5];
             break;
-        case '9-Month':
+        case '9-MONTH':
             color = ColorThemes[6];
             break;
         case 'Yearly':
@@ -256,7 +256,7 @@ export function getTime(type) {
         case '6-Month':
             tempDate.setMonth(tempDate.getMonth() + 6);
             break;
-        case '9-Month':
+        case '9-MONTH':
             tempDate.setMonth(tempDate.getMonth() + 9);
             break;
         case 'Yearly':

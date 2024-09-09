@@ -16,7 +16,7 @@
 
   },
   "scripts": {
-    "dev": "vite dev --port 5002",
+    "dev": "vite dev --port 5001",
     "build": "vite build",
     "start": "vite preview",
     "test": "vitest run"

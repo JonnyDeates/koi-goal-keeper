@@ -15,12 +15,12 @@ const Option = <T,>({children, value, onClick}: OptionProps<T>) => {
 }
 
 export type SelectProps<T> = {
-    options: Record<string, T>,
+    options: Record<string, T> | T[],
     selectedOption: string,
     onClick: (value: T) => void
 }
 
-const Select = <T,>({options, selectedOption, onClick}: SelectProps<T>) => {
+const Select = <T extends string | number | symbol,>({options, selectedOption, onClick}: SelectProps<T>) => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [startClosingAnimation, setStartStartClosingAnimation] = useState<boolean>(false)
     const handleOpenSelect = () => {
@@ -31,12 +31,33 @@ const Select = <T,>({options, selectedOption, onClick}: SelectProps<T>) => {
             setIsOpen(true)
             setStartStartClosingAnimation(false)
         }
+    };
+
+    const opacity = startClosingAnimation ? 0:1;
+    const transform = startClosingAnimation ? 'scale(0.9,0.3)' : 'none';
+
+
+    if(Array.isArray(options)) {
+        return <div className="SelectContainer">
+            <div className={"SelectedOption"} onClick={handleOpenSelect}>
+                {selectedOption}
+            </div>
+            {isOpen ?
+              <>
+                  <div className={"Backdrop"} onClick={handleOpenSelect}/>
+                  <div className={"Select"} style={{opacity, transform}}>
+                      {options.map((option) =>
+                        <Option key={'Option-'+option} value={option} onClick={onClick}>
+                            {option as ReactNode}
+                        </Option>)}
+                  </div>
+              </>
+              : <></>
+            }
+        </div>
     }
 
-    const opacity = startClosingAnimation ? 0:1
-    const transform = startClosingAnimation ? 'scale(0.9,0.3)' : 'none'
-
-    const optionKeys = Object.keys(options)
+    const optionKeys = Object.keys(options);
 
     return <div className="SelectContainer">
         <div className={"SelectedOption"} onClick={handleOpenSelect}>
@@ -47,7 +68,7 @@ const Select = <T,>({options, selectedOption, onClick}: SelectProps<T>) => {
                 <div className={"Backdrop"} onClick={handleOpenSelect}/>
                 <div className={"Select"} style={{opacity, transform}}>
                     {optionKeys.map((option) =>
-                        <Option key={option} value={options[option] as T} onClick={onClick}>
+                        <Option key={'Option-'+option} value={options[option] as T} onClick={onClick}>
                             {option}
                         </Option>)}
                 </div>

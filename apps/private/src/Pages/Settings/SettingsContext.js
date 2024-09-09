@@ -7,7 +7,7 @@ import SettingsApiService from "../../services/database/settings-api-service";
 
 export const SettingsContext = React.createContext({
     themes: [],
-    typeList: ['Today List', 'Short List', "Normal List", "Extended List", "Full List"],
+    typeList: ['TODAY List', 'Short List', "Normal List", "Extended List", "Full List"],
     typeListSelected: 'Normal List',
     types: [],
     username: '',
@@ -44,7 +44,7 @@ export class SettingsProvider extends React.Component {
             id: '',
             theme: 'Default',
             currentType: 'All',
-            typeList: ['Today List', 'Short List', "Normal List", "Extended List", "Full List"],
+            typeList: ['TODAY List', 'Short List', "Normal List", "Extended List", "Full List"],
             typeListSelected: '',
             autoArchiving: true,
             showDelete: false,
@@ -107,7 +107,7 @@ export class SettingsProvider extends React.Component {
                 this.setState({types: ['Daily', 'Weekly', 'BiWeekly', 'Monthly', 'Quarterly', '6-Month', 'Yearly', '2-Year', '3-Year', '5-Year', '10-Year', 'Distant']}, () => SettingsService.saveSettings({types: this.state.types}));
                 break;
             case this.state.typeList[4]:
-                this.setState({types: ['Daily', 'Weekly', 'BiWeekly', 'Monthly', 'Quarterly', '6-Month', '9-Month', 'Yearly', '2-Year', '3-Year', '4-Year', '5-Year', '10-Year', '20-Year', '30-Year', 'Distant']}, () => SettingsService.saveSettings({types: this.state.types}));
+                this.setState({types: ['Daily', 'Weekly', 'BiWeekly', 'Monthly', 'Quarterly', '6-Month', '9-MONTH', 'Yearly', '2-Year', '3-Year', '4-Year', '5-Year', '10-Year', '20-Year', '30-Year', 'Distant']}, () => SettingsService.saveSettings({types: this.state.types}));
                 break;
             default :
                 this.setState({types: ['Daily', 'Weekly', 'Monthly', 'Quarterly', '6-Month', 'Yearly', '3-Year', '5-Year', 'Distant']}, () => SettingsService.saveSettings({types: this.state.types}));
@@ -123,7 +123,7 @@ export class SettingsProvider extends React.Component {
             currentType: this.state.currentType,
             autoArchiving: this.state.autoArchiving,
             types: this.state.types,
-            typeList: ['Today List', 'Short List', "Normal List", "Extended List", "Full List"],
+            typeList: ['TODAY List', 'Short List', "Normal List", "Extended List", "Full List"],
             typeListSelected: this.state.typeListSelected,
             username: this.state.username,
             email: this.state.email,
@@ -198,7 +198,7 @@ export class SettingsProvider extends React.Component {
                     }
                 } else {
                     switch (currentType) {
-                        case 'Today List':
+                        case 'TODAY List':
                             newTypeSelected = 'Short List';
                             break;
                         case 'Short List':
@@ -211,7 +211,7 @@ export class SettingsProvider extends React.Component {
                             newTypeSelected = 'Full List';
                             break;
                         case 'Full List':
-                            newTypeSelected = 'Today List';
+                            newTypeSelected = 'TODAY List';
                             break;
                         default:
                             newTypeSelected = 'Normal List';
