@@ -39,7 +39,6 @@ const Goal = ({id, createdDate, modifiedDate, completionDate, objectives}: GoalP
       <h3>Tasks Completed: {tasksCompleted}</h3>
     </div>
 
-
     {objectiveListOfIds.map((objectiveId) =>
       <React.Fragment key={objectiveId}>
         <Objective id={objectiveId}
@@ -51,5 +50,5 @@ const Goal = ({id, createdDate, modifiedDate, completionDate, objectives}: GoalP
       <Button onClick={handleAddObjective}>Add Objective</Button>
     </div>
   </div>
-}
+};
 export default Goal

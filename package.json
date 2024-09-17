@@ -10,13 +10,13 @@
   "scripts": {
     "build": "pnpm -r --parallel --filter ./apps/backend --filter ./apps/public --filter ./apps/private run build",
     "dev": "turbo run dev",
-    "frontendDev": "pnpm -r --filter ./apps/public run dev",
+    "frontend-dev": "pnpm -r --parallel --filter ./apps/public --filter ./apps/private run dev",
     "monorepo": "pnpm -r --filter ./apps/backend run monorepo",
     "predeploy": "pnpm run build && pnpm -r --filter ./apps/backend run copyFrontend && docker build apps -t jondeates/koi-goal-keeper:$npm_package_version -t jondeates/koi-timer:latest",
     "deploy": "npm run predeploy && docker push jondeates/koi-goal-keeper:$npm_package_version && docker push jondeates/koi-goal-keeper:latest"
   },
   "devDependencies": {
-    "turbo": "^2.1.1"
+    "turbo": "^2.1.2"
   },
   "engines": {
     "node": ">=14.0.0"
