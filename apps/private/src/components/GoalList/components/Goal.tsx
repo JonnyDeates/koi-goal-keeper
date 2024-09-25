@@ -1,4 +1,4 @@
-import {GoalType, ObjectiveType} from "@repo/types";
+import {GoalType, TaskType} from "@repo/types";
 import React from "react";
 import {Button, CloseButton} from "koi-pool";
 import Select from "../../Select/Select";
@@ -11,20 +11,24 @@ import {allDueDates, DUE_DATE, getDueDateFromDate} from "../../../utils/utils";
 type GoalProps = GoalType & { id: string }
 
 const Goal = ({id, createdDate, modifiedDate, completionDate, tasks}: GoalProps) => {
-  const {applyActionToGoalList} = useGoalListContext()
+  const {applyActionToGoalList} = useGoalListContext();
 
-  const tasksListOfIds = Object.keys(tasks)
+  const tasksListOfIds = Object.keys(tasks);
 
   const handleAddObjective = () => {
-    applyActionToGoalList(TaskActions.create(id))
+    applyActionToGoalList(TaskActions.create(id));
+  };
+
+  const handleDuplicateGoal = () => {
+    applyActionToGoalList(GoalActions.duplicate(id));
   };
 
   const handleUpdateDueDate = (value: number) => {
-    applyActionToGoalList(GoalActions.updateGoalDueDate(id, value))
+    applyActionToGoalList(GoalActions.updateGoalDueDate(id, value));
   };
 
   const handleDeleteGoal = () => {
-    applyActionToGoalList(GoalActions.remove(id))
+    applyActionToGoalList(GoalActions.remove(id));
   };
 
   const tasksCompleted = tasksListOfIds.reduce((count, objectiveId) => {
@@ -47,10 +51,11 @@ const Goal = ({id, createdDate, modifiedDate, completionDate, tasks}: GoalProps)
       <React.Fragment key={taskId}>
         <Tasks id={taskId}
                    goalId={id}
-                   {...(tasks[taskId] as ObjectiveType)} />
+                   {...(tasks[taskId] as TaskType)} />
       </React.Fragment>
     )}
     <div className={'GoalActions'}>
+      <Button onClick={handleDuplicateGoal}>Duplicate Goal</Button>
       <Button onClick={handleAddObjective}>Add Objective</Button>
     </div>
   </div>
