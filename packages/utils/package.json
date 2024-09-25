@@ -1,10 +1,10 @@
 {
   "name": "@repo/utils",
   "dependencies": {
-    "@paralleldrive/cuid2": "^2.2.2"
+    "@paralleldrive/cuid2": "latest"
   },
   "devDependencies": {
-    "typescript": "^5.6.2",
+    "typescript": "latest",
     "@repo/tsconfig": "workspace:*"
   },
   "exports": {

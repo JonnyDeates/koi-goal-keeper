@@ -17,7 +17,7 @@
     "deploy": "npm run predeploy && docker push jondeates/koi-goal-keeper:$npm_package_version && docker push jondeates/koi-goal-keeper:latest"
   },
   "devDependencies": {
-    "turbo": "^2.1.2"
+    "turbo": "latest"
   },
   "engines": {
     "node": ">=14.0.0"

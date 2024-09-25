@@ -15,14 +15,14 @@ export type SessionData = Omit<User, "password" | "date_created" | "date_modifie
 export type SessionResponse = Omit<SessionData, "id">
 export type ErrorType<T extends string | number | symbol = string> = Partial<Record<T, string>>;
 
-export type ObjectiveType = {
+export type TaskType = {
   text: string,
   isEditing: boolean,
   isCompleted: boolean
 }
 
 export type GoalType = {
-  tasks: Record<string, ObjectiveType>,
+  tasks: Record<string, TaskType>,
   createdDate: Date,
   modifiedDate: Date,
   completionDate: Date,
