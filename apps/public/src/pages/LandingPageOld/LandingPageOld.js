@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {ParallaxBanner} from "react-scroll-parallax/cjs";
 import {ParallaxProvider} from "react-scroll-parallax";
-import "./LandingPage.css";
+import "./LandingPageOld.css";
 import Yin from "../../assets/banner/Yin.png"
 import Yang from "../../assets/banner/Yang.png"
 import addPage from "../../assets/images/koigoalkeeper-addpagev2.png"
@@ -17,7 +17,7 @@ import MeetTheDeveloper from "./MeetTheDeveloper/MeetTheDeveloper";
 import TrackVisibility from "../../Utils/TrackVisibility";
 import Feedback from "./Feedback/Feedback";
 
-class LandingPage extends Component {
+class LandingPageOld extends Component {
 
     constructor(props) {
         super(props);
@@ -119,4 +119,4 @@ class LandingPage extends Component {
     }
 }
 
-export default LandingPage;
+export default LandingPageOld;

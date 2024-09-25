@@ -1,15 +1,19 @@
-.home {
+.Home {
     width: unset;
+    position: relative;
+    margin: 0 auto 0 auto;
+    z-index: 0;
+    box-shadow: unset;
+    min-height: 100vh;
 }
-.home h1, .home h2{
-    text-align: left;
-    color: white;
-    margin: 1em 4px;
-    width: 100vw;
+
+.Home h1 {
+    color: #fff;
+    text-shadow: 2px 2px 3px rgba(0,0,0,.26666666666666666);
+    cursor: pointer;
+    text-decoration: unset;
+    margin: 0 0 4rem 0;
+    padding: 2rem 0 0 0;
+    vertical-align: center;
 }
-.dropdown-types {
-    z-index: 4;
-}
-.dropdown-list > li:hover{
-    background-color: #ffffff !important;
-}
+
