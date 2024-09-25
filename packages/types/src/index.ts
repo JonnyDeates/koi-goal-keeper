@@ -22,7 +22,7 @@ export type ObjectiveType = {
 }
 
 export type GoalType = {
-  objectives: Record<string, ObjectiveType>,
+  tasks: Record<string, ObjectiveType>,
   createdDate: Date,
   modifiedDate: Date,
   completionDate: Date,

@@ -71,7 +71,7 @@ class AddGoal extends React.Component {
     deleteObjective(neat, ID) {
         let newGoals = this.props.goalListContext.currentGoal.goals.filter(g => g.id !== ID);
         newGoals.forEach((goal, i) => goal.id = i);
-        toast.warn('Objective Deleted', {autoClose: 2000});
+        toast.warn('Task Deleted', {autoClose: 2000});
         let newGL = {type: this.state.currentGoal.type, date: this.state.currentGoal.date, goals: newGoals};
         this.setState({currentGoal: newGL},()=> this.handleGoalListLength());
         this.props.goalListContext.handleGoalAdd(newGL);

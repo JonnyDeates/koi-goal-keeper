@@ -11,6 +11,7 @@
     "build": "pnpm -r --parallel --filter ./apps/backend --filter ./apps/public --filter ./apps/private run build",
     "dev": "turbo run dev",
     "frontend-dev": "pnpm -r --parallel --filter ./apps/public --filter ./apps/private run dev",
+    "migrate": "pnpm -r --filter ./apps/backend run migrate",
     "monorepo": "pnpm -r --filter ./apps/backend run monorepo",
     "predeploy": "pnpm run build && pnpm -r --filter ./apps/backend run copyFrontend && docker build apps -t jondeates/koi-goal-keeper:$npm_package_version -t jondeates/koi-timer:latest",
     "deploy": "npm run predeploy && docker push jondeates/koi-goal-keeper:$npm_package_version && docker push jondeates/koi-goal-keeper:latest"

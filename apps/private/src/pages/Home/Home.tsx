@@ -1,7 +1,6 @@
 import React from "react";
 import "./LandingPage.css";
 import {Button} from "koi-pool";
-import AuthenticationClient from "../../clients/AuthenticationClient";
 import GoalList from "../../components/GoalList/GoalList";
 import GoalActions from "../../components/GoalList/actions/GoalActions";
 import {useGoalListContext} from "../../contexts/GoalListProvider";
@@ -10,21 +9,15 @@ import {useGoalListContext} from "../../contexts/GoalListProvider";
 const Home = () => {
     const {applyActionToGoalList} = useGoalListContext();
     const handleAddGoal = () => {
-      applyActionToGoalList(GoalActions.createNewGoal)
-    }
+      applyActionToGoalList(GoalActions.create)
+    };
 
     return <main className={"LandingPage"}>
       <h1>Koi Goal Keeper Logged In</h1>
-      <Button onClick={handleAddGoal}>Add Goal</Button>
-      <GoalList/>
-
-      <div className={'links'}>
-        <Button variant={'accept'}
-                onClick={AuthenticationClient.handleLogout}
-        >
-          Logout
-        </Button>
+      <div>
+        <Button onClick={handleAddGoal}>Add Goal</Button>
       </div>
+      <GoalList/>
     </main>;
   }
 ;

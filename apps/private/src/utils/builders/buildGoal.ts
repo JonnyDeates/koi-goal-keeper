@@ -1,10 +1,10 @@
 import {GoalType} from "@repo/types";
-import {buildObjective} from "./buildObjective";
+import {buildTask} from "./buildTask";
 import cuid2 from "@paralleldrive/cuid2";
 
 
 export const buildGoal = (partialGoal: Partial<GoalType> = {}): GoalType => ({
-    objectives: {[cuid2.createId()]: buildObjective()},
+    tasks: {[cuid2.createId()]: buildTask()},
     createdDate: new Date(),
     modifiedDate: new Date(),
     completionDate: new Date(),

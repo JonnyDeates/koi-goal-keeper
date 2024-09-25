@@ -9,22 +9,23 @@
 }
 .GoalHeader {
     display: flex;
+    justify-content: space-between;
 }
 .GoalActions {
     justify-content: right;
     display: flex;
 }
-.Objective {
+.Task {
     display: block;
 }
-.Objective:not(:last-child) {
+.Task:not(:last-child) {
     border-bottom: 1px solid rgba(0,0,0,0.3);
 }
-.Objective input {
+.Task input {
     padding: 1rem .5rem;
 }
-.ObjectiveInput {
-    margin: 16px auto;
+.TaskInput {
+    margin: 16px 0;
     display: block;
     width: calc(100% - 1rem);
 }

@@ -4,11 +4,11 @@ import {GoalListType} from "../components/GoalList/GoalList";
 
 type GoalListContextType = { allGoals: GoalListType, applyActionToGoalList: Dispatch<SetStateAction<GoalListType>> }
 
-const GoalListContext = createContext<GoalListContextType>({} as GoalListContextType)
+const GoalListContext = createContext<GoalListContextType>({} as GoalListContextType);
 
 
 const GoalListProvider = ({children}: {children: ReactNode}) => {
-    const [allGoals, applyActionToGoalList] = useState<GoalListType>({})
+    const [allGoals, applyActionToGoalList] = useState<GoalListType>({});
 
     return <GoalListContext.Provider value={{allGoals, applyActionToGoalList}}>
         {children}
@@ -17,4 +17,4 @@ const GoalListProvider = ({children}: {children: ReactNode}) => {
 
 export default GoalListProvider
 
-export const useGoalListContext = () => useContext(GoalListContext)
+export const useGoalListContext = () => useContext(GoalListContext);

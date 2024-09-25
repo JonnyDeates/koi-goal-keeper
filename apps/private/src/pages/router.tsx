@@ -3,11 +3,16 @@ import React from "react";
 import Home from "./Home/Home";
 import {Wallpaper, Page404} from "@repo/shared";
 import GoalListProvider from "../contexts/GoalListProvider";
+import {Navigation} from "../components/Navigation/Navigation";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={
-            <Wallpaper/>
+          <>
+            <Wallpaper>
+              <Navigation />
+            </Wallpaper>
+          </>
         }
                errorElement={
                    <Wallpaper>
@@ -17,7 +22,11 @@ const router = createBrowserRouter(
             <Route path='' element={
                 <GoalListProvider>
                 <Home/>
-            </GoalListProvider>}/>
+            </GoalListProvider>}
+            />
+          <Route path='/settings' element={
+            <main>Settings</main>}
+          />
         </Route>
     )
 )

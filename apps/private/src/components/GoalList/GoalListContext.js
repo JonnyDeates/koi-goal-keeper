@@ -222,7 +222,7 @@ export class GoalListProvider extends React.Component {
             toast.warn(`${Goal.type} Goal Deleted`);
             this.setState({currentGoals: this.state.currentGoals.filter((G) => Goal.id !== G.id)}, () => GoalService.saveGoals(this.state.currentGoals))
         } else {
-            toast.warn('Objective Deleted', {autoClose: 2000});
+            toast.warn('Task Deleted', {autoClose: 2000});
             this.setState({currentGoals: this.state.currentGoals}, () => GoalService.saveGoals(this.state.currentGoals));
         }
         if (!SettingsService.isLocal()) { // Handles Local Check
@@ -231,7 +231,7 @@ export class GoalListProvider extends React.Component {
             } else {
                 GoalApiService.patchGoal(Goal, Goal.id)
             }
-            ObjectivesApiService.deleteObjective(ID);  // Deletes Objective
+            ObjectivesApiService.deleteObjective(ID);  // Deletes Task
         }
     }
 
@@ -267,7 +267,7 @@ export class GoalListProvider extends React.Component {
             this.setState({pastGoals: this.state.pastGoals.filter((G) => Goal.id !== G.id)}, () => PastGoalService.savePastGoals(this.state.pastGoals))
 
         } else {
-            toast.warn('Past Objective Deleted', {autoClose: 2000});
+            toast.warn('Past Task Deleted', {autoClose: 2000});
             this.setState({pastGoals: this.state.pastGoals}, () => PastGoalService.savePastGoals(this.state.pastGoals));
         }
         if (!SettingsService.isLocal()) { // Handles Local Check
@@ -337,7 +337,7 @@ export class GoalListProvider extends React.Component {
         this.setState({currentGoals: allGoals}, () => GoalService.saveGoals(this.state.currentGoals)); // Sets the State & Saves
 
         if (!SettingsService.isLocal()) { // Checks to see if Local
-            ObjectivesApiService.toggleChecked(ID); // Updates The Objective Checked
+            ObjectivesApiService.toggleChecked(ID); // Updates The Task Checked
             GoalApiService.patchGoal(currentGoalList, currentGoalList.id); // Updates the Current Goals Checked Amount
         }
     }
@@ -383,7 +383,7 @@ export class GoalListProvider extends React.Component {
     handleObjectiveClone(goalID, id) {
         let goals = this.state.currentGoals.find(goalList => goalList.id === goalID).goals;
         let newObj = {obj: goals.find(Obj => Obj.id === id).obj, id: this.state.currentGoal.goals.length || 0};
-        toast.success('Objective Copied', {autoClose: 1500});
+        toast.success('Task Copied', {autoClose: 1500});
         this.setState({
             currentGoal:
                 {
@@ -396,7 +396,7 @@ export class GoalListProvider extends React.Component {
     handlePastObjectiveClone(goalID, id) {
         let goals = this.state.pastGoals.find(goalList => goalList.id === goalID).goals;
         let newObj = {obj: goals.find(Obj => Obj.id === id).obj, id: this.state.currentGoal.goals.length || 0};
-        toast.success('Objective Copied', {autoClose: 1500});
+        toast.success('Task Copied', {autoClose: 1500});
         this.setState({
             currentGoal:
                 {
@@ -438,7 +438,7 @@ export class GoalListProvider extends React.Component {
                 // Posting The Goal with a Fetch Call
                 GoalApiService.postGoal(newCurrentGoal)
                     .then((res) => {
-                        goals.forEach((obj) => // Posting Each Objective
+                        goals.forEach((obj) => // Posting Each Task
                             ObjectivesApiService.postObjective({
                                 obj: obj.obj,
                                 goalid: res.id

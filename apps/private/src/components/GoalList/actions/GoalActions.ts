@@ -5,7 +5,7 @@ import {buildGoal} from "../../../utils/builders/buildGoal";
 import {DUE_DATE, getDateFromDueDate} from "../../../utils/utils";
 
 const GoalActions = {
-  createNewGoal: (prevState: GoalListType) => ({...prevState, [cuid2.createId()]: buildGoal()}),
+  create: (prevState: GoalListType) => ({[cuid2.createId()]: buildGoal(), ...prevState}),
   updateGoalDueDate: (goalId: string, dueDate: DUE_DATE) => (prevState: GoalListType): GoalListType => {
     const goalBeingModified = prevState[goalId] as GoalType;
     const date = getDateFromDueDate(dueDate);
@@ -16,6 +16,12 @@ const GoalActions = {
     }
     return prevState
   },
-}
+  remove: (id: string) => (prevState: GoalListType): GoalListType =>  {
+    const newState = {...prevState};
+    delete newState[id];
+
+    return newState
+  }
+};
 
 export default GoalActions
