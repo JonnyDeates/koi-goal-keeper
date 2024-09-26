@@ -4,13 +4,13 @@ import {Button, CloseButton} from "koi-pool";
 import Select from "../../Select/Select";
 import Tasks from "./Task";
 import TaskActions from "../actions/TaskActions";
-import {useGoalListContext} from "../../../contexts/GoalListProvider";
+import {useGoalListContext} from "../../../contexts/GoalListProvider/GoalListProvider";
 import GoalActions from "../actions/GoalActions";
 import {allDueDates, DUE_DATE, getDueDateFromDate} from "../../../utils/utils";
 
 type GoalProps = GoalType & { id: string }
 
-const Goal = ({id, createdDate, modifiedDate, completionDate, tasks}: GoalProps) => {
+const Goal = ({id, createdDate, modifiedDate, completionDate, tasks, tasksCompleted}: GoalProps) => {
   const {applyActionToGoalList} = useGoalListContext();
 
   const tasksListOfIds = Object.keys(tasks);
@@ -31,11 +31,6 @@ const Goal = ({id, createdDate, modifiedDate, completionDate, tasks}: GoalProps)
     applyActionToGoalList(GoalActions.remove(id));
   };
 
-  const tasksCompleted = tasksListOfIds.reduce((count, objectiveId) => {
-    if(tasks[objectiveId] && tasks[objectiveId].isCompleted)
-      return  count + 1;
-    return count;
-  },0);
 
   return <div className='Goal'>
     <CloseButton onClick={handleDeleteGoal}/>

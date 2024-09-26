@@ -26,4 +26,5 @@ export type GoalType = {
   createdDate: Date,
   modifiedDate: Date,
   completionDate: Date,
+  tasksCompleted: number
 }

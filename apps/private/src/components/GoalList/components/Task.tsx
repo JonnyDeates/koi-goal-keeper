@@ -2,7 +2,7 @@ import {TaskType} from "@repo/types";
 import React, {ChangeEventHandler} from "react";
 import {FloatingLabelInputWithButton, SpacedLabelInput} from "koi-pool";
 import {handleSubmitEnter} from "@repo/shared";
-import {useGoalListContext} from "../../../contexts/GoalListProvider";
+import {useGoalListContext} from "../../../contexts/GoalListProvider/GoalListProvider";
 import TaskActions from "../actions/TaskActions";
 
 const Task = ({text, isEditing,isCompleted, id, goalId}: TaskType & {

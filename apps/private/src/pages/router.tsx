@@ -2,7 +2,7 @@ import {createBrowserRouter, createRoutesFromElements, Route} from "react-router
 import React from "react";
 import Home from "./Home/Home";
 import {Wallpaper, Page404} from "@repo/shared";
-import GoalListProvider from "../contexts/GoalListProvider";
+import GoalListProvider from "../contexts/GoalListProvider/GoalListProvider";
 import {Navigation} from "../components/Navigation/Navigation";
 
 const router = createBrowserRouter(

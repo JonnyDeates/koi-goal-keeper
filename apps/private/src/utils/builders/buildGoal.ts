@@ -5,6 +5,7 @@ import cuid2 from "@paralleldrive/cuid2";
 
 export const buildGoal = (partialGoal: Partial<GoalType> = {}): GoalType => ({
     tasks: {[cuid2.createId()]: buildTask()},
+    tasksCompleted: 0,
     createdDate: new Date(),
     modifiedDate: new Date(),
     completionDate: new Date(),

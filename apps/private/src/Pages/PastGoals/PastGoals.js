@@ -5,7 +5,7 @@ import {SettingsContext} from "../Settings/SettingsContext";
 import SearchFilter from "../../components/SearchFilter/SearchFilter";
 import {getColor, getCurrentThemeColors} from "../../utils/Utils";
 import TryPremium from "../../components/Checkout/TryPremium";
-import SortFilter from '../../components/SortFilter/SortFilter';
+import SortFilter from '../../components/SortFilter/SortFilter.js';
 
 class PastGoals extends React.Component {
     static contextType = SettingsContext;
