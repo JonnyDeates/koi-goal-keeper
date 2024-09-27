@@ -7,13 +7,13 @@ import {useGoalListContext} from "../../contexts/GoalListProvider/GoalListProvid
 import SortFilter from "../../components/SortFilter/SortFilter";
 
 
-const Home = () => {
+function Home() {
     const {applyActionToGoalList} = useGoalListContext();
     const handleAddGoal = () => {
-      applyActionToGoalList(GoalActions.create)
+      applyActionToGoalList(GoalActions.create);
     };
 
-    return <main className={"Home"}>
+    return <main className="Home">
       <h1>Koi Goal Keeper Logged In</h1>
       <div>
         <SortFilter/>
@@ -22,5 +22,4 @@ const Home = () => {
       <GoalList/>
     </main>;
   }
-;
 export default Home;

@@ -1,5 +1,5 @@
-import { Knex } from "knex";
-import { User } from "@repo/types";
+import { type Knex } from "knex";
+import { type User } from "@repo/types";
 
 const usersRepo = {
   tableName: "users",
@@ -19,7 +19,7 @@ const usersRepo = {
     return knex(this.tableName)
       .where({ email })
       .first()
-      .then(user => !!user);
+      .then(user => Boolean(user));
   },
   updateUser(knex: Knex, id: string, newUserFields: Partial<User>): Promise<void> {
     return knex(this.tableName)

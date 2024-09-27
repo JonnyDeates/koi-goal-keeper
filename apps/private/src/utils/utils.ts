@@ -30,10 +30,10 @@ export const allDueDates = (): DUE_DATE[] => [
 ];
 
 export const allDueDatesAndDates = (): Record<DUE_DATE, Date | null> => {
-  return allDueDates().reduce((yeet, dueDate) => {
+  return allDueDates().reduce<Record<DUE_DATE, Date | null>>((yeet, dueDate) => {
     yeet[dueDate] = getDateFromDueDate(dueDate);
-    return yeet
-  }, {} as Record<DUE_DATE, Date | null>)
+    return yeet;
+  }, {});
 };
 
 export const getDateFromDueDate = (currentDueDate: DUE_DATE): Date | null => {
@@ -59,7 +59,7 @@ export const getDateFromDueDate = (currentDueDate: DUE_DATE): Date | null => {
     case DUE_DATE.TWO_YEARS:
       return dayjs().add(2, 'year').toDate();
     default:
-      return null
+      return null;
   }
 
 };
@@ -87,8 +87,7 @@ export const getDueDateFromDate = (currentDate: Date): DUE_DATE => {
     return DUE_DATE.YEAR;
   if (dayJsDate.isBefore(dayjs().add(3, 'year')))
     return DUE_DATE.TWO_YEARS;
-  else
-    return DUE_DATE.CUSTOM
+  return DUE_DATE.CUSTOM;
 
 
 };

@@ -1,9 +1,9 @@
 import {createBrowserRouter, createRoutesFromElements, Route} from "react-router-dom";
 import React from "react";
+import {Wallpaper, Page404} from "@repo/shared";
 import LandingPage from "./LandingPage/LandingPage";
 import { Login } from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
-import {Wallpaper, Page404} from "@repo/shared";
 import ForgotPassword from "./ForgotPassword/ForgotPassword";
 
 const router = createBrowserRouter(
@@ -24,5 +24,5 @@ const router = createBrowserRouter(
             </Route>
         </Route>
     )
-)
+);
 export default router;

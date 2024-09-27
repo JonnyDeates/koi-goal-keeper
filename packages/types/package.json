@@ -1,7 +1,8 @@
 {
   "name": "@repo/types",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "eslint . --fix"
   },
   "exports": {
     ".": "./src/index.ts"
@@ -15,6 +16,8 @@
   "devDependencies": {
     "typescript": "latest",
     "@types/react": "latest",
-    "@repo/tsconfig": "workspace:*"
+    "eslint": "^8.57.1",
+    "@repo/tsconfig": "workspace:*",
+    "@repo/eslint-config": "workspace:*"
   }
 }

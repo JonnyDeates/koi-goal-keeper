@@ -4,6 +4,7 @@
     "baseUrl": "./src",
   },
   "include": [
-    "./src"
+    "./src",
+    "vite.config.ts"
   ]
 }

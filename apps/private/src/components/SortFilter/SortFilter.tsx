@@ -1,25 +1,25 @@
-import React from 'react'
-import './SortFilter.css'
-import {useGoalListContext} from "../../contexts/GoalListProvider/GoalListProvider";
+import React from 'react';
+import './SortFilter.css';
 import {Button, SpacedLabel} from "koi-pool";
+import {useGoalListContext} from "../../contexts/GoalListProvider/GoalListProvider";
 import SortActions from "./actions/SortAction";
 
-const SortFilter = () => {
+function SortFilter() {
   const {applyActionToSort, sort: {type, direction}} = useGoalListContext();
 
-  const handleToggleAscending = () => applyActionToSort(SortActions.toggleAscending);
-  const handleToggleSortType = () => applyActionToSort(SortActions.toggleType);
+  const handleToggleAscending = () => { applyActionToSort(SortActions.toggleAscending); };
+  const handleToggleSortType = () => { applyActionToSort(SortActions.toggleType); };
 
-  return <SpacedLabel label={'Sort'}>
+  return <SpacedLabel label="Sort">
     <Button onClick={handleToggleSortType}>{type}</Button>
-    <div className={'ascending-btns'} onClick={handleToggleAscending}>
-      <Button isActive={direction === 'ASC'}>
+    <div className="ascending-btns">
+      <Button isActive={direction === 'ASC'} onClick={handleToggleAscending}>
         ASC
       </Button>
-      <Button isActive={direction === 'DSC'}>
+      <Button isActive={direction === 'DSC'} onClick={handleToggleAscending}>
         DES
       </Button>
     </div>
-  </SpacedLabel>
-};
+  </SpacedLabel>;
+}
 export default SortFilter;

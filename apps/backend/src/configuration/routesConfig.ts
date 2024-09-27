@@ -1,5 +1,5 @@
-import { Request, Response } from "express"; 
-import path from "path";
+import path from "node:path";
+import { type Request, type Response } from "express"; 
 
 const VALID_ROUTES = {
     public: ['/', '/login', '/sign-up', '/forgot-password', '/forgot-password/token'],
@@ -20,4 +20,4 @@ const routesConfig = async (req: Request, res: Response) => {
 };
 export const ALL_ROUTES = [...new Set([...VALID_ROUTES.private, ...VALID_ROUTES.public])];
 
-export default routesConfig
+export default routesConfig;

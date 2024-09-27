@@ -1,8 +1,9 @@
-import {Request} from "express";
+import {type Request} from "express";
+import {type Knex} from "knex";
 
 const Database = {
     get: (req: Request) => {
-        return req.app.get('database')
+        return req.app.get('database') as Knex;
     }
 };
-export default Database
+export default Database;

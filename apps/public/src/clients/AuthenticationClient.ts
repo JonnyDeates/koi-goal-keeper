@@ -1,6 +1,6 @@
 import {AxiosInstance} from "@repo/shared";
 
-const AuthUri = '/auth'
+const AuthUri = '/auth';
 
 const AuthenticationClient = {
     postUser(email: string, name: string, password: string) {

@@ -4,15 +4,19 @@
     "@paralleldrive/cuid2": "latest"
   },
   "devDependencies": {
-    "typescript": "latest",
-    "@repo/tsconfig": "workspace:*"
+    "@repo/tsconfig": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "eslint": "latest",
+    "typescript": "latest"
   },
   "exports": {
     ".": "./src/index.ts"
   },
   "typesVersions": {
     "*": {
-      "*": ["./src/index.ts"]
+      "*": [
+        "./src/index.ts"
+      ]
     }
   },
   "scripts": {

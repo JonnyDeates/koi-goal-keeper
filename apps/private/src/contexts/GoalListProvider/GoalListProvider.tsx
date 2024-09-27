@@ -1,9 +1,9 @@
-import React, {createContext, Dispatch, ReactNode, SetStateAction, useContext, useState} from "react";
-import {GoalListType} from "../../components/GoalList/GoalList";
-import {buildSort, SortType} from "../../utils/builders/buildSort";
+import React, {createContext, type Dispatch, type ReactNode, type SetStateAction, useContext, useState} from "react";
+import {type GoalListType} from "../../components/GoalList/GoalList";
+import {buildSort, type SortType} from "../../utils/builders/buildSort";
 
 
-type GoalListContextType = {
+interface GoalListContextType {
   allGoals: GoalListType,
   applyActionToGoalList: Dispatch<SetStateAction<GoalListType>>,
   sort: SortType,
@@ -12,7 +12,7 @@ type GoalListContextType = {
 
 const GoalListContext = createContext<GoalListContextType>({} as GoalListContextType);
 
-const GoalListProvider = ({children}: { children: ReactNode }) => {
+function GoalListProvider({children}: { children: ReactNode }) {
   const [allGoals, applyActionToGoalList] = useState<GoalListType>({});
   const [sort, applyActionToSort] = useState<SortType>(buildSort());
 
@@ -26,8 +26,8 @@ const GoalListProvider = ({children}: { children: ReactNode }) => {
   return <GoalListContext.Provider value={value}>
     {children}
   </GoalListContext.Provider>;
-};
+}
 
-export default GoalListProvider
+export default GoalListProvider;
 
 export const useGoalListContext = () => useContext(GoalListContext);

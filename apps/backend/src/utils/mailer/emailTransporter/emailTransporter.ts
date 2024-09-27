@@ -8,4 +8,4 @@ const emailTransporter = nodemailer.createTransport({
         rejectUnauthorized: false
     }
 });
-export default emailTransporter
+export default emailTransporter;

@@ -1,57 +1,56 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import React, {type ChangeEvent, type FormEvent, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-
 import {Button, GenericModalWithTabs, SpacedLabelInput} from "koi-pool";
-import PrivacyPolicy from "./components/Privacy Policy/PrivacyPolicy";
-import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions";
-import {validateEmail, validateName, validateSignUpPassword} from "@repo/utils";
+import {gotoPageHardRefresh, validateEmail, validateName, validateSignUpPassword} from "@repo/utils";
 import {Title, useError} from "@repo/shared";
 import AuthenticationClient from "../../clients/AuthenticationClient";
+import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions";
+import PrivacyPolicy from "./components/Privacy Policy/PrivacyPolicy";
 
-const SignUp = () => {
+function SignUp() {
     const [email, setEmail] = useState<string>("");
     const [name, setName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
     const [acceptTerms, setAcceptTerms] = useState<boolean>(false);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const {error, ErrorActions} = useError<'password' | 'email' | 'name' | 'confirm-password' | 'request'>()
+    const {error, ErrorActions, handleCatchError} = useError<'password' | 'email' | 'name' | 'confirm-password' | 'request'>();
 
     const handleName = (event: ChangeEvent<HTMLInputElement>) => {
         ErrorActions.remove("name");
         setName(event.target.value);
-    }
+    };
     const handleEmail = (event: ChangeEvent<HTMLInputElement>) => {
         ErrorActions.remove("email");
         setEmail(event.target.value);
-    }
+    };
     const handlePassword = (event: ChangeEvent<HTMLInputElement>) => {
         ErrorActions.remove("password");
         setPassword(event.target.value);
-    }
+    };
     const handleConfirmPassword = (event: ChangeEvent<HTMLInputElement>) => {
         ErrorActions.remove("confirm-password");
         setConfirmPassword(event.target.value);
-    }
+    };
 
-    const handleOpenModal = () => setModalOpen(true);
-    const handleCloseModal = () => setModalOpen(false);
+    const handleOpenModal = () => { setModalOpen(true); };
+    const handleCloseModal = () => { setModalOpen(false); };
 
     const handleCancelTerms = () => {
         setAcceptTerms(false);
         handleCloseModal();
-    }
+    };
     const handleAcceptTerms = () => {
         setAcceptTerms(true);
         handleCloseModal();
-    }
+    };
 
     const postMethod = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         let hasFailed = false;
         const emailReason = validateEmail(email);
-        const passwordReason = validateSignUpPassword(password)
-        const nameReason = validateName(name)
+        const passwordReason = validateSignUpPassword(password);
+        const nameReason = validateName(name);
 
         if (!acceptTerms)
             return;
@@ -61,11 +60,11 @@ const SignUp = () => {
             hasFailed = true;
         }
         if (emailReason) {
-            ErrorActions.add("email", emailReason)
+            ErrorActions.add("email", emailReason);
             hasFailed = true;
         }
         if (passwordReason) {
-            ErrorActions.add('password', passwordReason)
+            ErrorActions.add('password', passwordReason);
             hasFailed = true;
         }
         if (password !== confirmPassword) {
@@ -73,16 +72,11 @@ const SignUp = () => {
             hasFailed = true;
         }
         if (!hasFailed) {
+
             AuthenticationClient
                 .postUser(email.toLowerCase().trim(), name.trim(), password)
-                .then(() => window.location.href = '/')
-                .catch(({response: {data: {error}}}) => {
-                    if (typeof error === 'object') {
-                        ErrorActions.set(error)
-                    } else {
-                        ErrorActions.add('request', error)
-                    }
-                });
+                .then(() => { gotoPageHardRefresh('/'); })
+                .catch(handleCatchError);
 
         }
 
@@ -97,53 +91,53 @@ const SignUp = () => {
     }, []);
 
     const actionButtons = [
-        <Button variant={'cancel'} onClick={handleCancelTerms}>Cancel</Button>,
-        <Button variant={'accept'} onClick={handleAcceptTerms}>Accept</Button>
-    ]
+        <Button key='Cancel-Button' variant="cancel" onClick={handleCancelTerms}>Cancel</Button>,
+        <Button key='Accept-Button' variant="accept" onClick={handleAcceptTerms}>Accept</Button>
+    ];
 
-    return <div className={"Login"}>
-        <form className={"LoginContent"} onSubmit={postMethod}>
+    return <div className="Login">
+        <form className="LoginContent" onSubmit={postMethod}>
             <Title/>
-            <SpacedLabelInput label={'Name:'}
+            <SpacedLabelInput label="Name:"
                               onChange={handleName}
                               value={name}
-                              width={"200px"}
-                              error={error['name']}
-                              autoComplete={"name"}
+                              width="200px"
+                              error={error.name}
+                              autoComplete="name"
 
             />
-            <SpacedLabelInput label={'Email:'} onChange={handleEmail} value={email} width={"200px"}
-                              error={error['email']}
-                              autoComplete={"email"}
+            <SpacedLabelInput label="Email:" onChange={handleEmail} value={email} width="200px"
+                              error={error.email}
+                              autoComplete="email"
 
             />
-            <SpacedLabelInput label={'Password:'}
+            <SpacedLabelInput label="Password:"
                               onChange={handlePassword}
                               value={password}
-                              width={"200px"}
-                              error={error['password']}
-                              autoComplete={"new-password"}
-                              type={'password'}
+                              width="200px"
+                              error={error.password}
+                              autoComplete="new-password"
+                              type="password"
 
             />
-            <SpacedLabelInput label={'Confirm Password:'} onChange={handleConfirmPassword}
+            <SpacedLabelInput label="Confirm Password:" onChange={handleConfirmPassword}
                               value={confirmPassword}
-                              type={'password'}
-                              width={"200px"}
-                              autoComplete={"new-password"}
+                              type="password"
+                              width="200px"
+                              autoComplete="new-password"
                               error={error['confirm-password']}
             />
-            <label className={"AcceptTerms"}>Accept Terms & Conditions & Privacy Policy
-                <input type={"checkbox"}
+            <label className="AcceptTerms">Accept Terms & Conditions & Privacy Policy
+                <input type="checkbox"
                        checked={acceptTerms}
                        onChange={handleOpenModal}/>
             </label>
-            {error.request && <p className={"Error"}>{error.request}</p>}
-            <div className={"LoginButtons"}>
+            {error.request ? <p className="Error">{error.request}</p> : null}
+            <div className="LoginButtons">
                 <Link to={`/login${email ? `/?email=${email}` : ''}`}>
-                    <Button type="reset" variant={'cancel'}>Back</Button>
+                    <Button type="reset" variant="cancel">Back</Button>
                 </Link>
-                <Button disabled={!acceptTerms} type="submit" variant={'accept'}>
+                <Button disabled={!acceptTerms} type="submit" variant="accept">
                     Submit
                 </Button>
             </div>
@@ -155,5 +149,5 @@ const SignUp = () => {
                               ]}
                               handleClose={handleCloseModal}/>
     </div>;
-};
+}
 export default SignUp;

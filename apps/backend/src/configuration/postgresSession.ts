@@ -1,11 +1,11 @@
-import {Pool} from 'pg'
-import pgSimpleConnection from 'connect-pg-simple'
+import {Pool} from 'pg';
+import pgSimpleConnection from 'connect-pg-simple';
 import session from 'express-session';
 import config from 'src/config';
 
-const pgStore = pgSimpleConnection(session)
+const pgStore = pgSimpleConnection(session);
 const postgresSession = () => {
-    let isDevelopment = config.NODE_ENV === "development";
+    const isDevelopment = config.NODE_ENV === "development";
 
   const pool = new Pool({
     connectionString: config.DATABASE_URL

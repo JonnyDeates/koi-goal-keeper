@@ -1,23 +1,31 @@
 import {useState} from "react";
-import {ErrorType} from "@repo/types";
+import {type ErrorType} from "@repo/types";
 
 
 export function useError <T extends string | number | symbol = string>() {
     const [error, setError] = useState<ErrorType<T>>({});
 
     const ErrorActions = ({
-        reset: () => setError({}),
-        set: (newErrorState: ErrorType<T>) => setError(newErrorState),
+        reset: () => { setError({}); },
+        set: (newErrorState: ErrorType<T>) => { setError(newErrorState); },
         add: (type: T, newError: string) =>
-            setError(prevState =>
+            { setError(prevState =>
                 ({...prevState, [type]: newError})
-            ),
-        remove: (type: T) => setError(prevSate => {
+            ); },
+        remove: (type: T) => { setError(prevSate => {
             const newState = {...prevSate};
-            delete newState[type]
+            delete newState[type];
             return newState;
-        })
-    })
+        }); }
+    });
 
-    return {error, ErrorActions}
+    const handleCatchError = ({response: {data: {error: newError}}}: {response: {data: {error: object | string}}}) => {
+            if (typeof newError === 'object')
+                ErrorActions.set(newError);
+            else
+                ErrorActions.add("request", newError);
+
+        };
+
+    return {error, ErrorActions, handleCatchError};
 }

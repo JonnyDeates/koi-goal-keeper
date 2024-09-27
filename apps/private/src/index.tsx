@@ -1,20 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import {createRoot} from 'react-dom/client';
 import {RouterProvider} from "react-router-dom";
 import {ParallaxProvider} from "react-scroll-parallax";
-import router from "./pages/router";
+import router from "./Pages/router";
 import './index.css';
 import AuthProvider from "./contexts/AuthProvider/AuthProvider";
 import ToastProvider from "./contexts/ToastProvider/ToastProvider";
+import SettingsProvider from "./contexts/SettingsProvider/SettingsProvider";
 
-const container = document.getElementById("root") as HTMLElement;
-const root = ReactDOM.createRoot(container);
+const container = document.getElementById("root");
+
+if (!container) {
+  throw new Error("Root element not found!");
+}
+
+const root = createRoot(container);
 
 root.render(
   <ParallaxProvider>
     <ToastProvider>
       <AuthProvider>
-        <RouterProvider router={router}/>
+        <SettingsProvider>
+          <RouterProvider router={router}/>
+
+        </SettingsProvider>
       </AuthProvider>
     </ToastProvider>
   </ParallaxProvider>

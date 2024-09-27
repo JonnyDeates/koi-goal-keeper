@@ -1,6 +1,6 @@
 import {StatusCodes} from "http-status-codes";
 import {buildError, buildErrorDTO} from "../utils/builders/buildErrorResponseDTO";
-import {ErrorMappingType, GenericResponse, SuccessMappingType} from "../utils/GenericResponse/GenericResponse";
+import {type ErrorMappingType, GenericResponse, type SuccessMappingType} from "../utils/GenericResponse/GenericResponse";
 
 export enum AuthFailureTypes {
     USER_ALREADY_EXISTS = "User already exists! Login or choose another email.",

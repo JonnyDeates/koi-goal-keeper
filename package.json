@@ -9,15 +9,12 @@
   ],
   "scripts": {
     "build": "pnpm -r --parallel --filter ./apps/backend --filter ./apps/public --filter ./apps/private run build",
-    "dev": "turbo run dev",
+    "dev": "turbo dev",
     "frontend-dev": "pnpm -r --parallel --filter ./apps/public --filter ./apps/private run dev",
     "migrate": "pnpm -r --filter ./apps/backend run migrate",
     "monorepo": "pnpm -r --filter ./apps/backend run monorepo",
     "predeploy": "pnpm run build && pnpm -r --filter ./apps/backend run copyFrontend && docker build apps -t jondeates/koi-goal-keeper:$npm_package_version -t jondeates/koi-timer:latest",
     "deploy": "npm run predeploy && docker push jondeates/koi-goal-keeper:$npm_package_version && docker push jondeates/koi-goal-keeper:latest"
-  },
-  "devDependencies": {
-    "turbo": "latest"
   },
   "engines": {
     "node": ">=14.0.0"
@@ -31,5 +28,12 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JonnyDeates/koi-goal-keeper/issues"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "eslint-plugin-react": "^7.37.0",
+    "globals": "^15.9.0",
+    "typescript-eslint": "^8.7.0",
+    "turbo": "latest"
   }
 }

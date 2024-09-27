@@ -1,4 +1,4 @@
-import {NextFunction, Request, Response} from "express";
+import {type NextFunction, type Request, type Response} from "express";
 
 
 const validKeysInRequest = (...fields: string[]) => (req: Request, res: Response, next: NextFunction) => {
@@ -6,19 +6,19 @@ const validKeysInRequest = (...fields: string[]) => (req: Request, res: Response
     if (!req.body) {
         return res.status(403).json({error: `The post request is missing a body.`}).end();
     }
-    const collectFields = [];
+    const collectFields: string[] = [];
     for (const field of fields) {
         if (!req.body[field]) {
-            collectFields.push(field)
+            collectFields.push(field);
         }
     }
     if (collectFields.length > 0) {
         return res.status(403).json({
-            error: collectFields.reduce((errorObj, key) => ({...errorObj, [key]: `No ${key} entered.`}),
-                {} as Record<string, string>)
+            error: collectFields.reduce<Record<string, string>>((errorObj, key) => ({...errorObj, [key]: `No ${key} entered.`}),
+                {})
         }).end();
     }
-    return next();
-}
+    next();
+};
 
-export default validKeysInRequest
+export default validKeysInRequest;

@@ -1,5 +1,5 @@
-import {SessionData as SessionDataType} from "@repo/types";
-import "express-session"
+import {type SessionData as SessionDataType} from "@repo/types";
+import "express-session";
 
 declare module 'express-session' {
     interface SessionData {

@@ -1,18 +1,20 @@
-import React, {createContext, ReactNode, useContext, useState} from "react";
+import React, {createContext, type ReactNode} from "react";
 
 
-type SettingsContextType = {}
+interface SettingsContextType {
+  user: string
+}
 
 const SettingsContext = createContext<SettingsContextType>({} as SettingsContextType);
 
-const SettingsProvider = ({children}: { children: ReactNode }) => {
-  const [settings, applyActionToGoalList] = useState<any>({});
+function SettingsProvider({children}: { children: ReactNode }) {
+  // const [settings, applyActionToGoalList] = useState<any>({});
 
-  return <SettingsContext.Provider value={{}}>
+  return <SettingsContext.Provider value={{user: "yes"}}>
     {children}
   </SettingsContext.Provider>;
-};
+}
 
 export default SettingsProvider;
 
-export const useSettingsContext = () => useContext(SettingsContext);
+// export const useSettingsContext = () => useContext(SettingsContext);

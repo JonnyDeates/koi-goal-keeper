@@ -1,4 +1,4 @@
-import express, {Request, Response, NextFunction} from "express";
+import express, {type Request, type Response, type NextFunction} from "express";
 
 // Configures SSR for react public and private applications
 const publicRoutes = express.static("build/public/static");
@@ -11,6 +11,6 @@ const staticConfig = async (req: Request, res: Response, next: NextFunction) => 
     } else {
       publicRoutes(req, res, next);
     }
-  }
+  };
 
   export default staticConfig;

@@ -1,4 +1,4 @@
-import {SortType} from "../../../utils/builders/buildSort";
+import {type SortType} from "../../../utils/builders/buildSort";
 
 
 const SortActions = {
@@ -20,4 +20,4 @@ const SortActions = {
     return {...prevState, direction: "ASC"};
   }
 };
-export default SortActions
+export default SortActions;

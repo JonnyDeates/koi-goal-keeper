@@ -1,18 +1,16 @@
 import {createBrowserRouter, createRoutesFromElements, Route} from "react-router-dom";
 import React from "react";
-import Home from "./Home/Home";
 import {Wallpaper, Page404} from "@repo/shared";
 import GoalListProvider from "../contexts/GoalListProvider/GoalListProvider";
 import {Navigation} from "../components/Navigation/Navigation";
+import Home from "./Home/Home";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={
-          <>
-            <Wallpaper>
+          <Wallpaper>
               <Navigation />
             </Wallpaper>
-          </>
         }
                errorElement={
                    <Wallpaper>
@@ -29,5 +27,5 @@ const router = createBrowserRouter(
           />
         </Route>
     )
-)
+);
 export default router;

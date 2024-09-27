@@ -9,6 +9,6 @@ const helmetConfig = () => {
                 manifestSrc: "'self' data:",
             }
         }
-    })
+    });
 };
 export default helmetConfig;

@@ -4,3 +4,4 @@ export {validateEmail} from "./validateEmail/validateEmail";
 export {validateName} from "./validateName/validateName";
 export {validatePassword, validateSignUpPassword} from "./validatePassword/validatePassword";
 export {openNewTabWindow} from "./openNewTabWindow/openNewTabWindow";
+export {gotoPageHardRefresh} from "./gotoPageHardRefresh/gotoPageHardRefresh"

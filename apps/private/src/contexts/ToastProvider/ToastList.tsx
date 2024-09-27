@@ -1,6 +1,5 @@
-import React from 'react'
-import {CSSProperties} from "react";
-import ToastComponent, {ToastStateType} from "./ToastComponent";
+import React, {type CSSProperties} from 'react';
+import ToastComponent, {type ToastStateType} from "./ToastComponent";
 
 
 export type ToastPosition = 'top-left' | 'top-center' | 'top-right' |
@@ -18,7 +17,7 @@ const createPositionStyles = (
   if (vertical === 'top') styles.top = distanceFromBorder;
   else if (vertical === 'bottom') styles.bottom = distanceFromBorder;
   else {
-    styles.top = '50%'
+    styles.top = '50%';
     styles.transform = 'translateY(-50%)';
   }
 
@@ -49,21 +48,21 @@ const ToastPositionStyles: Record<ToastPosition, CSSProperties> = {
   'bottom-right': createPositionStyles('bottom', 'right'),
 };
 
-type ToastListProps = {
+interface ToastListProps {
   position: ToastPosition,
   toastList: ToastStateType[],
   handleClose: (id: string) => void
 }
 
-const ToastList = ({position, handleClose, toastList}: ToastListProps) => {
+function ToastList({position, handleClose, toastList}: ToastListProps) {
 
 
-  return <div style={ToastPositionStyles[position]} className={"ToastList"}>
+  return <div style={ToastPositionStyles[position]} className="ToastList">
     {toastList.map((currentToast) =>
       <React.Fragment key={currentToast.id}>
         <ToastComponent handleClose={handleClose} {...currentToast}/>
       </React.Fragment>
 )}
-</div>
+</div>;
 }
-export default ToastList
+export default ToastList;

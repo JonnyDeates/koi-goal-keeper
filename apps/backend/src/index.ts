@@ -1,4 +1,5 @@
-import express from 'express'
+import express from 'express';
+import cacheControl from 'express-cache-controller';
 import config from "./config";
 import morganConfig from "./configuration/morgan";
 import corsConfig from "./configuration/cors";
@@ -7,7 +8,6 @@ import postgresSession from "./configuration/postgresSession";
 import knexDatabase from "./configuration/knexDatabase";
 import staticConfig from "./configuration/staticConfig";
 import routesConfig, {ALL_ROUTES} from "./configuration/routesConfig";
-import cacheControl from 'express-cache-controller';
 import cacheControlConfig from "./configuration/cacheControl";
 import authController from "./authentication/authController";
 import usersController from "./users/usersController";
@@ -18,7 +18,7 @@ const createServer = async () => {
     const app = express();
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
-    app.set('trust proxy', true)
+    app.set('trust proxy', true);
     app.use(cacheControlConfig());
     app.use(morganConfig());
     app.use(corsConfig());
@@ -34,7 +34,7 @@ const createServer = async () => {
 
     // The applications site mapping
     app.use("/sitemap.xml", async function (req, res, next) {
-        express.static("build/sitemap.xml")(req, res, next)
+        express.static("build/sitemap.xml")(req, res, next);
     });
 
 
@@ -50,7 +50,7 @@ const createServer = async () => {
     app.get("*", routesConfig);
 
     // Allows the app to accept network requests.
-    app.listen(config.PORT, () => console.log(`Listening on http://localhost:${config.PORT}`));
+    app.listen(config.PORT, () => { console.log(`Listening on http://localhost:${config.PORT}`); });
 };
 
 createServer();

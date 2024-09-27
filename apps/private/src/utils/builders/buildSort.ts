@@ -1,5 +1,5 @@
 
-export type SortType = {
+export interface SortType {
   direction: "ASC" | "DSC",
   type: 'creation-date' | 'due-date' | 'task-count' | 'tasks-completed'
 }

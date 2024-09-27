@@ -1,10 +1,10 @@
 import {CloseButton} from "koi-pool";
 import {useEffect, useState} from "react";
-import './ToastComponent.css'
+import './ToastComponent.css';
 
 type ToastVariantsType = 'standard' | 'success' | "warning" | 'error';
 
-export type ToastStateType = {
+export interface ToastStateType {
   displayTime: number,
   variant: ToastVariantsType,
   message: string,
@@ -13,21 +13,21 @@ export type ToastStateType = {
 
 type ToastComponentProps = ToastStateType & { handleClose: (id: string) => void };
 
-const ToastComponent = ({ displayTime, variant, id, message, handleClose}: ToastComponentProps) => {
+function ToastComponent({ displayTime, variant, id, message, handleClose}: ToastComponentProps) {
   const [currentTimeRemaining, setCurrentTimeRemaining] = useState(displayTime);
 
   useEffect(()=> {
       const interval = setInterval(()=> {
-        setCurrentTimeRemaining((prevState) => prevState - 50)
+        setCurrentTimeRemaining((prevState) => prevState - 50);
       }, 50);
 
       setTimeout(()=> {
-        handleClose(id)
+        handleClose(id);
       }, displayTime);
 
       return () => {
         clearInterval(interval);
-      }
+      };
    }, []);
 
 
@@ -37,9 +37,9 @@ const ToastComponent = ({ displayTime, variant, id, message, handleClose}: Toast
 
   return <div className={`ToastComponent ${variant}`}>
     <p>{message}</p>
-    <CloseButton onClick={()=> handleClose(id)} className={'CloseButton'}/>
-    <div className={'TimeRemainingBar'} style={{width: `${percentageRemaining}%`}}/>
-  </div>
-};
+    <CloseButton onClick={()=> { handleClose(id); }} className="CloseButton"/>
+    <div className="TimeRemainingBar" style={{width: `${percentageRemaining.toString()}%`}}/>
+  </div>;
+}
 
 export default ToastComponent;

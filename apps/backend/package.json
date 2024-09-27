@@ -11,6 +11,7 @@
     "dev": "tsx watch src/index.ts",
     "build": "esbuild src/index.ts --bundle --minify --platform=node --outfile=dist/index.js --external:express --external:cors --external:knex",
     "build-frontend": "cd ../../ && pnpm build && cd - && pnpm copy-frontend",
+    "lint": "eslint . --fix",
     "monorepo": "pnpm run build-frontend && tsx watch src/index.ts",
     "start": "node dist/index.js",
     "type-check": "tsc",
@@ -46,7 +47,9 @@
     "esbuild": "latest",
     "typescript": "latest",
     "tsx": "latest",
+    "eslint": "^8.57.1",
     "@repo/tsconfig": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
     "@repo/types": "workspace:*",
     "@repo/utils": "workspace:*"
   }

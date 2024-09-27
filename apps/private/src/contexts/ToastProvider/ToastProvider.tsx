@@ -1,12 +1,12 @@
-import {createContext, ReactNode, useContext, useState} from "react";
-import {ToastStateType} from "./ToastComponent";
-import cuid2 from "@paralleldrive/cuid2";
-import ToastList, {ToastPosition} from "./ToastList";
+import {createContext, type ReactNode, useContext, useState} from "react";
+import {createId} from "@paralleldrive/cuid2";
+import {type ToastStateType} from "./ToastComponent";
+import ToastList, {type ToastPosition} from "./ToastList";
 
 
 type handleOpenToastType = (newToast: (Omit<Partial<ToastStateType>, "message"> & Pick<ToastStateType, "message">)) => void
 
-type ToastContextType = {
+interface ToastContextType {
   deleteToast: (id: string) => void,
   createToast: handleOpenToastType
   toastList: ToastStateType[]
@@ -20,17 +20,17 @@ const buildToast = (partialToast: Partial<ToastStateType> = {}): ToastStateType 
   message: '',
   variant: "standard",
   ...partialToast,
-  id: cuid2.createId()
+  id: createId()
 });
 
-type ToastProviderProps = { children: ReactNode, position?: ToastPosition }
+interface ToastProviderProps { children: ReactNode, position?: ToastPosition }
 
-const ToastProvider = ({children, position = 'top-center'}: ToastProviderProps) => {
+function ToastProvider({children, position = 'top-center'}: ToastProviderProps) {
   const [toastList, setToastList] = useState<ToastStateType[]>([]);
 
   const handleClose = (id: string) => {
 
-    setToastList((toastList) => toastList.filter(toastToRemove => toastToRemove.id !== id))
+    setToastList((prevToastList) => prevToastList.filter(toastToRemove => toastToRemove.id !== id));
   };
 
   const handleOpen: handleOpenToastType = (newState) => {
@@ -48,9 +48,9 @@ const ToastProvider = ({children, position = 'top-center'}: ToastProviderProps) 
     {children}
     <ToastList handleClose={handleClose}
                position={position} toastList={toastList}/>
-  </ToastContext.Provider>
-};
+  </ToastContext.Provider>;
+}
 
 
 export const useToastContext = () => useContext(ToastContext);
-export default ToastProvider
+export default ToastProvider;

@@ -1,6 +1,6 @@
 import {StatusCodes} from "http-status-codes";
 import {buildError, buildErrorDTO} from "../utils/builders/buildErrorResponseDTO";
-import {ErrorMappingType, GenericResponse, SuccessMappingType} from "../utils/GenericResponse/GenericResponse";
+import {type ErrorMappingType, GenericResponse, type SuccessMappingType} from "../utils/GenericResponse/GenericResponse";
 
 export enum UserFailureTypes {
     USER_NOT_FOUND = "The user was not found.",
@@ -30,4 +30,4 @@ export const UserSuccessMappings: SuccessMappingType<UserSuccessTypes> = {
     [UserSuccessTypes.USER_UPDATED]: StatusCodes.OK,
 };
 
-export const UserResponse = new GenericResponse(UserFailureMappings, UserSuccessMappings)
+export const UserResponse = new GenericResponse(UserFailureMappings, UserSuccessMappings);

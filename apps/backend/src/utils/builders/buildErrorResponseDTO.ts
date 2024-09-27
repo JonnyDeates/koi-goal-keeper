@@ -1,15 +1,15 @@
-import {ErrorType} from "@repo/types";
+import {type ErrorType} from "@repo/types";
 
-export type ErrorDTOType = {error: ErrorType | string}
+export interface ErrorDTOType {error: ErrorType | string}
 
 export const buildError = (value: ErrorType | string):ErrorDTOType => {
-    return {error: value}
-}
+    return {error: value};
+};
 
 export function buildErrorDTO<T extends string | number | symbol>(key: T, value: string): ErrorDTOType {
-    const newErrorObj: ErrorType<T> = {}
+    const newErrorObj: ErrorType<T> = {};
     newErrorObj[key] = value;
 
-    return buildError(newErrorObj)
+    return buildError(newErrorObj);
 }
 

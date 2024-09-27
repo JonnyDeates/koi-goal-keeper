@@ -1,4 +1,4 @@
-import {Request, Response} from "express";
+import {type Request, type Response} from "express";
 
 const errorHandler = (error: {status: number, message: string}, req: Request, res: Response) => {
     const code = error.status || 500;
@@ -10,5 +10,5 @@ const errorHandler = (error: {status: number, message: string}, req: Request, re
     }
     res.status(code);
     res.json({message: error.message});
-}
+};
 export default  errorHandler;
