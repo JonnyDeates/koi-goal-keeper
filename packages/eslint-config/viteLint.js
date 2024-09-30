@@ -56,6 +56,8 @@ module.exports = {
                 "format": ["UPPER_CASE"] // Enum names are typically PascalCase
             }
         ],
+        "@typescript-eslint/consistent-type-assertions": ["off"],
+        "@typescript-eslint/non-nullable-type-assertion-style": "off",
         '@typescript-eslint/no-dynamic-delete': 'warn',
         '@typescript-eslint/use-unknown-in-catch-callback-variable': "off"
     },

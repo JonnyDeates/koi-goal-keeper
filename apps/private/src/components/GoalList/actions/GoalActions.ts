@@ -1,41 +1,54 @@
 import {createId} from "@paralleldrive/cuid2";
-import {type GoalListType} from "../GoalList";
+import {type GoalListType, type GoalType} from "@repo/types";
 import {buildGoal} from "../../../utils/builders/buildGoal";
 import {type DUE_DATE, getDateFromDueDate} from "../../../utils/utils";
 
 const GoalActions = {
-  create: (prevState: GoalListType) => ({[createId()]: buildGoal(), ...prevState}),
-  duplicate: (idToDuplicate: string) => (prevState: GoalListType) => {
-    const duplicatedGoal = {...prevState[idToDuplicate], tasks: {}};
+    create: (prevState: GoalListType) => ({[createId()]: buildGoal(), ...prevState}),
+    duplicate: (idToDuplicate: string) => (prevState: GoalListType) => {
+        const goalBeingModified = prevState[idToDuplicate];
+        if (goalBeingModified) {
+            const duplicatedGoal: GoalType = {...goalBeingModified, tasks: {}};
 
-    const tasksToDuplicate = prevState[idToDuplicate].tasks;
+            const tasksToDuplicate = goalBeingModified.tasks;
 
-    const taskValues = Object.values(tasksToDuplicate);
+            const taskValues = Object.values(tasksToDuplicate);
 
-    for (const task of taskValues) {
-      duplicatedGoal.tasks[createId()] = {...task};
+            for (const task of taskValues) {
+                duplicatedGoal.tasks[createId()] = {...task};
+            }
+            return {[createId()]: duplicatedGoal, ...prevState};
+        }
+        return prevState;
+    },
+    remove: (id: string) => (prevState: GoalListType): GoalListType => {
+        const newState = {...prevState};
+        delete newState[id];
+
+        return newState;
+    },
+    updateGoalDueDate: (goalId: string, dueDate: DUE_DATE) => (prevState: GoalListType): GoalListType => {
+        const goalBeingModified = prevState[goalId];
+        if (goalBeingModified) {
+            const date = getDateFromDueDate(dueDate);
+
+            if (date !== null) {
+                goalBeingModified.completionDate = date;
+                return {...prevState};
+            }
+        }
+
+        return prevState;
+    },
+    updateGoalLabel: (goalId: string, newLabel: string) => (prevState: GoalListType): GoalListType => {
+        const goalBeingModified = prevState[goalId];
+        if (goalBeingModified) {
+            goalBeingModified.label = newLabel;
+
+            return {...prevState};
+        }
+        return prevState;
     }
-    return {[createId()]: duplicatedGoal, ...prevState};
-  },
-  updateGoalDueDate: (goalId: string, dueDate: DUE_DATE) => (prevState: GoalListType): GoalListType => {
-    const goalBeingModified = prevState[goalId];
-    if (goalBeingModified) {
-      const date = getDateFromDueDate(dueDate);
-
-      if (date !== null) {
-        goalBeingModified.completionDate = date;
-        return {...prevState};
-      }
-    }
-
-    return prevState;
-  },
-  remove: (id: string) => (prevState: GoalListType): GoalListType => {
-    const newState = {...prevState};
-    delete newState[id];
-
-    return newState;
-  }
 };
 
 export default GoalActions;

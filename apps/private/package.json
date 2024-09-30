@@ -2,15 +2,15 @@
   "name": "koi-goal-keeper-private",
   "type": "module",
   "dependencies": {
-    "@paralleldrive/cuid2": "latest",
-    "axios": "latest",
-    "koi-pool": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-router-dom": "latest",
-    "react-scroll-parallax": "latest",
-    "dayjs": "latest",
-    "vite": "latest"
+    "@paralleldrive/cuid2": "^2.2.2",
+    "axios": "^1.7.7",
+    "dayjs": "^1.11.13",
+    "koi-pool": "^0.0.31",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "react-scroll-parallax": "^3.4.5",
+    "vite": "^5.4.8"
   },
   "scripts": {
     "dev": "vite dev --port 5002",
@@ -20,17 +20,17 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@types/jest": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
-    "@vitejs/plugin-react-swc": "latest",
-    "typescript": "latest",
-    "eslint": "^8.57.1",
     "@repo/eslint-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
     "@repo/shared": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
+    "@repo/types": "workspace:*",
     "@repo/utils": "workspace:*",
-    "@repo/types": "workspace:*"
+    "@types/jest": "^29.5.13",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "eslint": "^8.57.1",
+    "typescript": "^5.6.2"
   },
   "homepage": ""
 }

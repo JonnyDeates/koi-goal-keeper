@@ -1,7 +1,6 @@
-import {type GoalType} from "@repo/types";
+import {type GoalType, TaskType} from "@repo/types";
 import React from "react";
-import {Button, CloseButton} from "koi-pool";
-import Select from "../../Select/Select";
+import {Button, CloseButton, FloatingLabelInput, Select, SpacedLabel} from "koi-pool";
 import TaskActions from "../actions/TaskActions";
 import {useGoalListContext} from "../../../contexts/GoalListProvider/GoalListProvider";
 import GoalActions from "../actions/GoalActions";
@@ -23,7 +22,7 @@ function Goal({id, completionDate, tasks, tasksCompleted}: GoalProps) {
     applyActionToGoalList(GoalActions.duplicate(id));
   };
 
-  const handleUpdateDueDate = (value: number) => {
+  const handleUpdateDueDate = (value: DUE_DATE) => {
     applyActionToGoalList(GoalActions.updateGoalDueDate(id, value));
   };
 
@@ -34,8 +33,8 @@ function Goal({id, completionDate, tasks, tasksCompleted}: GoalProps) {
 
   return <div className='Goal'>
     <CloseButton onClick={handleDeleteGoal}/>
-    <h3>Due: {completionDate.toDateString()} </h3>
-
+    <SpacedLabel label={`Due: ${completionDate.toDateString()}`}>
+    </SpacedLabel>
     <div className='GoalHeader'>
       <Select<DUE_DATE> options={allDueDates()}
                         selectedOption={getDueDateFromDate(completionDate)} onClick={handleUpdateDueDate}/>
@@ -44,12 +43,9 @@ function Goal({id, completionDate, tasks, tasksCompleted}: GoalProps) {
 
     {tasksListOfIds.map((taskId) =>
       <React.Fragment key={taskId}>
-        {tasks[taskId] ?
         <Tasks id={taskId}
                goalId={id}
-               {...(tasks[taskId])} />
-        : <></>
-        }
+               {...(tasks[taskId]) as TaskType} />
       </React.Fragment>
     )}
     <div className="GoalActions">

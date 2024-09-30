@@ -1,7 +1,6 @@
-import {type TaskType} from "@repo/types";
+import {type GoalListType, type TaskType} from "@repo/types";
 import {createId} from "@paralleldrive/cuid2";
 import {buildTask} from "../../../utils/builders/buildTask";
-import {type GoalListType} from "../GoalList";
 
 const calculateTaskCount = (taskList: Record<string, TaskType>) => {
   const taskListOfIds = Object.keys(taskList);

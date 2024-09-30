@@ -1,5 +1,5 @@
+import {type GoalListType, type GoalType} from "@repo/types";
 import {type SortType} from "../../../utils/builders/buildSort";
-import {type GoalListType} from "../GoalList";
 
 const sortGoalListToIds = (sort: SortType, goalList: GoalListType): string[] => {
   const handleSortDirection = (condition: boolean) => {
@@ -12,16 +12,18 @@ const sortGoalListToIds = (sort: SortType, goalList: GoalListType): string[] => 
 
   const goalListOfIds = Object.keys(goalList);
   goalListOfIds.sort((a, b) => {
+    const goalA = goalList[a] as GoalType;
+    const goalB = goalList[b] as GoalType;
     switch (sort.type) {
       case 'creation-date':
-        return handleSortDirection(goalList[a].createdDate > goalList[b].createdDate);
+        return handleSortDirection(goalA.createdDate > goalB.createdDate);
       case 'tasks-completed':
-        return handleSortDirection(goalList[a].tasksCompleted > goalList[b].tasksCompleted);
+        return handleSortDirection(goalA.tasksCompleted > goalB.tasksCompleted);
       case 'due-date':
-        return handleSortDirection(goalList[a].completionDate > goalList[b].completionDate);
+        return handleSortDirection(goalA.completionDate > goalB.completionDate);
       case 'task-count': {
-        const taskCountForGoalA = Object.keys(goalList[a].tasks).length;
-        const taskCountForGoalB = Object.keys(goalList[b].tasks).length;
+        const taskCountForGoalA = Object.keys(goalA.tasks).length;
+        const taskCountForGoalB = Object.keys(goalB.tasks).length;
         return handleSortDirection(taskCountForGoalA > taskCountForGoalB);
       }
       default:

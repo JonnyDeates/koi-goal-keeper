@@ -2,7 +2,8 @@
     background-color: white;
     display: block;
     margin: 1rem auto;
-    width: 600px;
+    width: 50vw;
+    min-width: 300px;
     padding: 1rem;
     border-radius: 16px;
     position: relative;

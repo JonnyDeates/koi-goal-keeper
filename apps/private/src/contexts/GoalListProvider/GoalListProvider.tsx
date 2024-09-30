@@ -1,5 +1,5 @@
 import React, {createContext, type Dispatch, type ReactNode, type SetStateAction, useContext, useState} from "react";
-import {type GoalListType} from "../../components/GoalList/GoalList";
+import {type GoalListType} from "@repo/types";
 import {buildSort, type SortType} from "../../utils/builders/buildSort";
 
 
