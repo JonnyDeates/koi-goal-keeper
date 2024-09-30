@@ -27,7 +27,8 @@ export interface GoalType {
   modifiedDate: Date,
   completionDate: Date,
   tasksCompleted: number,
-  label: string
+  isEditing: boolean,
+  name: string
 }
 
 export type GoalListType = Record<string, GoalType>

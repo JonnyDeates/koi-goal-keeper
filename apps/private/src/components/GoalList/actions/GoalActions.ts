@@ -27,7 +27,7 @@ const GoalActions = {
 
         return newState;
     },
-    updateGoalDueDate: (goalId: string, dueDate: DUE_DATE) => (prevState: GoalListType): GoalListType => {
+    updateDueDate: (goalId: string, dueDate: DUE_DATE) => (prevState: GoalListType): GoalListType => {
         const goalBeingModified = prevState[goalId];
         if (goalBeingModified) {
             const date = getDateFromDueDate(dueDate);
@@ -40,15 +40,24 @@ const GoalActions = {
 
         return prevState;
     },
-    updateGoalLabel: (goalId: string, newLabel: string) => (prevState: GoalListType): GoalListType => {
+    updateName: (goalId: string, newName: string) => (prevState: GoalListType): GoalListType => {
         const goalBeingModified = prevState[goalId];
         if (goalBeingModified) {
-            goalBeingModified.label = newLabel;
+            goalBeingModified.name = newName;
 
             return {...prevState};
         }
         return prevState;
-    }
+    },
+    toggleEditing: (goalId: string) =>  (prevState: GoalListType): GoalListType => {
+        const goalBeingModified = prevState[goalId];
+        if (goalBeingModified) {
+            goalBeingModified.isEditing = !goalBeingModified.isEditing;
+
+            return {...prevState};
+        }
+        return prevState;
+    },
 };
 
 export default GoalActions;

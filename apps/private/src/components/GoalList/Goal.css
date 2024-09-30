@@ -1,20 +1,50 @@
 .Goal {
     background-color: white;
     display: block;
-    margin: 1rem auto;
+    margin: 3rem auto;
     width: 50vw;
     min-width: 300px;
     padding: 1rem;
     border-radius: 16px;
     position: relative;
 }
-.GoalHeader {
+.Goal .Select {
+    position: absolute;
+    left: 0;
+    top: -42px;
+    border-radius: 1rem 1rem 0 0;
+    display: block;
+    box-shadow: unset;
+    border: unset;
+    background-color: white;
+}
+.Goal .SelectedOption {
+    color: gray;
+}
+.Header, .Subheader{
     display: flex;
     justify-content: space-between;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
 }
-.GoalActions {
-    justify-content: right;
-    display: flex;
+.Header{
+    padding-top: 1.25rem;
+    align-items: center;
+}
+.Subheader{
+    justify-content: space-around;
+padding-top: .25rem;
+  }
+.Subheader .IconButton img{
+    width: 32px;
+    height: 32px;
+}
+.Goal .AddObjective{
+    position: absolute;
+    right: 16px;
+    background-color: white;
+    box-shadow: unset;
 }
 .Task {
     display: block;

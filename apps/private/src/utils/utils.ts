@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs, {ManipulateType} from "dayjs";
 
 
 export enum DUE_DATE {
@@ -33,7 +33,7 @@ export const allDueDatesAndDates = (): Record<DUE_DATE, Date | null> => {
   return allDueDates().reduce<Record<DUE_DATE, Date | null>>((yeet, dueDate) => {
     yeet[dueDate] = getDateFromDueDate(dueDate);
     return yeet;
-  }, {});
+  }, {} as Record<DUE_DATE, Date | null>);
 };
 
 export const getDateFromDueDate = (currentDueDate: DUE_DATE): Date | null => {
@@ -64,29 +64,32 @@ export const getDateFromDueDate = (currentDueDate: DUE_DATE): Date | null => {
 
 };
 
-export const getDueDateFromDate = (currentDate: Date): DUE_DATE => {
-  const dayJsDate = dayjs(currentDate);
+export const getDueDateFromDate = (date: Date): DUE_DATE => {
+  const currentDate = dayjs(date);
+  const TodayDate = dayjs(new Date());
 
-  if (dayJsDate.isBefore(dayjs().add(1, 'day')))
-    return DUE_DATE.TODAY;
-  if (dayJsDate.isBefore(dayjs().add(2, 'day')))
-    return DUE_DATE.TOMORROW;
-  if (dayJsDate.isBefore(dayjs().add(2, 'week')))
-    return DUE_DATE.WEEK;
-  if (dayJsDate.isBefore(dayjs().add(3, 'week')))
-    return DUE_DATE.TWO_WEEKS;
-  if (dayJsDate.isBefore(dayjs().add(2, 'month')))
-    return DUE_DATE.MONTH;
-  if (dayJsDate.isBefore(dayjs().add(3, 'month')))
-    return DUE_DATE.TWO_MONTHS;
-  if (dayJsDate.isBefore(dayjs().add(4, 'month')))
-    return DUE_DATE.QUARTER;
-  if (dayJsDate.isBefore(dayjs().add(7, 'month')))
-    return DUE_DATE.SIX_MONTHS;
-  if (dayJsDate.isBefore(dayjs().add(2, 'year')))
-    return DUE_DATE.YEAR;
-  if (dayJsDate.isBefore(dayjs().add(3, 'year')))
-    return DUE_DATE.TWO_YEARS;
+  const isBefore = (before: number, unit?: ManipulateType)=> {
+    return currentDate.isBefore(dayjs(TodayDate).add(before+1, unit))
+  }
+
+  if (currentDate.isSame(TodayDate, 'day')) return DUE_DATE.TODAY;
+
+  const thresholds: {value: number, unit: ManipulateType, result: DUE_DATE}[] = [
+    { value: 1, unit: 'days', result: DUE_DATE.TOMORROW },
+    { value: 7, unit: 'days', result: DUE_DATE.WEEK },
+    { value: 14, unit: 'days', result: DUE_DATE.TWO_WEEKS },
+    { value: 1, unit: 'month', result: DUE_DATE.MONTH },
+    { value: 2, unit: 'months', result: DUE_DATE.TWO_MONTHS },
+    { value: 3, unit: 'months', result: DUE_DATE.QUARTER },
+    { value: 6, unit: 'months', result: DUE_DATE.SIX_MONTHS },
+    { value: 1, unit: 'years', result: DUE_DATE.YEAR },
+    { value: 2, unit: 'years', result: DUE_DATE.TWO_YEARS }
+  ];
+
+  for (const threshold of thresholds) {
+    const addTime = dayjs(TodayDate).add(threshold.value, threshold.unit);
+    if (currentDate.isBefore(addTime) || currentDate.isSame(addTime)) return threshold.result;
+  }
   return DUE_DATE.CUSTOM;
 
 
