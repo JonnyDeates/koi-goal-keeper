@@ -1,5 +1,5 @@
 import {type GoalType, TaskType} from "@repo/types";
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent} from "react";
 import {
     Button,
     CloseButton,
@@ -11,44 +11,40 @@ import TaskActions from "../../actions/TaskActions";
 import {useGoalListContext} from "../../../../contexts/GoalListProvider/GoalListProvider";
 import GoalActions from "../../actions/GoalActions";
 import {allDueDates, type DUE_DATE, getDueDateFromDate} from "../../../../utils/utils";
-import Tasks from "../Task";
+import Tasks from "../Task/Task";
 import {handleSubmitEnter} from "@repo/shared";
 import dayjs from "dayjs";
 import copy from './assets/copy.svg'
-import edit from './assets/pencil.svg'
+import star from './assets/star.svg'
+import starOutline from './assets/star_outline.svg'
+import uncheckAll from './assets/remove_check.svg'
+import checkAll from './assets/confirm_check.svg'
 import trash from './assets/archive.ico'
+import './Goal.css';
 
 type GoalProps = GoalType & { id: string }
 
-function Goal({id, completionDate, name, isEditing, tasks, tasksCompleted}: GoalProps) {
+function Goal({id, completionDate, name, isEditing, isFavorite, tasks, tasksCompleted}: GoalProps) {
     const {applyActionToGoalList} = useGoalListContext();
 
     const tasksListOfIds = Object.keys(tasks);
 
-    const handleAddObjective = () => {
-        applyActionToGoalList(TaskActions.create(id));
-    };
-
-    const handleDuplicateGoal = () => {
-        applyActionToGoalList(GoalActions.duplicate(id));
-    };
-
-    const handleUpdateDueDate = (value: DUE_DATE) => {
-        applyActionToGoalList(GoalActions.updateDueDate(id, value));
-    };
-
-    const handleUpdateGoalName = (value: ChangeEvent<HTMLInputElement>) => {
-        applyActionToGoalList(GoalActions.updateName(id, value.target.value));
-    };
-    const handleDeleteGoal = () => {
-        applyActionToGoalList(GoalActions.remove(id));
-    };
-
-    const handleToggleGoalEditing = () => {
-        applyActionToGoalList(GoalActions.toggleEditing(id));
-    };
+    const handleAddObjective = () => applyActionToGoalList(TaskActions.create(id));
+    const handleDuplicateGoal = () => applyActionToGoalList(GoalActions.duplicate(id));
+    const handleUpdateDueDate = (value: DUE_DATE) => applyActionToGoalList(GoalActions.updateDueDate(id, value))
+    const handleUpdateGoalName = (value: ChangeEvent<HTMLInputElement>) => applyActionToGoalList(GoalActions.updateName(id, value.target.value))
+    const handleDeleteGoal = () => applyActionToGoalList(GoalActions.remove(id));
+    const handleToggleGoalEditing = () => applyActionToGoalList(GoalActions.toggleEditing(id, 'isEditing'));
+    const handleToggleGoalFavorite = () => applyActionToGoalList(GoalActions.toggleEditing(id, 'isFavorite'));
+    const handleToggleAllTasks = () => applyActionToGoalList(TaskActions.toggleAllTasks(id));
 
     const formattedDate = dayjs(completionDate).format('M/D/YY')
+
+    const isEveryTaskComplete = tasksListOfIds.every((taskId) => {
+        const taskBeingChecked = tasks[taskId] as TaskType;
+
+        return taskBeingChecked.isCompleted
+    })
 
     return <div className='Goal'>
         <Select<DUE_DATE>
@@ -75,13 +71,20 @@ function Goal({id, completionDate, name, isEditing, tasks, tasksCompleted}: Goal
 
         </div>
         <div className='Subheader'>
-            <IconButton className={'IconButton'} src={copy} alt={'Duplicate'} variant={'accept'} onClick={handleDuplicateGoal}/>
-            <IconButton className={'IconButton'}  src={edit} alt={'Edit'} variant={'caution'} onClick={handleDuplicateGoal}/>
-            <IconButton className={'IconButton'}  src={trash} alt={'Archive'} variant={'caution'} onClick={handleDuplicateGoal}/>
+            <IconButton className={'IconButton'} src={isFavorite ? star : starOutline}
+                        alt={'Star'} variant={'caution'} isActive={isFavorite} title={'Favorite Goal'}
+                        onClick={handleToggleGoalFavorite}/>
+            <IconButton className={'IconButton'} src={copy} alt={'Duplicate'}
+                        variant={'accept'} title={'Duplicate goal'}
+                        onClick={handleDuplicateGoal}/>
+            <IconButton className={'IconButton'} src={isEveryTaskComplete ? checkAll : uncheckAll}
+                        alt={'Reset Objectives'} isActive={isEveryTaskComplete}
+                        variant={'accept'} title={'Duplicate goal'}
+                        onClick={handleToggleAllTasks}/>
+            <IconButton className={'IconButton'} src={trash} alt={'Archive'}
+                        variant={'caution'} onClick={handleDuplicateGoal}/>
         </div>
         <div>
-
-
             {tasksListOfIds.map((taskId) =>
                 <React.Fragment key={taskId}>
                     <Tasks id={taskId}

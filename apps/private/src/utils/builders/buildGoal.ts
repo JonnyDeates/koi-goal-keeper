@@ -11,5 +11,6 @@ export const buildGoal = (partialGoal: Partial<GoalType> = {}): GoalType => ({
   completionDate: new Date(),
   name: '',
   isEditing: true,
+  isFavorite: false,
   ...partialGoal
 });

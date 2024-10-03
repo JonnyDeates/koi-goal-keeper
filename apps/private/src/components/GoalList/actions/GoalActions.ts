@@ -49,10 +49,10 @@ const GoalActions = {
         }
         return prevState;
     },
-    toggleEditing: (goalId: string) =>  (prevState: GoalListType): GoalListType => {
+    toggleEditing: (goalId: string, key: 'isEditing' | 'isFavorite') =>  (prevState: GoalListType): GoalListType => {
         const goalBeingModified = prevState[goalId];
         if (goalBeingModified) {
-            goalBeingModified.isEditing = !goalBeingModified.isEditing;
+            goalBeingModified[key] = !goalBeingModified[key];
 
             return {...prevState};
         }

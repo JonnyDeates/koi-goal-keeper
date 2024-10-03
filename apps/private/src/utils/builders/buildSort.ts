@@ -1,12 +1,12 @@
 
 export interface SortType {
   direction: "ASC" | "DSC",
-  type: 'creation-date' | 'due-date' | 'task-count' | 'tasks-completed'
+  type: 'Creation Date' | 'Due Date' | 'Task Count' | 'Tasks Completed' | 'Starred'
 }
 
 
 export const buildSort = (partialObjective: Partial<SortType> = {}):SortType => ({
   direction: "ASC",
-  type: "creation-date",
+  type: "Creation Date",
   ...partialObjective
 });

@@ -28,6 +28,7 @@ export interface GoalType {
   completionDate: Date,
   tasksCompleted: number,
   isEditing: boolean,
+  isFavorite: boolean,
   name: string
 }
 

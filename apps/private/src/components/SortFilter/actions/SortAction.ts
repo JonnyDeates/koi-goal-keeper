@@ -4,14 +4,16 @@ import {type SortType} from "../../../utils/builders/buildSort";
 const SortActions = {
   toggleType: (prevState: SortType): SortType => {
     switch (prevState.type) {
-      case "creation-date":
-        return {...prevState, type: "due-date"};
-        case "due-date":
-          return {...prevState, type: "tasks-completed"};
-      case "tasks-completed":
-        return {...prevState, type: "task-count"};
-      case "task-count":
-        return {...prevState, type: 'creation-date'};
+      case "Creation Date":
+        return {...prevState, type: "Due Date"};
+        case "Due Date":
+          return {...prevState, type: "Tasks Completed"};
+      case "Tasks Completed":
+        return {...prevState, type: "Task Count"};
+      case "Task Count":
+        return {...prevState, type: 'Starred'};
+      case "Starred":
+        return {...prevState, type: 'Creation Date'};
     }
   },
   toggleAscending: (prevState: SortType): SortType => {

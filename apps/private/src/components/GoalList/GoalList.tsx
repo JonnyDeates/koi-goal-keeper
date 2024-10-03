@@ -2,7 +2,6 @@ import React from "react";
 import {useGoalListContext} from "../../contexts/GoalListProvider/GoalListProvider";
 import Goal from "./components/Goal/Goal";
 import sortGoalListToIds from "./utils/sortGoalListToIds";
-import './Goal.css';
 import {GoalType} from "@repo/types";
 
 

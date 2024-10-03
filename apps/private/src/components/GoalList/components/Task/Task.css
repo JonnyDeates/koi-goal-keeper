@@ -1,0 +1,22 @@
+.Task {
+    display: block;
+}
+.Task:not(:last-child) {
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+.Task input {
+    padding: 1rem .5rem;
+}
+.TaskInput {
+    margin: 16px 0;
+    display: block;
+    width: calc(100% - 1rem);
+}
+.Task .IconButton {
+    padding: 4px 4px 2px 4px;
+    box-shadow: 0 1px 2px 2px #00000017;
+}
+.Task .IconButton img {
+    width: 24px;
+    height: 24px;
+}

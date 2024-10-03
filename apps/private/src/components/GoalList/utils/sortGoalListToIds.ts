@@ -15,16 +15,19 @@ const sortGoalListToIds = (sort: SortType, goalList: GoalListType): string[] => 
     const goalA = goalList[a] as GoalType;
     const goalB = goalList[b] as GoalType;
     switch (sort.type) {
-      case 'creation-date':
+      case 'Creation Date':
         return handleSortDirection(goalA.createdDate > goalB.createdDate);
-      case 'tasks-completed':
+      case 'Tasks Completed':
         return handleSortDirection(goalA.tasksCompleted > goalB.tasksCompleted);
-      case 'due-date':
+      case 'Due Date':
         return handleSortDirection(goalA.completionDate > goalB.completionDate);
-      case 'task-count': {
+      case 'Task Count': {
         const taskCountForGoalA = Object.keys(goalA.tasks).length;
         const taskCountForGoalB = Object.keys(goalB.tasks).length;
         return handleSortDirection(taskCountForGoalA > taskCountForGoalB);
+      }
+      case 'Starred': {
+        return handleSortDirection(goalA.isFavorite );
       }
       default:
         return 0;
