@@ -23,6 +23,21 @@ const TaskActions = {
         return prevState;
 
     },
+    remove: (goalId: string, objectiveId: string) => (prevState: GoalListType): GoalListType => {
+
+        const goalBeingModified = prevState[goalId];
+
+        if (goalBeingModified) {
+            const objectBeingModified = goalBeingModified.tasks[objectiveId];
+            if(objectBeingModified && objectBeingModified.isCompleted) {
+                goalBeingModified.tasksCompleted -= 1
+            }
+            delete goalBeingModified.tasks[objectiveId];
+
+            return {...prevState};
+        }
+        return prevState
+    },
     updateTaskText: (goalId: string, objectiveId: string, text: string) => (prevState: GoalListType): GoalListType => {
         const goalBeingModified = prevState[goalId];
 

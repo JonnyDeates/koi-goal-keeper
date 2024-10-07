@@ -29,6 +29,9 @@ function Task({text, isEditing, isCompleted, id, goalId, index, tasksListOfIds}:
     const handleToggleObjectiveCompleted = () =>
         applyActionToGoalList(TaskActions.toggleTask(goalId, id, 'isCompleted'));
 
+    const handleTaskBeingRemoved = () => {
+        applyActionToGoalList(TaskActions.remove(goalId, id))
+    }
 
     const handleEnterPress = (event: KeyboardEvent) => handleSubmitEnter(event, () => {
         if (!isLast) {
@@ -65,7 +68,7 @@ function Task({text, isEditing, isCompleted, id, goalId, index, tasksListOfIds}:
                         src={trash}
                         alt={''}
                         variant={'cancel'}
-                        onClick={handleToggleObjectiveCompleted}/>
+                        onClick={handleTaskBeingRemoved}/>
         </div>
     </div>;
 }

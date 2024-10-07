@@ -36,7 +36,7 @@ function Goal({id, completionDate, name, isEditing, isFavorite, tasks, tasksComp
 
     const tasksListOfIds = Object.keys(tasks);
 
-    const handleAddObjective = () => applyActionToGoalList(TaskActions.create(id));
+    const handleAddTask = () => applyActionToGoalList(TaskActions.create(id));
     const handleDuplicateGoal = () => applyActionToGoalList(GoalActions.duplicate(id));
     const handleUpdateDueDate = (value: DUE_DATE) => applyActionToGoalList(GoalActions.updateDueDate(id, value))
     const handleUpdateGoalName = (value: ChangeEvent<HTMLInputElement>) => applyActionToGoalList(GoalActions.updateName(id, value.target.value))
@@ -94,7 +94,7 @@ function Goal({id, completionDate, name, isEditing, isFavorite, tasks, tasksComp
             }
             <div>
                 <p>Due: {formattedDate}</p>
-                <p>Tasks Completed: {tasksCompleted}</p>
+                <p>Completed: <b>{Math.round((tasksCompleted / tasksListOfIds.length) * 100)}%</b></p>
             </div>
 
         </div>
@@ -126,7 +126,7 @@ function Goal({id, completionDate, name, isEditing, isFavorite, tasks, tasksComp
             )}
         </div>
         <div className={'GoalIndicator'} style={ColorSelection['Default'][selectedOption]}/>
-        <Button className="AddObjective" onClick={handleAddObjective}>Add Objective</Button>
+        <Button className="AddTask" onClick={handleAddTask}>Add Task</Button>
     </div>;
 }
 
