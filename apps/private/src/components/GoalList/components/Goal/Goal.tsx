@@ -10,7 +10,7 @@ import {
 import TaskActions from "../../actions/TaskActions";
 import {useGoalListContext} from "../../../../contexts/GoalListProvider/GoalListProvider";
 import GoalActions from "../../actions/GoalActions";
-import {allDueDates, type DUE_DATE, getDueDateFromDate} from "../../../../utils/utils";
+import {allDueDates, ColorSelection, type DUE_DATE, getDueDateFromDate} from "../../../../utils/utils";
 import Tasks from "../Task/Task";
 import {handleSubmitEnter} from "@repo/shared";
 import dayjs from "dayjs";
@@ -46,12 +46,18 @@ function Goal({id, completionDate, name, isEditing, isFavorite, tasks, tasksComp
         return taskBeingChecked.isCompleted
     })
 
+    const selectedOption = getDueDateFromDate(completionDate);
+
     return <div className='Goal'>
+        <div className={'TopIndicator'} style={ColorSelection['Default'][selectedOption]}/>
+
         <Select<DUE_DATE>
             containerAttributes={{className: 'Select'}}
-            selectedOptionAttributes={{className: 'SelectedOption'}}
-            options={allDueDates()}
-            selectedOption={getDueDateFromDate(completionDate)} onClick={handleUpdateDueDate}/>
+            selectedOptionAttributes={{className: 'SelectedOption', style: {color: ColorSelection['Default'][selectedOption].backgroundColor}}}
+            options={allDueDates()} optionAttributes={
+            {style: ((option) => ({...ColorSelection['Default'][option]}))}
+        }
+            selectedOption={selectedOption} onClick={handleUpdateDueDate}/>
         <CloseButton onClick={handleDeleteGoal}/>
         <div className='Header'>
             {
@@ -93,6 +99,7 @@ function Goal({id, completionDate, name, isEditing, isFavorite, tasks, tasksComp
                 </React.Fragment>
             )}
         </div>
+        <div className={'GoalIndicator'} style={ColorSelection['Default'][selectedOption]}/>
         <Button className="AddObjective" onClick={handleAddObjective}>Add Objective</Button>
     </div>;
 }

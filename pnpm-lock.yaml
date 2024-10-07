@@ -133,8 +133,8 @@ importers:
         specifier: ^1.11.13
         version: 1.11.13
       koi-pool:
-        specifier: ^0.0.32
-        version: 0.0.32(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.0.33
+        version: 0.0.33(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -2582,8 +2582,8 @@ packages:
       react: ^18.2.0
       react-dom: ^18.2.0
 
-  koi-pool@0.0.32:
-    resolution: {integrity: sha512-FMpZA9prhY8114wM5bKd5jK7r8qiC0EmLMi7ggBgdSj2x7hwMqkilj5JAWSKY3i6y8MCetn1ALY84Ule9T8jpg==}
+  koi-pool@0.0.33:
+    resolution: {integrity: sha512-WXWMlOf169GV+bI6QzRxqvmc1FqROwqDBhs2Kfd91p+0LYkLaG6b4AsqLZ3iDCbVcRvmaAgHTmH4Ra+eNlNvyg==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -5913,7 +5913,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  koi-pool@0.0.32(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  koi-pool@0.0.33(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)

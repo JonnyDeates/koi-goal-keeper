@@ -29,7 +29,10 @@ function Task({text, isEditing,isCompleted, id, goalId}: TaskType & {
   if (isEditing) {
     return <div className="Task">
       <FloatingLabelInputWithButton onChange={handleInputChange} width='100%' divProps={{className: "TaskInput"}}
-                                    onKeyDown={(event) => { handleSubmitEnter(event, handleToggleObjectiveEditing); }}
+                                    onKeyDown={(event) => {
+                                      handleSubmitEnter(event, handleToggleObjectiveEditing);
+
+                                    }}
                                     value={text} label="" onClick={handleToggleObjectiveEditing}/>
     </div>;
   }
