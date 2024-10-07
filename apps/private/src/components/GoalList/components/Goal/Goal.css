@@ -32,6 +32,21 @@
     padding-top: 1.25rem;
     align-items: center;
 }
+.Goal .FavoriteButton {
+    left: -65px;
+    position: absolute;
+    box-shadow: unset;
+    border-radius: 1rem 0 0 1rem;
+
+}
+.Goal .Header .FavoriteButton img{
+    width: 32px;
+    height: 32px;
+
+}
+#Star{
+    fill: cadetblue;
+}
 .Goal .Subheader{
     justify-content: space-around;
 padding-top: .25rem;

@@ -1,5 +1,5 @@
 import {type GoalType, TaskType} from "@repo/types";
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import {
     Button,
     CloseButton,
@@ -10,7 +10,13 @@ import {
 import TaskActions from "../../actions/TaskActions";
 import {useGoalListContext} from "../../../../contexts/GoalListProvider/GoalListProvider";
 import GoalActions from "../../actions/GoalActions";
-import {allDueDates, ColorSelection, type DUE_DATE, getDueDateFromDate} from "../../../../utils/utils";
+import {
+    allDueDates,
+    ColorSelection,
+    type DUE_DATE,
+    findNextElementInListToFocusOn,
+    getDueDateFromDate
+} from "../../../../utils/utils";
 import Tasks from "../Task/Task";
 import {handleSubmitEnter} from "@repo/shared";
 import dayjs from "dayjs";
@@ -19,6 +25,7 @@ import star from './assets/star.svg'
 import starOutline from './assets/star_outline.svg'
 import uncheckAll from './assets/remove_check.svg'
 import checkAll from './assets/confirm_check.svg'
+import edit from './assets/pencil.svg'
 import trash from './assets/archive.ico'
 import './Goal.css';
 
@@ -48,27 +55,42 @@ function Goal({id, completionDate, name, isEditing, isFavorite, tasks, tasksComp
 
     const selectedOption = getDueDateFromDate(completionDate);
 
+    const handleGoalNameEnterPress  = (event: KeyboardEvent) => handleSubmitEnter(event, ()=> {
+        handleToggleGoalEditing()
+        findNextElementInListToFocusOn(tasksListOfIds)
+    })
+
     return <div className='Goal'>
         <div className={'TopIndicator'} style={ColorSelection['Default'][selectedOption]}/>
 
         <Select<DUE_DATE>
             containerAttributes={{className: 'Select'}}
-            selectedOptionAttributes={{className: 'SelectedOption', style: {color: ColorSelection['Default'][selectedOption].backgroundColor}}}
+            selectedOptionAttributes={{
+                className: 'SelectedOption',
+                style: {color: ColorSelection['Default'][selectedOption].backgroundColor}
+            }}
             options={allDueDates()} optionAttributes={
             {style: ((option) => ({...ColorSelection['Default'][option]}))}
         }
             selectedOption={selectedOption} onClick={handleUpdateDueDate}/>
         <CloseButton onClick={handleDeleteGoal}/>
+        <IconButton className={'FavoriteButton'} src={isFavorite ? star : starOutline}
+                    alt={'Star'} variant={'standard'} isActive={isFavorite} title={'Favorite Goal'}
+                    style={{backgroundColor: isFavorite ? ColorSelection['Default'][selectedOption].backgroundColor : ''}}
+                    onClick={handleToggleGoalFavorite}/>
         <div className='Header'>
             {
                 isEditing
                     ?
                     <FloatingLabelInputWithButton label='' placeholder={'Goal Name'} value={name}
                                                   onClick={handleToggleGoalEditing}
-                                                  onKeyDown={(event) => handleSubmitEnter(event, handleToggleGoalEditing)}
+                                                  onKeyDown={handleGoalNameEnterPress}
                                                   width={300} onChange={handleUpdateGoalName}
                     />
-                    : <h2 onDoubleClick={handleToggleGoalEditing}>{name}</h2>
+                    :
+                    <h2 onDoubleClick={handleToggleGoalEditing}>
+                        {name}
+                    </h2>
             }
             <div>
                 <p>Due: {formattedDate}</p>
@@ -77,24 +99,28 @@ function Goal({id, completionDate, name, isEditing, isFavorite, tasks, tasksComp
 
         </div>
         <div className='Subheader'>
-            <IconButton className={'IconButton'} src={isFavorite ? star : starOutline}
-                        alt={'Star'} variant={'caution'} isActive={isFavorite} title={'Favorite Goal'}
-                        onClick={handleToggleGoalFavorite}/>
+
+            <IconButton className={'IconButton'}
+                        src={isEveryTaskComplete ? checkAll : uncheckAll}
+                        alt={'Reset Objectives'}
+                        isActive={isEveryTaskComplete}
+                        variant={'accept'} title={'Toggle goal tasks'}
+                        onClick={handleToggleAllTasks}/>
+            <IconButton className={'IconButton'} src={edit} alt={'Duplicate'}
+                        variant={'accept'} title={'Edit goal'}
+                        onClick={handleToggleGoalEditing}/>
             <IconButton className={'IconButton'} src={copy} alt={'Duplicate'}
                         variant={'accept'} title={'Duplicate goal'}
                         onClick={handleDuplicateGoal}/>
-            <IconButton className={'IconButton'} src={isEveryTaskComplete ? checkAll : uncheckAll}
-                        alt={'Reset Objectives'} isActive={isEveryTaskComplete}
-                        variant={'accept'} title={'Duplicate goal'}
-                        onClick={handleToggleAllTasks}/>
+
             <IconButton className={'IconButton'} src={trash} alt={'Archive'}
                         variant={'caution'} onClick={handleDuplicateGoal}/>
         </div>
         <div>
-            {tasksListOfIds.map((taskId) =>
+            {tasksListOfIds.map((taskId, index) =>
                 <React.Fragment key={taskId}>
-                    <Tasks id={taskId}
-                           goalId={id}
+                    <Tasks id={taskId} tasksListOfIds={tasksListOfIds} index={index}
+                           goalId={id} isLast={index === tasksListOfIds.length}
                            {...(tasks[taskId]) as TaskType} />
                 </React.Fragment>
             )}

@@ -1,8 +1,18 @@
 .Task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.Task.editing {
     display: block;
 }
 .Task:not(:last-child) {
     border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+.Task:not(.editing) > div {
+    display: flex;
+    align-items: center;
 }
 .Task input {
     padding: 1rem .5rem;

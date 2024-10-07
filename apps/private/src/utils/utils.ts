@@ -111,6 +111,22 @@ export const ColorSelection: ColorType = (
         }
     }
 )
+
+
+export const findNextElementInListToFocusOn = (tasksListOfIds: string[], index = -1) => {
+    for (let x = index+1; x < tasksListOfIds.length; x++) {
+        const elementsId = tasksListOfIds[x]
+        if (elementsId) {
+            const nextElementInList = document.getElementById(elementsId);
+            if (nextElementInList) {
+                nextElementInList.focus();
+                break;
+            }
+        }
+    }
+}
+
+
 // return [{
 //     type: 'Default', colors: ['#007a0e', '#4fc300', '#65ff00', '#c7f000'
 //         , '#f0ca00', '#f05c00', '#cf3900', '#ff2700'
