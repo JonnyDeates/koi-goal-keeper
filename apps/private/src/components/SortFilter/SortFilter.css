@@ -1,28 +1,16 @@
-.sort .ascending-btns {
+.Sort .ButtonGroup {
     position: relative;
-    margin-top: 0;
-    font-size: medium;
     display: flex;
-    justify-content: center;
-    z-index: 4;
+    align-items: center;
 }
-.sort .ascending-btns > button {
-    border: 0;
+.Sort .ButtonGroup > button {
+    padding: 20px 16px;
+    width: 200px;
+}
+.Sort .ascending-btns > button {
     cursor: pointer;
-    border-radius: 4px;
     padding: 4px 8px;
+    width: 60px;
     display: block;
 
-}
-.sort .ascending-btns > button:hover {
-    filter: opacity(1);
-}
-@media (min-width: 767px) {
- .sort .ascending-btns {
-        display: block;
-        position: absolute;
-        margin-top: -6px;
-        font-size: medium;
-        right: -60px;
-    }
 }

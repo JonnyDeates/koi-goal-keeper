@@ -10,16 +10,20 @@ function SortFilter() {
   const handleToggleAscending = () => { applyActionToSort(SortActions.toggleAscending); };
   const handleToggleSortType = () => { applyActionToSort(SortActions.toggleType); };
 
-  return <SpacedLabel label="Sort">
+  return <SpacedLabel label="Sort" className={"Sort"}>
+    <div className={"ButtonGroup"}>
+
     <Button onClick={handleToggleSortType}>{type}</Button>
     <div className="ascending-btns">
-      <Button isActive={direction === 'ASC'} onClick={handleToggleAscending}>
+      <Button isActive={direction === 'ASC'} className={"ASC"} variant={'accept'} onClick={handleToggleAscending}>
         ASC
       </Button>
-      <Button isActive={direction === 'DSC'} onClick={handleToggleAscending}>
-        DES
+      <Button isActive={direction === 'DSC'} className={"DSC"} variant={'cancel'} onClick={handleToggleAscending}>
+        DSC
       </Button>
     </div>
+    </div>
+
   </SpacedLabel>;
 }
 export default SortFilter;
