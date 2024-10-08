@@ -2,6 +2,7 @@ import dayjs, {ManipulateType} from "dayjs";
 
 
 export enum DUE_DATE {
+    LATE = "PAST DUE",
     TODAY = 'Today',
     TOMORROW = 'Tomorrow',
     WEEK = "Next Week",
@@ -12,7 +13,7 @@ export enum DUE_DATE {
     SIX_MONTHS = "6 Months from now",
     YEAR = 'Next Year',
     TWO_YEARS = '2 Years from now',
-    CUSTOM = "Custom"
+    THREE_YEARS = '3 Years from now',
 }
 
 export const allDueDates = (): DUE_DATE[] => [
@@ -26,17 +27,17 @@ export const allDueDates = (): DUE_DATE[] => [
     DUE_DATE.SIX_MONTHS,
     DUE_DATE.YEAR,
     DUE_DATE.TWO_YEARS,
-    DUE_DATE.CUSTOM
+    DUE_DATE.THREE_YEARS
 ];
 
-export const allDueDatesAndDates = (): Record<DUE_DATE, Date | null> => {
-    return allDueDates().reduce<Record<DUE_DATE, Date | null>>((yeet, dueDate) => {
+export const allDueDatesAndDates = (): Record<DUE_DATE, Date> => {
+    return allDueDates().reduce<Record<DUE_DATE, Date>>((yeet, dueDate) => {
         yeet[dueDate] = getDateFromDueDate(dueDate);
         return yeet;
-    }, {} as Record<DUE_DATE, Date | null>);
+    }, {} as Record<DUE_DATE, Date>);
 };
 
-export const getDateFromDueDate = (currentDueDate: DUE_DATE): Date | null => {
+export const getDateFromDueDate = (currentDueDate: DUE_DATE): Date => {
     switch (currentDueDate) {
         case DUE_DATE.TODAY:
             return dayjs().toDate();
@@ -58,8 +59,10 @@ export const getDateFromDueDate = (currentDueDate: DUE_DATE): Date | null => {
             return dayjs().add(1, "year").toDate();
         case DUE_DATE.TWO_YEARS:
             return dayjs().add(2, 'year').toDate();
+        case DUE_DATE.THREE_YEARS:
+            return dayjs().add(3, 'year').toDate();
         default:
-            return null;
+            return dayjs().subtract(1, 'day').toDate();
     }
 
 };
@@ -67,6 +70,8 @@ export const getDateFromDueDate = (currentDueDate: DUE_DATE): Date | null => {
 export const getDueDateFromDate = (date: Date): DUE_DATE => {
     const currentDate = dayjs(date);
     const TodayDate = dayjs(new Date());
+
+    if(currentDate.isBefore(TodayDate, 'day')) return DUE_DATE.LATE;
 
     if (currentDate.isSame(TodayDate, 'day')) return DUE_DATE.TODAY;
 
@@ -79,14 +84,15 @@ export const getDueDateFromDate = (date: Date): DUE_DATE => {
         {value: 3, unit: 'months', result: DUE_DATE.QUARTER},
         {value: 6, unit: 'months', result: DUE_DATE.SIX_MONTHS},
         {value: 1, unit: 'years', result: DUE_DATE.YEAR},
-        {value: 2, unit: 'years', result: DUE_DATE.TWO_YEARS}
+        {value: 2, unit: 'years', result: DUE_DATE.TWO_YEARS},
+        {value: 3, unit: 'years', result: DUE_DATE.THREE_YEARS}
     ];
 
     for (const threshold of thresholds) {
         const addTime = dayjs(TodayDate).add(threshold.value, threshold.unit);
         if (currentDate.isBefore(addTime) || currentDate.isSame(addTime)) return threshold.result;
     }
-    return DUE_DATE.CUSTOM;
+    return DUE_DATE.THREE_YEARS;
 
 
 };
@@ -102,12 +108,13 @@ export const ColorSelection: ColorType = (
             [DUE_DATE.WEEK]:  {backgroundColor: "#65ff00"},
             [DUE_DATE.TWO_WEEKS]:  {backgroundColor: "#c7f000"},
             [DUE_DATE.MONTH]:  {backgroundColor: "#f0ca00"},
-            [DUE_DATE.TWO_MONTHS]:  {backgroundColor: "#f05c00"},
-            [DUE_DATE.QUARTER]:  {backgroundColor: "#cf3900"},
-            [DUE_DATE.SIX_MONTHS]:  {backgroundColor: "#871000"},
-            [DUE_DATE.YEAR]:  {backgroundColor: "#4d0000", color: "white"},
-            [DUE_DATE.TWO_YEARS]:  {backgroundColor: "#210000", color: 'white'},
-            [DUE_DATE.CUSTOM]:  {backgroundColor: ""}
+            [DUE_DATE.TWO_MONTHS]:  {backgroundColor: "#f07800"},
+            [DUE_DATE.QUARTER]:  {backgroundColor: "#c93900"},
+            [DUE_DATE.SIX_MONTHS]:  {backgroundColor: "#a41300"},
+            [DUE_DATE.YEAR]:  {backgroundColor: "#6c0000", color: "white"},
+            [DUE_DATE.TWO_YEARS]:  {backgroundColor: "#540000", color: 'white'},
+            [DUE_DATE.THREE_YEARS]:  {backgroundColor: "#110000", color: 'white'},
+            [DUE_DATE.LATE]:  {backgroundColor: "black", color: 'white'}
         }
     }
 )

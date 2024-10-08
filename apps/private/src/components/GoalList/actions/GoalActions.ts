@@ -27,15 +27,12 @@ const GoalActions = {
 
         return newState;
     },
-    updateDueDate: (goalId: string, dueDate: DUE_DATE) => (prevState: GoalListType): GoalListType => {
+    updateDueDate: (goalId: string, dueDate: DUE_DATE | Date) => (prevState: GoalListType): GoalListType => {
         const goalBeingModified = prevState[goalId];
         if (goalBeingModified) {
-            const date = getDateFromDueDate(dueDate);
+            goalBeingModified.completionDate = typeof dueDate !== 'object' ? getDateFromDueDate(dueDate) : dueDate;
 
-            if (date !== null) {
-                goalBeingModified.completionDate = date;
-                return {...prevState};
-            }
+            return {...prevState};
         }
 
         return prevState;
