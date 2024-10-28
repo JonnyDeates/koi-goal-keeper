@@ -117,7 +117,7 @@ export const ColorSelection: ColorType = (
             [DUE_DATE.LATE]:  {backgroundColor: "black", color: 'white'}
         }
     }
-)
+);
 
 
 export const findNextElementInListToFocusOn = (tasksListOfIds: string[], index = -1) => {

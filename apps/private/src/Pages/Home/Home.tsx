@@ -5,21 +5,23 @@ import GoalList from "../../components/GoalList/GoalList";
 import GoalActions from "../../components/GoalList/actions/GoalActions";
 import {useGoalListContext} from "../../contexts/GoalListProvider/GoalListProvider";
 import SortFilter from "../../components/SortFilter/SortFilter";
+import PageWrapper from "../../components/PageWrapper/PageWrapper";
 
 
 function Home() {
-    const {applyActionToGoalList} = useGoalListContext();
-    const handleAddGoal = () => {
-      applyActionToGoalList(GoalActions.create);
-    };
+  const {applyActionToGoalList} = useGoalListContext();
+  const handleAddGoal = () => {
+    applyActionToGoalList(GoalActions.create);
+  };
 
-    return <main className="Home">
-      <h1>Koi Goal Keeper Logged In</h1>
-      <div>
-        <SortFilter/>
-        <Button onClick={handleAddGoal}>Add Goal</Button>
-      </div>
-      <GoalList/>
-    </main>;
-  }
+  return <PageWrapper header={"Koi Goal Keeper Logged In"}>
+    <div>
+      <SortFilter/>
+      <Button onClick={handleAddGoal}>Add Goal</Button>
+    </div>
+    <GoalList/>
+
+  </PageWrapper>
+}
+
 export default Home;

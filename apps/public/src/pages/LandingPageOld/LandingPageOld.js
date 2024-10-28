@@ -25,7 +25,7 @@ class LandingPageOld extends Component {
             imageCoursel: [{img: addPage, alt: 'Add Page'}, {img: homePage, alt: 'Home Page'}, {
                 img: homePageUC,
                 alt: 'Home Page Ultra Compacted'
-            }, {img: phoneAddPage, alt: 'Phone Add Page'}, {img: settingsPage, alt: 'Settings Page'}],
+            }, {img: phoneAddPage, alt: 'Phone Add Page'}, {img: settingsPage, alt: 'SettingsOld Page'}],
             title: 'The Koi Goal Keeper',
             runAnimation: false,
             topSection: {

@@ -21,7 +21,7 @@ import LocalStorageModel from "./LocalStorageModel/LocalStorageModel";
 import SettingsService from "../../services/local/settings-service";
 import TryPremium from "../../components/Checkout/TryPremium";
 
-class Settings extends React.Component {
+class SettingsOld extends React.Component {
     static contextType = SettingsContext;
 
     constructor(props) {
@@ -313,4 +313,4 @@ class Settings extends React.Component {
     }
 }
 
-export default Settings;
+export default SettingsOld;
