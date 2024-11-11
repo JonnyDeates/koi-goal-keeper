@@ -9,25 +9,26 @@ export const isPasswordValid = (req: Request, res: Response, next: NextFunction)
     const passwordResponse = validatePassword(decryptedPassword);
 
     if (passwordResponse)
-        return sendResponse(res, StatusCodes.BAD_REQUEST, buildErrorDTO("password", passwordResponse));
-
-    next();
+        sendResponse(res, StatusCodes.BAD_REQUEST, buildErrorDTO("password", passwordResponse));
+    else
+        next();
 };
 export const isEmailValid = (req: Request, res: Response, next: NextFunction) => {
     const emailResponse = validateEmail(req.body.email);
 
     if (emailResponse)
-        return sendResponse(res, StatusCodes.BAD_REQUEST, buildErrorDTO("email", emailResponse));
-
-    next();
+        sendResponse(res, StatusCodes.BAD_REQUEST, buildErrorDTO("email", emailResponse));
+    else
+        next();
 };
 
 export const requireUserLoggedIn = (req: Request, res: Response, next: NextFunction) => {
     if (!req.session.user)
-        return sendResponse(res, StatusCodes.UNAUTHORIZED, buildError('Unauthorized request'));
+        sendResponse(res, StatusCodes.UNAUTHORIZED, buildError('Unauthorized request'));
+    else {
+        // Any actions the user makes resets their session age.
+        req.session.resetMaxAge();
 
-    // Any actions the user makes resets their session age.
-    req.session.resetMaxAge();
-
-    next();
+        next();
+    }
 };

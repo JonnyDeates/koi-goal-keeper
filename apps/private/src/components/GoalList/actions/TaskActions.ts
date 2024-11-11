@@ -1,6 +1,4 @@
-import {type GoalListType, type TaskType} from "@repo/types";
-import {createId} from "@paralleldrive/cuid2";
-import {buildTask} from "../../../utils/builders/buildTask";
+import {type GoalListType, TaskListType, type TaskType} from "@repo/types";
 
 const calculateTaskCount = (taskList: Record<string, TaskType>) => {
     const taskListOfIds = Object.keys(taskList);
@@ -13,23 +11,23 @@ const calculateTaskCount = (taskList: Record<string, TaskType>) => {
 };
 
 const TaskActions = {
-    create: (goalId: string) => (prevState: GoalListType): GoalListType => {
+    create: (goalId: number, task: TaskType) => (prevState: GoalListType): GoalListType => {
         const goalBeingModified = prevState[goalId];
         if (goalBeingModified) {
-            goalBeingModified.tasks[createId()] = buildTask();
+            goalBeingModified.tasks[task.id] = task;
 
             return {...prevState};
         }
         return prevState;
 
     },
-    remove: (goalId: string, objectiveId: string) => (prevState: GoalListType): GoalListType => {
+    remove: (goalId: number, objectiveId: number) => (prevState: GoalListType): GoalListType => {
 
         const goalBeingModified = prevState[goalId];
 
         if (goalBeingModified) {
             const objectBeingModified = goalBeingModified.tasks[objectiveId];
-            if(objectBeingModified && objectBeingModified.isCompleted) {
+            if (objectBeingModified && objectBeingModified.isCompleted) {
                 goalBeingModified.tasksCompleted -= 1
             }
             delete goalBeingModified.tasks[objectiveId];
@@ -38,14 +36,14 @@ const TaskActions = {
         }
         return prevState
     },
-    updateTaskText: (goalId: string, objectiveId: string, text: string) => (prevState: GoalListType): GoalListType => {
+    updateTaskText: (goalId: number, objectiveId: number, text: string) => (prevState: GoalListType): GoalListType => {
         const goalBeingModified = prevState[goalId];
 
         if (goalBeingModified) {
             const objectiveToModify = goalBeingModified.tasks[objectiveId];
 
             if (objectiveToModify) {
-                objectiveToModify.text = text;
+                objectiveToModify.name = text;
             }
             return {...prevState};
 
@@ -53,7 +51,7 @@ const TaskActions = {
 
         return prevState;
     },
-    toggleTask: (goalId: string, objectiveId: string, key: 'isEditing' | 'isCompleted') => (prevState: GoalListType): GoalListType => {
+    toggleTask: (goalId: number, objectiveId: number, key: 'isEditing' | 'isCompleted') => (prevState: GoalListType): GoalListType => {
         const goalBeingModified = prevState[goalId];
 
         if (goalBeingModified) {
@@ -71,22 +69,18 @@ const TaskActions = {
         return prevState;
 
     },
-    toggleAllTasks: (goalId: string) => (prevState: GoalListType) => {
+    toggleAllTasks: (goalId: number, taskList: TaskListType) => (prevState: GoalListType) => {
         const goalBeingModified = prevState[goalId];
 
         if (goalBeingModified) {
+            goalBeingModified.tasks = taskList;
 
-            const allTaskIds = Object.keys(goalBeingModified.tasks)
-            const isEveryTaskComplete = allTaskIds.every((taskId) => {
-                const taskBeingChecked = goalBeingModified.tasks[taskId] as TaskType;
-
-                return taskBeingChecked.isCompleted
-            })
-            for (const taskId of allTaskIds) {
-                const taskBeingChecked = goalBeingModified.tasks[taskId] as TaskType;
-                taskBeingChecked.isCompleted = !isEveryTaskComplete;
-            }
-            goalBeingModified.tasksCompleted = !isEveryTaskComplete ? allTaskIds.length : 0;
+            goalBeingModified.tasksCompleted = Object.keys(taskList)
+                .reduce((acc, taskId) => {
+                    if (taskList[taskId] && taskList[taskId].isCompleted)
+                        return acc + 1
+                    return acc
+                }, 0);
 
             return {...prevState};
         }

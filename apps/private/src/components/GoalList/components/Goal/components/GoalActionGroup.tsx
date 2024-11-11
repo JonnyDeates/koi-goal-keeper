@@ -9,14 +9,28 @@ import {GoalType, TaskType} from "@repo/types";
 import TaskActions from "../../../actions/TaskActions";
 import {useGoalListContext} from "../../../../../contexts/GoalListProvider/GoalListProvider";
 import GoalActions from "../../../actions/GoalActions";
+import TaskClient from "../../Task/clients/TaskClient";
+import GoalClient from "../clients/GoalClient";
 
-type GoalActionGroupProps = GoalType & {id: string, taskListOfIds: string[], handleToggleGoalEditing: ()=> void}
+type GoalActionGroupProps = GoalType & { id: string, taskListOfIds: string[], handleToggleGoalEditing: () => void }
 
 const GoalActionGroup = ({tasks, id, taskListOfIds, handleToggleGoalEditing}: GoalActionGroupProps) => {
     const {applyActionToGoalList} = useGoalListContext();
 
-    const handleToggleAllTasks = () => applyActionToGoalList(TaskActions.toggleAllTasks(id));
-    const handleDuplicateGoal = () => applyActionToGoalList(GoalActions.duplicate(id));
+    const handleToggleAllTasks = () => {
+
+        TaskClient.toggleAll(id).then((response) => {
+
+            if (response && response.data && response.data.taskList)
+                applyActionToGoalList(TaskActions.toggleAllTasks(id, response.data.taskList));
+        })
+    }
+    const handleDuplicateGoal = () => {
+        GoalClient.duplicate(id).then((response) => {
+            if (response && response.data && response.data.duplicatedGoal)
+                applyActionToGoalList(GoalActions.create(response.data.duplicatedGoal));
+        })
+    }
 
 
     const isEveryTaskComplete = taskListOfIds.every((taskId) => {

@@ -9,7 +9,7 @@ const usersRepo = {
       .first()
       .then(user => user);
   },
-  findUserById(knex: Knex, id: string): Promise<User | undefined> {
+  findUserById(knex: Knex, id: number): Promise<User | undefined> {
     return knex(this.tableName)
       .where({ id })
       .first()
@@ -21,7 +21,7 @@ const usersRepo = {
       .first()
       .then(user => Boolean(user));
   },
-  updateUser(knex: Knex, id: string, newUserFields: Partial<User>): Promise<void> {
+  updateUser(knex: Knex, id: number, newUserFields: Partial<User>): Promise<void> {
     return knex(this.tableName)
       .where({ id })
       .update({...newUserFields, date_modified: new Date()});
@@ -34,7 +34,7 @@ const usersRepo = {
     const {id, email, name, paid_account} = x[0] as User;
     return ({id, email, name, paid_account});
   },
-  deleteUser(knex: Knex, id: string): Promise<void> {
+  deleteUser(knex: Knex, id: number): Promise<void> {
     return knex(this.tableName)
       .where({ id })
       .delete();

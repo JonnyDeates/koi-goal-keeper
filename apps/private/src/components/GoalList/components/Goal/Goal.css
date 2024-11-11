@@ -7,6 +7,7 @@
     padding: 1rem;
     border-radius: 16px;
     position: relative;
+    animation: fadeIn 1s forwards;
 }
 .Goal .Select {
     position: absolute;
@@ -77,4 +78,14 @@ padding-top: .25rem;
     width: 50%;
     right: 16px;
     border-radius: 0 0 1rem 1rem;
+}
+@keyframes fadeIn {
+    0%{
+        scale: 0;
+        transform: translateY(500px);
+    }
+    100% {
+        scale: 1;
+        transform: unset;
+    }
 }

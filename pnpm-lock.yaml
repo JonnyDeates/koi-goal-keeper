@@ -339,6 +339,9 @@ importers:
       '@repo/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
+      '@repo/types':
+        specifier: workspace:*
+        version: link:../types
       eslint:
         specifier: latest
         version: 9.11.1

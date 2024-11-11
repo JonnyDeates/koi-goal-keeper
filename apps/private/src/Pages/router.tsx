@@ -4,12 +4,13 @@ import {Wallpaper, Page404} from "@repo/shared";
 import GoalListProvider from "../contexts/GoalListProvider/GoalListProvider";
 import {Navigation} from "../components/Navigation/Navigation";
 import Home from "./Home/Home";
+import Settings from "./Settings/Settings";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={
-          <Wallpaper>
-              <Navigation />
+            <Wallpaper>
+                <Navigation/>
             </Wallpaper>
         }
                errorElement={
@@ -19,12 +20,11 @@ const router = createBrowserRouter(
                }>
             <Route path='' element={
                 <GoalListProvider>
-                <Home/>
-            </GoalListProvider>}
+                    <Home/>
+                </GoalListProvider>}
             />
-          <Route path='/settings' element={
-            <main>Settings</main>}
-          />
+            <Route path='/settings' element={<Settings/>}
+            />
         </Route>
     )
 );

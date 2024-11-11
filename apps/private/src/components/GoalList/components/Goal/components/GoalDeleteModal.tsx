@@ -3,8 +3,9 @@ import {CloseButton, GenericAcceptanceModal} from "koi-pool";
 import GoalActions from "../../../actions/GoalActions.js";
 import {useGoalListContext} from "../../../../../contexts/GoalListProvider/GoalListProvider.js";
 import {TaskType} from "@repo/types";
+import GoalClient from "../clients/GoalClient";
 
-type GoalDeleteButtonProps = { id: string, name: string, taskListOfIds: string[] };
+type GoalDeleteButtonProps = { id: number, name: string, taskListOfIds: string[] };
 
 const GoalDeleteButton = ({id, name, taskListOfIds}: GoalDeleteButtonProps) => {
     const {applyActionToGoalList} = useGoalListContext();
@@ -14,7 +15,11 @@ const GoalDeleteButton = ({id, name, taskListOfIds}: GoalDeleteButtonProps) => {
         setShowConfirmDeleteModal(false);
     }
 
-    const handleDeleteGoal = () => applyActionToGoalList(GoalActions.remove(id));
+    const handleDeleteGoal = () => {
+        GoalClient.remove(id).then(()=>{
+            applyActionToGoalList(GoalActions.remove(id));
+        })
+    }
 
     const showDeleteModal = () => {
         if (taskListOfIds.length <= 1) {

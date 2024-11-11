@@ -11,6 +11,8 @@ import routesConfig, {ALL_ROUTES} from "./configuration/routesConfig";
 import cacheControlConfig from "./configuration/cacheControl";
 import authController from "./authentication/authController";
 import usersController from "./users/usersController";
+import goalsController from "./goals/goalsController";
+import tasksController from "./tasks/tasksController";
 
 
 const createServer = async () => {
@@ -40,6 +42,8 @@ const createServer = async () => {
 
     app.use("/auth", authController);
     app.use("/user", usersController);
+    app.use("/api/goals", goalsController)
+    app.use("/api/tasks", tasksController)
 
     // Page Routing
     ALL_ROUTES.forEach(route => {

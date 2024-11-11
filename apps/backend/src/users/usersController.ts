@@ -15,7 +15,7 @@ usersController
     .get((req, res) => {
             const user = req.session.user!;
 
-            return UserResponse.succeeded(res, UserSuccessTypes.USER_DETAILS, user);
+            UserResponse.succeeded(res, UserSuccessTypes.USER_DETAILS, user);
         }
     )
     .delete(async (req, res) => {
@@ -23,7 +23,7 @@ usersController
 
             await usersService.remove(req, id);
 
-            return UserResponse.succeeded(res, UserSuccessTypes.USER_REMOVED);
+            UserResponse.succeeded(res, UserSuccessTypes.USER_REMOVED);
         }
     )
     .patch(validKeysInRequest('name'), async (req, res, next) => {
@@ -32,7 +32,7 @@ usersController
 
         await usersService.setNameOnUser(req, id, name);
 
-        return UserResponse.succeeded(res, UserSuccessTypes.USER_UPDATED);
+        UserResponse.succeeded(res, UserSuccessTypes.USER_UPDATED);
 
     });
 usersController
@@ -43,16 +43,16 @@ usersController
 
         const foundUser = await usersService.findUserById(req, id);
         if (!foundUser)
-            return UserResponse.failed(res, UserFailureTypes.USER_NOT_FOUND);
+            UserResponse.failed(res, UserFailureTypes.USER_NOT_FOUND);
+        else {
+            const passwordComparison = await Bcrypt.compare(foundUser.password, oldPassword);
+            if (!passwordComparison) {
+                UserResponse.failed(res, UserFailureTypes.USER_PASSWORD_IS_INVALID);
+            } else {
+                await usersService.setPasswordOnUser(req, id, password);
 
-
-        const passwordComparison = await Bcrypt.compare(foundUser.password, oldPassword);
-        if (!passwordComparison) {
-            return UserResponse.failed(res, UserFailureTypes.USER_PASSWORD_IS_INVALID);
+                UserResponse.succeeded(res, UserSuccessTypes.USER_UPDATED);
+            }
         }
-
-        await usersService.setPasswordOnUser(req, id, password);
-
-        return UserResponse.succeeded(res, UserSuccessTypes.USER_UPDATED);
     });
 export default usersController;

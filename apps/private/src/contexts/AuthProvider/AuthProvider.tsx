@@ -13,6 +13,7 @@ function AuthProvider({children}: AuthProviderProps) {
   const checkUserHasValidSession = () => {
     AuthenticationClient.handleRevalidate()
       .then((response: {data?: {timeRemaining: string } }) => {
+        console.log(response)
         if (response.data?.timeRemaining) {
           createToast({message: `You will be logged out in ${response.data.timeRemaining}, due to inactivity.`});
         }

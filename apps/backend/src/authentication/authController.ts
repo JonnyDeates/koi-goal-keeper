@@ -3,10 +3,10 @@ import usersService from "../users/usersService";
 import buildPasswordResetToken from "../utils/builders/buildPasswordResetToken";
 import sendMail from "../utils/mailer/sendMail/sendMail";
 import passwordResetEmail from "../utils/mailer/emails/passwordResetEmail";
-import validKeysInRequest from "../utils/validKeysInRequest/validKeysInRequest";
 import Bcrypt from "../utils/bcrypt/Bcrypt";
 import {AuthFailureTypes, AuthResponse, AuthSuccessTypes} from "./AuthResponse";
 import {isEmailValid, isPasswordValid} from "./AuthValidator";
+import validKeysInRequest from "../utils/validKeysInRequest/validKeysInRequest";
 
 const authController = express.Router();
 
@@ -17,19 +17,22 @@ authController
 
         const hasUser = await usersService.hasUserWithEmail(req, email);
         if (hasUser) {
-            return AuthResponse.failed(res, AuthFailureTypes.USER_ALREADY_EXISTS);
+            AuthResponse.failed(res, AuthFailureTypes.USER_ALREADY_EXISTS);
+        } else {
+
+            const decryptedPassword = atob(password);
+
+            req.session.user = await usersService.createUser(req, decryptedPassword, email, name);
+
+            req.session.save(err => {
+                if (err) {
+                    AuthResponse.failed(res, AuthFailureTypes.SESSION_FAILED_TO_SAVE);
+                } else {
+                    AuthResponse.succeeded(res, AuthSuccessTypes.USER_LOGS_IN, {redirectURL: '/'});
+                }
+            });
         }
 
-        const decryptedPassword = atob(password);
-
-        req.session.user = await usersService.createUser(req, decryptedPassword, email, name);
-
-        req.session.save(err => {
-            if (err) {
-                return AuthResponse.failed(res, AuthFailureTypes.SESSION_FAILED_TO_SAVE);
-            }
-            return AuthResponse.succeeded(res, AuthSuccessTypes.USER_LOGS_IN, {redirectURL: '/'});
-        });
     });
 authController
     .route("/login")
@@ -39,28 +42,29 @@ authController
         const activeUser = await usersService.findUserByEmail(req, email);
 
         if (!activeUser) {
-            return AuthResponse.failed(res, AuthFailureTypes.USER_NOT_FOUND);
-        }
+            AuthResponse.failed(res, AuthFailureTypes.USER_NOT_FOUND);
+        } else {
+            const decryptedPassword = atob(password);
 
+            const isPasswordValid = await Bcrypt.compare(activeUser.password, decryptedPassword);
 
-        const decryptedPassword = atob(password);
+            if (!isPasswordValid) {
+                AuthResponse.failed(res, AuthFailureTypes.PASSWORD_IS_INVALID);
+            } else {
 
-        const isPasswordValid = await Bcrypt.compare(activeUser.password, decryptedPassword);
+                const {id, paid_account, name, email: userEmail} = activeUser;
 
-        if (!isPasswordValid) {
-            return AuthResponse.failed(res, AuthFailureTypes.PASSWORD_IS_INVALID);
-        }
+                req.session.user = {id, paid_account, name, email: userEmail};
 
-        const {id, paid_account, name, email: userEmail} = activeUser;
-
-        req.session.user = {id, paid_account, name, email: userEmail};
-
-        req.session.save(err => {
-            if (err) {
-                return AuthResponse.failed(res, AuthFailureTypes.SESSION_FAILED_TO_SAVE);
+                req.session.save(err => {
+                    if (err) {
+                        AuthResponse.failed(res, AuthFailureTypes.SESSION_FAILED_TO_SAVE);
+                    }
+                    AuthResponse.succeeded(res, AuthSuccessTypes.USER_LOGS_IN, {redirectURL: '/'});
+                });
             }
-            return AuthResponse.succeeded(res, AuthSuccessTypes.USER_LOGS_IN, {redirectURL: '/'});
-        });
+
+        }
     });
 authController
     .route("/forgot-password")
@@ -72,21 +76,24 @@ authController
         const foundUser = await usersService.findUserByEmail(req, email);
 
         if (!foundUser) {
-            return AuthResponse.failed(res, AuthFailureTypes.USER_NOT_FOUND);
+            AuthResponse.failed(res, AuthFailureTypes.USER_NOT_FOUND);
+        } else {
+            sendMail(passwordResetEmail(email, token), async (err) => {
+                if (err) {
+                    console.error(`Mailer Issue: \n ${err}`);
+
+                    AuthResponse.failed(res, AuthFailureTypes.TOKEN_FAILED_TO_SEND_TO_EMAIL);
+                } else {
+                    const hashedToken = await Bcrypt.hash(token);
+
+                    await usersService.setTokenOnUser(req, foundUser.id, hashedToken);
+                    AuthResponse.succeeded(res, AuthSuccessTypes.TOKEN_GENERATED_AND_EMAIL_SENT, {redirectURL: `/forgot-password/token?email=${email}`});
+
+                }
+
+            });
         }
 
-        sendMail(passwordResetEmail(email, token), async (err) => {
-            if (err) {
-                console.error(`Mailer Issue: \n ${err}`);
-
-                return AuthResponse.failed(res, AuthFailureTypes.TOKEN_FAILED_TO_SEND_TO_EMAIL);
-            } 
-                const hashedToken = await Bcrypt.hash(token);
-
-                await usersService.setTokenOnUser(req, foundUser.id, hashedToken);
-                return AuthResponse.succeeded(res, AuthSuccessTypes.TOKEN_GENERATED_AND_EMAIL_SENT, {redirectURL: `/forgot-password/token?email=${email}`});
-            
-        });
 
     });
 authController.route("/verification")
@@ -94,40 +101,39 @@ authController.route("/verification")
         const {email, token, password} = req.body;
 
         if (token.length !== 7) {
-            return AuthResponse.failed(res, AuthFailureTypes.TOKEN_IS_INVALID);
+            AuthResponse.failed(res, AuthFailureTypes.TOKEN_IS_INVALID);
+        } else {
+            const foundUser = await usersService.findUserByEmail(req, email);
+            if (!foundUser) {
+                AuthResponse.failed(res, AuthFailureTypes.USER_NOT_FOUND);
+            } else if (!foundUser.token_expires || !foundUser.token || await Bcrypt.compare(foundUser.token, token)) {
+                AuthResponse.failed(res, AuthFailureTypes.TOKEN_IS_INVALID);
+            } else {
+                const isTokenValid = await Bcrypt.compare(foundUser.token, token);
+
+                if (!isTokenValid) {
+                    AuthResponse.failed(res, AuthFailureTypes.TOKEN_IS_INVALID);
+                } else {
+                    const currentTime = new Date();
+                    const tokenTime = new Date(foundUser.token_expires);
+
+                    if (tokenTime < currentTime) {
+                        AuthResponse.failed(res, AuthFailureTypes.TOKEN_HAS_EXPIRED);
+                    } else {
+                        const decryptedPassword = atob(password);
+
+                        await usersService.setPasswordOnUser(req, foundUser.id, decryptedPassword);
+
+                        AuthResponse.succeeded(res, AuthSuccessTypes.USER_LOGS_IN, {redirectURL: '/'});
+                    }
+                }
+            }
         }
-
-        const foundUser = await usersService.findUserByEmail(req, email);
-        if (!foundUser) {
-            return AuthResponse.failed(res, AuthFailureTypes.USER_NOT_FOUND);
-        }
-
-        if (!foundUser.token_expires || !foundUser.token || await Bcrypt.compare(foundUser.token, token)) {
-            return AuthResponse.failed(res, AuthFailureTypes.TOKEN_IS_INVALID);
-        }
-
-        const isTokenValid = await Bcrypt.compare(foundUser.token, token);
-        if (!isTokenValid) {
-            return AuthResponse.failed(res, AuthFailureTypes.TOKEN_IS_INVALID);
-        }
-
-        const currentTime = new Date();
-        const tokenTime = new Date(foundUser.token_expires);
-
-        if (tokenTime < currentTime) {
-            return AuthResponse.failed(res, AuthFailureTypes.TOKEN_HAS_EXPIRED);
-        }
-
-        const decryptedPassword = atob(password);
-
-        await usersService.setPasswordOnUser(req, foundUser.id, decryptedPassword);
-
-        return AuthResponse.succeeded(res, AuthSuccessTypes.USER_LOGS_IN, {redirectURL: '/'});
     });
 authController
     .route("/logout")
     .get((req, res) => {
-        return req.session.destroy(() => {
+        req.session.destroy(() => {
             res.redirect("/");
         });
     });
@@ -137,22 +143,24 @@ authController
     .get((req, res) => {
         if (req.session && req.session.user) {
             if (req.session.cookie.maxAge) {
-                const minutesRemainingForSession =req.session.cookie.maxAge / 60000;
+                const minutesRemainingForSession = req.session.cookie.maxAge / 60000;
 
-                if( minutesRemainingForSession <= 5 && minutesRemainingForSession > 1) {
+                if (minutesRemainingForSession <= 5 && minutesRemainingForSession > 1) {
                     const plurality = minutesRemainingForSession === 1 ? '' : 's';
-                    return AuthResponse.succeeded(res, AuthSuccessTypes.SESSION_IS_VALID,
+                    AuthResponse.succeeded(res, AuthSuccessTypes.SESSION_IS_VALID,
                         {timeRemaining: `${Math.floor(minutesRemainingForSession)} minute${plurality}`});
-                } else if(minutesRemainingForSession < 1) {
-                    return AuthResponse.succeeded(res, AuthSuccessTypes.SESSION_IS_VALID,
+                } else if (minutesRemainingForSession < 1) {
+                    AuthResponse.succeeded(res, AuthSuccessTypes.SESSION_IS_VALID,
                         {timeRemaining: ' less than a minute'});
 
                 }
 
-            }
-            return AuthResponse.succeeded(res, AuthSuccessTypes.SESSION_IS_VALID);
-        }
+            } else {
+                AuthResponse.succeeded(res, AuthSuccessTypes.SESSION_IS_VALID);
 
-        return AuthResponse.failed(res, AuthFailureTypes.SESSION_IS_INVALID);
+            }
+        } else {
+            AuthResponse.failed(res, AuthFailureTypes.SESSION_IS_INVALID);
+        }
     });
 export default authController;

@@ -140,7 +140,7 @@ class SettingsOld extends React.Component {
                         ? <form onSubmit={(e) => this.submitNickname(e)}>
                             <label className='even-space' style={{color: getCurrentThemeColors().fontColor}}
                                    title={'Nickname'}>Nickname:
-                                <input type='text' onChange={(e) => this.changeNickname(e)}
+                                <input type='name' onChange={(e) => this.changeNickname(e)}
                                        value={this.state.newNickname} title={'New Nickname Input'}
                                        onKeyPress={e => {
                                            if (e.key === 'Enter') {

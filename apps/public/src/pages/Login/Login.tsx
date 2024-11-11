@@ -58,7 +58,7 @@ export function Login() {
         }
     }, []);
 
-    // const passwordType = isShown ? "text" : "password";
+    // const passwordType = isShown ? "name" : "password";
 
     return <div className="Login">
         <form className="LoginContent" onSubmit={postMethod}>
@@ -68,7 +68,7 @@ export function Login() {
                               onKeyDown={handleNextFocusEnter}
                               value={email}
                               width="200px"
-                              type="text"
+                              type="name"
                               autoComplete="email"
                               error={error.email}
             />

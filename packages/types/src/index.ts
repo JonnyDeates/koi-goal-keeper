@@ -1,5 +1,5 @@
 export interface User {
-  id: string,
+  id: number,
   password: string,
   email: string,
   name: string,
@@ -15,21 +15,8 @@ export type SessionData = Omit<User, "password" | "date_created" | "date_modifie
 export type SessionResponse = Omit<SessionData, "id">
 export type ErrorType<T extends string | number | symbol = string> = Partial<Record<T, string>>;
 
-export interface TaskType {
-  text: string,
-  isEditing: boolean,
-  isCompleted: boolean
-}
 
-export interface GoalType {
-  tasks: Record<string, TaskType>,
-  createdDate: Date,
-  modifiedDate: Date,
-  completionDate: Date,
-  tasksCompleted: number,
-  isEditing: boolean,
-  isFavorite: boolean,
-  name: string
-}
 
-export type GoalListType = Record<string, GoalType>
+export {GoalType, GoalEntityType, GoalListType, UpdatableGoalType, GoalTaskJoinedEntityType, UpdatableGoalEntityType} from './Goals'
+export {TaskType, TaskEntityType,TaskListType, UpdatableTaskType, UpdatableTaskEntityType} from './Tasks'
+

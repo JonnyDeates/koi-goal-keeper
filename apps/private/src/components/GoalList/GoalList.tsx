@@ -13,7 +13,7 @@ function GoalList() {
     return <>
         {sortedGoalListOfIds.map((goalId) =>
             <React.Fragment key={goalId}>
-                <Goal id={goalId} {...(allGoals[goalId] as GoalType)}/>
+                <Goal {...(allGoals[goalId] as GoalType)}/>
             </React.Fragment>
         )}
     </>;

@@ -1,8 +1,9 @@
-import {type TaskType} from "@repo/types";
+import {TaskType} from "@repo/types";
 
 export const buildTask = (partialObjective: Partial<TaskType> = {}):TaskType => ({
-    text: '',
+    name: '',
     isEditing: true,
     isCompleted: false,
+    id: 1,
     ...partialObjective
 });

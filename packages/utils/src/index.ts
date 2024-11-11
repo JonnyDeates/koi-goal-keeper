@@ -1,7 +1,9 @@
 
-export {debounce} from "./debounce/debounce";
-export {validateEmail} from "./validateEmail/validateEmail";
-export {validateName} from "./validateName/validateName";
-export {validatePassword, validateSignUpPassword} from "./validatePassword/validatePassword";
-export {openNewTabWindow} from "./openNewTabWindow/openNewTabWindow";
-export {gotoPageHardRefresh} from "./gotoPageHardRefresh/gotoPageHardRefresh"
+export {debounce} from "./debounce/debounce.ts";
+export {validateEmail} from "./validateEmail/validateEmail.ts";
+export {validateName} from "./validateName/validateName.ts";
+export {validatePassword, validateSignUpPassword} from "./validatePassword/validatePassword.ts";
+export {openNewTabWindow} from "./openNewTabWindow/openNewTabWindow.ts";
+export {gotoPageHardRefresh} from "./gotoPageHardRefresh/gotoPageHardRefresh.ts"
+export {buildGoal} from "./builders/buildGoal.ts"
+export {buildTask} from "./builders/buildTask.ts"

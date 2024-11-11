@@ -31,24 +31,24 @@ const usersService = {
 
     return await usersRepo.findUserByEmail(database, email);
   },
-  findUserById: async (req: Request, id: string): Promise<User | undefined> => {
+  findUserById: async (req: Request, id: number): Promise<User | undefined> => {
     const database = Database.get(req);
 
     return await usersRepo.findUserById(database, id);
   },
-  setNameOnUser: async (req: Request, id: string, name: string) => {
+  setNameOnUser: async (req: Request, id: number, name: string) => {
     const database = Database.get(req);
 
     await usersRepo.updateUser(database, id, { name });
   },
-  setPasswordOnUser: async (req: Request, id: string, password: string) => {
+  setPasswordOnUser: async (req: Request, id: number, password: string) => {
     const database = Database.get(req);
 
     const hashedPassword = await Bcrypt.hash(password);
 
     await usersRepo.updateUser(database, id, { password: hashedPassword, token_expires: null, token: null});
   },
-  setTokenOnUser: async (req: Request, id: string, token: string) => {
+  setTokenOnUser: async (req: Request, id: number, token: string) => {
     const database = Database.get(req);
 
     const tokenExpires = new Date();
@@ -56,7 +56,7 @@ const usersService = {
 
     await usersRepo.updateUser(database, id, { token, token_expires: tokenExpires});
   },
-  remove: async (req: Request, id: string) => {
+  remove: async (req: Request, id: number) => {
     const database = Database.get(req);
 
     await usersRepo.deleteUser(database, id);

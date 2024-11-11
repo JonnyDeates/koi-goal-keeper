@@ -6,6 +6,7 @@
   "devDependencies": {
     "@repo/tsconfig": "workspace:*",
     "@repo/eslint-config": "workspace:*",
+    "@repo/types": "workspace:*",
     "eslint": "latest",
     "typescript": "latest"
   },
