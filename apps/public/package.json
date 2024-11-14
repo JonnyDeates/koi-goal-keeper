@@ -27,6 +27,7 @@
     "eslint": "^8.57.1",
     "@repo/eslint-config": "workspace:*",
     "@repo/tsconfig": "workspace:*",
+    "@repo/types": "workspace:*",
     "@repo/shared": "workspace:*",
     "@repo/utils": "workspace:*"
   },

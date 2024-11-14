@@ -1,26 +1,29 @@
-import React, {type ChangeEvent, type FormEvent, useEffect, useState} from "react";
+import React, {type ChangeEvent, type FormEvent, useState} from "react";
 import {Link} from "react-router-dom";
 import {handleNextFocusEnter, handleSubmitEnter, Title, useError} from "@repo/shared";
 import {validateEmail, validatePassword} from "@repo/utils";
 import {Button, SpacedLabelInput} from "koi-pool";
 import AuthenticationClient from "../../clients/AuthenticationClient";
+import {UserInputs, useUserInputsContext} from "../../contexts/UserInputsProvider";
 
 interface ForgotPasswordProps {
   isTokenPage?: boolean
 }
 
 function ForgotPassword({isTokenPage = false}: ForgotPasswordProps) {
-  const {error, ErrorActions,handleCatchError} = useError<'password' | 'confirm-password' | 'email' | "request" | 'token'>();
+  const {
+    error,
+    ErrorActions,
+    handleCatchError
+  } = useError<'password' | 'confirm-password' | 'email' | "request" | 'token'>();
   const [token, setToken] = useState("");
+
+  const {email} = useUserInputsContext();
+
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   // const [isVisible, setVisibility] = useState(false);
-  const [email, setEmail] = useState("");
 
-  const handleEmail = (event: ChangeEvent<HTMLInputElement>) => {
-    ErrorActions.remove("email");
-    setEmail(event.target.value);
-  };
   const handleNewPassword = (event: ChangeEvent<HTMLInputElement>) => {
     ErrorActions.remove("password");
     setNewPassword(event.target.value);
@@ -36,15 +39,6 @@ function ForgotPassword({isTokenPage = false}: ForgotPasswordProps) {
   // const toggleVisibility = () => {
   //   setVisibility(!isVisible);
   // };
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const myParam = urlParams.get("email");
-    if (myParam) {
-      setEmail(myParam);
-    }
-  }, []);
-
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -96,12 +90,10 @@ function ForgotPassword({isTokenPage = false}: ForgotPasswordProps) {
       <form className="LoginContent" onSubmit={handleSubmit}>
         <Title/>
         <h3>{(isTokenPage) ? "Enter Token & Your New Password" : "Enter Your Email for the Account"}</h3>
-        <SpacedLabelInput label="Email" onChange={handleEmail} value={email} error={error.email}
-                          width="200px"
-                          onKeyDown={(e) => {
-                            isTokenPage ? handleNextFocusEnter(e) : handleSubmitEnter(e, handleSubmit);
-                          }}
-        />
+        <UserInputs error={error} ErrorActions={ErrorActions} isPasswordShown={false}
+                    emailOnKeyDown={(e) =>
+                      isTokenPage ? handleNextFocusEnter(e) : handleSubmitEnter(e, handleSubmit)
+                    }/>
         {(isTokenPage ? <>
           <SpacedLabelInput label="Token"
                             value={token}
@@ -128,7 +120,7 @@ function ForgotPassword({isTokenPage = false}: ForgotPasswordProps) {
         </> : null)}
         {error.request ? <p className="Error">{error.request}</p> : null}
         <div className="LoginButtons">
-          <Link to={`/login${email ? `/?email=${email}` : ''}`}>
+          <Link to={'/login'}>
             <Button variant="cancel">
               Back
             </Button>

@@ -1,98 +1,65 @@
-import React, {useEffect,type ChangeEvent, type FormEvent, useState} from "react";
+import React, {type FormEvent} from "react";
 import {Link} from "react-router-dom";
-import {Button, SpacedLabelInput} from "koi-pool";
+import {Button} from "koi-pool";
 import {gotoPageHardRefresh, validateEmail, validatePassword} from "@repo/utils";
-import {handleSubmitEnter, Title, useError,handleNextFocusEnter} from "@repo/shared";
+import {handleSubmitEnter, Title, useError} from "@repo/shared";
 import "./Login.css";
 import AuthenticationClient from "../../clients/AuthenticationClient";
+import {UserInputs, useUserInputsContext} from "../../contexts/UserInputsProvider";
 
 export function Login() {
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    // const [isShown, setIsShown] = useState<boolean>(false);
-    const {error, ErrorActions} = useError<'password' | 'email' | "request">();
+  const {error, ErrorActions} = useError<'password' | 'email' | "request">();
+  const {email, password} = useUserInputsContext();
 
-    const handleEmail = (event: ChangeEvent<HTMLInputElement>) => {
-        ErrorActions.remove("email");
-        setEmail(event.target.value);
-    };
-    const handlePassword = (event: ChangeEvent<HTMLInputElement>) => {
-        ErrorActions.remove("password");
-        setPassword(event.target.value);
-    };
+  const postMethod = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const emailReason = validateEmail(email);
+    const passwordReason = validatePassword(password);
 
-    const postMethod = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const emailReason = validateEmail(email);
-        const passwordReason = validatePassword(password);
+    if (emailReason) {
+      ErrorActions.add("email", emailReason);
+    }
+    if (passwordReason) {
+      ErrorActions.add("password", passwordReason);
+    }
 
-        if (emailReason) {
-            ErrorActions.add("email", emailReason);
-        }
-        if (passwordReason) {
-            ErrorActions.add("password", passwordReason);
-        }
+    if (!emailReason && !passwordReason) {
+      AuthenticationClient.postLogin(
+        email.toLowerCase().trim(),
+        password
+      )
+        .then((res: { data: { redirectURL: string } }) => {
+          gotoPageHardRefresh(res.data.redirectURL);
+        })
+        .catch(({response: {data: {error: newError}}}: { response: { data: { error: object | string } } }) => {
+          if (typeof newError === 'object')
+            ErrorActions.set(newError);
+          else
+            ErrorActions.add("request", newError);
+        });
+    }
+  };
 
-        if (!emailReason && !passwordReason) {
 
+  // const passwordType = isShown ? "text" : "password";
 
-            AuthenticationClient.postLogin(
-                email.toLowerCase().trim(),
-                password
-            )
-                .then((res: {data: {redirectURL: string}}) => { gotoPageHardRefresh(res.data.redirectURL); })
-                .catch(({response: {data: {error: newError}}}: {response: {data: {error: object | string}}}) => {
-                    if (typeof newError === 'object')
-                        ErrorActions.set(newError);
-                    else
-                        ErrorActions.add("request", newError);
-                });
-        }
-    };
+  return <div className="Login">
+    <form className="LoginContent" onSubmit={postMethod}>
+      <Title/>
+      <UserInputs ErrorActions={ErrorActions} error={error}
+                  passwordOnKeyDown={(e) => handleSubmitEnter(e, postMethod)}/>
+      {/*<img src={eye} alt="Check Password" onClick={() => setIsShown(!isShown)} />*/}
 
-    useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const myParam = urlParams.get("email");
-        if (myParam) {
-            setEmail(myParam);
-        }
-    }, []);
-
-    // const passwordType = isShown ? "name" : "password";
-
-    return <div className="Login">
-        <form className="LoginContent" onSubmit={postMethod}>
-            <Title/>
-            <SpacedLabelInput label="Email"
-                              onChange={handleEmail}
-                              onKeyDown={handleNextFocusEnter}
-                              value={email}
-                              width="200px"
-                              type="name"
-                              autoComplete="email"
-                              error={error.email}
-            />
-            <SpacedLabelInput label="Password"
-                              onChange={handlePassword}
-                              onKeyDown={e => { handleSubmitEnter(e, postMethod); }}
-                              width="200px"
-                              value={password}
-                              type='password'
-                              autoComplete="current-password"
-                              error={error.password}
-            />
-            {/*<img src={eye} alt="Check Password" onClick={() => setIsShown(!isShown)} />*/}
-
-            <div className="forgot-password">
-                <Link to={`/forgot-password${email ? `/?email=${email}` : ''}`}>Forgot Password?</Link>
-            </div>
-            {error.request ? <p className="Error">{error.request}</p> : null}
-            <div className="LoginButtons">
-                <Link to={`/sign-up${email ? `/?email=${email}` : ''}`}>
-                    <Button style={{width: '120px'}} variant="accept">Sign Up</Button>
-                </Link>
-                <Button style={{width: '120px'}} type="submit" variant="accept">Login</Button>
-            </div>
-        </form>
-    </div>;
+      <div className="forgot-password">
+        <Link to={`/forgot-password`}>Forgot Password?</Link>
+      </div>
+      {error.request ? <p className="Error">{error.request}</p> : null}
+      <div className="LoginButtons">
+        <Link to={`/sign-up`}>
+          <Button style={{width: '120px'}} variant="accept">Sign Up</Button>
+        </Link>
+        <Button style={{width: '120px'}} type="submit" variant="accept">Login</Button>
+      </div>
+    </form>
+  </div>;
 }
