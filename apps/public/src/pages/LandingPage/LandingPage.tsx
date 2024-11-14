@@ -9,15 +9,28 @@ function LandingPage() {
   return <main className="Login">
     <div className={'LoginContent'}>
       <Title/>
+      <div>
+        <h2>
+          Do you want to maximize your future?
+        </h2>
+        <h2>
+          Do you have goals you need to plan out?
+        </h2>
+        <h2>
+          Do you have a desire for growth?
+
+        </h2>
+      </div>
+
       <div className="LandingPageButtons">
-        <Link to="/login">
-          <Button variant="accept">
-            Login
+        <Link to="/sign-up">
+          <Button style={{width: '120px'}} variant="accept">
+            Sign Up
           </Button>
         </Link>
-        <Link to="/sign-up">
-          <Button variant="accept">
-            Sign Up
+        <Link to="/login">
+          <Button style={{width: '120px'}} variant="accept">
+            Login
           </Button>
         </Link>
       </div>

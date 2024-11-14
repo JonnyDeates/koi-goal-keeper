@@ -74,7 +74,6 @@ function ForgotPassword({isTokenPage = false}: ForgotPasswordProps) {
   };
 
   const submitToResetPassword = () => {
-
     AuthenticationClient.postVerification(email, token, newPassword)
       .then(() => {
         window.location.replace("/login");
