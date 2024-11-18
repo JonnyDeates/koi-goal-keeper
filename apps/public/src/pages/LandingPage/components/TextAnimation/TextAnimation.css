@@ -1,0 +1,56 @@
+
+.TextAnimation {
+    display: flex;
+    font-family: Comfortaa, sans-serif;
+    justify-content: center;
+}
+
+.TextAnimation span {
+    opacity: 0;
+    font-size: 1rem;
+    color: white;
+    font-weight: bolder;
+    min-width: 0.3rem;
+}
+
+@keyframes fadeInBetter {
+    0% {
+        opacity: 0;
+        transform: translate(0px, 0px) scale(.5, .5);
+    }
+    75% {
+        transform: translate(0px, -50px) scale(.75, .75);
+    }
+    80% {
+        transform: translate(0px, 10px) scale(.8, .8);
+    }
+    85% {
+        transform: translate(0px, -5px) scale(.85, .85);
+    }
+    100% {
+        transform: translate(0, 0) scale(1, 1);
+        opacity: 1;
+    }
+
+}
+
+@media (min-width: 480px) {
+    .TextAnimation span {
+        font-size: 1.5rem;
+        min-width: 0.3rem;
+    }
+}
+@media (min-width: 720px) {
+    .TextAnimation span {
+        font-size: 2rem;
+        min-width: 0.4rem;
+    }
+
+}
+@media (min-width: 1080px) {
+    .TextAnimation span {
+        font-size: 3rem;
+        min-width: 0.5rem;
+    }
+
+}

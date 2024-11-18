@@ -1,0 +1,16 @@
+
+
+.SignUp * {
+    font-family: sans-serif;
+}
+.SignUp .ModalContent div:first-child h1{
+    text-align: center;
+}
+.SignUp .ModalContent label {
+    display: block;
+    font-weight: bold;
+    padding: 0.25rem 0;
+}
+.SignUp .ModalContent label span {
+    font-weight: 400;
+}

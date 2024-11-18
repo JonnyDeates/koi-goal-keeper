@@ -14,8 +14,8 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "typescript": "latest",
-    "@types/react": "latest",
+    "typescript": "*",
+    "@types/react": "*",
     "eslint": "^8.57.1",
     "@repo/tsconfig": "workspace:*",
     "@repo/eslint-config": "workspace:*"

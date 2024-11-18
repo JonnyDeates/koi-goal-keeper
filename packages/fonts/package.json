@@ -1,0 +1,6 @@
+{
+  "name": "@repo/fonts",
+  "exports": {
+    ".": "./fonts.css"
+  }
+}

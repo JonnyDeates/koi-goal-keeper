@@ -2,14 +2,14 @@
   "name": "koi-goal-keeper-public",
   "type": "module",
   "dependencies": {
-    "@paralleldrive/cuid2": "latest",
-    "axios": "latest",
-    "koi-pool": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-router-dom": "latest",
-    "react-scroll-parallax": "latest",
-    "vite": "latest"
+    "@paralleldrive/cuid2": "*",
+    "axios": "*",
+    "koi-pool": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-router-dom": "*",
+    "react-scroll-parallax": "*",
+    "vite": "*"
   },
   "scripts": {
     "dev": "vite dev --port 5001",
@@ -19,17 +19,18 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@types/jest": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
-    "@vitejs/plugin-react-swc": "latest",
-    "typescript": "latest",
+    "@types/jest": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "@vitejs/plugin-react-swc": "*",
+    "typescript": "*",
     "eslint": "^8.57.1",
     "@repo/eslint-config": "workspace:*",
     "@repo/tsconfig": "workspace:*",
     "@repo/types": "workspace:*",
     "@repo/shared": "workspace:*",
-    "@repo/utils": "workspace:*"
+    "@repo/utils": "workspace:*",
+    "@repo/fonts": "workspace:*"
   },
   "homepage": ""
 }

@@ -7,7 +7,7 @@ import AuthenticationClient from "../../clients/AuthenticationClient";
 import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions";
 import PrivacyPolicy from "./components/Privacy Policy/PrivacyPolicy";
 import {UserInputs, useUserInputsContext} from "../../contexts/UserInputsProvider";
-
+import './SignUp.css'
 function SignUp() {
   const {email, password} = useUserInputsContext();
   const [name, setName] = useState<string>("");
@@ -89,7 +89,7 @@ function SignUp() {
     <Button key='Accept-Button' variant="accept" onClick={handleAcceptTerms}>Accept</Button>
   ];
 
-  return <div className="Login">
+  return <div className="Login SignUp">
     <form className="LoginContent" onSubmit={postMethod}>
       <Title/>
       <SpacedLabelInput label="Name:"
@@ -126,6 +126,7 @@ function SignUp() {
       </div>
     </form>
     <GenericModalWithTabs isOpen={modalOpen}
+                          cardAttributes={{className: "ModalContent"}}
                           tabs={[
                             {title: "Terms & Conditions", body: <TermsAndConditions/>, actionButtons},
                             {title: "Privacy Policy", body: <PrivacyPolicy/>, actionButtons}

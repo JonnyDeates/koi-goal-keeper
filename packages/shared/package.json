@@ -2,24 +2,24 @@
   "name": "@repo/shared",
   "version": "0.1.0",
   "dependencies": {
-    "@paralleldrive/cuid2": "latest",
-    "axios": "latest",
-    "koi-pool": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-router-dom": "latest",
-    "react-scroll-parallax": "latest"
+    "@paralleldrive/cuid2": "*",
+    "axios": "*",
+    "koi-pool": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-router-dom": "*",
+    "react-scroll-parallax": "*"
   },
   "devDependencies": {
     "@repo/tsconfig": "workspace:*",
     "@repo/types": "workspace:*",
     "@repo/utils": "workspace:*",
     "@repo/eslint-config": "workspace:*",
-    "@types/jest": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
+    "@types/jest": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
     "eslint": "^8.57.1",
-    "typescript": "latest"
+    "typescript": "*"
   },
   "exports": {
     ".": "./src/index.ts"

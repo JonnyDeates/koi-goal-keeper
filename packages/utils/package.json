@@ -1,14 +1,14 @@
 {
   "name": "@repo/utils",
   "dependencies": {
-    "@paralleldrive/cuid2": "latest"
+    "@paralleldrive/cuid2": "*"
   },
   "devDependencies": {
     "@repo/tsconfig": "workspace:*",
     "@repo/eslint-config": "workspace:*",
     "@repo/types": "workspace:*",
-    "eslint": "latest",
-    "typescript": "latest"
+    "eslint": "*",
+    "typescript": "*"
   },
   "exports": {
     ".": "./src/index.ts"
