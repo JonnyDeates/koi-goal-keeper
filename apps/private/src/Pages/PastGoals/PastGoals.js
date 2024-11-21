@@ -5,7 +5,7 @@ import {SettingsContext} from "../Settings/SettingsContext";
 import SearchFilter from "../../components/SearchFilter/SearchFilter";
 import {getColor, getCurrentThemeColors} from "../../utils/Utils";
 import TryPremium from "../../components/Checkout/TryPremium";
-import SortFilter from '../../components/SortFilter/SortFilter.js';
+import SortControl from '../Home/SortFilter/SortControl.tsx';
 
 class PastGoals extends React.Component {
     static contextType = SettingsContext;
@@ -65,7 +65,7 @@ class PastGoals extends React.Component {
                 <span style={{color: getCurrentThemeColors().headerColor}}>{(this.context.showDelete) ? 'Yes' : 'No'}</span></p>
             <p style={{color: getCurrentThemeColors().fontColor}} className='even-space noselect' onClick={this.context.toggleCompacted}>Compacted
                 <span style={{color: getCurrentThemeColors().headerColor}}>{this.context.compacted}</span></p>
-            <SortFilter updateGoals={this.updateGoals}/>
+            <SortControl updateGoals={this.updateGoals}/>
             <SearchFilter changeFilter={this.changeFilter} searchGoals={this.searchGoals} currentType={this.context.currentType} types={this.context.types}/>
             {this.state.currentGoals.map((pg, i) => <GoalListold key={i} goalId={pg.id} showCloneGoalList={true}
                                                                  deleteGoal={this.props.goalListContext.deletePastGoal}

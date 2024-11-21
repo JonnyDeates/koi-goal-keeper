@@ -61,6 +61,7 @@ goalsController
     .delete(async (req, res) => {
             const {id} = req.session.user as User;
 
+
             const goalId = parseInt(req.params.id);
 
             if (isNaN(goalId)) {

@@ -1,10 +1,10 @@
 import React from 'react';
-import './SortFilter.css';
+import './SortControl.css';
 import {Button, SpacedLabel} from "koi-pool";
-import {useGoalListContext} from "../../contexts/GoalListProvider/GoalListProvider";
+import {useGoalListContext} from "../../../contexts/GoalListProvider/GoalListProvider";
 import SortActions from "./actions/SortAction";
 
-function SortFilter() {
+function SortControl() {
   const {applyActionToSort, sort: {type, direction}} = useGoalListContext();
 
   const handleToggleAscending = () => { applyActionToSort(SortActions.toggleAscending); };
@@ -26,4 +26,4 @@ function SortFilter() {
 
   </SpacedLabel>;
 }
-export default SortFilter;
+export default SortControl;

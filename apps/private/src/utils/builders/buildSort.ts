@@ -6,7 +6,7 @@ export interface SortType {
 
 
 export const buildSort = (partialObjective: Partial<SortType> = {}):SortType => ({
-  direction: "ASC",
+  direction: "DSC",
   type: "Creation Date",
   ...partialObjective
 });

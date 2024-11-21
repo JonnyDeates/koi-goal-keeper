@@ -25,6 +25,7 @@
     "@repo/tsconfig": "workspace:*",
     "@repo/types": "workspace:*",
     "@repo/utils": "workspace:*",
+    "@repo/fonts": "workspace:*",
     "@types/jest": "*",
     "@types/react": "*",
     "@types/react-dom": "*",

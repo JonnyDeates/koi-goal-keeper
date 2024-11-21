@@ -1,4 +1,4 @@
-import React, {type ChangeEvent, type FormEvent, useEffect, useState} from "react";
+import React, {type ChangeEvent, type FormEvent, useState} from "react";
 import {Link} from "react-router-dom";
 import {Button, GenericModalWithTabs, SpacedLabelInput} from "koi-pool";
 import {gotoPageHardRefresh, validateEmail, validateName, validateSignUpPassword} from "@repo/utils";

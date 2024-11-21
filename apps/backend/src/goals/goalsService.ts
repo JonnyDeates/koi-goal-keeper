@@ -53,9 +53,9 @@ const goalsService = {
             completion_date: goalToBeDuplicated.completionDate,
             date_created: new Date(),
             is_favorite: goalToBeDuplicated.isFavorite,
-            name: goalToBeDuplicated.name,
+            name: goalToBeDuplicated.name + " (Copy)",
             user_id: userId
-        }
+        };
 
         const savedGoalEntity = await goalsRepo.save(database, newGoal);
 

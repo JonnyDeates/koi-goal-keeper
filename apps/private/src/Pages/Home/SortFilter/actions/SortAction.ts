@@ -1,4 +1,4 @@
-import {type SortType} from "../../../utils/builders/buildSort";
+import {type SortType} from "../../../../utils/builders/buildSort";
 
 
 const SortActions = {

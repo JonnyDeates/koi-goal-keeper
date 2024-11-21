@@ -7,6 +7,7 @@ import './index.css';
 import AuthProvider from "./contexts/AuthProvider/AuthProvider";
 import ToastProvider from "./contexts/ToastProvider/ToastProvider";
 import SettingsProvider from "./contexts/SettingsProvider/SettingsProvider";
+import '@repo/fonts';
 
 const container = document.getElementById("root");
 
