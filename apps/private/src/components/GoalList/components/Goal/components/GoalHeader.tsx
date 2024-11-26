@@ -7,84 +7,83 @@ import {useGoalListContext} from "../../../../../contexts/GoalListProvider/GoalL
 import {handleSubmitEnter} from "@repo/shared";
 import {findNextElementInListToFocusOn} from "../../../../../utils/utils";
 import GoalClient from "../clients/GoalClient";
-import goalClient from "../clients/GoalClient";
 
 type GoalHeaderProps = GoalType & { id: string, handleToggleGoalEditing: () => void, tasksListOfIds: string[] }
 
 const GoalHeader = ({
-                        completionDate,
-                        isEditing,
-                        tasksCompleted,
-                        name,
-                        id,
-                        handleToggleGoalEditing,
-                        tasksListOfIds
+                      completionDate,
+                      isEditing,
+                      tasksCompleted,
+                      name,
+                      id,
+                      handleToggleGoalEditing,
+                      tasksListOfIds
                     }: GoalHeaderProps) => {
-    const {applyActionToGoalList} = useGoalListContext();
+  const {applyActionToGoalList, searchResults: {goalsFoundFromSearch}} = useGoalListContext();
 
 
-    const handleSaveEntry = () => {
-        if (isEditing)
-            goalClient.update(id, {name}).then((response) => {
+  const handleSaveEntry = () => {
+    if (isEditing)
+      GoalClient.update(id, {name}).then((response) => {
 
-                if (response.status === 200) {
-                    findNextElementInListToFocusOn(tasksListOfIds)
-                }
-            })
-        handleToggleGoalEditing()
-
-    }
-
-    const handleGoalNameEnterPress = (event: KeyboardEvent) => handleSubmitEnter(event, handleSaveEntry);
-
-    const handleUpdateGoalName = (value: ChangeEvent<HTMLInputElement>) => applyActionToGoalList(GoalActions.updateName(id, value.target.value))
-
-    const handleSetNewCompletionDate = (event: ChangeEvent<HTMLInputElement>) => {
-        const userDate = event.target.value;
-        const parsedDate = dayjs(userDate);
-        if (parsedDate.isValid()) {
-            applyActionToGoalList(GoalActions.updateDueDate(id, parsedDate.toDate()))
-        } else {
-            console.error('Invalid date:', userDate);
+        if (response.status === 200) {
+          findNextElementInListToFocusOn(tasksListOfIds)
         }
-    };
-    const handleUpdateGoalDate = () => {
-        GoalClient.update(id, {completionDate}).then((response) => {
+      })
+    handleToggleGoalEditing()
 
-        })
-    };
+  }
 
-    const formattedDate = dayjs(completionDate).format('YYYY-MM-DD')
+  const handleGoalNameEnterPress = (event: KeyboardEvent) => handleSubmitEnter(event, handleSaveEntry);
 
-    return (
-        <div className='Header'>
-            {
-                isEditing
-                    ?
-                    <FloatingLabelInputWithButton label='' placeholder={'Goal Name'} value={name}
-                                                  onClick={handleSaveEntry}
-                                                  onKeyDown={handleGoalNameEnterPress}
-                                                  width={300} onChange={handleUpdateGoalName}
-                    />
-                    :
-                    !!name
-                        ?
-                        <h2 onDoubleClick={handleToggleGoalEditing}>
-                            {name}
-                        </h2> :
-                        <>  </>
-            }
-            <div>
-                <p>Due:
-                    <input type='date' value={formattedDate} onChange={handleSetNewCompletionDate}
-                           onKeyDown={(event) => handleSubmitEnter(event, handleUpdateGoalDate)}
-                           onBlur={handleUpdateGoalDate}/>
-                </p>
-                <p>Completed: <b>{Math.round((tasksCompleted / tasksListOfIds.length) * 100)}%</b></p>
-            </div>
+  const handleUpdateGoalName = (value: ChangeEvent<HTMLInputElement>) => applyActionToGoalList(GoalActions.updateName(id, value.target.value))
 
-        </div>
-    );
+  const handleSetNewCompletionDate = (event: ChangeEvent<HTMLInputElement>) => {
+    const userDate = event.target.value;
+    const parsedDate = dayjs(userDate);
+    if (parsedDate.isValid()) {
+      applyActionToGoalList(GoalActions.updateDueDate(id, parsedDate.toDate()))
+    } else {
+      console.error('Invalid date:', userDate);
+    }
+  };
+  const handleUpdateGoalDate = () => {
+    GoalClient.update(id, {completionDate}).then((response) => {
+
+    })
+  };
+
+  const formattedDate = dayjs(completionDate).format('YYYY-MM-DD')
+
+  return (
+    <div className='Header'>
+      {
+        isEditing
+          ?
+          <FloatingLabelInputWithButton label='' placeholder={'Goal Name'} value={name}
+                                        onClick={handleSaveEntry}
+                                        onKeyDown={handleGoalNameEnterPress}
+                                        width={300} onChange={handleUpdateGoalName}
+          />
+          :
+          !!name
+            ?
+            <h2 onDoubleClick={handleToggleGoalEditing} className={goalsFoundFromSearch[id] ? 'Highlighted' : ''}>
+              {name}
+            </h2> :
+            <>  </>
+      }
+      <div>
+        <p>Due:
+          <input type='date' value={formattedDate} onChange={handleSetNewCompletionDate}
+                 onKeyDown={(event) => handleSubmitEnter(event, handleUpdateGoalDate)}
+                 onBlur={handleUpdateGoalDate}/>
+        </p>
+        <p>Completed: <b>{Math.round((tasksCompleted / tasksListOfIds.length) * 100)}%</b></p>
+      </div>
+
+    </div>
+  );
 };
 
 export default GoalHeader;

@@ -1,4 +1,4 @@
-
+export {fuzzyMatch, fuzzySubstringMatch, fuzzySearchList, type SearchResult} from './fuzzySearch/fuzzySearch.ts'
 export {debounce} from "./debounce/debounce.ts";
 export {validateEmail} from "./validateEmail/validateEmail.ts";
 export {validateName} from "./validateName/validateName.ts";

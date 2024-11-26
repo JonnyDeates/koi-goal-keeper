@@ -9,7 +9,6 @@ import PageWrapper from "../../components/PageWrapper/PageWrapper";
 import GoalClient from "../../components/GoalList/components/Goal/clients/GoalClient";
 import FilterControl from "./FilterControl/FilterControl";
 
-
 function Home() {
     const {applyActionToGoalList} = useGoalListContext();
     const handleAddGoal = () => {

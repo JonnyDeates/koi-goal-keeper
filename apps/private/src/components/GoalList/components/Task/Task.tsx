@@ -19,7 +19,7 @@ function Task({name, isEditing, isCompleted, id, goalId, index, tasksListOfIds}:
     index: number,
     tasksListOfIds: string[]
 }) {
-    const {applyActionToGoalList} = useGoalListContext();
+    const {applyActionToGoalList, searchResults:{tasksFoundFromSearch}} = useGoalListContext();
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) =>
         applyActionToGoalList(TaskActions.updateTaskText(goalId, id, event.target.value));
@@ -68,7 +68,7 @@ function Task({name, isEditing, isCompleted, id, goalId, index, tasksListOfIds}:
                         isActive={isCompleted}
                         variant={'accept'}
                         onClick={handleToggleObjectiveCompleted}/>
-            <span onDoubleClick={handleToggleObjectiveEditing}>{name}</span>
+            <span onDoubleClick={handleToggleObjectiveEditing} className={tasksFoundFromSearch[id] ? "Highlighted" : ''}>{name}</span>
         </div>
         <div>
             <IconButton className={'IconButton'} src={edit} alt={'edit'}

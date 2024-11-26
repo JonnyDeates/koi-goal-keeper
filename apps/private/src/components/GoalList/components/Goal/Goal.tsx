@@ -35,7 +35,7 @@ function Goal(currentGoal: GoalProps) {
         GoalClient.update(id, {completionDate: formatedDueDate}).then((response) => {
                 applyActionToGoalList(GoalActions.updateDueDate(id, formatedDueDate))
         })
-    }
+    };
     const handleToggleGoalEditing = () => applyActionToGoalList(GoalActions.toggleEditing(id, 'isEditing'));
     const handleToggleGoalFavorite = () => {
         GoalClient.update(id, {isFavorite: !isFavorite})
@@ -43,7 +43,7 @@ function Goal(currentGoal: GoalProps) {
             if (response && response.status === 200)
                 applyActionToGoalList(GoalActions.toggleEditing(id, 'isFavorite'));
         })
-    }
+    };
     const handleAddTask = () => {
         TaskClient.create(id)
             .then((response) => {

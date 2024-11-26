@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import './SortFilter.css';
-import {Button, SpacedLabel} from "koi-pool";
+import {Button, FloatingLabelInput, SpacedLabel} from "koi-pool";
 import {useGoalListContext} from "../../../contexts/GoalListProvider/GoalListProvider";
 import FilterActions from "./actions/FilterActions";
+
+
 
 function FilterControl() {
   const {
     applyActionToFilter,
-    filter: {showAllIncludingPastDue, showCompletedGoals, showOnlyStarred}
+    filter: {showAllIncludingPastDue, showCompletedGoals, showOnlyStarred, searchText}
   } = useGoalListContext();
 
   const handleToggleAllIncludingPastDue = () => {
@@ -19,7 +21,9 @@ function FilterControl() {
   const handleToggleShowOnlyStarred = () => {
     applyActionToFilter(FilterActions.toggle('showOnlyStarred'));
   };
-
+const handleUpdateSearchText = (e: ChangeEvent<HTMLInputElement>) => {
+  applyActionToFilter(FilterActions.updateSearchText(e.target.value))
+}
   return <SpacedLabel label="Filter" className={"Sort"}>
     <div className={"ButtonGroup"}>
 
@@ -36,6 +40,7 @@ function FilterControl() {
               isActive={showOnlyStarred}>
         Show Starred Only
       </Button>
+      <FloatingLabelInput width={200} label={"Search"} onChange={handleUpdateSearchText} value={searchText}/>
     </div>
 
   </SpacedLabel>;
