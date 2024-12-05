@@ -19,7 +19,7 @@ function Home() {
         )
     };
 
-    return <PageWrapper header={"Koi Goal Keeper Logged In"}>
+    return <PageWrapper header={"Koi Goal Keeper"}>
         <div>
             <SortControl/>
             <FilterControl/>
