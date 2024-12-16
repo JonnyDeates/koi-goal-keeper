@@ -1,8 +1,0 @@
-{
-  "name": "@repo/eslint-config",
-  "devDependencies": {
-    "@vercel/style-guide": "*",
-    "eslint-config-turbo": "*",
-    "eslint": "^8.57.1"
-  }
-}

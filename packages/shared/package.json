@@ -14,11 +14,9 @@
     "@repo/tsconfig": "workspace:*",
     "@repo/types": "workspace:*",
     "@repo/utils": "workspace:*",
-    "@repo/eslint-config": "workspace:*",
     "@types/jest": "*",
     "@types/react": "*",
     "@types/react-dom": "*",
-    "eslint": "^8.57.1",
     "typescript": "*"
   },
   "exports": {
@@ -32,7 +30,6 @@
     }
   },
   "scripts": {
-    "check-types": "tsc --noEmit",
-    "lint": "eslint . --fix"
+    "check-types": "tsc --noEmit"
   }
 }

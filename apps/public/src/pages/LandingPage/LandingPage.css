@@ -1,10 +1,12 @@
 .LandingPage .LoginContent {
-    width: unset ;
+    width: unset;
 }
+
 .LandingPageButtons {
     display: flex;
     justify-content: center;
 }
+
 .LandingPage .PercentileMeaning, .LandingPage .PercentileWrapper {
     margin: -1rem 0 0 0;
 }
@@ -14,6 +16,7 @@
     display: block;
     overflow-x: clip;
 }
+
 .LandingPage .Percentile {
     display: flex;
     font-size: 10rem;
@@ -22,69 +25,72 @@
     width: fit-content;
     animation: 1.5s castShadowClose ease forwards;
 }
-.LandingPage .ParallaxSection {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 3rem;
-    height: 50vh;
-    color: #ffffff;
-    min-height: 500px;
 
+.LandingPage .ParallaxHorizontalSection {
+    width: 100vw;
+    min-height: 2000px;
+
+   contain: paint;
 }
-.LandingPage .ParallaxHalf {
-    height: 100%;
-    width: 100%;
-    flex: 1;
-    border-radius: 4px 0 0 4px;
-    overflow: clip;
-    text-align: center;
+
+.LandingPage .ParallaxHorizontal {
+    position: sticky;
+    top: 75px;
 }
-.LandingPage .ParallaxHalf:last-child {
-display: none;
-}
+
+
 
 @media (min-width: 480px) {
     .LandingPage .PercentileMeaning, .LandingPage .PercentileWrapper {
         margin: -2rem 0 0 0;
     }
+
     .LandingPage .Percentile {
         font-size: 15rem;
         animation: 1.5s castShadow ease forwards;
 
     }
 }
+
 @media (min-width: 720px) {
     .LandingPage .PercentileMeaning, .LandingPage .PercentileWrapper {
         margin: -3rem 0 0 0;
     }
+
     .LandingPage .Percentile {
         font-size: 20rem;
         animation: 1.5s castShadow ease forwards;
 
     }
 
-    .LandingPage .ParallaxHalf {
-        width: 50%;
-        display: block;
+    .LandingPage .ParallaxThird {
+        width: 33%;
+
     }
-    .LandingPage .ParallaxHalf:last-child {
+
+    .LandingPage .ParallaxTwoThirds {
+        width: 66%;
         display: block;
     }
 }
+
 @media (min-width: 1080px) {
     .LandingPage .PercentileMeaning, .LandingPage .PercentileWrapper {
         margin: -4rem 0 0 0;
     }
+
     .LandingPage .Percentile {
         font-size: 30rem;
         animation: 1.5s castShadow ease forwards;
 
     }
 }
+
 @media (min-width: 1440px) {
     .LandingPage .PercentileMeaning, .LandingPage .PercentileWrapper {
         margin: -4rem 0 0 0;
     }
+
     .LandingPage .Percentile {
         font-size: 40rem;
         animation: 1.5s castShadowFar ease forwards;
@@ -93,32 +99,34 @@ display: none;
 }
 
 @keyframes castShadowClose {
-    0%{
-        text-shadow: 0 0 1px rgba(0,0,0,0.5);
+    0% {
+        text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 
     }
-    100%{
-        text-shadow: 15px 10px 1px rgba(0,0,0,0.3);
+    100% {
+        text-shadow: 15px 10px 1px rgba(0, 0, 0, 0.3);
 
     }
 }
+
 @keyframes castShadow {
-    0%{
-        text-shadow: 0 0 1px rgba(0,0,0,0.5);
+    0% {
+        text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 
     }
-    100%{
-        text-shadow: 30px 30px 1px rgba(0,0,0,0.3);
+    100% {
+        text-shadow: 30px 30px 1px rgba(0, 0, 0, 0.3);
 
     }
 }
+
 @keyframes castShadowFar {
-    0%{
-        text-shadow: 0 0 1px rgba(0,0,0,0.5);
+    0% {
+        text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 
     }
-    100%{
-        text-shadow: 60px 60px 1px rgba(0,0,0,0.3);
+    100% {
+        text-shadow: 60px 60px 1px rgba(0, 0, 0, 0.3);
 
     }
 }

@@ -14,7 +14,6 @@
   "scripts": {
     "dev": "vite dev --port 5001",
     "build": "vite build",
-    "lint": "eslint . --fix",
     "start": "vite preview",
     "test": "vitest run"
   },
@@ -24,8 +23,6 @@
     "@types/react-dom": "*",
     "@vitejs/plugin-react-swc": "*",
     "typescript": "*",
-    "eslint": "^8.57.1",
-    "@repo/eslint-config": "workspace:*",
     "@repo/tsconfig": "workspace:*",
     "@repo/types": "workspace:*",
     "@repo/shared": "workspace:*",

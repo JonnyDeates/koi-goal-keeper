@@ -22,7 +22,7 @@
   "packageManager": "pnpm@9.13.2",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JonnyDeates/koi-goal-keeper.git"
+    "url": "git+https://github.com/JgonnyDeates/koi-goal-keeper.git"
   },
   "author": "Jon Deates",
   "license": "ISC",
@@ -30,10 +30,7 @@
     "url": "https://github.com/JonnyDeates/koi-goal-keeper/issues"
   },
   "devDependencies": {
-    "@eslint/js": "^9.11.1",
-    "eslint-plugin-react": "^7.37.0",
-    "globals": "^15.9.0",
-    "typescript-eslint": "^8.7.0",
-    "turbo": "*"
+    "globals": "^15.13.0",
+    "turbo": "^2.3.3"
   }
 }

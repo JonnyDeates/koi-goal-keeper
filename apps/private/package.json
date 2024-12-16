@@ -15,12 +15,10 @@
   "scripts": {
     "dev": "vite dev --port 5002",
     "build": "vite build",
-    "lint": "eslint . --fix",
     "start": "vite preview",
     "test": "vitest run"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
     "@repo/shared": "workspace:*",
     "@repo/tsconfig": "workspace:*",
     "@repo/types": "workspace:*",
@@ -30,7 +28,6 @@
     "@types/react": "*",
     "@types/react-dom": "*",
     "@vitejs/plugin-react-swc": "*",
-    "eslint": "^8.57.1",
     "typescript": "*"
   },
   "homepage": ""
