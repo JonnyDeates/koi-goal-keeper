@@ -11,10 +11,10 @@ import FilterControl from "./FilterControl/FilterControl";
 
 function Home() {
     const {applyActionToGoalList} = useGoalListContext();
+
     const handleAddGoal = () => {
         GoalClient.create().then((response) => {
                 applyActionToGoalList(GoalActions.create(response.data));
-
             }
         )
     };
@@ -23,7 +23,9 @@ function Home() {
         <div>
             <SortControl/>
             <FilterControl/>
-            <Button onClick={handleAddGoal}>Add Goal</Button>
+            <div className={"AddGoal"}>
+                <Button onClick={handleAddGoal} variant={'accept'}>Add Goal</Button>
+            </div>
         </div>
         <GoalList/>
 

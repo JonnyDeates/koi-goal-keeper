@@ -12,8 +12,8 @@ import {type GoalListType} from "@repo/types";
 import {buildSort, type SortType} from "../../utils/builders/buildSort";
 import GoalClient from "../../components/GoalList/components/Goal/clients/GoalClient";
 import {buildFilter, FilterType} from "../../utils/builders/buildFilter";
-import dayjs from "dayjs";
-import {fuzzySearchList, fuzzySubstringMatch, SearchResult} from "@repo/utils";
+import {fuzzySearchList, SearchResult} from "@repo/utils";
+import filterForGoals from "./utils/filterForGoals";
 
 
 interface GoalListContextType {
@@ -22,7 +22,7 @@ interface GoalListContextType {
   sort: SortType,
   applyActionToSort: Dispatch<SetStateAction<SortType>>
   filter: FilterType,
-  searchResults: {goalsFoundFromSearch: SearchResult, tasksFoundFromSearch: SearchResult},
+  searchResults: { goalsFoundFromSearch: SearchResult, tasksFoundFromSearch: SearchResult },
   applyActionToFilter: Dispatch<SetStateAction<FilterType>>
 }
 
@@ -40,50 +40,19 @@ function GoalListProvider({children}: { children: ReactNode }) {
     value: allGoals[goalId].name
   })));
 
-  const allTasks = allGoalIds.flatMap((goalId)=> {
+
+  // Could be a better way to do this
+  const allTasks = allGoalIds.flatMap((goalId) => {
     return Object.keys(allGoals[goalId].tasks).map((taskId) => ({
       id: taskId,
       value: allGoals[goalId].tasks[taskId].name
     }))
   });
+  // Could be really slow, needs more testing.
   const tasksFoundFromSearch = fuzzySearchList(filter.searchText, allTasks);
 
-  const filteredGoals = useCallback(() => {
-    const goalsBeingFiltered: GoalListType = {};
-
-    allGoalIds.forEach(goalId => {
-      const currentGoal = allGoals[goalId];
-      let passesAllCriteria = true;
-      if (filter.showOnlyStarred && !currentGoal.isFavorite) {
-        passesAllCriteria = false;
-      }
-      if (!filter.showCompletedGoals && currentGoal.tasksCompleted === Object.keys(currentGoal.tasks).length) {
-        passesAllCriteria = false;
-      }
-
-      const todayDate = new Date();
-
-      if (!filter.showAllIncludingPastDue && (
-        dayjs(currentGoal.completionDate).isBefore(todayDate, 'day'))
-      ) {
-        passesAllCriteria = false;
-      }
-
-      const taskIds = Object.keys(allGoals[goalId].tasks);
-      const anyTasksMatch = taskIds.some((taskId) => {
-        return !!tasksFoundFromSearch[taskId];
-      });
-
-      if (!!filter.searchText && !goalsFoundFromSearch[goalId] && !anyTasksMatch) {
-        passesAllCriteria = false;
-      }
-
-      if (passesAllCriteria) {
-        goalsBeingFiltered[goalId] = allGoals[goalId];
-      }
-    });
-    return goalsBeingFiltered;
-  }, [allGoals, filter]);
+  const filteredGoals = useCallback(() => filterForGoals(allGoals, allGoalIds, filter, tasksFoundFromSearch, goalsFoundFromSearch),
+    [allGoals, filter]);
 
   const value: GoalListContextType = {
     allGoals: filteredGoals(),
@@ -102,6 +71,7 @@ function GoalListProvider({children}: { children: ReactNode }) {
         applyActionToGoalList(response.data.goalList)
     })
   }, []);
+
 
   return <GoalListContext.Provider value={value}>
     {children}

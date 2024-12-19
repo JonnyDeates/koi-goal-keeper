@@ -1,4 +1,5 @@
 import dayjs, {ManipulateType} from "dayjs";
+import {CSSProperties} from "react";
 
 
 export enum DUE_DATE {
@@ -98,7 +99,7 @@ export const getDueDateFromDate = (date: Date): DUE_DATE => {
 };
 type ColorSelectionOptions = 'Default'
 
-type ColorType = Record<ColorSelectionOptions, Record<DUE_DATE, { color?: string, backgroundColor: string }>>
+type ColorType = Record<ColorSelectionOptions, Record<DUE_DATE, Pick<CSSProperties, 'color' | 'backgroundColor'>>>
 
 export const ColorSelection: ColorType = (
     {

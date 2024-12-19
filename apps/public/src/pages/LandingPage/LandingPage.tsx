@@ -46,29 +46,26 @@ function LandingPage() {
     </div>
     <div className={"ParallaxHorizontalSection"}>
       <div className={"ParallaxHorizontal"} >
-        <HorizontalSlide bufferAmount={200} scrolledAmount={scrolledAmount} startAmount={50}>
+        <HorizontalSlide bufferAmount={200} scrolledAmount={scrolledAmount} startAmount={150}>
           <div className={"ParallaxHeader"}>
-
             <h1>
               Our Mission
             </h1>
           </div>
         </HorizontalSlide>
-        <HorizontalSlide bufferAmount={75} scrolledAmount={scrolledAmount} startAmount={125}>
+        <HorizontalSlide bufferAmount={75} scrolledAmount={scrolledAmount} startAmount={200}>
             <h3>
               Stop struggling with vague deadlines and procrastination. The Koi Goal Keeper makes achieving your goals
               simple with actionable due dates set for you - today, tomorrow, next week, and beyond.
               Each goal is a stepping stone, with vast functionality jam-packed into it.
             </h3>
         </HorizontalSlide>
-        <HorizontalSlide bufferAmount={200} scrolledAmount={scrolledAmount} startAmount={300}>
+        <HorizontalSlide bufferAmount={200} scrolledAmount={scrolledAmount} startAmount={400}>
             <h3>
-              Stop struggling with vague deadlines and procrastination. The Koi Goal Keeper makes achieving your goals
-              simple with actionable due dates set for you - today, tomorrow, next week, and beyond.
-              Each goal is a stepping stone, with vast functionality jam-packed into it.
+
             </h3>
         </HorizontalSlide>
-        <HorizontalSlide bufferAmount={75} scrolledAmount={scrolledAmount} startAmount={355}>
+        <HorizontalSlide bufferAmount={75} scrolledAmount={scrolledAmount} startAmount={450}>
             <h1>
               Our Value
             </h1>

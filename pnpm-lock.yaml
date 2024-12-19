@@ -119,7 +119,7 @@ importers:
         version: 1.11.13
       koi-pool:
         specifier: '*'
-        version: 0.0.34(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 0.0.35(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: '*'
         version: 19.0.0
@@ -177,7 +177,7 @@ importers:
         version: 1.7.9
       koi-pool:
         specifier: '*'
-        version: 0.0.34(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 0.0.35(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: '*'
         version: 19.0.0
@@ -237,7 +237,7 @@ importers:
         version: 1.7.9
       koi-pool:
         specifier: '*'
-        version: 0.0.34(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 0.0.35(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: '*'
         version: 19.0.0
@@ -1291,11 +1291,11 @@ packages:
       tedious:
         optional: true
 
-  koi-pool@0.0.34:
-    resolution: {integrity: sha512-dP9Xjhknhfn+go+LYbB9DfnRkY4zECJgbf7TDQiI3ygimKmya4wov6AjNRzb3gMvDJmN2AatqdSOEvEXoE+kog==}
+  koi-pool@0.0.35:
+    resolution: {integrity: sha512-JUUPoncK2mBziBlhmIO7gNu9uBrFFeEgzYmtcuLJiSnidHhmiFifghQ9dJWaBpm4fq1gTsk1YAKb7Qhq8iMvrg==}
     peerDependencies:
-      react: ^18.2.0
-      react-dom: ^18.2.0
+      react: ^19.0.0
+      react-dom: ^19.0.0
 
   lodash.isnumber@3.0.3:
     resolution: {integrity: sha512-QYqzpfwO3/CWf3XP+Z+tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk+NXmTBcc97zw9t1FQrw==}
@@ -2666,7 +2666,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  koi-pool@0.0.34(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  koi-pool@0.0.35(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)

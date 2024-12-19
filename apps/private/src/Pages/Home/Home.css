@@ -1,0 +1,8 @@
+.AddGoal {
+    justify-content: center;
+    display: flex;
+}
+.AddGoal > button {
+    width: 300px;
+}
+

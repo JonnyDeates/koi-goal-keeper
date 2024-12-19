@@ -8,7 +8,7 @@
     "copy-public-frontend": "cp -r ../public/dist/static ./build/public && cp ../public/dist/index.html ./build/public/index-public.html",
     "copy-private-frontend": "cp -r ../private/dist/static ./build/private && cp ../private/dist/index.html ./build/private/index-private.html",
     "copy-frontend": "pnpm run copy-sitemap && pnpm run copy-public-frontend && pnpm run copy-private-frontend",
-    "dev": "tsx watch src/index.ts",
+    "dev": "pnpm migrate && tsx watch src/index.ts",
     "build": "esbuild src/index.ts --bundle --minify --platform=node --outfile=dist/index.js --external:express --external:cors --external:knex",
     "build-frontend": "cd ../../ && pnpm build && cd - && pnpm copy-frontend",
     "lint": "eslint . --fix",

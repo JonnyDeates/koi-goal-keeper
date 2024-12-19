@@ -29,12 +29,12 @@ const handleUpdateSearchText = (e: ChangeEvent<HTMLInputElement>) => {
 
       <Button onClick={handleToggleAllIncludingPastDue} variant={'accept'}
               isActive={showAllIncludingPastDue}>
-        Show Past Due Goals
+        Show Past Due
       </Button>
       <Button onClick={handleToggleShowCompletedGoals} variant={'accept'}
               isActive={showCompletedGoals}>
 
-        Show Completed Goals
+        Show Completed
       </Button>
       <Button onClick={handleToggleShowOnlyStarred} variant={'accept'}
               isActive={showOnlyStarred}>
