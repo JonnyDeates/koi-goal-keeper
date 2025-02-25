@@ -1,13 +1,12 @@
-import {type GoalType, TaskType} from "@repo/types";
+import {DUE_DATE, type GoalType, TaskType} from "@repo/types";
 import React from "react";
 import {Button, IconButton, Select,} from "koi-pool";
 import TaskActions from "../../actions/TaskActions";
 import {useGoalListContext} from "../../../../contexts/GoalListProvider/GoalListProvider";
 import GoalActions from "../../actions/GoalActions";
 import {
-    allDueDates,
+    allDueDatesOfSelectedOption,
     ColorSelection,
-    type DUE_DATE,
     getDateFromDueDate,
     getDueDateFromDate
 } from "../../../../utils/utils";
@@ -20,11 +19,11 @@ import GoalActionGroup from "./components/GoalActionGroup";
 import GoalDeleteButton from "./components/GoalDeleteModal";
 import GoalClient from "./clients/GoalClient";
 import TaskClient from "../Task/clients/TaskClient";
+import {useSettings} from "../../../../contexts/SettingsProvider/SettingsProvider";
 
-type GoalProps = GoalType & { id: string }
-
-function Goal(currentGoal: GoalProps) {
+function Goal(currentGoal: GoalType) {
     const {id, completionDate, isFavorite, tasks, name} = currentGoal;
+    const {user: {selectedDueDate}} = useSettings();
     const {applyActionToGoalList} = useGoalListContext();
 
     const taskListOfIds = Object.keys(tasks);
@@ -53,7 +52,7 @@ function Goal(currentGoal: GoalProps) {
         })
     }
 
-    const selectedOption = getDueDateFromDate(completionDate);
+    const selectedOption = getDueDateFromDate(selectedDueDate, completionDate);
 
     return <div className='Goal'>
         <div className={'TopIndicator'} style={ColorSelection['Default'][selectedOption]}/>
@@ -63,7 +62,7 @@ function Goal(currentGoal: GoalProps) {
                 className: 'SelectedOption',
                 style: {color: ColorSelection['Default'][selectedOption].backgroundColor}
             }}
-            options={allDueDates()} optionAttributes={{}
+            options={allDueDatesOfSelectedOption(selectedDueDate)} optionAttributes={{}
             // {style: ((option) => ({...ColorSelection['Default'][option]}))}
         }
             selectedOption={selectedOption} onClick={handleUpdateDueDate}/>

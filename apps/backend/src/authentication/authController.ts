@@ -7,6 +7,7 @@ import Bcrypt from "../utils/bcrypt/Bcrypt";
 import {AuthFailureTypes, AuthResponse, AuthSuccessTypes} from "./AuthResponse";
 import {isEmailValid, isPasswordValid} from "./AuthValidator";
 import validKeysInRequest from "../utils/validKeysInRequest/validKeysInRequest";
+import {validateEmail} from "@repo/utils/dist";
 
 const authController = express.Router();
 
@@ -52,9 +53,9 @@ authController
                 AuthResponse.failed(res, AuthFailureTypes.PASSWORD_IS_INVALID);
             } else {
 
-                const {id, paid_account, name, email: userEmail} = activeUser;
+                const {id, paid_account, name, email: userEmail, date_created, email_notifications} = activeUser;
 
-                req.session.user = {id, paid_account, name, email: userEmail};
+                req.session.user = {id, paid_account, name, email: userEmail, dateCreated: date_created as Date, email_notifications};
 
                 req.session.save(err => {
                     if (err) {
@@ -87,7 +88,7 @@ authController
                     const hashedToken = await Bcrypt.hash(token);
 
                     await usersService.setTokenOnUser(req, foundUser.id, hashedToken);
-                    AuthResponse.succeeded(res, AuthSuccessTypes.TOKEN_GENERATED_AND_EMAIL_SENT, {redirectURL: `/forgot-password/token?email=${email}`});
+                    AuthResponse.succeeded(res, AuthSuccessTypes.TOKEN_GENERATED_AND_EMAIL_SENT, {redirectURL: `/forgot-password/token`});
 
                 }
 
@@ -109,11 +110,6 @@ authController.route("/verification")
             } else if (!foundUser.token_expires || !foundUser.token || await Bcrypt.compare(foundUser.token, token)) {
                 AuthResponse.failed(res, AuthFailureTypes.TOKEN_IS_INVALID);
             } else {
-                const isTokenValid = await Bcrypt.compare(foundUser.token, token);
-
-                if (!isTokenValid) {
-                    AuthResponse.failed(res, AuthFailureTypes.TOKEN_IS_INVALID);
-                } else {
                     const currentTime = new Date();
                     const tokenTime = new Date(foundUser.token_expires);
 
@@ -126,9 +122,31 @@ authController.route("/verification")
 
                         AuthResponse.succeeded(res, AuthSuccessTypes.USER_LOGS_IN, {redirectURL: '/'});
                     }
-                }
             }
         }
+    });
+authController.route("/email_notifications/:email")
+    .get(async (req, res) => {
+        const email = req.params.email;
+        const isEmailInvalid = validateEmail(email);
+        if(isEmailInvalid){
+            AuthResponse.failed(res, AuthFailureTypes.USER_NOT_FOUND)
+        } else {
+            const user = await usersService.findUserByEmail(req, email);
+
+            if (user) {
+                AuthResponse.succeeded(res, AuthSuccessTypes.SUBSCRIBE_SETTINGS_FOUND, {emailNotifications: user.email_notifications})
+             } else {
+                AuthResponse.failed(res, AuthFailureTypes.USER_NOT_FOUND)
+            }
+        }
+    })
+authController.route("/email_notifications")
+    .post(validKeysInRequest("email", "subscribeSetting"), isEmailValid, async (req, res) => {
+        const {email, subscribeSetting} = req.body;
+        await usersService.updateSubscribeSettings(req, email);
+
+        AuthResponse.succeeded(res, AuthSuccessTypes.SUBSCRIBE_SETTINGS_UPDATED);
     });
 authController
     .route("/logout")
@@ -152,7 +170,6 @@ authController
                 } else if (minutesRemainingForSession < 1) {
                     AuthResponse.succeeded(res, AuthSuccessTypes.SESSION_IS_VALID,
                         {timeRemaining: ' less than a minute'});
-
                 }
 
             } else {

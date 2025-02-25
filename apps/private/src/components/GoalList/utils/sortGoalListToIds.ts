@@ -16,11 +16,11 @@ const sortGoalListToIds = (sort: SortType, goalList: GoalListType): string[] => 
     const goalB = goalList[b] as GoalType;
     switch (sort.type) {
       case 'Creation Date':
-        return handleSortDirection(goalA.createdDate > goalB.createdDate);
+        return handleSortDirection(new Date(goalA.createdDate) > new Date(goalB.createdDate));
       case 'Tasks Completed':
         return handleSortDirection(goalA.tasksCompleted > goalB.tasksCompleted);
       case 'Due Date':
-        return handleSortDirection(goalA.completionDate > goalB.completionDate);
+        return handleSortDirection(new Date(goalA.completionDate) > new Date(goalB.completionDate));
       case 'Task Count': {
         const taskCountForGoalA = Object.keys(goalA.tasks).length;
         const taskCountForGoalB = Object.keys(goalB.tasks).length;

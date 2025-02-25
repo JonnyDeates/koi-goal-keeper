@@ -1,10 +1,11 @@
 import express from "express";
-import {SessionData} from "@repo/types";
 import {isPasswordValid, requireUserLoggedIn} from "../authentication/AuthValidator";
 import Bcrypt from "../utils/bcrypt/Bcrypt";
 import validKeysInRequest from "../utils/validKeysInRequest/validKeysInRequest";
 import usersService from "./usersService";
 import {UserFailureTypes, UserResponse, UserSuccessTypes} from "./UserResponse";
+import {validateName} from "@repo/utils";
+import settingsService from "../settings/settingsService";
 
 const usersController = express.Router();
 
@@ -12,10 +13,12 @@ const usersController = express.Router();
 usersController
     .route('/')
     .all(requireUserLoggedIn)
-    .get((req, res) => {
+    .get(async (req, res) => {
             const user = req.session.user!;
 
-            UserResponse.succeeded(res, UserSuccessTypes.USER_DETAILS, user);
+            const settings = await settingsService.findOrCreate(req, user.id)
+
+            UserResponse.succeeded(res, UserSuccessTypes.USER_DETAILS, {...user, ...settings, id: undefined});
         }
     )
     .delete(async (req, res) => {
@@ -30,9 +33,16 @@ usersController
         const {name} = req.body;
         const {id} = req.session.user!;
 
-        await usersService.setNameOnUser(req, id, name);
+        const isNameValid = validateName(name);
+        if (isNameValid) {
+            UserResponse.failed(res, UserFailureTypes.USER_NAME_IS_INVALID)
+        } else {
+            await usersService.setNameOnUser(req, id, name);
 
-        UserResponse.succeeded(res, UserSuccessTypes.USER_UPDATED);
+            req.session.user!.name = name
+            UserResponse.succeeded(res, UserSuccessTypes.USER_UPDATED);
+        }
+
 
     });
 usersController

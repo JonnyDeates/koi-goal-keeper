@@ -1,99 +1,89 @@
-import dayjs, {ManipulateType} from "dayjs";
+import dayjs from "dayjs";
 import {CSSProperties} from "react";
+import {DUE_DATE, SELECTABLE_DUE_DATE_OPTION, SELECTABLE_DUE_DATES, THRESHOLD} from "@repo/types";
 
+const AllSelectableDueDate: Record<DUE_DATE, THRESHOLD> = {
+    [DUE_DATE.LATE]: {value: -Infinity, unit: 'days', result: DUE_DATE.LATE},
+    [DUE_DATE.TODAY]: {value: 0, unit: 'days', result: DUE_DATE.TODAY},
+    [DUE_DATE.TOMORROW]: {value: 1, unit: 'days', result: DUE_DATE.TOMORROW},
+    [DUE_DATE.WEEK]: {value: 1, unit: 'weeks', result: DUE_DATE.WEEK},
+    [DUE_DATE.TWO_WEEKS]: {value: 2, unit: 'weeks', result: DUE_DATE.TWO_WEEKS},
+    [DUE_DATE.THREE_WEEKS]: {value: 3, unit: 'weeks', result: DUE_DATE.THREE_WEEKS},
+    [DUE_DATE.MONTH]: {value: 1, unit: 'months', result: DUE_DATE.MONTH},
+    [DUE_DATE.TWO_MONTHS]: {value: 2, unit: 'months', result: DUE_DATE.TWO_MONTHS},
+    [DUE_DATE.QUARTER]: {value: 3, unit: 'months', result: DUE_DATE.QUARTER},
+    [DUE_DATE.TWO_QUARTERS]: {value: 6, unit: 'months', result: DUE_DATE.TWO_QUARTERS},
+    [DUE_DATE.THREE_QUARTERS]: {value: 9, unit: 'months', result: DUE_DATE.THREE_QUARTERS},
+    [DUE_DATE.YEAR]: {value: 1, unit: 'years', result: DUE_DATE.YEAR},
+    [DUE_DATE.TWO_YEARS]: {value: 2, unit: 'years', result: DUE_DATE.TWO_YEARS},
+    [DUE_DATE.THREE_YEARS]: {value: 3, unit: 'years', result: DUE_DATE.THREE_YEARS},
+    [DUE_DATE.FAR_FUTURE]: {value: Infinity, unit: 'years', result: DUE_DATE.FAR_FUTURE},
+}
+const SelectableDueDate = (selectableDateOption: SELECTABLE_DUE_DATE_OPTION): SELECTABLE_DUE_DATES => {
+    const {
+        [DUE_DATE.LATE]: late,
+        [DUE_DATE.TODAY]: today,
+        [DUE_DATE.TOMORROW]: tomorrow,
+        [DUE_DATE.WEEK]: week,
+        [DUE_DATE.TWO_WEEKS]: twoWeeks,
+        [DUE_DATE.THREE_WEEKS]: threeWeeks,
+        [DUE_DATE.MONTH]: month,
+        [DUE_DATE.TWO_MONTHS]: twoMonths,
+        [DUE_DATE.QUARTER]: quarter,
+        [DUE_DATE.TWO_QUARTERS]: twoQuarters,
+        [DUE_DATE.THREE_QUARTERS]: threeQuarters,
+        [DUE_DATE.YEAR]: year,
+        [DUE_DATE.TWO_YEARS]: twoYears,
+        [DUE_DATE.THREE_YEARS]: threeYears,
+        [DUE_DATE.FAR_FUTURE]: farFuture
+    } = AllSelectableDueDate
 
-export enum DUE_DATE {
-    LATE = "PAST DUE",
-    TODAY = 'Today',
-    TOMORROW = 'Tomorrow',
-    WEEK = "Next Week",
-    TWO_WEEKS = "2 Weeks from now",
-    MONTH = "Next Month",
-    TWO_MONTHS = "2 Months from now",
-    QUARTER = "Next Quarter",
-    SIX_MONTHS = "6 Months from now",
-    YEAR = 'Next Year',
-    TWO_YEARS = '2 Years from now',
-    THREE_YEARS = '3 Years from now',
+    switch (selectableDateOption) {
+        case 'today': {
+            return [today]
+        }
+        case "shorten": {
+            return [today, week, month, quarter, year]
+        }
+        case "standard": {
+            return [today, tomorrow, week, twoWeeks, month, quarter, twoQuarters, year, twoYears]
+        }
+        case "extended": {
+            return [today, tomorrow, week, twoWeeks, threeWeeks, month, twoMonths, quarter, twoQuarters, threeQuarters, year, twoYears, threeYears];
+        }
+    }
 }
 
-export const allDueDates = (): DUE_DATE[] => [
-    DUE_DATE.TODAY,
-    DUE_DATE.TOMORROW,
-    DUE_DATE.WEEK,
-    DUE_DATE.TWO_WEEKS,
-    DUE_DATE.MONTH,
-    DUE_DATE.TWO_MONTHS,
-    DUE_DATE.QUARTER,
-    DUE_DATE.SIX_MONTHS,
-    DUE_DATE.YEAR,
-    DUE_DATE.TWO_YEARS,
-    DUE_DATE.THREE_YEARS
-];
+export const allSelectableDueDates: SELECTABLE_DUE_DATE_OPTION[] = ['today', 'shorten', 'standard', 'extended'];
 
-export const allDueDatesAndDates = (): Record<DUE_DATE, Date> => {
-    return allDueDates().reduce<Record<DUE_DATE, Date>>((yeet, dueDate) => {
-        yeet[dueDate] = getDateFromDueDate(dueDate);
-        return yeet;
-    }, {} as Record<DUE_DATE, Date>);
-};
+export const thresholdsForDueDates =
+    (selectedDueDateOptions: SELECTABLE_DUE_DATE_OPTION) => SelectableDueDate(selectedDueDateOptions);
+
+export const allDueDatesOfSelectedOption =
+    (selectedDueDateOptions: SELECTABLE_DUE_DATE_OPTION): DUE_DATE[] => SelectableDueDate(selectedDueDateOptions)
+        .map(x => x.result);
+
+export const allDueDates = () => Object.keys(AllSelectableDueDate) as DUE_DATE[]
 
 export const getDateFromDueDate = (currentDueDate: DUE_DATE): Date => {
-    switch (currentDueDate) {
-        case DUE_DATE.TODAY:
-            return dayjs().toDate();
-        case DUE_DATE.TOMORROW:
-            return dayjs().add(1, 'day').toDate();
-        case DUE_DATE.WEEK:
-            return dayjs().add(1, 'week').toDate();
-        case DUE_DATE.TWO_WEEKS:
-            return dayjs().add(2, 'week').toDate();
-        case DUE_DATE.MONTH:
-            return dayjs().add(1, 'month').toDate();
-        case DUE_DATE.TWO_MONTHS:
-            return dayjs().add(2, 'month').toDate();
-        case DUE_DATE.QUARTER:
-            return dayjs().add(3, 'month').toDate();
-        case DUE_DATE.SIX_MONTHS:
-            return dayjs().add(6, 'month').toDate();
-        case DUE_DATE.YEAR:
-            return dayjs().add(1, "year").toDate();
-        case DUE_DATE.TWO_YEARS:
-            return dayjs().add(2, 'year').toDate();
-        case DUE_DATE.THREE_YEARS:
-            return dayjs().add(3, 'year').toDate();
-        default:
-            return dayjs().subtract(1, 'day').toDate();
-    }
-
+    const selectedThreshold = AllSelectableDueDate[currentDueDate]
+    return dayjs().add(selectedThreshold.value, selectedThreshold.unit).toDate()
 };
-
-export const getDueDateFromDate = (date: Date): DUE_DATE => {
+export const getDueDateFromDate = (selectedThreshold: SELECTABLE_DUE_DATE_OPTION, date: Date): DUE_DATE => {
     const currentDate = dayjs(date);
     const TodayDate = dayjs(new Date());
 
-    if(currentDate.isBefore(TodayDate, 'day')) return DUE_DATE.LATE;
+    if (currentDate.isBefore(TodayDate, 'day')) return DUE_DATE.LATE;
 
     if (currentDate.isSame(TodayDate, 'day')) return DUE_DATE.TODAY;
 
-    const thresholds: { value: number, unit: ManipulateType, result: DUE_DATE }[] = [
-        {value: 1, unit: 'days', result: DUE_DATE.TOMORROW},
-        {value: 7, unit: 'days', result: DUE_DATE.WEEK},
-        {value: 14, unit: 'days', result: DUE_DATE.TWO_WEEKS},
-        {value: 1, unit: 'month', result: DUE_DATE.MONTH},
-        {value: 2, unit: 'months', result: DUE_DATE.TWO_MONTHS},
-        {value: 3, unit: 'months', result: DUE_DATE.QUARTER},
-        {value: 6, unit: 'months', result: DUE_DATE.SIX_MONTHS},
-        {value: 1, unit: 'years', result: DUE_DATE.YEAR},
-        {value: 2, unit: 'years', result: DUE_DATE.TWO_YEARS},
-        {value: 3, unit: 'years', result: DUE_DATE.THREE_YEARS}
-    ];
+    const thresholds: THRESHOLD[] = thresholdsForDueDates(selectedThreshold)
 
     for (const threshold of thresholds) {
         const addTime = dayjs(TodayDate).add(threshold.value, threshold.unit);
         if (currentDate.isBefore(addTime) || currentDate.isSame(addTime)) return threshold.result;
     }
-    return DUE_DATE.THREE_YEARS;
+    return DUE_DATE.FAR_FUTURE;
 
 
 };
@@ -105,24 +95,27 @@ export const ColorSelection: ColorType = (
     {
         Default: {
             [DUE_DATE.TODAY]: {backgroundColor: '#007a0e'},
-            [DUE_DATE.TOMORROW]:  {backgroundColor: "#4fc300"},
-            [DUE_DATE.WEEK]:  {backgroundColor: "#65ff00"},
-            [DUE_DATE.TWO_WEEKS]:  {backgroundColor: "#c7f000"},
-            [DUE_DATE.MONTH]:  {backgroundColor: "#f0ca00"},
-            [DUE_DATE.TWO_MONTHS]:  {backgroundColor: "#f07800"},
-            [DUE_DATE.QUARTER]:  {backgroundColor: "#c93900"},
-            [DUE_DATE.SIX_MONTHS]:  {backgroundColor: "#a41300"},
-            [DUE_DATE.YEAR]:  {backgroundColor: "#6c0000", color: "white"},
-            [DUE_DATE.TWO_YEARS]:  {backgroundColor: "#540000", color: 'white'},
-            [DUE_DATE.THREE_YEARS]:  {backgroundColor: "#110000", color: 'white'},
-            [DUE_DATE.LATE]:  {backgroundColor: "black", color: 'white'}
+            [DUE_DATE.TOMORROW]: {backgroundColor: "#4fc300"},
+            [DUE_DATE.WEEK]: {backgroundColor: "#65ff00"},
+            [DUE_DATE.TWO_WEEKS]: {backgroundColor: "#a4f000"},
+            [DUE_DATE.THREE_WEEKS]: {backgroundColor: "#c7f000"},
+            [DUE_DATE.MONTH]: {backgroundColor: "#f0ca00"},
+            [DUE_DATE.TWO_MONTHS]: {backgroundColor: "#f0bc00"},
+            [DUE_DATE.QUARTER]: {backgroundColor: "#e57f00"},
+            [DUE_DATE.TWO_QUARTERS]: {backgroundColor: "#d76d00"},
+            [DUE_DATE.THREE_QUARTERS]: {backgroundColor: "#cc6103"},
+            [DUE_DATE.YEAR]: {backgroundColor: "#d32000"},
+            [DUE_DATE.TWO_YEARS]: {backgroundColor: "#d31900"},
+            [DUE_DATE.THREE_YEARS]: {backgroundColor: "#af0000"},
+            [DUE_DATE.FAR_FUTURE]: {backgroundColor: "white", color: 'black'},
+            [DUE_DATE.LATE]: {backgroundColor: "black", color: 'white'}
         }
     }
 );
 
 
 export const findNextElementInListToFocusOn = (tasksListOfIds: string[], index = -1) => {
-    for (let x = index+1; x < tasksListOfIds.length; x++) {
+    for (let x = index + 1; x < tasksListOfIds.length; x++) {
         const elementsId = tasksListOfIds[x]
         if (elementsId) {
             const nextElementInList = document.getElementById(elementsId);
@@ -135,23 +128,3 @@ export const findNextElementInListToFocusOn = (tasksListOfIds: string[], index =
 }
 
 
-// return [{
-//     type: 'Default', colors: ['#007a0e', '#4fc300', '#65ff00', '#c7f000'
-//         , '#f0ca00', '#f05c00', '#cf3900', '#ff2700'
-//         , '#c51000', '#871000', '#770200', '#4d0000'
-//         , '#8b005b', '#700077', '#a200f0', '#25002c']
-// },
-//     {
-//         type: 'Cold', colors: ['#0f00ff', '#0076d0', '#00a8ff', '#00def0'
-//             , '#a500f0', '#fe00ff', '#bf00b9', '#700077'
-//             , '#854d84', '#6e3973', '#692671', '#3e0a42'
-//             , '#320729', '#2b002c', '#1b0027', '#000000']
-//     },
-//     {
-//         type: 'Earth', colors: ['#ff1700', '#000dd0', '#00a8ff', '#f08100'
-//             , '#d400f0', '#ffe600', '#00bf0b', '#00770d'
-//             , '#007a06', '#005406', '#003e08', '#002a04'
-//             , '#46006a', '#1d002c', '#180027', '#000000']
-//     }
-// ]
-// }

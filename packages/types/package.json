@@ -13,8 +13,8 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "typescript": "*",
-    "@types/react": "*",
+    "typescript": "latest",
+    "@types/react": "latest",
     "@repo/tsconfig": "workspace:*"
   }
 }

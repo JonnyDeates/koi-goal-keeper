@@ -33,11 +33,12 @@ function LandingPage() {
         <TextAnimation textToAnimate={PERCENTILE_TEXT} delayInSeconds={1} className={'PercentileMeaning'}/>
         <TextAnimation textToAnimate={PERCENTILE__SOLUTION_TEXT} delayInSeconds={PERCENTILE_TEXT.length * .05}/>
         <h2 className={'PercentileFix'}>
+
         </h2>
       </div>
       <div className="LandingPageButtons">
         <Link to="/sign-up">
-          <Button style={{width: '120px'}} variant="accept">
+          <Button variant="accept">
             Get Started Today
           </Button>
         </Link>
@@ -81,62 +82,6 @@ function LandingPage() {
 
       </div>
 
-
-    {/*  <div className={"ParallaxHorizontalSection"}>*/}
-
-    {/*  <ParallaxBanner style={{aspectRatio: "4 / 3"}} className={"ParallaxHorizontal"}>*/}
-    {/*    <ParallaxBannerLayer className={""} translateX={['-100%', '0%']} translateY={[30, 30]}>*/}
-    {/*      <h1 style={{*/}
-    {/*        fontSize: "4rem",*/}
-    {/*        color: "white",*/}
-    {/*        display: 'flex',*/}
-    {/*        textWrap: 'no-wrap',*/}
-    {/*        textShadow: "1px 0px black, -1px 0px black, 0px 1px black, 0px -1px black"*/}
-    {/*      }}*/}
-    {/*          className={"ParallaxHeader"}*/}
-    {/*      >*/}
-    {/*        Test*/}
-    {/*      </h1>*/}
-    {/*    </ParallaxBannerLayer>*/}
-    {/*  </ParallaxBanner>*/}
-    {/*</div>*/}
-
-    {/*<div className={'ParallaxSection'}>*/}
-    {/*  <div className={'ParallaxThird'}>*/}
-    {/*    <h1>*/}
-    {/*      */}
-    {/*    </h1>*/}
-    {/*  </div>*/}
-    {/*  <div className={"ParallaxTwoThirds"}>*/}
-
-    {/*  </div>*/}
-    {/*</div>*/}
-
-    {/*<div className={'ParallaxSection'}>*/}
-    {/*  "Intelligent goal scheduling to keep you on track."*/}
-    {/*  "Achievable timeframes: from tomorrow to a year and beyond."*/}
-    {/*  "A proven system to help you finally reach your dreams."*/}
-    {/*</div>*/}
-
-    {/*<div className={'ParallaxSection'}>*/}
-    {/*  <div className={"ParallaxTwoThirds"}>*/}
-    {/*    <ParallaxBanner style={{aspectRatio: "16 / 9"}}>*/}
-    {/*      <ParallaxBannerLayer image={yinYang as string} speed={-20}>*/}
-    {/*        <h1 style={{top: "50%", display: "block", color: 'red', position: "absolute", fontSize: "4rem"}}>*/}
-    {/*          Our Mission*/}
-
-    {/*        </h1>*/}
-    {/*      </ParallaxBannerLayer>*/}
-    {/*    </ParallaxBanner>*/}
-    {/*  </div>*/}
-    {/*  <div className={'ParallaxThird'}>*/}
-    {/*    <h1>*/}
-    {/*      Stop struggling with vague deadlines and procrastination. The Koi Goal Keeper makes achieving your goals*/}
-    {/*      simple with actionable due dates set for you - today, tomorrow, next week, and beyond.*/}
-    {/*      Each goal is a stepping stone, with vast functionality jam-packed into it.*/}
-    {/*    </h1>*/}
-    {/*  </div>*/}
-    {/*</div>*/}
   </main>;
 }
 

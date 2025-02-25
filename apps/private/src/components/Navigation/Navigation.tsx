@@ -23,7 +23,7 @@ export function Navigation() {
   return <>
     <nav>
       {links.map(({to, name, img}, i) =>
-        <IconButton src={img} alt={name} isActive={pathname === to} className="NavButton"
+        <IconButton src={img} alt={name} isActive={pathname === to} className="NavButton" variant={"accept"}
                     onClick={() => { handleNavigate(to); }} key={`nav${  name  }${i.toString()}`}
         />
       )}

@@ -13,6 +13,7 @@ import authController from "./authentication/authController";
 import usersController from "./users/usersController";
 import goalsController from "./goals/goalsController";
 import tasksController from "./tasks/tasksController";
+import SettingsController from "./settings/settingsController";
 
 
 const createServer = async () => {
@@ -41,7 +42,8 @@ const createServer = async () => {
 
 
     app.use("/auth", authController);
-    app.use("/user", usersController);
+    app.use("/api/user", usersController);
+    app.use("/api/settings", SettingsController)
     app.use("/api/goals", goalsController)
     app.use("/api/tasks", tasksController)
 

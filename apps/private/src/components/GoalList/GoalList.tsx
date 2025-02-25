@@ -10,6 +10,11 @@ function GoalList() {
 
     const sortedGoalListOfIds = sortGoalListToIds(sort, allGoals);
 
+    if(sortedGoalListOfIds.length === 0){
+        return <div>
+            No Goals Found! Please start by clicking ADD GOAL.
+        </div>
+    }
     return <>
         {sortedGoalListOfIds.map((goalId) =>
             <React.Fragment key={goalId}>

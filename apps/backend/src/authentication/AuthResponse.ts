@@ -16,7 +16,9 @@ export enum AuthFailureTypes {
 export enum AuthSuccessTypes {
     USER_LOGS_IN = "User logged in.",
     TOKEN_GENERATED_AND_EMAIL_SENT = "The token was generated and the email was sent to user",
-    SESSION_IS_VALID = "Session is valid."
+    SESSION_IS_VALID = "Session is valid.",
+    SUBSCRIBE_SETTINGS_FOUND = "Email Subscribe settings found.",
+    SUBSCRIBE_SETTINGS_UPDATED = "Email Subscribe settings updated.",
 }
 
 export const AuthErrorMappings: ErrorMappingType<AuthFailureTypes> = {
@@ -59,6 +61,8 @@ export const AuthSuccessMappings: SuccessMappingType<AuthSuccessTypes> = {
     [AuthSuccessTypes.USER_LOGS_IN]: StatusCodes.OK,
     [AuthSuccessTypes.TOKEN_GENERATED_AND_EMAIL_SENT]: StatusCodes.ACCEPTED,
     [AuthSuccessTypes.SESSION_IS_VALID]: StatusCodes.OK,
+    [AuthSuccessTypes.SUBSCRIBE_SETTINGS_UPDATED]: StatusCodes.OK,
+    [AuthSuccessTypes.SUBSCRIBE_SETTINGS_FOUND]: StatusCodes.OK,
 };
 
 export const AuthResponse = new GenericResponse(AuthErrorMappings, AuthSuccessMappings);

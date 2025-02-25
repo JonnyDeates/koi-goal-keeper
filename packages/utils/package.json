@@ -1,12 +1,10 @@
 {
   "name": "@repo/utils",
-  "dependencies": {
-    "@paralleldrive/cuid2": "*"
-  },
+  "module": "commonjs",
   "devDependencies": {
     "@repo/tsconfig": "workspace:*",
     "@repo/types": "workspace:*",
-    "typescript": "*"
+    "typescript": "latest"
   },
   "exports": {
     ".": "./src/index.ts"
@@ -19,6 +17,6 @@
     }
   },
   "scripts": {
-    "build": "tsc"
+    "check-types": "tsc --noEmit"
   }
 }

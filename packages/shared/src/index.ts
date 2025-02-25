@@ -5,4 +5,5 @@ export {handleNextFocusEnter} from "./utils/handleNextFocusEnter/handleNextFocus
 export {handleEnter} from "./utils/handleEnter/handleEnter";
 export {handleSubmitEnter} from "./utils/handleSubmitEnter/handleSubmitEnter";
 export {useError, type ErrorActionsType} from "./utils/useError/useError";
+export {useScreenWidth, SCREEN_WIDTH } from './utils/useScreenWidth'
 export {AxiosInstance} from "./utils/AxiosInstance/AxiosInstance";

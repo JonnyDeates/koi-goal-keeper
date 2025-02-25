@@ -1,11 +1,11 @@
 import { type Request } from "express";
-import { type User } from "@repo/types";
+import {SessionData, type User} from "@repo/types";
 import Database from "../utils/database/Database";
 import Bcrypt from "../utils/bcrypt/Bcrypt";
 import usersRepo from "./usersRepo";
 
 const usersService = {
-  createUser: async (req: Request, password: string, email: string, name: string): Promise<Omit<User, "password" | "createdAt" | "updatedAt">> => {
+  createUser: async (req: Request, password: string, email: string, name: string): Promise<SessionData> => {
     const database = Database.get(req);
 
     // Hashes the password
@@ -16,7 +16,8 @@ const usersService = {
       password: hashedPassword,
       email,
       name,
-      paid_account: "basic"
+      paid_account: "basic",
+      email_notifications: true
     };
 
     return await usersRepo.save(database, newUser);

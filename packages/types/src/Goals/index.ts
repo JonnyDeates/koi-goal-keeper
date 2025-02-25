@@ -1,4 +1,4 @@
-import {TaskListType} from "../index";
+import {TaskListType} from "../Tasks";
 
 export type GoalType = {
     tasks:TaskListType,
@@ -12,7 +12,6 @@ export type GoalType = {
     name: string
 }
 export type UpdatableGoalEntityType = Partial<Pick<GoalEntityType, "name" | "is_favorite" | 'completion_date'>>
-
 
 export type GoalEntityType = {
     date_created: Date,

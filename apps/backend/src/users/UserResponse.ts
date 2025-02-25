@@ -4,6 +4,7 @@ import {type ErrorMappingType, GenericResponse, type SuccessMappingType} from ".
 
 export enum UserFailureTypes {
     USER_NOT_FOUND = "The user was not found.",
+    USER_NAME_IS_INVALID = "The provided name is invalid",
     USER_PASSWORD_IS_INVALID = "The password provided is invalid.",
 }
 
@@ -21,7 +22,11 @@ export const UserFailureMappings: ErrorMappingType<UserFailureTypes> = {
     [UserFailureTypes.USER_PASSWORD_IS_INVALID]: {
         statusCode: StatusCodes.BAD_REQUEST,
         body: buildErrorDTO("password", UserFailureTypes.USER_PASSWORD_IS_INVALID)
-    }
+    },
+    [UserFailureTypes.USER_NAME_IS_INVALID]: {
+    statusCode: StatusCodes.BAD_REQUEST,
+        body: buildErrorDTO("username", UserFailureTypes.USER_NAME_IS_INVALID)
+}
 };
 
 export const UserSuccessMappings: SuccessMappingType<UserSuccessTypes> = {

@@ -1,20 +1,30 @@
-import React, {createContext, type ReactNode} from "react";
+import React, {createContext, type ReactNode, SetStateAction, useContext, useEffect, useState} from "react";
+import {UserSettingsResponse} from "@repo/types";
+import UserClient from "../../Pages/Settings/clients/UserClient";
+import {buildUserSettings} from "@repo/utils";
 
 
 interface SettingsContextType {
-  user: string
+  user: UserSettingsResponse,
+  applyActionToUser: React.Dispatch<SetStateAction<UserSettingsResponse>>
 }
 
 const SettingsContext = createContext<SettingsContextType>({} as SettingsContextType);
 
 function SettingsProvider({children}: { children: ReactNode }) {
-  // const [settings, applyActionToGoalList] = useState<any>({});
+  const [user, applyActionToUser] = useState<UserSettingsResponse>(buildUserSettings());
 
-  return <SettingsContext.Provider value={{user: "yes"}}>
+  useEffect(()=>{
+    UserClient.get().then(res => {
+      applyActionToUser(res.data)
+    })
+  },[])
+
+  return <SettingsContext.Provider value={{user, applyActionToUser}}>
     {children}
   </SettingsContext.Provider>;
 }
 
 export default SettingsProvider;
 
-// export const useSettingsContext = () => useContext(SettingsContext);
+export const useSettings = () => useContext(SettingsContext);

@@ -1,5 +1,5 @@
 import { type Knex } from "knex";
-import { type User } from "@repo/types";
+import {SessionData, type User} from "@repo/types";
 
 const usersRepo = {
   tableName: "users",
@@ -26,13 +26,13 @@ const usersRepo = {
       .where({ id })
       .update({...newUserFields, date_modified: new Date()});
   },
-  async save(knex: Knex, user: Omit<User, 'id'>): Promise<Omit<User, "password" | "date_created" | "date_modified">> {
+  async save(knex: Knex, user: Omit<User, 'id'>): Promise<SessionData> {
     const x = await knex
         .insert(user)
         .into(this.tableName)
         .returning("*");
-    const {id, email, name, paid_account} = x[0] as User;
-    return ({id, email, name, paid_account});
+    const {id, email, name, paid_account, date_created, email_notifications} = x[0] as User;
+    return ({id, email, name, paid_account, dateCreated: date_created as Date, email_notifications});
   },
   deleteUser(knex: Knex, id: number): Promise<void> {
     return knex(this.tableName)

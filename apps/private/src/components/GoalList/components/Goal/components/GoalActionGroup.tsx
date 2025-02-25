@@ -12,7 +12,7 @@ import GoalActions from "../../../actions/GoalActions";
 import TaskClient from "../../Task/clients/TaskClient";
 import GoalClient from "../clients/GoalClient";
 
-type GoalActionGroupProps = GoalType & { id: string, taskListOfIds: string[], handleToggleGoalEditing: () => void }
+type GoalActionGroupProps = GoalType & { taskListOfIds: string[], handleToggleGoalEditing: () => void }
 
 const GoalActionGroup = ({tasks, id, taskListOfIds, handleToggleGoalEditing}: GoalActionGroupProps) => {
     const {applyActionToGoalList} = useGoalListContext();

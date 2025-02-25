@@ -2,21 +2,20 @@
   "name": "koi-goal-keeper-private",
   "type": "module",
   "dependencies": {
-    "@paralleldrive/cuid2": "*",
-    "axios": "*",
-    "dayjs": "*",
-    "koi-pool": "*",
-    "react": "*",
-    "react-dom": "*",
-    "react-router-dom": "*",
-    "react-scroll-parallax": "*",
-    "vite": "*"
+    "@paralleldrive/cuid2": "latest",
+    "axios": "latest",
+    "dayjs": "latest",
+    "koi-pool": "0.0.44",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-router-dom": "latest",
+    "react-scroll-parallax": "latest",
+    "vite": "latest"
   },
   "scripts": {
     "dev": "vite dev --port 5002",
     "build": "vite build",
-    "start": "vite preview",
-    "test": "vitest run"
+    "start": "vite preview"
   },
   "devDependencies": {
     "@repo/shared": "workspace:*",
@@ -24,11 +23,10 @@
     "@repo/types": "workspace:*",
     "@repo/utils": "workspace:*",
     "@repo/fonts": "workspace:*",
-    "@types/jest": "*",
-    "@types/react": "*",
-    "@types/react-dom": "*",
-    "@vitejs/plugin-react-swc": "*",
-    "typescript": "*"
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react-swc": "latest",
+    "typescript": "latest"
   },
   "homepage": ""
 }

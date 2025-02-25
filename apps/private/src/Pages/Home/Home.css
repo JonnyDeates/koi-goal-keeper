@@ -1,8 +1,13 @@
 .AddGoal {
     justify-content: center;
     display: flex;
+    margin: 2rem 0;
 }
-.AddGoal > button {
+.AddGoal button {
     width: 300px;
+}
+.Controls {
+    display: flex;
+    justify-content: space-around;
 }
 

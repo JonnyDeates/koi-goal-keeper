@@ -1,6 +1,5 @@
-import {buildTask} from "./buildTask.ts";
-import {createId} from "@paralleldrive/cuid2";
-import {GoalType} from "@repo/types";
+import {buildTask} from "./buildTask";
+import {type GoalType} from "@repo/types";
 
 
 export const buildGoal = (partialGoal: Partial<GoalType> = {}): GoalType => ({

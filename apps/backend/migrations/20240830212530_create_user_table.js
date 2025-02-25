@@ -13,7 +13,7 @@ exports.up = function(knex) {
     tableBuilder.string('name').notNullable();
     tableBuilder.string('password').notNullable();
     tableBuilder.string('paid_account').notNullable().defaultTo('basic');
-
+    tableBuilder.string("email_notifications").notNullable().defaultTo(true);
   });
 };
 

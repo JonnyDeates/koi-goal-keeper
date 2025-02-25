@@ -4,8 +4,8 @@ import {FloatingLabelInputWithButton, IconButton} from "koi-pool";
 import {handleSubmitEnter} from "@repo/shared";
 import {useGoalListContext} from "../../../../contexts/GoalListProvider/GoalListProvider";
 import TaskActions from "../../actions/TaskActions";
-import check from './assets/check.svg';
-import unchecked from './assets/unchecked.svg';
+import check from '../../../../../../../../koi-pool/lib/components/Buttons/CheckedButton/assets/check.svg';
+import unchecked from '../../../../../../../../koi-pool/lib/components/Buttons/CheckedButton/assets/unchecked.svg';
 import edit from './assets/pencil.svg'
 import trash from './assets/trash.svg'
 import {findNextElementInListToFocusOn} from "../../../../utils/utils";

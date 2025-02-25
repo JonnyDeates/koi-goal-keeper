@@ -37,15 +37,15 @@ function GoalListProvider({children}: { children: ReactNode }) {
   const allGoalIds = Object.keys(allGoals);
   const goalsFoundFromSearch = fuzzySearchList(filter.searchText, allGoalIds.map((goalId) => ({
     id: goalId,
-    value: allGoals[goalId].name
+    value: allGoals[goalId]!.name
   })));
 
 
   // Could be a better way to do this
   const allTasks = allGoalIds.flatMap((goalId) => {
-    return Object.keys(allGoals[goalId].tasks).map((taskId) => ({
+    return Object.keys(allGoals[goalId]!.tasks).map((taskId) => ({
       id: taskId,
-      value: allGoals[goalId].tasks[taskId].name
+      value: allGoals[goalId]!.tasks[taskId]!.name
     }))
   });
   // Could be really slow, needs more testing.
@@ -67,7 +67,6 @@ function GoalListProvider({children}: { children: ReactNode }) {
   useEffect(() => {
     GoalClient.getAll().then((response) => {
       if (response.data.goalList)
-
         applyActionToGoalList(response.data.goalList)
     })
   }, []);

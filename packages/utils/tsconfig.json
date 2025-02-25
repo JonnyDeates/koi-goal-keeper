@@ -1,11 +1,16 @@
 {
   "extends": "@repo/tsconfig/base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
-    "moduleResolution": "nodenext",
-    "allowImportingTsExtensions": true
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "lib": ["esnext"],
+    "target": "esnext",
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowImportingTsExtensions": false
   },
-  "include": ["src"],
+  "include": ["."],
   "exclude": ["dist", "node_modules"]
 }

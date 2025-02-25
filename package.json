@@ -30,7 +30,7 @@
     "url": "https://github.com/JonnyDeates/koi-goal-keeper/issues"
   },
   "devDependencies": {
-    "globals": "^15.13.0",
-    "turbo": "^2.3.3"
+    "globals": "latest",
+    "turbo": "latest"
   }
 }

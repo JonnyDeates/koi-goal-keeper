@@ -1,8 +1,9 @@
 import {FilterType} from "../../../../utils/builders/buildFilter";
+import {DUE_DATE} from "../../../../utils/utils";
 
 
 const FilterActions = {
-  toggle: (key: Pick<FilterType, "showOnlyStarred" | "showCompletedGoals" | "showAllIncludingPastDue">) =>
+  toggle: (key: keyof Omit<FilterType, 'searchText'>) =>
     (prevState: FilterType): FilterType => {
       return {...prevState, [key]: !prevState[key]};
     },

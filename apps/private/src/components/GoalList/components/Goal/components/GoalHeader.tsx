@@ -8,7 +8,7 @@ import {handleSubmitEnter} from "@repo/shared";
 import {findNextElementInListToFocusOn} from "../../../../../utils/utils";
 import GoalClient from "../clients/GoalClient";
 
-type GoalHeaderProps = GoalType & { id: string, handleToggleGoalEditing: () => void, tasksListOfIds: string[] }
+type GoalHeaderProps = GoalType & { handleToggleGoalEditing: () => void, tasksListOfIds: string[] }
 
 const GoalHeader = ({
                       completionDate,

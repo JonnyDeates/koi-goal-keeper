@@ -1,0 +1,63 @@
+.SelectableDueDates {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 300px;
+    margin: 0 auto;
+}
+.SelectableDueDates > span {
+    height: calc(40px - 0.2rem);
+    width: calc(20% - 0.2rem);
+    padding: 0.1rem;
+    text-align: center;
+    font-size: x-small;
+    align-content: center;
+}
+.SelectableDueDates > span:first-child {
+    border-radius: 1rem 0 0 0;
+}
+.SelectableDueDates > span:nth-child(5){
+    border-radius: 0 1rem 0 0;
+}
+.SelectableDueDates > span:nth-child(11){
+    border-radius: 0 0 0 1rem;
+}
+.SelectableDueDates > span:last-child {
+    border-radius: 0 0 1rem 0;
+}
+@media (min-width: 480px) {
+    .SelectableDueDates {
+        width: 420px;
+    }
+    .SelectableDueDates > span {
+        height: calc(40px - .5rem);
+        width: calc(20% - .5rem);
+        padding: 0.25rem;
+        font-size: small;
+        align-content: center;
+    }
+}
+@media (min-width: 767px) {
+    .SelectableDueDates {
+        width: 600px;
+    }
+    .SelectableDueDates > span {
+        height: calc(40px - 1rem);
+        width: calc(20% - 2rem);
+        padding: 1rem;
+        font-size: small;
+        align-content: center;
+    }
+}
+@media (min-width: 1080px) {
+    .SelectableDueDates {
+        width: 900px;
+    }
+    .SelectableDueDates > span {
+        height: calc(40px - 1rem);
+        width: calc(20% - 2rem);
+        padding: 1rem;
+        font-size: medium;
+        align-content: center;
+    }
+}

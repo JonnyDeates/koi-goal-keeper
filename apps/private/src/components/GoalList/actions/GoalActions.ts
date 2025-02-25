@@ -1,4 +1,4 @@
-import {type GoalListType, type GoalType} from "@repo/types";
+import {GoalListType, GoalType} from "@repo/types";
 
 const GoalActions = {
     create: (goal: GoalType) => (prevState: GoalListType) => ({[goal.id]: goal, ...prevState}),
@@ -8,7 +8,7 @@ const GoalActions = {
 
         return newState;
     },
-    updateDueDate: (goalId: string, dueDate:  Date) => (prevState: GoalListType): GoalListType => {
+    updateDueDate: (goalId: number, dueDate:  Date) => (prevState: GoalListType): GoalListType => {
         const goalBeingModified = prevState[goalId];
         if (goalBeingModified) {
             goalBeingModified.completionDate = dueDate;
