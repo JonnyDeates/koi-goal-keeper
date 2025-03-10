@@ -16,9 +16,10 @@ export function useError <T extends string | number | symbol = string>() {
         reset: () => { setError({}); },
         set: (newErrorState: ErrorType<T>) => { setError(newErrorState); },
         add: (type: T, newError: string) =>
-            { setError(prevState =>
-                ({...prevState, [type]: newError})
-            ); },
+            {
+                setError(prevState => ({...prevState, [type]: newError}));
+
+                },
         remove: (type: T) => { setError(prevSate => {
             const newState = {...prevSate};
             delete newState[type];

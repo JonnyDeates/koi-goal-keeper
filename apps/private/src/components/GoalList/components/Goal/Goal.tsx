@@ -31,7 +31,7 @@ function Goal(currentGoal: GoalType) {
     const handleUpdateDueDate = (value: DUE_DATE) => {
         const formatedDueDate = getDateFromDueDate(value);
 
-        GoalClient.update(id, {completionDate: formatedDueDate}).then((response) => {
+        GoalClient.update(id, {completionDate: formatedDueDate}).then(() => {
                 applyActionToGoalList(GoalActions.updateDueDate(id, formatedDueDate))
         })
     };
@@ -50,7 +50,7 @@ function Goal(currentGoal: GoalType) {
                 applyActionToGoalList(TaskActions.create(id, response.data.task));
             }
         })
-    }
+    };
 
     const selectedOption = getDueDateFromDate(selectedDueDate, completionDate);
 

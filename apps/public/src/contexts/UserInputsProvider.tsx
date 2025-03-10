@@ -87,4 +87,4 @@ export const UserInputs = ({
                         error={error.password ? error.password : ''}
       /> : <></>}
   </>
-}
+};

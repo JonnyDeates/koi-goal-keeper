@@ -43,9 +43,9 @@ const createServer = async () => {
 
     app.use("/auth", authController);
     app.use("/api/user", usersController);
-    app.use("/api/settings", SettingsController)
-    app.use("/api/goals", goalsController)
-    app.use("/api/tasks", tasksController)
+    app.use("/api/settings", SettingsController);
+    app.use("/api/goals", goalsController);
+    app.use("/api/tasks", tasksController);
 
     // Page Routing
     ALL_ROUTES.forEach(route => {
