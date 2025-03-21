@@ -1,5 +1,5 @@
 import path from "node:path";
-import { type Request, type Response } from "express"; 
+import { type Request, type Response } from "express";
 
 const VALID_ROUTES = {
     public: ['/', '/login', '/sign-up', '/forgot-password', '/forgot-password/token'],
@@ -7,7 +7,7 @@ const VALID_ROUTES = {
   };
 
 const routesConfig = async (req: Request, res: Response) => {
-  const directoryToBuild = path.join(__dirname.substring(0, __dirname.length - 17), 'build');
+  const directoryToBuild = __dirname;
   const routing = await req.session.user ? 'private' : 'public';
   const isValidRoute = VALID_ROUTES[routing].includes(req.path);
 

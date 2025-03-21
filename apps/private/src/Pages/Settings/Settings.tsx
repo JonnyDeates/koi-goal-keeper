@@ -1,4 +1,3 @@
-import React from 'react';
 import dayjs from "dayjs";
 import {Button, IconButton, Select, SpacedLabel} from "koi-pool";
 import PageWrapper from "../../components/PageWrapper/PageWrapper";

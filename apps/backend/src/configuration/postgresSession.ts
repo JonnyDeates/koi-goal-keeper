@@ -8,11 +8,20 @@ const postgresSession = () => {
     const isDevelopment = config.NODE_ENV === "development";
 
   const pool = new Pool({
-    connectionString: config.DATABASE_URL
+      host: config.DATABASE_IP,
+      database: config.DATABASE_NAME,
+      password: config.POSTGRES_PASSWORD,
+      port: config.DATABASE_PORT,
+      user: config.POSTGRES_USER,
   });
-
-    return session({ 
-        store: new pgStore({ 
+  pool.on('connect', ()=> {
+      console.log("Connected Successfully to Database!")
+  })
+    pool.on('error', (err)=> {
+        console.error("Failed to connect to the Database!", err )
+    })
+    return session({
+        store: new pgStore({
            pool
           } ),
         secret: config.SESSION_SECRET,

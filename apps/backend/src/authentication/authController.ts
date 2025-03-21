@@ -7,7 +7,7 @@ import Bcrypt from "../utils/bcrypt/Bcrypt";
 import {AuthFailureTypes, AuthResponse, AuthSuccessTypes} from "./AuthResponse";
 import {isEmailValid, isPasswordValid} from "./AuthValidator";
 import validKeysInRequest from "../utils/validKeysInRequest/validKeysInRequest";
-import {validateEmail} from "@repo/utils/dist";
+import {validateEmail} from "@repo/utils";
 
 const authController = express.Router();
 
@@ -141,13 +141,13 @@ authController.route("/email_notifications/:email")
             }
         }
     })
-authController.route("/email_notifications")
-    .post(validKeysInRequest("email", "subscribeSetting"), isEmailValid, async (req, res) => {
-        const {email, subscribeSetting} = req.body;
-        await usersService.updateSubscribeSettings(req, email);
-
-        AuthResponse.succeeded(res, AuthSuccessTypes.SUBSCRIBE_SETTINGS_UPDATED);
-    });
+// authController.route("/email_notifications")
+//     .post(validKeysInRequest("email", "subscribeSetting"), isEmailValid, async (req, res) => {
+//         const {email, subscribeSetting} = req.body;
+//         await usersService.updateSubscribeSettings(req, email);
+//
+//         AuthResponse.succeeded(res, AuthSuccessTypes.SUBSCRIBE_SETTINGS_UPDATED);
+//     });
 authController
     .route("/logout")
     .get((req, res) => {

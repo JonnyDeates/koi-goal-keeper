@@ -11,6 +11,6 @@ export default defineConfig(()=>({
     base: '/',
     build: {
         assetsDir: './static',
-        outDir: 'dist'
+        outDir: 'dist',
     },
 }));

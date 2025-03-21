@@ -1,6 +1,6 @@
 {
-  "name": "koi-goal-keeper",
-  "version": "6.0.0",
+  "name": "koi-goal-keeper-backend",
+  "version": "6.0.3",
   "description": "",
   "scripts": {
     "clean": "rmdir /s /q ./build && mkdir build",
@@ -9,11 +9,11 @@
     "copy-private-frontend": "cp -r ../private/dist/static ./build/private && cp ../private/dist/index.html ./build/private/index-private.html",
     "copy-frontend": "pnpm run copy-sitemap && pnpm run copy-public-frontend && pnpm run copy-private-frontend",
     "dev": "pnpm migrate && tsx watch src/index.ts",
-    "build": "esbuild src/index.ts --bundle --minify --platform=node --outfile=dist/index.js --external:express --external:cors --external:knex",
+    "build": "esbuild src/index.ts --bundle --minify --platform=node --outfile=build/index.js --external:express --external:cors --external:knex",
     "build-frontend": "cd ../../ && pnpm build && cd - && pnpm copy-frontend",
     "lint": "eslint . --fix",
     "monorepo": "pnpm run build-frontend && tsx watch src/index.ts",
-    "start": "node dist/index.js",
+    "start": "node build/index.js",
     "type-check": "tsc",
     "migrate": "knex migrate:latest",
     "migrate:down": "knex migrate:down"
@@ -43,6 +43,7 @@
     "@types/morgan": "latest",
     "@types/nodemailer": "latest",
     "@types/pg": "latest",
+    "@types/connect-pg-simple": "latest",
     "dotenv": "latest",
     "esbuild": "latest",
     "typescript": "latest",

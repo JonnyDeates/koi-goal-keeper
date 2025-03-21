@@ -18,7 +18,7 @@ const router = createBrowserRouter(
              <Page404/>
            </Wallpaper>
            }>
-      <Route path='' element={<LandingPage/>}/>
+      <Route path='/' element={<LandingPage/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/sign-up' element={<SignUp/>}/>
       <Route path="/forgot-password">

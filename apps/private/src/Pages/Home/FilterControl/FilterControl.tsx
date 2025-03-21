@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useRef, useState} from 'react';
+import {ChangeEvent, useRef, useState} from 'react';
 import './FilterControl.css';
 import {Button, CheckedButton, FloatingLabel, FloatingLabelInput, Select} from "koi-pool";
 import {useGoalListContext} from "../../../contexts/GoalListProvider/GoalListProvider";

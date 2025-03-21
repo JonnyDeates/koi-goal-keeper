@@ -6,21 +6,21 @@ RUN apk update
 RUN apk add --no-cache libc6-compat
 
 # Setup pnpm and turbo on the alpine base
-FROM alpine as base
+FROM alpine AS base
 RUN npm install pnpm turbo --global
 RUN pnpm config set store-dir ~/.pnpm-store
 
 # Prune projects
 FROM base AS pruner
-ARG PROJECT="koi-timer"
+ARG PROJECT="koi-goal-keeper-backend"
 
 WORKDIR /app
-COPY apps .
+COPY . .
 RUN turbo prune --scope=${PROJECT} --docker
 
 # Build the project
 FROM base AS builder
-ARG PROJECT="koi-timer"
+ARG PROJECT="koi-goal-keeper-backend"
 
 WORKDIR /app
 
@@ -51,9 +51,9 @@ WORKDIR /app
 COPY --from=builder --chown=nodejs:nodejs /app .
 WORKDIR /app/apps/${PROJECT}
 
-ARG PORT=8080
+ARG PORT=5000
 ENV PORT=${PORT}
 ENV NODE_ENV=production
 EXPOSE ${PORT}
 
-CMD node dist/index.ts
+CMD node build/index.js

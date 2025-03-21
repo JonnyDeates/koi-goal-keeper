@@ -6,8 +6,8 @@
     "axios": "latest",
     "dayjs": "latest",
     "koi-pool": "0.0.44",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-router-dom": "latest",
     "react-scroll-parallax": "latest",
     "vite": "latest"
@@ -18,11 +18,11 @@
     "start": "vite preview"
   },
   "devDependencies": {
+    "@repo/fonts": "workspace:*",
     "@repo/shared": "workspace:*",
     "@repo/tsconfig": "workspace:*",
     "@repo/types": "workspace:*",
     "@repo/utils": "workspace:*",
-    "@repo/fonts": "workspace:*",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@vitejs/plugin-react-swc": "latest",

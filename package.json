@@ -1,7 +1,7 @@
 {
   "name": "koi-goal-keeper",
   "description": "The Koi Goal Keeper makes goal planning a breeze.",
-  "version": "6.0.0",
+  "version": "6.0.27",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -13,16 +13,16 @@
     "frontend-dev": "pnpm -r --parallel --filter ./apps/public --filter ./apps/private run dev",
     "migrate": "pnpm -r --filter ./apps/backend run migrate",
     "monorepo": "pnpm -r --filter ./apps/backend run monorepo",
-    "predeploy": "pnpm run build && pnpm -r --filter ./apps/backend run copyFrontend && docker build apps -t jondeates/koi-goal-keeper:$npm_package_version -t jondeates/koi-timer:latest",
+    "predeploy": "pnpm run build && pnpm -r --filter ./apps/backend run copy-frontend && docker build . -t jondeates/koi-goal-keeper:$npm_package_version -t jondeates/koi-timer:latest",
     "deploy": "npm run predeploy && docker push jondeates/koi-goal-keeper:$npm_package_version && docker push jondeates/koi-goal-keeper:latest"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "packageManager": "pnpm@9.13.2",
+  "packageManager": "pnpm@10.6.5",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JgonnyDeates/koi-goal-keeper.git"
+    "url": "git+https://github.com/JonnyDeates/koi-goal-keeper.git"
   },
   "author": "Jon Deates",
   "license": "ISC",

@@ -1,4 +1,3 @@
-import React from 'react';
 import './SortControl.css';
 import {Button, FloatingLabel, Select, SpacedLabel} from "koi-pool";
 import {useGoalListContext} from "../../../contexts/GoalListProvider/GoalListProvider";

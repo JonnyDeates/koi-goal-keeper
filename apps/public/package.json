@@ -5,9 +5,9 @@
     "@paralleldrive/cuid2": "latest",
     "axios": "latest",
     "koi-pool": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-router-dom": "latest",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.3.0",
     "react-scroll-parallax": "latest",
     "vite": "latest"
   },
@@ -18,16 +18,16 @@
     "test": "vitest run"
   },
   "devDependencies": {
+    "@repo/fonts": "workspace:*",
+    "@repo/shared": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
+    "@repo/types": "workspace:*",
+    "@repo/utils": "workspace:*",
     "@types/jest": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@vitejs/plugin-react-swc": "latest",
-    "typescript": "latest",
-    "@repo/tsconfig": "workspace:*",
-    "@repo/types": "workspace:*",
-    "@repo/shared": "workspace:*",
-    "@repo/utils": "workspace:*",
-    "@repo/fonts": "workspace:*"
+    "typescript": "latest"
   },
   "homepage": ""
 }

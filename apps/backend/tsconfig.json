@@ -2,7 +2,7 @@
   "extends": "@repo/tsconfig/vite.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "dist",
+    "outDir": "build",
     "moduleResolution": "node"
   },
 
