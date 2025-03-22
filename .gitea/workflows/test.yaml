@@ -19,6 +19,7 @@ jobs:
           node-version: '18'
 
       - run: pnpm install
+      - run: echo "Running Test"
       - run: pnpm build
 
 #      - name: Commit and push changes
